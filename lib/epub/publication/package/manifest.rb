@@ -5,9 +5,15 @@ module EPUB
         attr_accessor :id,
                       :items
 
+        # syntax sugar for #items.<<
         def <<(item)
           @items ||= []
           @items << item
+        end
+
+        # syntax sugar
+        def nav
+          items.each.select {|i| i.properties.include? 'nav'}.first
         end
 
         class Item

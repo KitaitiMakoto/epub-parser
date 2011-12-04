@@ -6,10 +6,14 @@ include Publication
 class TestManifest < Test::Unit::TestCase
   def setup
     @manifest = Package::Manifest.new
-    @item1 = Package::Manifest::Item.new
+    @item = Package::Manifest::Item.new
   end
 
-  def test_example
-    assert false
+  def test_nav_returns_item_with_nav
+    @nav = Package::Manifest::Item.new
+    @nav.properties = ['nav']
+    @manifest << @nav
+
+    assert_equal @nav, @manifest.nav
   end
 end
