@@ -1,3 +1,5 @@
+require 'enumerabler'
+
 module EPUB
   module Publication
     class Package
@@ -13,7 +15,7 @@ module EPUB
 
         # syntax sugar
         def nav
-          items.each.select {|i| i.properties.include? 'nav'}.first
+          items.selector {|i| i.properties.include? 'nav'}.first
         end
 
         class Item
