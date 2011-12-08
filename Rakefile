@@ -4,5 +4,9 @@ require 'yard'
 
 task :default => :test
 
-Rake::TestTask.new
+Rake::TestTask.new do |task|
+  task.test_files = FileList['test/**/test_*.rb']
+  ENV['TESTOPTS'] = '--no-show-detail-immediately --verbose'
+end
+
 YARD::Rake::YardocTask.new
