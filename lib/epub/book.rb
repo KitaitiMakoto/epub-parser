@@ -1,3 +1,6 @@
+require 'epub/publication'
+require 'epub/content_document'
+
 module EPUB
   class Book
     # For enumerator

@@ -1,3 +1,5 @@
+require 'epub/content_document/navigation/nav'
+
 module EPUB
   module ContentDocument
     class Navigation
