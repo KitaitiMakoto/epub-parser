@@ -1,5 +1,6 @@
 require 'epub/book'
 require 'epub/parser/version'
+require 'epub/parser/ocf'
 require 'nokogiri'
 
 module EPUB
@@ -30,22 +31,8 @@ module EPUB
       end
     end
 
-    private
-
     def parse_ocf
-      file = File.join @dir, OCF::DIRECTORY, OCF::Container::FILE
-      doc = Nokogiri.XML open(file)
-
-      container = OCF::Container.new
-      doc.xpath('/xmlns:container/xmlns:rootfiles/xmlns:rootfile', doc.namespaces).each do |elem|
-        rootfile = OCF::Container::Rootfile.new
-        %w[full-path media-type].each do |attr|
-          rootfile.send(attr.gsub(/-/, '_') + '=', elem[attr])
-          container.rootfiles << rootfile
-        end
-      end
-
-      @book.container = container
+      @book.ocf = Parser::OCF.parse @dir
     end
 
     def parse_publication

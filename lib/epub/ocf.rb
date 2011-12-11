@@ -1,8 +1,8 @@
-%w[container encryption manifest metadata rights signatures].each do |feature|
-  require "epub/ocf/#{feature}"
-end
-
 module EPUB
-  module OCF
+  class OCF
+    MODULES = %w[container encryption manifest metadata rights signatures]
+    MODULES.each {|m| require "epub/ocf/#{m}"}
+
+    attr_accessor *MODULES
   end
 end

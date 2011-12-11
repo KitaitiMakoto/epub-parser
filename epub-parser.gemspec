@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = EPUB::Parser::VERSION
   s.authors     = ["KITAITI Makoto"]
   s.email       = ["KitaitiMakoto@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://gitorious.org/epub/parser"
+  s.summary     = %q{EPUB 3 Parser}
+  s.description = %q{Parse EPUB 3 book loosely}
 
   s.rubyforge_project = "epub-parser"
 
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  s.add_development_dependency 'rubygems-test'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'test-unit', '~> 2'

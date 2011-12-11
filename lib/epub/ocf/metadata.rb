@@ -1,5 +1,5 @@
 module EPUB
-  module OCF
+  class OCF
     class Metadata
     end
   end

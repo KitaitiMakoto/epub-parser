@@ -5,9 +5,7 @@ module EPUB
   class Parser
     class OCF
       DIRECTORY = 'META-INF'
-      %w[container encryption manifest metadata rights signatures].each do |file|
-        self.const_set file.upcase + '_FILE', file + '.xml'
-      end
+      EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"}
 
       class << self
         def parse(root_dir)
@@ -17,15 +15,14 @@ module EPUB
 
       def initialize(root_dir)
         @dir = root_dir
+        @ocf = EPUB::OCF.new
       end
 
       def parse
-        parse_container
-        parse_encryption
-        parse_manifest
-        parse_metadata
-        parse_rights
-        pares_signatures
+        EPUB::OCF::MODULES.each do |m|
+          @ocf.send "#{m}=", send("parse_#{m}")
+        end
+        @ocf
       end
 
       def parse_container
@@ -41,6 +38,21 @@ module EPUB
         end
 
         container
+      end
+
+      def parse_encryption
+      end
+
+      def parse_manifest
+      end
+
+      def parse_metadata
+      end
+
+      def parse_rights
+      end
+
+      def parse_signatures
       end
     end
   end
