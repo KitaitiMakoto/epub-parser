@@ -1,4 +1,4 @@
-%w[ package metadata manifest spine guide ].each { |f| require "epub/publication/#{f}"}
+require 'epub/publication/package'
 
 module EPUB
   module Publication
