@@ -16,8 +16,6 @@ class TestParser < Test::Unit::TestCase
   def test_parse
     ocf = @parser.parse
 
-p ocf
-
     pend
   end
 end
