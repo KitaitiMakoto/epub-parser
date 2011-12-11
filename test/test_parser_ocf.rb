@@ -2,9 +2,9 @@
 require File.expand_path 'helper', File.dirname(__FILE__)
 require 'epub/parser/ocf'
 
-class TestParser < Test::Unit::TestCase
+class TestParserOCF < Test::Unit::TestCase
   def setup
-    @parser = Parser::OCF.new "test/fixtures/book"
+    @parser = Parser::OCF.new 'test/fixtures/book'
   end
 
   def test_parse_container
