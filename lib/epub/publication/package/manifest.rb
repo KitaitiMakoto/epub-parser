@@ -14,8 +14,16 @@ module EPUB
         end
 
         # syntax sugar
+        def navs
+          items.selector {|i| i.properties.include? 'nav'}
+        end
+
         def nav
-          items.selector {|i| i.properties.include? 'nav'}.first
+          navs.first
+        end
+
+        def [](item_id)
+          items.selector {|item| item.id == item_id}.first
         end
 
         class Item
