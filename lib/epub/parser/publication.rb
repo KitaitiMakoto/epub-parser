@@ -19,6 +19,10 @@ module EPUB
         # parse_metadata
         parse_manifest
         parse_spine
+        # parse_guide
+        # parse_bindings
+
+        @package
       end
 
       def parse_metadata
@@ -26,26 +30,39 @@ module EPUB
       end
 
       def parse_manifest
-        manifest = EPUB::Publication::Package::Manifest.new
+        manifest = @package.manifest = EPUB::Publication::Package::Manifest.new
         elem = @doc.xpath('/xmlns:package/xmlns:manifest', @doc.namespaces).first
         manifest.id = elem['id']
 
-        manifest.items = elem.xpath('./xmlns:item').collect do |elm|
+        elem.xpath('./xmlns:item').each do |elm|
           item = EPUB::Publication::Package::Manifest::Item.new
-          item.id = elm['id']
-          item.href = elm['href']
-          item.media_type = elm['media-type']
-          item.fallback = elm['fallback']
+          %w[ id href media-type fallback media-overlay ].each do |attr|
+            item.send "#{attr.gsub(/-/, '_')}=", elm[attr]
+          end
           item.properties = elm['properties'] ? elm['properties'].split(' ') : []
-          item.media_overlay = elm['media-overlay']
-          item
+          manifest << item
         end
-        @package.manifest = manifest
+
+        manifest
       end
 
       def parse_spine
-        spine = EPUB::Publication::Package::Spine.new
+        spine = @package.spine = EPUB::Publication::Package::Spine.new
+        elem = @doc.xpath('/xmlns:package/xmlns:spine', @doc.namespaces).first
+        %w[ id toc page-progression-direction ].each do |attr|
+          spine.send("#{attr.gsub(/-/, '_')}=", elem[attr])
+        end
 
+        elem.xpath('./xmlns:itemref', @doc.namespaces).each do |elm|
+          itemref = EPUB::Publication::Package::Spine::Itemref.new
+          %w[ idref linear id ].each do |attr|
+            itemref.send "#{attr}=", elm[attr]
+          end
+          itemref.properties = elm['properties'] ? elm['properties'].split(' ') : []
+          spine << itemref
+        end
+
+        spine
       end
 
       def parse_guide

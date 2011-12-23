@@ -4,12 +4,14 @@ module EPUB
   module Publication
     class Package
       class Manifest
-        attr_accessor :id,
-                      :items
+        attr_accessor :package,
+                      :id
+        attr_reader :items
 
         # syntax sugar for #items.<<
         def <<(item)
           @items ||= []
+          item.manifest = self
           @items << item
         end
 
@@ -27,7 +29,8 @@ module EPUB
         end
 
         class Item
-          attr_accessor :id, :href, :media_type, :fallback, :properties, :media_overlay
+          attr_accessor :manifest,
+                        :id, :href, :media_type, :fallback, :properties, :media_overlay
         end
       end
     end

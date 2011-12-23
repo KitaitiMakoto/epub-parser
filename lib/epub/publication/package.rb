@@ -3,10 +3,23 @@
 module EPUB
   module Publication
     class Package
-      attr_accessor :version, :unique_identifier, :prefix, :xml_lang, :dir, :id,
-                    :metadata, :manifest, :spine
+      attr_accessor :version, :unique_identifier, :prefix, :xml_lang, :dir, :id
+      attr_reader :metadata, :manifest, :spine
       alias lang  xml_lang
       alias lang= xml_lang=
+
+      def metadata=(metadata)
+      end
+
+      def manifest=(manifest)
+        manifest.package = self
+        @manifest = manifest
+      end
+
+      def spine=(spine)
+        spine.package = self
+        @spine = spine
+      end
     end
   end
 end
