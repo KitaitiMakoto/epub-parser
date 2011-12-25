@@ -12,17 +12,32 @@ module EPUB
           @itemrefs << itemref
         end
 
-        # Returns a list of Manifest::Item
+        # @yield [itemref]
+        # @yieldparam [Itemref] itemref
+        # @yieldreturn [Object] returns the last value of block
+        # @return [Object, Enumerator]
+        #   returns the last value of block when block given, Enumerator when not
+        def each_itemref
+          if block_given?
+            itemrefs.each {|itemref| yield itemref}
+          else
+            enum_for :each
+          end
+        end
+
+        # @return [Enumerator] Enumerator which yeilds {Manifest::Item}
+        #   referred by each of {#itemrefs}
         def items
-          raise 'Not implemented yet'
+          itemrefs.collector {|itemref| itemref.item}
         end
 
         class Itemref
           attr_accessor :spine,
                         :idref, :linear, :id, :properties
 
+          # @return [Package::Manifest::Item] item referred by this object
           def item
-            @spine.package.manifest[idref]
+            @item ||= @spine.package.manifest[idref]
           end
         end
       end
