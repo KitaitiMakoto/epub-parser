@@ -21,7 +21,7 @@ module EPUB
           if block_given?
             itemrefs.each {|itemref| yield itemref}
           else
-            enum_for :each
+            enum_for :each_itemref
           end
         end
 
