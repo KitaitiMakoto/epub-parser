@@ -4,7 +4,7 @@ require 'epub/content_document'
 
 module EPUB
   class Book
-    attr_accessor :container, :package, :content_document
+    attr_accessor :ocf, :package, :content_document
 
     # For enumerator
     def manifest
