@@ -1,5 +1,3 @@
-require 'epub/content_document/navigation/nav'
-
 module EPUB
   module ContentDocument
     class Navigation
@@ -39,6 +37,43 @@ module EPUB
 
       # iterator for #landmark
       def each_landmark
+      end
+
+      class Nav
+        attr_accessor :heading, :ol,
+                      :items, # children of ol, thus li
+                      :type, # toc, page-list, landmarks or other
+                      :hidden
+
+        # #show method and #hide are unneccessary
+        # because this is for parser, not for builder nor manipulator
+        def hidden?
+        end
+
+        class Ol
+          # list-style :none
+          attr_accessor :hidden
+
+          def hidden?
+          end
+
+          # may be followed by ol or be a leaf node
+          class A
+            attr_accessor :ol, # optional
+                          :hidden
+
+            def hidden?
+            end
+          end
+
+          # must be followed by ol, or must not be a leaf node
+          class Span
+            attr_accessor :ol, # required
+                          :hidden
+            def hidden?
+            end
+          end
+        end
       end
     end
   end
