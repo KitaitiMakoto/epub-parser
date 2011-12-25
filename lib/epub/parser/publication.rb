@@ -55,9 +55,10 @@ module EPUB
 
         elem.xpath('./xmlns:itemref', @doc.namespaces).each do |elm|
           itemref = EPUB::Publication::Package::Spine::Itemref.new
-          %w[ idref linear id ].each do |attr|
+          %w[ idref id ].each do |attr|
             itemref.send "#{attr}=", elm[attr]
           end
+          itemref.linear = !(elm['linear'] == 'no')
           itemref.properties = elm['properties'] ? elm['properties'].split(' ') : []
           spine << itemref
         end
