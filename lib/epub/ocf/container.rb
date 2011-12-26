@@ -11,7 +11,7 @@ module EPUB
 
       # syntax sugar
       def rootfile
-        rootfiles[0]
+        rootfiles.first
       end
 
       class Rootfile

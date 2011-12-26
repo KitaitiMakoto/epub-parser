@@ -5,8 +5,18 @@ require 'nokogiri'
 module EPUB
   class Parser
     class ContentDocument
+      class << self
+        def parse(directory)
+          new(directory).parse
+        end
+      end
+
       def initialize(directory)
         @dir = directory
+      end
+
+      def parse
+        raise 'Not implemented yet'
       end
 
       # @param [Nokogiri::HTML::Document] document HTML document or element including nav
