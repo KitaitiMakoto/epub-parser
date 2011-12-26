@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package version="3.0"
+	 uniqueue-identifier="pub-id"
+	 xmlns="http://www.idpf.org/2007/opf">
+  <metadata></metadata>
+  <manifest id="manifest-id">
+    <item id="nav"
+	  href="nav.xhtml"
+	  media-type="application/xhtml+xml"
+	  properties="nav"/>
+    <item id="manifest-item-1"
+	  href="item-1.xhtml"
+	  media-type="application/xhtml+xml"
+	  properties="property1 property2  property3"/>
+    <item id="manifest-item-2"
+	  href="item-2.xhtml"
+	  media-type="application/xhtml+xml"
+	  fallback="manifest-item-fallback"/>
+    <item id="manifest-item-fallback"
+	  href="fallback.xhtml"
+	  media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine>
+    <itemref idref="nav"/>
+    <itemref idref="manifest-item-1"/>
+    <itemref idref="manifest-item-2"/>
+  </spine>
+</package>
