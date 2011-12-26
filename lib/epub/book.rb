@@ -10,7 +10,8 @@ module EPUB
     def manifest
     end
 
-    def spine
+    def each_page_by_spine
+      @package.spine.items
     end
 
     def toc
@@ -22,8 +23,9 @@ module EPUB
     def other_navigation
     end
 
-    def rootfile
-      @container.rootfile.full_path
+    # Syntax suger
+    def rootfile_path
+      ocf.container.rootfile.full_path
     end
   end
 end
