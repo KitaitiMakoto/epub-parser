@@ -34,13 +34,18 @@ module EPUB
         elem = @doc.xpath('/xmlns:package/xmlns:manifest', @doc.namespaces).first
         manifest.id = elem['id']
 
+        fallback_map = {}
         elem.xpath('./xmlns:item').each do |elm|
           item = EPUB::Publication::Package::Manifest::Item.new
-          %w[ id href media-type fallback media-overlay ].each do |attr|
+          %w[ id href media-type media-overlay ].each do |attr|
             item.send "#{attr.gsub(/-/, '_')}=", elm[attr]
           end
           item.properties = elm['properties'] ? elm['properties'].split(' ') : []
+          fallback_map[elm['fallback']] = item if elm['fallback']
           manifest << item
+        end
+        fallback_map.each_pair do |id, from|
+          from.fallback = manifest[id]
         end
 
         manifest
