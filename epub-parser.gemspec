@@ -13,8 +13,9 @@ Gem::Specification.new do |s|
 
   # s.rubyforge_project = "epub-parser"
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/**/*.rb`.split("\n")
+  s.files         = `git ls-files`.split("\n").push('test/fixtures/book/OPS/ルートファイル.opf')
+  s.files.delete('"test/fixtures/book/OPS/\343\203\253\343\203\274\343\203\210\343\203\225\343\202\241\343\202\244\343\203\253.opf"')
+  s.test_files    = `git ls-files -- {test,spec,features}/**/*.rb`.split("\n") 
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
