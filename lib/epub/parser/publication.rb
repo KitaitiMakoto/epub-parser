@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'addressable/uri'
 require 'epub/publication'
 
 module EPUB
@@ -12,6 +13,7 @@ module EPUB
 
       def initialize(file)
         @package = EPUB::Publication::Package.new
+        @rootfile = Addressable::URI.parse File.realpath(file)
         @doc = Nokogiri.XML open(file)
       end
 
@@ -37,11 +39,13 @@ module EPUB
         fallback_map = {}
         elem.xpath('./xmlns:item').each do |elm|
           item = EPUB::Publication::Package::Manifest::Item.new
-          %w[ id href media-type media-overlay ].each do |attr|
+          %w[ id media-type media-overlay ].each do |attr|
             item.send "#{attr.gsub(/-/, '_')}=", elm[attr]
           end
-          item.properties = elm['properties'] ? elm['properties'].split(' ') : []
+          # item.href = Addressable::URI.parse elm['href']
+          item.href = @rootfile.join Addressable::URI.parse(elm['href'])
           fallback_map[elm['fallback']] = item if elm['fallback']
+          item.properties = elm['properties'] ? elm['properties'].split(' ') : []
           manifest << item
         end
         fallback_map.each_pair do |id, from|
