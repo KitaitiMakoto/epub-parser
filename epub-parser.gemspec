@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://gitorious.org/epub/parser"
   s.summary     = %q{EPUB 3 Parser}
   s.description = %q{Parse EPUB 3 book loosely}
+  s.license     = 'MIT'
 
   # s.rubyforge_project = "epub-parser"
 
@@ -26,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'thin'
   s.add_development_dependency 'yard'
+  s.add_development_dependency 'epzip'
 
   s.add_runtime_dependency 'enumerabler'
   s.add_runtime_dependency 'nokogiri'
