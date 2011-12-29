@@ -7,9 +7,27 @@ class TestParserPublication < Test::Unit::TestCase
     @parser = Parser::Publication.new 'test/fixtures/book/OPS/ルートファイル.opf'
   end
 
-  def test_parse_manifest
-    manifest = @parser.parse_manifest
+  class TestParseManifest < TestParserPublication
+    def setup
+      super
+      @manifest = @parser.parse_manifest
+    end
 
-    pend
+    def test_manifest_has_4_items
+      assert_equal 4, @manifest.items.length
+    end
+
+    def test_item_has_full_path_as_href_attribute
+      actual = File.expand_path 'fixtures/book/OPS/nav.xhtml', File.dirname(__FILE__)
+
+      assert_equal actual, @manifest['nav'].href.to_s
+    end
+
+    def test_fallback_attribute_of_item_should_be_item_object
+      fallback = @manifest['manifest-item-2'].fallback
+
+      assert_instance_of Publication::Package::Manifest::Item, fallback
+      assert_equal 'manifest-item-fallback', fallback.id
+    end
   end
 end

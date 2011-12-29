@@ -1,4 +1,5 @@
 require 'epub/book'
+require 'epub/constants'
 require 'epub/parser/version'
 require 'epub/parser/ocf'
 require 'epub/parser/publication'

@@ -7,7 +7,7 @@ class TestParserOCF < Test::Unit::TestCase
     @parser = Parser::OCF.new 'test/fixtures/book'
   end
 
-  def test_parse_container
+  def test_parse_container_can_find_primary_rootfile
     container = @parser.parse_container
 
     assert_equal 'OPS/ルートファイル.opf', container.rootfile.full_path

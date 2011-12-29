@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'addressable/uri'
 require 'epub/publication'
+require 'epub/constants'
 
 module EPUB
   class Parser
@@ -33,16 +34,15 @@ module EPUB
 
       def parse_manifest
         manifest = @package.manifest = EPUB::Publication::Package::Manifest.new
-        elem = @doc.xpath('/xmlns:package/xmlns:manifest', @doc.namespaces).first
+        elem = @doc.xpath('/opf:package/opf:manifest', EPUB::NAMESPACES).first
         manifest.id = elem['id']
 
         fallback_map = {}
-        elem.xpath('./xmlns:item').each do |elm|
+        elem.xpath('./opf:item', EPUB::NAMESPACES).each do |elm|
           item = EPUB::Publication::Package::Manifest::Item.new
           %w[ id media-type media-overlay ].each do |attr|
             item.send "#{attr.gsub(/-/, '_')}=", elm[attr]
           end
-          # item.href = Addressable::URI.parse elm['href']
           item.href = @rootfile.join Addressable::URI.parse(elm['href'])
           fallback_map[elm['fallback']] = item if elm['fallback']
           item.properties = elm['properties'] ? elm['properties'].split(' ') : []
@@ -57,12 +57,12 @@ module EPUB
 
       def parse_spine
         spine = @package.spine = EPUB::Publication::Package::Spine.new
-        elem = @doc.xpath('/xmlns:package/xmlns:spine', @doc.namespaces).first
+        elem = @doc.xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
         %w[ id toc page-progression-direction ].each do |attr|
           spine.send("#{attr.gsub(/-/, '_')}=", elem[attr])
         end
 
-        elem.xpath('./xmlns:itemref', @doc.namespaces).each do |elm|
+        elem.xpath('./opf:itemref', EPUB::NAMESPACES).each do |elm|
           itemref = EPUB::Publication::Package::Spine::Itemref.new
           %w[ idref id ].each do |attr|
             itemref.send "#{attr}=", elm[attr]

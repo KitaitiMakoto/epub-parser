@@ -1,5 +1,5 @@
 require 'epub/content_document'
-require 'epub/parser'
+require 'epub/constants'
 require 'nokogiri'
 
 module EPUB
@@ -22,7 +22,7 @@ module EPUB
       # @param [Nokogiri::HTML::Document] document HTML document or element including nav
       # @return [Array<EPUB::ContentDocument::Navigation::Nav>] navs array of Nav object
       def parse_navigations(document)
-        navs = document.search('/xhtml:html/xhtml:body//xhtml:nav', Parser::NAMESPACES).collect {|elem| parse_navigation elem}
+        navs = document.search('/xhtml:html/xhtml:body//xhtml:nav', EPUB::NAMESPACES).collect {|elem| parse_navigation elem}
       end
 
       # @param [Nokogiri::XML::Element] nav nav element
@@ -47,8 +47,9 @@ module EPUB
       # @param [Nokogiri::XML::Element] nav nav element
       # @return [String] heading heading text
       def find_heading(element)
-        heading = element.xpath('./h1|h2|h3|h4|h5|h6|hgroup').first
+        heading = element.xpath('./xhtml:h1|xhtml:h2|xhtml:h3|xhtml:h4|xhtml:h5|xhtml:h6|xhtml:hgroup', EPUB::NAMESPACES).first
 
+        return nil if heading.nil?
         return heading.text unless heading.name == 'hgroup'
 
         (heading/'h1' || heading/'h2' || heading/'h3' || heading/'h4' || heading/'h5' || heading/'h6').first.text

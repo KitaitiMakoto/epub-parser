@@ -1,3 +1,4 @@
+require 'epub/constants'
 require 'epub/ocf'
 require 'nokogiri'
 
@@ -29,7 +30,7 @@ module EPUB
         container = EPUB::OCF::Container.new
         doc = Nokogiri.XML open(File.join @dir, DIRECTORY, CONTAINER_FILE)
 
-        doc.xpath('/xmlns:container/xmlns:rootfiles/xmlns:rootfile', doc.namespaces).each do |elem|
+        doc.xpath('/container:container/container:rootfiles/container:rootfile', EPUB::NAMESPACES).each do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
           %w[full-path media-type].each do |attr|
             rootfile.send(attr.gsub(/-/, '_') + '=', elem[attr])
