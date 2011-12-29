@@ -10,7 +10,7 @@ class TestParserOCF < Test::Unit::TestCase
   def test_parse_container
     container = @parser.parse_container
 
-    assert_equal 'OPS/ルートファイル.pdf', container.rootfile.full_path
+    assert_equal 'OPS/ルートファイル.opf', container.rootfile.full_path
   end
 
   def test_parse
