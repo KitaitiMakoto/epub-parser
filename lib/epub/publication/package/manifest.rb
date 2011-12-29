@@ -31,6 +31,12 @@ module EPUB
         class Item
           attr_accessor :manifest,
                         :id, :href, :media_type, :fallback, :properties, :media_overlay
+
+          alias path href
+
+          def to_s
+            href.to_s
+          end
         end
       end
     end
