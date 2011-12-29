@@ -7,13 +7,13 @@ require 'nokogiri'
 
 module EPUB
   class Parser
-    def initialize(filepath, working_directory, options = {})
+    def initialize(filepath, root_directory, options = {})
       raise 'File #{filepath} not readable' unless File.readable_real? filepath
-      raise 'File #{working_directory} already exists' if File.file? working_directory
+      raise 'File #{root_directory} already exists' if File.file? root_directory
         
       @filepath = File.realpath filepath
-      Dir.mkdir(working_directory) unless File.directory? working_directory
-      @dir = File.realpath working_directory
+      Dir.mkdir(root_directory) unless File.directory? root_directory
+      @dir = File.realpath root_directory
 
       @book = Book.new
 

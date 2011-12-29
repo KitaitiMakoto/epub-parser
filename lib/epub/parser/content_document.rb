@@ -6,13 +6,13 @@ module EPUB
   class Parser
     class ContentDocument
       class << self
-        def parse(directory)
-          new(directory).parse
+        def parse(root_directory)
+          new(root_directory).parse
         end
       end
 
-      def initialize(directory)
-        @dir = directory
+      def initialize(root_directory)
+        @dir = root_directory
       end
 
       def parse

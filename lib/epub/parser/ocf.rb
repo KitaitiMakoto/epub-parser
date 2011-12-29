@@ -8,13 +8,13 @@ module EPUB
       EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"}
 
       class << self
-        def parse(root_dir)
-          new(root_dir).parse
+        def parse(root_directory)
+          new(root_directory).parse
         end
       end
 
-      def initialize(root_dir)
-        @dir = root_dir
+      def initialize(root_directory)
+        @dir = root_directory
         @ocf = EPUB::OCF.new
       end
 
