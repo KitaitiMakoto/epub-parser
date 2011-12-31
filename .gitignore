@@ -6,5 +6,6 @@ vendor/*
 .yardoc/
 coverage/*
 samples/*
+doc/*
 NOTE
 *~
