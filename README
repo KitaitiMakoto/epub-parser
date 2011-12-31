@@ -1,6 +1,13 @@
 EPUB Parer
 ==========
 
+USAGE
+-----
+    book = EPUB::Parser.parse 'book.epub'
+    book.each_page_in_spines_order do |page|
+      # do somethong...
+    end
+
 LICENSE
 -------
 This library is distribuetd under the term of the MIT License.
