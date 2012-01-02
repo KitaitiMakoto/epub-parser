@@ -4,6 +4,7 @@ require 'epub/parser/version'
 require 'epub/parser/ocf'
 require 'epub/parser/publication'
 require 'epub/parser/content_document'
+require 'shellwords'
 require 'nokogiri'
 
 module EPUB
@@ -19,8 +20,9 @@ module EPUB
       @book = Book.new
 
       unzip_cmd = options['unzip-command'] || 'unzip'
-      unzip_cmd << " '#{@filepath}' -d '#{@dir}'"
+      unzip_cmd << " #{@filepath.to_s.shellescape} -d #{@dir.to_s.shellescape}"
       system unzip_cmd
+puts unzip_cmd
     end
 
     def parse
