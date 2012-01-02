@@ -24,6 +24,10 @@ module EPUB
           navs.first
         end
 
+        def cover_image
+          items.selector {|i| i.properties.include? 'cover-image'}.first
+        end
+
         def [](item_id)
           items.selector {|item| item.id == item_id}.first
         end

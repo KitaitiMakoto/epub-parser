@@ -14,6 +14,7 @@ module EPUB
         enum
       end
     end
+
     def each_page_by_toc(&blk)
     end
 
@@ -29,9 +30,14 @@ module EPUB
     def other_navigation
     end
 
-    # Syntax suger
+    # Syntax sugar
     def rootfile_path
       ocf.container.rootfile.full_path
+    end
+
+    # Syntax sugar
+    def cover_image
+      package.manifest.cover_image
     end
   end
 end
