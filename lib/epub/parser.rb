@@ -9,8 +9,8 @@ require 'nokogiri'
 module EPUB
   class Parser
     def initialize(filepath, root_directory, options = {})
-      raise 'File #{filepath} not readable' unless File.readable_real? filepath
-      raise 'File #{root_directory} already exists' if File.file? root_directory
+      raise "File #{filepath} not readable" unless File.readable_real? filepath
+      raise "File #{root_directory} already exists" if File.file? root_directory
         
       @filepath = File.realpath filepath
       Dir.mkdir(root_directory) unless File.directory? root_directory
@@ -19,7 +19,7 @@ module EPUB
       @book = Book.new
 
       unzip_cmd = options['unzip-command'] || 'unzip'
-      unzip_cmd << " #{@filepath} -d #{@dir}"
+      unzip_cmd << " '#{@filepath}' -d '#{@dir}'"
       system unzip_cmd
     end
 
