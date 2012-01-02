@@ -43,7 +43,8 @@ module EPUB
           %w[ id media-type media-overlay ].each do |attr|
             item.send "#{attr.gsub(/-/, '_')}=", elm[attr]
           end
-          item.href = @rootfile.join Addressable::URI.parse(elm['href'])
+          item.href = elm['href']
+          item.iri = @rootfile.join Addressable::URI.parse(elm['href'])
           fallback_map[elm['fallback']] = item if elm['fallback']
           item.properties = elm['properties'] ? elm['properties'].split(' ') : []
           manifest << item
