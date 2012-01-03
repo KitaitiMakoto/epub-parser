@@ -30,10 +30,6 @@ module EPUB
           attr_accessor :guide,
                         :type, :title, :href,
                         :iri
-
-          def to_s
-            iri.to_s
-          end
         end
       end
     end

@@ -36,10 +36,6 @@ module EPUB
           attr_accessor :manifest,
                         :id, :href, :media_type, :fallback, :properties, :media_overlay,
                         :iri
-
-          def to_s
-            iri.to_s
-          end
         end
       end
     end
