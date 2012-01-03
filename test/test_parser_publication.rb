@@ -58,7 +58,7 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal fallback, result
     end
 
-    def test_item_can_custome_supporting_media_type_in_use_fallback_chain
+    def test_item_can_custome_supported_media_type_in_use_fallback_chain
       item = @manifest['manifest-item-2']
       result = item.use_fallback_chain supported: 'application/pdf' do |current|
         current
@@ -67,7 +67,7 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal item, result
     end
 
-    def test_item_can_custome_not_supporting_media_type_in_use_fallback_chain
+    def test_item_can_custome_not_supported_media_type_in_use_fallback_chain
       item = @manifest['manifest-item-2']
       fallback = item.fallback.fallback
       result = item.use_fallback_chain not_supported: 'image/svg+xml' do |current|
