@@ -13,8 +13,8 @@ class TestParserPublication < Test::Unit::TestCase
       @manifest = @parser.parse_manifest
     end
 
-    def test_manifest_has_5_items
-      assert_equal 5, @manifest.items.length
+    def test_manifest_has_6_items
+      assert_equal 6, @manifest.items.length
     end
 
     def test_item_has_full_path_as_iri_attribute
@@ -35,6 +35,46 @@ class TestParserPublication < Test::Unit::TestCase
       doc = Nokogiri.XML item.read
 
       assert_equal 'html', doc.root.name
+    end
+
+    def test_item_can_traverse_fallback_chain
+      assert_equal [@manifest['manifest-item-2'], @manifest['manifest-item-fallback'], @manifest['manifest-item-fallback2']],
+                   @manifest['manifest-item-2'].fallback_chain
+    end
+
+    def test_item_always_has_fallback_chain_including_itself
+      item = @manifest['manifest-item-1']
+
+      assert_equal [item], item.fallback_chain
+    end
+
+    def test_item_can_use_fallback_chain_when_not_core_media_type_by_default
+      item = @manifest['manifest-item-2']
+      fallback = item.fallback
+      result = item.use_fallback_chain do |current|
+        current
+      end
+
+      assert_equal fallback, result
+    end
+
+    def test_item_can_custome_supporting_media_type_in_use_fallback_chain
+      item = @manifest['manifest-item-2']
+      result = item.use_fallback_chain supported: 'application/pdf' do |current|
+        current
+      end
+
+      assert_equal item, result
+    end
+
+    def test_item_can_custome_not_supporting_media_type_in_use_fallback_chain
+      item = @manifest['manifest-item-2']
+      fallback = item.fallback.fallback
+      result = item.use_fallback_chain not_supported: 'image/svg+xml' do |current|
+        current
+      end
+
+      assert_equal fallback, result
     end
   end
 

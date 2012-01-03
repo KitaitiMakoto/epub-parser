@@ -9,10 +9,39 @@ module EPUB
       'm'         => 'http://www.w3.org/1998/Math/MathML',
       'svg'       => 'http://www.w3.org/2000/svg'
     }
+
     module Type
       TOC       = 'toc'
       PAGE_LIST = 'page_list'
       LANDMARKS = 'landmarks'
+    end
+
+    module MediaType
+      class NotSupportedError < StandardError; end
+
+      IMAGE = %w[
+        image/gif
+        image/jpeg
+        image/png
+        image/svg+xml
+      ]
+      APPLICATION = %w[
+        application/xhtml+xml
+        application/x-dtbncx+xml
+        application/vnd.ms-opentype
+        application/font-woff
+        application/smil+xml
+        application/pls+xml
+      ]
+      AUDIO = %w[
+        audio/mpeg
+        audio/mp4
+      ]
+      TEXT = %w[
+        text/css
+        text/javascript
+      ]
+      CORE = IMAGE + APPLICATION + AUDIO + TEXT
     end
   end
 
