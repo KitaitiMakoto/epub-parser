@@ -10,8 +10,8 @@ require 'nokogiri'
 module EPUB
   class Parser
     class << self
-      def parse(file, dir)
-        new(file, dir).parse
+      def parse(file, dir, options = {})
+        new(file, dir, options).parse
       end
     end
 
