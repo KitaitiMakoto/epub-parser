@@ -23,7 +23,7 @@ module EPUB
 
       def guide=(guide)
         guide.package = self
-        @guide = spine
+        @guide = guide
       end
     end
   end
