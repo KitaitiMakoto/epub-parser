@@ -29,6 +29,13 @@ class TestParserPublication < Test::Unit::TestCase
       assert_instance_of Publication::Package::Manifest::Item, fallback
       assert_equal 'manifest-item-fallback', fallback.id
     end
+
+    def test_item_is_readable
+      item = @manifest.items.first
+      doc = Nokogiri.XML item.read
+
+      assert_equal 'html', doc.root.name
+    end
   end
 
   class TestParseGuide < TestParserPublication
