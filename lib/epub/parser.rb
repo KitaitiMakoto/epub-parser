@@ -9,6 +9,12 @@ require 'nokogiri'
 
 module EPUB
   class Parser
+    class << self
+      def parse(file, dir)
+        new(file, dir).parse
+      end
+    end
+
     def initialize(filepath, root_directory, options = {})
       raise "File #{filepath} not readable" unless File.readable_real? filepath
       raise "File #{root_directory} already exists" if File.file? root_directory
