@@ -30,6 +30,15 @@ module EPUB
           attr_accessor :guide,
                         :type, :title, :href,
                         :iri
+
+          def item
+            return @item if @item
+
+            len = iri.fragment.nil? ? 1 : iri.fragment.length + 2
+            @item = @guide.package.manifest.items.selector do |item|
+              item.href == href[0 .. -len]
+            end.first
+          end
         end
       end
     end

@@ -19,6 +19,9 @@
     <item id="manifest-item-fallback"
 	  href="fallback.xhtml"
 	  media-type="application/xhtml+xml"/>
+    <item id="cover"
+	  href="cover.xhtml"
+	  media-type="application/xhtml+xml"/>
   </manifest>
   <spine>
     <itemref idref="nav"/>
@@ -26,6 +29,6 @@
     <itemref idref="manifest-item-2"/>
   </spine>
   <guide>
-    <reference type="cover" href="cover.xhtml" title="カバー"/>
+    <reference type="cover" href="cover.xhtml#start" title="カバー"/>
   </guide>
 </package>

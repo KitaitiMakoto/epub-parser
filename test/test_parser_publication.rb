@@ -13,8 +13,8 @@ class TestParserPublication < Test::Unit::TestCase
       @manifest = @parser.parse_manifest
     end
 
-    def test_manifest_has_4_items
-      assert_equal 4, @manifest.items.length
+    def test_manifest_has_5_items
+      assert_equal 5, @manifest.items.length
     end
 
     def test_item_has_full_path_as_iri_attribute
@@ -51,6 +51,12 @@ class TestParserPublication < Test::Unit::TestCase
     def test_guide_has_cover_reference
       assert @guide.cover
       assert_equal 'cover', @guide.cover.type
+    end
+
+    def test_reference_refers_item
+      @parser.parse_manifest
+
+      assert_instance_of EPUB::Publication::Package::Manifest::Item, @guide.cover.item
     end
   end
 end
