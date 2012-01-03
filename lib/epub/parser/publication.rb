@@ -22,7 +22,7 @@ module EPUB
         # parse_metadata
         parse_manifest
         parse_spine
-        # parse_guide
+        parse_guide
         # parse_bindings
 
         @package
@@ -77,7 +77,17 @@ module EPUB
       end
 
       def parse_guide
-        raise 'still not implemented'
+        guide = @package.guide = EPUB::Publication::Package::Guide.new
+        elem = @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
+          reference = EPUB::Publication::Package::Guide::Reference.new
+          %w[ type title href ].each do |attr|
+            reference.send("#{attr}=", ref[attr])
+          end
+          reference.iri = @rootfile.join Addressable::URI.parse(reference.href)
+          guide << reference
+        end
+
+        guide
       end
 
       def parse_bindings

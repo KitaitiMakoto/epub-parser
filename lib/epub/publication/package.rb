@@ -4,7 +4,7 @@ module EPUB
   module Publication
     class Package
       attr_accessor :version, :unique_identifier, :prefix, :xml_lang, :dir, :id
-      attr_reader :metadata, :manifest, :spine
+      attr_reader :metadata, :manifest, :spine, :guide
       alias lang  xml_lang
       alias lang= xml_lang=
 
@@ -19,6 +19,11 @@ module EPUB
       def spine=(spine)
         spine.package = self
         @spine = spine
+      end
+
+      def guide=(guide)
+        guide.package = self
+        @guide = spine
       end
     end
   end

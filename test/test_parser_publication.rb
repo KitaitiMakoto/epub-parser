@@ -30,4 +30,20 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal 'manifest-item-fallback', fallback.id
     end
   end
+
+  class TestParseGuide < TestParserPublication
+    def setup
+      super
+      @guide = @parser.parse_guide
+    end
+
+    def test_guide_has_one_reference
+      assert_equal 1, @guide.references.length
+    end
+
+    def test_guide_has_cover_reference
+      assert @guide.cover
+      assert_equal 'cover', @guide.cover.type
+    end
+  end
 end

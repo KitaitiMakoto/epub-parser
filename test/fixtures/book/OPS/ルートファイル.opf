@@ -25,4 +25,7 @@
     <itemref idref="manifest-item-1"/>
     <itemref idref="manifest-item-2"/>
   </spine>
+  <guide>
+    <reference type="cover" href="cover.xhtml" title="カバー"/>
+  </guide>
 </package>
