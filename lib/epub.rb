@@ -3,7 +3,14 @@ require 'epub/publication'
 require 'epub/content_document'
 
 module EPUB
-  attr_accessor :ocf, :package, :content_document
+  modules = [ :ocf, :package, :content_document ]
+  attr_reader *modules
+  modules.each do |mod|
+    define_method "#{mod}=" do |obj|
+      instance_variable_set "@#{mod}", obj
+      obj.book = self
+    end
+  end
 
   def each_page_by_spine(&blk)
     enum = @package.spine.items

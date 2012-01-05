@@ -4,7 +4,7 @@ require 'epub/parser/publication'
 
 class TestParserPublication < Test::Unit::TestCase
   def setup
-    @parser = Parser::Publication.new 'test/fixtures/book/OPS/ルートファイル.opf'
+    @parser = EPUB::Parser::Publication.new 'test/fixtures/book/OPS/ルートファイル.opf'
   end
 
   class TestParseManifest < TestParserPublication
@@ -26,7 +26,7 @@ class TestParserPublication < Test::Unit::TestCase
     def test_fallback_attribute_of_item_should_be_item_object
       fallback = @manifest['manifest-item-2'].fallback
 
-      assert_instance_of Publication::Package::Manifest::Item, fallback
+      assert_instance_of EPUB::Publication::Package::Manifest::Item, fallback
       assert_equal 'manifest-item-fallback', fallback.id
     end
 

@@ -3,7 +3,8 @@
 module EPUB
   module Publication
     class Package
-      attr_accessor :version, :unique_identifier, :prefix, :xml_lang, :dir, :id
+      attr_accessor :book,
+                    :version, :unique_identifier, :prefix, :xml_lang, :dir, :id
       attr_reader :metadata, :manifest, :spine, :guide
       alias lang  xml_lang
       alias lang= xml_lang=

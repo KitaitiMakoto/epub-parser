@@ -2,7 +2,6 @@ require File.expand_path 'helper', File.dirname(__FILE__)
 require 'epub/parser'
 require 'fileutils'
 require 'tmpdir'
-require 'epub/book'
 
 class TestParser < Test::Unit::TestCase
   def setup
@@ -26,13 +25,13 @@ class TestParser < Test::Unit::TestCase
 
     def test_each_page_by_spine_iterates_items_in_spines_order
       @book.each_page_by_spine do |page|
-        assert_instance_of Publication::Package::Manifest::Item, page
+        assert_instance_of EPUB::Publication::Package::Manifest::Item, page
       end
     end
 
     def test_each_content_iterates_items_in_manifest
       @book.each_content do |page|
-        assert_instance_of Publication::Package::Manifest::Item, page
+        assert_instance_of EPUB::Publication::Package::Manifest::Item, page
       end
     end
 
@@ -46,13 +45,11 @@ class TestParser < Test::Unit::TestCase
       contents = @book.each_content
 
       contents.each do |page|
-        assert_instance_of Publication::Package::Manifest::Item, page
+        assert_instance_of EPUB::Publication::Package::Manifest::Item, page
       end
     end
 
     def test_h
-      Modify method name
-
       @book.resources.each do |item|
         assert_instance_of EPUB::Publication::Package::Manifest::Item, item
       end

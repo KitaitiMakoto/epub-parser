@@ -1,4 +1,3 @@
-require 'epub/book'
 require 'epub/constants'
 require 'epub/parser/version'
 require 'epub/parser/ocf'
@@ -23,7 +22,7 @@ module EPUB
       Dir.mkdir(root_directory) unless File.directory? root_directory
       @dir = File.realpath root_directory
 
-      @book = Book.new
+      @book = create_book options
 
       unzip_cmd = options['unzip-command'] || 'unzip'
       unzip_cmd << " #{@filepath.to_s.shellescape} -d #{@dir.to_s.shellescape}"
@@ -34,7 +33,7 @@ puts unzip_cmd
     def parse
       @book.ocf = parse_ocf
       @book.package = parse_publication
-      @book.content_document = parse_content_document
+      # @book.content_document =??? parse_content_document
       # ...
 
       @book
@@ -50,6 +49,20 @@ puts unzip_cmd
 
     def parse_content_document
       # ContentDocument.parse @dir
+    end
+
+    private
+
+    def create_book(params)
+      case
+      when params[:book]
+        options[:book]
+      when params[:class]
+        options[:class].new
+      else
+        require 'epub/book'
+        Book.new
+      end
     end
   end
 end

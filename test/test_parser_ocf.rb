@@ -4,7 +4,7 @@ require 'epub/parser/ocf'
 
 class TestParserOCF < Test::Unit::TestCase
   def setup
-    @parser = Parser::OCF.new 'test/fixtures/book'
+    @parser = EPUB::Parser::OCF.new 'test/fixtures/book'
   end
 
   def test_parse_container_can_find_primary_rootfile
