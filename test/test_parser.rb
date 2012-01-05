@@ -2,6 +2,7 @@ require File.expand_path 'helper', File.dirname(__FILE__)
 require 'epub/parser'
 require 'fileutils'
 require 'tmpdir'
+require 'epub/book'
 
 class TestParser < Test::Unit::TestCase
   def setup
@@ -46,6 +47,14 @@ class TestParser < Test::Unit::TestCase
 
       contents.each do |page|
         assert_instance_of Publication::Package::Manifest::Item, page
+      end
+    end
+
+    def test_h
+      Modify method name
+
+      @book.resources.each do |item|
+        assert_instance_of EPUB::Publication::Package::Manifest::Item, item
       end
     end
   end
