@@ -10,3 +10,13 @@ Rake::TestTask.new do |task|
 end
 
 YARD::Rake::YardocTask.new
+
+namespace :sample do
+  desc 'Build the text fixture EPUB'
+  task :build do
+    input_dir  = 'test/fixtures/book'
+    output_dir = 'test/fixtures/'
+    FileList["#{input_dir}/**/*"]
+    sh "epzip #{input_dir}"
+  end
+end
