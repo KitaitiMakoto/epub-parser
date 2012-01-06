@@ -13,8 +13,8 @@ class TestParserPublication < Test::Unit::TestCase
       @manifest = @parser.parse_manifest
     end
 
-    def test_manifest_has_6_items
-      assert_equal 6, @manifest.items.length
+    def test_manifest_has_8_items
+      assert_equal 8, @manifest.items.length
     end
 
     def test_item_has_full_path_as_iri_attribute
@@ -75,6 +75,15 @@ class TestParserPublication < Test::Unit::TestCase
       end
 
       assert_equal fallback, result
+    end
+
+    def test_item_with_absolute_iri_as_href_must_keep_it
+      item = @manifest['external-css']
+
+require 'pp'
+pp item
+
+      assert_equal 'http://example.net/stylesheets/common.css', item.iri.to_s
     end
   end
 

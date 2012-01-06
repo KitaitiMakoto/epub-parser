@@ -26,6 +26,12 @@
     <item id="cover"
 	  href="cover.xhtml"
 	  media-type="application/xhtml+xml"/>
+    <item id="internal-css"
+	  href="special.css"
+	  media-type="text/css"/>
+    <item id="external-css"
+	  href="http://example.net/stylesheets/common.css"
+	  media-type="text/css"/>
   </manifest>
   <spine>
     <itemref idref="nav"/>

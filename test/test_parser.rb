@@ -50,6 +50,8 @@ class TestParser < Test::Unit::TestCase
     end
 
     def test_h
+      Modify method name
+
       @book.resources.each do |item|
         assert_instance_of EPUB::Publication::Package::Manifest::Item, item
       end
