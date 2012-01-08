@@ -34,8 +34,8 @@ module EPUB
           rootfile = EPUB::OCF::Container::Rootfile.new
           %w[full-path media-type].each do |attr|
             rootfile.send(attr.gsub(/-/, '_') + '=', elem[attr])
-            container.rootfiles << rootfile
           end
+          container.rootfiles << rootfile
         end
 
         container

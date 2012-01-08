@@ -7,6 +7,10 @@ class TestParserOCF < Test::Unit::TestCase
     @parser = EPUB::Parser::OCF.new 'test/fixtures/book'
   end
 
+  def test_parsed_container_has_one_rootfile
+    assert_equal 1, @parser.parse_container.rootfiles.length
+  end
+
   def test_parse_container_can_find_primary_rootfile
     container = @parser.parse_container
 
