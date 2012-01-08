@@ -34,6 +34,7 @@ module EPUB
         class Itemref
           attr_accessor :spine,
                         :idref, :linear, :id, :properties
+          alias linear? linear
 
           # @return [Package::Manifest::Item] item referred by this object
           def item
