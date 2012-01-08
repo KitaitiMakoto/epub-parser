@@ -7,13 +7,12 @@ module EPUB
       class Manifest
         attr_accessor :package,
                       :id
-        attr_reader :items
 
         # syntax sugar for #items.<<
         def <<(item)
-          @items ||= []
+          @items ||= {}
           item.manifest = self
-          @items << item
+          @items[item.id] = item
         end
 
         # syntax sugar
@@ -29,8 +28,12 @@ module EPUB
           items.selector {|i| i.properties.include? 'cover-image'}.first
         end
 
+        def items
+          @items.collect {|id, item| item}
+        end
+
         def [](item_id)
-          items.selector {|item| item.id == item_id}.first
+          @items[item_id]
         end
 
         class Item
