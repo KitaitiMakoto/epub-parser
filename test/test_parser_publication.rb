@@ -79,10 +79,6 @@ class TestParserPublication < Test::Unit::TestCase
 
     def test_item_with_absolute_iri_as_href_must_keep_it
       item = @manifest['external-css']
-
-require 'pp'
-pp item
-
       assert_equal 'http://example.net/stylesheets/common.css', item.iri.to_s
     end
   end
