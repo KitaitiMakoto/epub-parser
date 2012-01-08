@@ -1,4 +1,4 @@
-EPUB Parer
+EPUB Parser
 ==========
 
 INSTALL

@@ -27,7 +27,6 @@ module EPUB
       unzip_cmd = options['unzip-command'] || 'unzip'
       unzip_cmd << " #{@filepath.to_s.shellescape} -d #{@dir.to_s.shellescape}"
       system unzip_cmd
-puts unzip_cmd
     end
 
     def parse

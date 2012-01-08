@@ -8,7 +8,6 @@ module EPUB
         attr_accessor :package,
                       :id
 
-        # syntax sugar for #items.<<
         def <<(item)
           @items ||= {}
           item.manifest = self
@@ -64,7 +63,7 @@ module EPUB
             if supported.include? media_type
               yield self
             elsif fallback
-              fallback.use_fallback_chain(options) {|fallbacked| yield fallbacked}
+              fallback.use_fallback_chain(options) {|fb| yield fb}
             else
               raise EPUB::MediaType::NotSupportedError
             end
