@@ -12,7 +12,7 @@ USAGE
       # do somethong...
     end
 
-See [Wiki](https://gitorious.org/epub/pages) for more info.
+See [Wiki](https://gitorious.org/epub/pages/Home) for more info.
 
 REQUIREMENTS
 ------------
