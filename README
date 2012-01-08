@@ -1,12 +1,23 @@
 EPUB Parer
 ==========
 
+INSTALL
+-------
+    gem install epub-parser  
+
 USAGE
 -----
-    book = EPUB::Parser.parse 'book.epub'
-    book.each_page_in_spines_order do |page|
+    book = EPUB::Parser.parse 'book.epub', 'working_directory'
+    book.each_page_by_spine do |page|
       # do somethong...
     end
+
+See [Wiki](https://gitorious.org/epub/pages) for more info.
+
+REQUIREMENTS
+------------
+* UNIX like `zip` command
+* libxml2 and libxslt for Nokogiri gem
 
 LICENSE
 -------
