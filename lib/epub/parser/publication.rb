@@ -68,7 +68,7 @@ module EPUB
           %w[ idref id ].each do |attr|
             itemref.send "#{attr}=", elm[attr]
           end
-          itemref.linear = !(elm['linear'] == 'no')
+          itemref.linear = (elm['linear'] != 'no')
           itemref.properties = elm['properties'] ? elm['properties'].split(' ') : []
           spine << itemref
         end
