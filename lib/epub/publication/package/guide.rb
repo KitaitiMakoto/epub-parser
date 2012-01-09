@@ -15,7 +15,6 @@ module EPUB
           references << reference
         end
 
-        # Should use epub:type list?
         %w[cover title-page toc index glossary acknowledgements bibliography colophon copyright-page dedication epigraph foreword loi lot notes preface text].each do |type|
           define_method type do
             var = instance_variable_get "@#{type}"
