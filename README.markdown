@@ -7,12 +7,14 @@ INSTALL
 
 USAGE
 -----
+    require 'epub/parser'
+    
     book = EPUB::Parser.parse 'book.epub', 'working_directory'
     book.each_page_by_spine do |page|
       # do somethong...
     end
 
-See [Wiki](https://gitorious.org/epub/pages/Home) for more info.
+See [Wiki](https://gitorious.org/epub/pages/EpubParser) for more info.
 
 REQUIREMENTS
 ------------
