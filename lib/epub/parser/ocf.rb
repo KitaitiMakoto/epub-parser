@@ -21,7 +21,7 @@ module EPUB
 
       def parse
         EPUB::OCF::MODULES.each do |m|
-          @ocf.send "#{m}=", send("parse_#{m}")
+          @ocf.__send__ "#{m}=", __send__("parse_#{m}")
         end
         @ocf
       end
@@ -33,7 +33,7 @@ module EPUB
         doc.xpath('/container:container/container:rootfiles/container:rootfile', EPUB::NAMESPACES).each do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
           %w[full-path media-type].each do |attr|
-            rootfile.send(attr.gsub(/-/, '_') + '=', elem[attr])
+            rootfile.__send__(attr.gsub(/-/, '_') + '=', elem[attr])
           end
           container.rootfiles << rootfile
         end

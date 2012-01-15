@@ -41,7 +41,7 @@ module EPUB
         elem.xpath('./opf:item', EPUB::NAMESPACES).each do |elm|
           item = EPUB::Publication::Package::Manifest::Item.new
           %w[ id media-type media-overlay ].each do |attr|
-            item.send "#{attr.gsub(/-/, '_')}=", elm[attr]
+            item.__send__ "#{attr.gsub(/-/, '_')}=", elm[attr]
           end
           item.href = elm['href']
           item.iri = @rootfile.join Addressable::URI.parse(elm['href'])
@@ -60,13 +60,13 @@ module EPUB
         spine = @package.spine = EPUB::Publication::Package::Spine.new
         elem = @doc.xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
         %w[ id toc page-progression-direction ].each do |attr|
-          spine.send("#{attr.gsub(/-/, '_')}=", elem[attr])
+          spine.__send__("#{attr.gsub(/-/, '_')}=", elem[attr])
         end
 
         elem.xpath('./opf:itemref', EPUB::NAMESPACES).each do |elm|
           itemref = EPUB::Publication::Package::Spine::Itemref.new
           %w[ idref id ].each do |attr|
-            itemref.send "#{attr}=", elm[attr]
+            itemref.__send__ "#{attr}=", elm[attr]
           end
           itemref.linear = (elm['linear'] != 'no')
           itemref.properties = elm['properties'] ? elm['properties'].split(' ') : []
@@ -81,7 +81,7 @@ module EPUB
         elem = @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
           reference = EPUB::Publication::Package::Guide::Reference.new
           %w[ type title href ].each do |attr|
-            reference.send("#{attr}=", ref[attr])
+            reference.__send__("#{attr}=", ref[attr])
           end
           reference.iri = @rootfile.join Addressable::URI.parse(reference.href)
           guide << reference
