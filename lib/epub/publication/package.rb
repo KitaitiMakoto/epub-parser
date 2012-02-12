@@ -10,6 +10,8 @@ module EPUB
       alias lang= xml_lang=
 
       def metadata=(metadata)
+        metadata.package = self
+        @metadata = metadata
       end
 
       def manifest=(manifest)

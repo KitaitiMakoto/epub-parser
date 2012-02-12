@@ -46,6 +46,7 @@ module EPUB
           %w[ id lang dir ].each do |attr|
             title.__send__("#{attr}=", e[attr])
           end
+          title
         end
 
         metadata.languages = elem.xpath('./dc:language', EPUB::NAMESPACES).collect do |e|
@@ -53,20 +54,22 @@ module EPUB
         end
 
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
-          metadata.__send__ "#{dcmes}s=", elem.xpath("./dc:#{dcmes}", EPUB::NAMESPACES).collect do |e|
-            md = EPUB::Publication::Package::Manifest::DCMES.new
+          metadata.__send__ "#{dcmes}s=", elem.xpath("./dc:#{dcmes}", EPUB::NAMESPACES).collect { |e|
+            md = EPUB::Publication::Package::Metadata::DCMES.new
             md.content = e.content
             %w[ id lang dir ].each do |attr|
               md.__send__("#{attr}=", e[attr])
             end
+            md
+          }
+        end
+        metadata.rights = elem.xpath('./dc:rights', EPUB::NAMESPACES).collect do |e|
+          md = EPUB::Publication::Package::Manifest::DCMES.new
+          md.content = e.content
+          %w[ id lang dir ].each do |attr|
+            md.__send__("#{attr}=", e[attr])
           end
-          metadata.rights = elem.xpath('./dc:rights', EPUB::NAMESPACES).collect do |e|
-            md = EPUB::Publication::Package::Manifest::DCMES.new
-            md.content = e.content
-            %w[ id lang dir ].each do |attr|
-              md.__send__("#{attr}~", e[attr])
-            end
-          end
+          md
         end
 
         # handle meta elements
