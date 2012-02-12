@@ -10,7 +10,7 @@ USAGE
     require 'epub/parser'
     
     book = EPUB::Parser.parse 'book.epub', 'working_directory'
-    book.each_page_by_spine do |page|
+    book.each_page_on_spine do |page|
       # do somethong...
     end
 

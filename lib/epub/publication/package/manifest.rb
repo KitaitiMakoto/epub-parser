@@ -56,7 +56,7 @@ module EPUB
             if ad = options[:supported]
               supported = supported | (ad.respond_to?(:to_ary) ? ad : [ad])
             end
-            if del = options[:not_supported]
+            if del = options[:unsupported]
               supported = supported - (del.respond_to?(:to_ary) ? del : [del])
             end
 
@@ -65,7 +65,7 @@ module EPUB
             elsif fallback
               fallback.use_fallback_chain(options) {|fb| yield fb}
             else
-              raise EPUB::MediaType::NotSupportedError
+              raise EPUB::MediaType::UnsupportedError
             end
           end
 

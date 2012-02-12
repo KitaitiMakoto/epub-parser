@@ -7,6 +7,21 @@ class TestParserPublication < Test::Unit::TestCase
     @parser = EPUB::Parser::Publication.new 'test/fixtures/book/OPS/ルートファイル.opf'
   end
 
+  class TestParseMetaata < TestParserPublication
+    def setup
+      super
+      @metadata = @parser.parse_metadata
+    end
+
+    def test_has_identifier
+      assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @metadata.identifiers.first.content
+    end
+
+    def test_has_five_titles
+      assert_equal 5, @metadata.titles.length
+    end
+  end
+
   class TestParseManifest < TestParserPublication
     def setup
       super
@@ -70,7 +85,7 @@ class TestParserPublication < Test::Unit::TestCase
     def test_item_can_custome_not_supported_media_type_in_use_fallback_chain
       item = @manifest['manifest-item-2']
       fallback = item.fallback.fallback
-      result = item.use_fallback_chain not_supported: 'image/svg+xml' do |current|
+      result = item.use_fallback_chain unsupported: 'image/svg+xml' do |current|
         current
       end
 

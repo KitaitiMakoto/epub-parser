@@ -17,7 +17,7 @@ module EPUB
     end
 
     module MediaType
-      class NotSupportedError < StandardError; end
+      class UnsupportedError < StandardError; end
 
       IMAGE = %w[
         image/gif

@@ -23,8 +23,8 @@ class TestParser < Test::Unit::TestCase
       @book = @parser.parse
     end
 
-    def test_each_page_by_spine_iterates_items_in_spines_order
-      @book.each_page_by_spine do |page|
+    def test_each_page_on_spine_iterates_items_in_spines_order
+      @book.each_page_on_spine do |page|
         assert_instance_of EPUB::Publication::Package::Manifest::Item, page
       end
     end
@@ -46,14 +46,6 @@ class TestParser < Test::Unit::TestCase
 
       contents.each do |page|
         assert_instance_of EPUB::Publication::Package::Manifest::Item, page
-      end
-    end
-
-    def test_h
-      Modify method name
-
-      @book.resources.each do |item|
-        assert_instance_of EPUB::Publication::Package::Manifest::Item, item
       end
     end
   end

@@ -1,6 +1,7 @@
 require 'epub/ocf'
 require 'epub/publication'
 require 'epub/content_document'
+require 'epub/parser'
 
 module EPUB
   modules = [ :ocf, :package, :content_document ]
@@ -12,7 +13,13 @@ module EPUB
     end
   end
 
-  def each_page_by_spine(&blk)
+  def parse(file, dir, options = {})
+    options = options.merge({:book => self})
+    Parser.parse(file, dir, options)
+  end
+  module_function :parse
+
+  def each_page_on_spine(&blk)
     enum = @package.spine.items
     if block_given?
       enum.each &blk
@@ -21,7 +28,7 @@ module EPUB
     end
   end
 
-  def each_page_by_toc(&blk)
+  def each_page_on_toc(&blk)
   end
 
   def each_content(&blk)
