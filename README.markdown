@@ -1,5 +1,5 @@
 EPUB Parser
-==========
+===========
 
 INSTALL
 -------
@@ -14,11 +14,13 @@ USAGE
       # do somethong...
     end
 
-See [Wiki](https://gitorious.org/epub/pages/EpubParser) for more info.
+See [Wiki][] for more info.
+
+[Wiki]:https://gitorious.org/epub/pages/EpubParser
 
 REQUIREMENTS
 ------------
-* UNIX like `zip` command
+* UNIX like `unzip` command
 * libxml2 and libxslt for Nokogiri gem
 
 LICENSE

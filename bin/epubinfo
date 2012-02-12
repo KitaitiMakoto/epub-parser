@@ -1,0 +1,13 @@
+require 'epub/parser'
+require 'tmpdir'
+
+# Use optparse or slop or Thor
+# Validat ARGV
+
+file = ARGV[0]
+dir = Dir.mktmpdir('epub-parser') do |dir|
+
+  book = EPUB::Parser.parse file, dir
+  puts book.package.metadata.to_json
+
+end

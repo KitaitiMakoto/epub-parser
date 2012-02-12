@@ -1,17 +1,27 @@
+require 'json'
+
 module EPUB
   module Publication
     class Package
       class Metadata
-        elems = [:identifiers, :titles, :languages] +
+        ELEMS = [:identifiers, :titles, :languages] +
                 [:contributors, :coverages, :creators, :dates, :descriptions, :formats, :publishers,
                  :relations, :rights, :sources, :subjects, :types]
         attr_accessor :package,
-                      *(elems.collect {|elem| "dc_#{elem}"})
-        elems.each do |elem|
+                      *(ELEMS.collect {|elem| "dc_#{elem}"})
+        ELEMS.each do |elem|
           alias_method elem, "dc_#{elem}"
           alias_method "#{elem}=", "dc_#{elem}="
         end
         attr_accessor :links
+
+        def to_json(pretty = false)
+          obj = {}
+          ELEMS.each do |elem|
+            obj[elem] = __send__(elem)
+          end
+          obj.to_json
+        end
 
         class Identifier
           attr_accessor :content, :id
