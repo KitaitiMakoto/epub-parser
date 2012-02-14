@@ -7,7 +7,7 @@ class TestParserPublication < Test::Unit::TestCase
     @parser = EPUB::Parser::Publication.new 'test/fixtures/book/OPS/ルートファイル.opf'
   end
 
-  class TestParseMetaata < TestParserPublication
+  class TestParseMetadata < TestParserPublication
     def setup
       super
       @metadata = @parser.parse_metadata
