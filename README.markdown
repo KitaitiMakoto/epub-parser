@@ -14,9 +14,9 @@ USAGE
       # do somethong...
     end
 
-See [Wiki][] for more info.
+See the [wiki][] for more info.
 
-[Wiki]:https://gitorious.org/epub/pages/EpubParser
+[wiki]:https://gitorious.org/epub/pages/EpubParser
 
 REQUIREMENTS
 ------------
