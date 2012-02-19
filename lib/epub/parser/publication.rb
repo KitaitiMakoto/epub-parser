@@ -64,7 +64,7 @@ module EPUB
           }
         end
         metadata.rights = elem.xpath('./dc:rights', EPUB::NAMESPACES).collect do |e|
-          md = EPUB::Publication::Package::Manifest::DCMES.new
+          md = EPUB::Publication::Package::Metadata::DCMES.new
           md.content = e.content
           %w[ id lang dir ].each do |attr|
             md.__send__("#{attr}=", e[attr])
