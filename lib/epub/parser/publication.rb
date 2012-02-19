@@ -40,13 +40,8 @@ module EPUB
           identifier
         end
 
-        metadata.titles = elem.xpath('./dc:title', EPUB::NAMESPACES).collect do |e|
-          title = EPUB::Publication::Package::Metadata::Title.new
+        metadata.titles = collect_dcmes(elem, './dc:title') do |title, e|
           title.content = e.content
-          %w[ id lang dir ].each do |attr|
-            title.__send__("#{attr}=", e[attr])
-          end
-          title
         end
 
         metadata.languages = elem.xpath('./dc:language', EPUB::NAMESPACES).collect do |e|
@@ -125,13 +120,16 @@ module EPUB
         raise 'still not implemented'
       end
 
+      # To do: replace with the factory method of DCMES
+      #   e.g) DCMES.create {|md| md.content = e.content}
       def collect_dcmes(elem, selector)
-        elem.xpath("./dc:#{selector}", EPUB::NAMESPACES).collect do |e|
+        elem.xpath(selector, EPUB::NAMESPACES).collect do |e|
           md = EPUB::Publication::Package::Metadata::DCMES.new
           md.content = e.content
           %w[ id lang dir ].each do |attr|
             md.__send__("#{attr}=", e[attr])
           end
+          yield(md, e) if block_given?
           md
         end
       end
