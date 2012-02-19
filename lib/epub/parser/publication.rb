@@ -54,25 +54,11 @@ module EPUB
         end
 
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
-          metadata.__send__ "#{dcmes}s=", elem.xpath("./dc:#{dcmes}", EPUB::NAMESPACES).collect { |e|
-            md = EPUB::Publication::Package::Metadata::DCMES.new
-            md.content = e.content
-            %w[ id lang dir ].each do |attr|
-              md.__send__("#{attr}=", e[attr])
-            end
-            md
-          }
+          metadata.__send__ "#{dcmes}s=", collect_dcmes(elem, "./dc:#{dcmes}")
         end
-        metadata.rights = elem.xpath('./dc:rights', EPUB::NAMESPACES).collect do |e|
-          md = EPUB::Publication::Package::Metadata::DCMES.new
-          md.content = e.content
-          %w[ id lang dir ].each do |attr|
-            md.__send__("#{attr}=", e[attr])
-          end
-          md
-        end
+        metadata.rights = collect_dcmes(elem, './dc:rights')
 
-        # handle meta elements
+        # To do: handle <meta> elements
 
         metadata
       end
@@ -137,6 +123,17 @@ module EPUB
 
       def parse_bindings
         raise 'still not implemented'
+      end
+
+      def collect_dcmes(elem, selector)
+        elem.xpath("./dc:#{selector}", EPUB::NAMESPACES).collect do |e|
+          md = EPUB::Publication::Package::Metadata::DCMES.new
+          md.content = e.content
+          %w[ id lang dir ].each do |attr|
+            md.__send__("#{attr}=", e[attr])
+          end
+          md
+        end
       end
     end
   end
