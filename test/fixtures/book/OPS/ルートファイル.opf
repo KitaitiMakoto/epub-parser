@@ -38,8 +38,6 @@
     <dc:creator id="creator02">John Tenniel</dc:creator>
     <meta refines="#creator02" property="role" scheme="marc:relators">ill</meta>
     <meta refines="#creator02" property="display-seq">2</meta>
-
-    <dc:rights>MIT License</dc:rights>
   </metadata>
   <manifest id="manifest-id">
     <item id="nav"
