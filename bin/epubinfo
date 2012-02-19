@@ -1,13 +1,28 @@
-require 'epub/parser'
 require 'tmpdir'
+require 'optparse'
+require 'epub/parser'
 
 # Use optparse or slop or Thor
 # Validat ARGV
 
+Version = EPUB::Parser::VERSION
+
+options = {:format => :line}
+opt = OptionParser.new do |opt|
+  opt.banner = 'Usage: epubinfo [options] EPUBFILE'
+  opt.on '-f', '--format=FORMAT', [:line, :json, :yaml], 'Format of output(line, json or yaml), defaults to LINE(for console)' do |format|
+    options[:format] = format
+  end
+end
+opt.parse!(ARGV)
+
 file = ARGV[0]
-dir = Dir.mktmpdir('epub-parser') do |dir|
+unless file
+  $stdout.puts opt.help
+  exit 1
+end
 
+Dir.mktmpdir('epub-parser') do |dir|
   book = EPUB::Parser.parse file, dir
-  puts book.package.metadata.to_json
-
+  puts book.package.metadata.__send__("to_#{options[:format]}")
 end

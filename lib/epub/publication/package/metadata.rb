@@ -1,3 +1,4 @@
+require 'yaml'
 require 'json'
 
 module EPUB
@@ -15,12 +16,28 @@ module EPUB
         end
         attr_accessor :links
 
-        def to_json(pretty = false)
-          obj = {}
-          ELEMS.each do |elem|
-            obj[elem] = __send__(elem)
+        def to_hash
+          ELEMS.inject({}) do |hsh, elem|
+            hsh[elem] = __send__(elem)
+            hsh
           end
-          obj.to_json
+        end
+
+        def to_line
+          data = to_hash
+          key_width = data.keys.map {|k| k.length}.max + 3
+          to_hash.inject([]) do |lines, (k, v)|
+            lines << (k.to_s.capitalize + ':').ljust(key_width) + v.join(', ')
+            lines
+          end.join("\n")
+        end
+
+        def to_json
+          to_hash.to_json
+        end
+
+        def to_yaml
+          to_hash.to_yaml
         end
 
         class Identifier
