@@ -1,6 +1,3 @@
-require 'yaml'
-require 'json'
-
 module EPUB
   module Publication
     class Package
@@ -21,23 +18,6 @@ module EPUB
             hsh[elem] = __send__(elem)
             hsh
           end
-        end
-
-        def to_line
-          data = to_hash
-          key_width = data.keys.map {|k| k.length}.max + 3
-          to_hash.inject([]) do |lines, (k, v)|
-            lines << (k.to_s.capitalize + ':').ljust(key_width) + v.join(', ')
-            lines
-          end.join("\n")
-        end
-
-        def to_json
-          to_hash.to_json
-        end
-
-        def to_yaml
-          to_hash.to_yaml
         end
 
         class Identifier

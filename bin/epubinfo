@@ -2,15 +2,12 @@ require 'tmpdir'
 require 'optparse'
 require 'epub/parser'
 
-# Use optparse or slop or Thor
-# Validat ARGV
-
 Version = EPUB::Parser::VERSION
 
 options = {:format => :line}
 opt = OptionParser.new do |opt|
   opt.banner = 'Usage: epubinfo [options] EPUBFILE'
-  opt.on '-f', '--format=FORMAT', [:line, :json, :yaml], 'Format of output(line, json or yaml), defaults to LINE(for console)' do |format|
+  opt.on '-f', '--format=FORMAT', [:line, :json, :yaml], 'Format of output(line, json or yaml), defaults to line(for console)' do |format|
     options[:format] = format
   end
 end
@@ -24,5 +21,16 @@ end
 
 Dir.mktmpdir('epub-parser') do |dir|
   book = EPUB::Parser.parse file, dir
-  puts book.package.metadata.__send__("to_#{options[:format]}")
+  data = book.package.metadata.to_hash
+  data['Unique identifier'] = [book.package.metadata.unique_identifier]
+  data['EPUB Version'] = [book.package.version]
+  if options[:format] == :line
+    key_width = data.keys.map {|k| k.length}.max + 3
+    data.each_pair do |k, v|
+      puts (k.to_s.capitalize + ':').ljust(key_width) + v.join(', ')
+    end
+  else
+    require options[:format].to_s
+    puts data.__send__("to_#{options[:format]}")
+  end
 end
