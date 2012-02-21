@@ -120,8 +120,6 @@ module EPUB
         raise 'still not implemented'
       end
 
-      # To do: replace with the factory method of DCMES
-      #   e.g) DCMES.create {|md| md.content = e.content}
       def collect_dcmes(elem, selector)
         elem.xpath(selector, EPUB::NAMESPACES).collect do |e|
           md = EPUB::Publication::Package::Metadata::DCMES.new
