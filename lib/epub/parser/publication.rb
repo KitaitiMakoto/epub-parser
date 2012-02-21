@@ -19,11 +19,20 @@ module EPUB
       end
 
       def parse
+        parse_package
         parse_metadata
         parse_manifest
         parse_spine
         parse_guide
         # parse_bindings
+
+        @package
+      end
+
+      def parse_package
+        elem = @doc.root
+        @package.version = elem['version']
+        @package.unique_identifier = elem['unique-identifier']
 
         @package
       end

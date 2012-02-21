@@ -8,7 +8,7 @@ module EPUB
         ELEMS = [:identifiers, :titles, :languages] +
                 [:contributors, :coverages, :creators, :dates, :descriptions, :formats, :publishers,
                  :relations, :rights, :sources, :subjects, :types]
-        attr_accessor :package,
+        attr_accessor :package, :unique_identifier,
                       *(ELEMS.collect {|elem| "dc_#{elem}"})
         ELEMS.each do |elem|
           alias_method elem, "dc_#{elem}"

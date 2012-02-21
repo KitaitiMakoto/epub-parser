@@ -5,6 +5,11 @@ require 'epub/parser/publication'
 class TestParserPublication < Test::Unit::TestCase
   def setup
     @parser = EPUB::Parser::Publication.new 'test/fixtures/book/OPS/ルートファイル.opf'
+    @package = @parser.parse_package
+  end
+
+  def test_parse_package
+    assert_equal '3.0', @package.version
   end
 
   class TestParseMetadata < TestParserPublication
@@ -15,6 +20,10 @@ class TestParserPublication < Test::Unit::TestCase
 
     def test_has_identifier
       assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @metadata.identifiers.first.content
+    end
+
+    def test_has_unique_identifier
+      assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @metadata.unique_identifier.to_s
     end
 
     def test_has_five_titles
