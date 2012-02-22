@@ -1,15 +1,26 @@
 EPUB Parser
 ===========
 
-INSTALL
+INSTALLATION
 -------
     gem install epub-parser  
 
 USAGE
 -----
+
+### As a command line tool
+
+	epubinfo path/to/book.epub
+
+For more info:
+
+	epubinfo -h
+
+### As a library
+
     require 'epub/parser'
     
-    book = EPUB::Parser.parse 'book.epub', 'working_directory'
+    book = EPUB::Parser.parse 'book.epub', 'working/directory'
     book.each_page_on_spine do |page|
       # do somethong...
     end
