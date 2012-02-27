@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'thin'
   s.add_development_dependency 'yard'
+  s.add_development_dependency 'gem-man'
+  s.add_development_dependency 'ronn'
   s.add_development_dependency 'epzip'
   s.add_development_dependency 'epubcheck'
   s.add_development_dependency 'epub_validator'

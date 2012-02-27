@@ -1,0 +1,19 @@
+epubinfo(1) -- show metadata of an EPUB book
+============================================
+
+SYNOPSIS
+--------
+
+`epubinfo` <filename><br>
+`epubinfo` `-f`|`--format=<formnt>` <filename>
+
+DESCRIPTION
+-----------
+
+**epubinfo** shows metadata of an EPUB book.
+
+OPTIONS
+-------
+
+ * `-f`, `--format`:
+   Output format; currently "line", "json" and "yaml" are acceptable
