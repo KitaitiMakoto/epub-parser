@@ -25,7 +25,7 @@ module EPUB
       @book = create_book options
 
       unzip_cmd = options['unzip-command'] || 'unzip'
-      unzip_cmd << " #{@filepath.to_s.shellescape} -d #{@dir.to_s.shellescape}"
+      unzip_cmd << " #{@filepath.to_s.shellescape} -d #{@dir.to_s.shellescape} 1>/dev/null"
       system unzip_cmd
     end
 
