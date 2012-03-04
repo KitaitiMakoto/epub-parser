@@ -43,6 +43,10 @@ module EPUB
             content
           end
         end
+
+        class Meta
+          attr_accessor :property, :refines, :id, :scheme
+        end
       end
     end
   end
