@@ -78,8 +78,8 @@ module EPUB
           if (refines = e['refines']) && refines[0] == '#'
             id = refines[1..-1]
             id_map[id] ||= {}
-            id_map[id][:meta] ||= []
-            id_map[id][:meta] << meta
+            id_map[id][:metas] ||= []
+            id_map[id][:metas] << meta
           end
 
           meta
@@ -92,9 +92,10 @@ module EPUB
         metadata.links.each {|l| id_map[l.id] = {metadata: l} if l.respond_to?(:id) && l.id}
 
         id_map.values.each do |hsh|
-          next unless hsh[:meta]
-          hsh[:metadata].refiners << hsh[:meta]
-          hsh[:meta].each {|meta| meta.refines = hsh[:metadata]}
+          next unless hsh[:metas]
+          next unless hsh[:metadata]
+          hsh[:metadata].refiners = hsh[:metas]
+          hsh[:metas].each {|meta| meta.refines = hsh[:metadata]}
         end
 
         metadata
