@@ -36,6 +36,7 @@ REQUIREMENTS
 
 TODOS
 -----
+* Adding tests
 * Implementing metadata, navigation document and so on
 * Using zip library instead of `unzip` command, which has security issue
 * Using SAX on parsing
