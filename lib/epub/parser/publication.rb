@@ -71,7 +71,6 @@ module EPUB
         metadata.rights.each {|r| id_map[r.id] = {metadata: r} if r.respond_to?(:id) && r.id}
 
         metadata.metas = elem.xpath('./opf:meta', EPUB::NAMESPACES).collect do |e|
-          # parse meta, link to Item and then return meta itself
           meta = EPUB::Publication::Package::Metadata::Meta.new
           %w[ property id scheme ].each { |attr| meta.__send__("#{attr}=", e[attr]) }
           meta.content = e.content

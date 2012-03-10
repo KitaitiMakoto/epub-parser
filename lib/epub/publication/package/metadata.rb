@@ -24,13 +24,16 @@ module EPUB
 
           attr_accessor :refiners
           PROPERTIES.each do |voc|
-            attr_accessor voc.gsub(/-/, '_') + 's'
+            attr_accessor voc.gsub(/-/, '_')
           end
 
           def initialize
             @refiners = []
-            PROPERTIES.each do |voc|
-              __send__(voc.gsub(/-/, '_') + 's=', [])
+          end
+
+          PROPERTIES.each do |voc|
+            define_method voc.gsub(/-/, '_') do
+              @refiners.select {|refiner| refiner.property == voc}.first
             end
           end
         end
@@ -78,6 +81,10 @@ module EPUB
 
           def primary_expression?
             ! subexpression?
+          end
+
+          def to_s
+            content
           end
         end
       end
