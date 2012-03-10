@@ -40,29 +40,62 @@ module EPUB
       def parse_metadata
         metadata = @package.metadata = EPUB::Publication::Package::Metadata.new
         elem = @doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
+        id_map = {}
 
         metadata.identifiers = elem.xpath('./dc:identifier', EPUB::NAMESPACES).collect do |e|
           identifier = EPUB::Publication::Package::Metadata::Identifier.new
           identifier.content = e.content
           identifier.id = id = e['id']
           metadata.unique_identifier = identifier if id == @package.unique_identifier_id
+
           identifier
         end
+        metadata.identifiers.each {|i| id_map[i.id] = {metadata: i} if i.id}
 
         metadata.titles = collect_dcmes(elem, './dc:title') do |title, e|
           title.content = e.content
         end
+        metadata.titles.each {|t| id_map[t.id] = {metadata: t} if t.id}
 
         metadata.languages = elem.xpath('./dc:language', EPUB::NAMESPACES).collect do |e|
           e.content
         end
+        metadata.languages.each {|l| id_map[l.id] = {metadata: l} if l.respond_to?(:id) && l.id}
 
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
           metadata.__send__ "#{dcmes}s=", collect_dcmes(elem, "./dc:#{dcmes}")
+          metadata.__send__("#{dcmes}s").each {|d| id_map[d.id] = {metadata: d} if d.respond_to?(:id) && d.id}
         end
-        metadata.rights = collect_dcmes(elem, './dc:rights')
 
-        # To do: handle <meta> elements
+        metadata.rights = collect_dcmes(elem, './dc:rights')
+        metadata.rights.each {|r| id_map[r.id] = {metadata: r} if r.respond_to?(:id) && r.id}
+
+        metadata.metas = elem.xpath('./opf:meta', EPUB::NAMESPACES).collect do |e|
+          # parse meta, link to Item and then return meta itself
+          meta = EPUB::Publication::Package::Metadata::Meta.new
+          %w[ property id scheme ].each { |attr| meta.__send__("#{attr}=", e[attr]) }
+          meta.content = e.content
+          if (refines = e['refines']) && refines[0] == '#'
+            id = refines[1..-1]
+            id_map[id] ||= {}
+            id_map[id][:meta] ||= []
+            id_map[id][:meta] << meta
+          end
+
+          meta
+        end
+        metadata.metas.each {|m| id_map[m.id] = {metadata: m} if m.respond_to?(:id) && m.id}
+
+        metadata.links = elem.xpath('./opf:link', EPUB::NAMESPACES).collect do |e|
+          EPUB::Publication::Package::Metadata::Link.new
+        end
+        metadata.links.each {|l| id_map[l.id] = {metadata: l} if l.respond_to?(:id) && l.id}
+
+        id_map.values.each do |hsh|
+          next unless hsh[:meta]
+          hsh[:metadata].refiners << hsh[:meta]
+          hsh[:meta].each {|meta| meta.refines = hsh[:metadata]}
+        end
 
         metadata
       end

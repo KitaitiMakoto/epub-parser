@@ -2,25 +2,42 @@ module EPUB
   module Publication
     class Package
       class Metadata
-        ELEMS = [:identifiers, :titles, :languages] +
-                [:contributors, :coverages, :creators, :dates, :descriptions, :formats, :publishers,
-                 :relations, :rights, :sources, :subjects, :types]
-        attr_accessor :package, :unique_identifier,
-                      *(ELEMS.collect {|elem| "dc_#{elem}"})
-        ELEMS.each do |elem|
+        DC_ELEMS = [:identifiers, :titles, :languages] +
+                   [:contributors, :coverages, :creators, :dates, :descriptions, :formats, :publishers,
+                    :relations, :rights, :sources, :subjects, :types]
+        attr_accessor :package, :unique_identifier, :metas, :links,
+                      *(DC_ELEMS.collect {|elem| "dc_#{elem}"})
+        DC_ELEMS.each do |elem|
           alias_method elem, "dc_#{elem}"
           alias_method "#{elem}=", "dc_#{elem}="
         end
-        attr_accessor :links
 
         def to_hash
-          ELEMS.inject({}) do |hsh, elem|
+          DC_ELEMS.inject({}) do |hsh, elem|
             hsh[elem] = __send__(elem)
             hsh
           end
         end
 
+        module Refinable
+          PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
+
+          attr_accessor :refiners
+          PROPERTIES.each do |voc|
+            attr_accessor voc.gsub(/-/, '_') + 's'
+          end
+
+          def initialize
+            @refiners = []
+            PROPERTIES.each do |voc|
+              __send__(voc.gsub(/-/, '_') + 's=', [])
+            end
+          end
+        end
+
         class Identifier
+          include Refinable
+
           attr_accessor :content, :id
 
           def to_s
@@ -29,6 +46,8 @@ module EPUB
         end
 
         class Title
+          include Refinable
+
           attr_accessor :content, :id, :lang, :dir
 
           def to_s
@@ -37,6 +56,8 @@ module EPUB
         end
 
         class DCMES
+          include Refinable
+
           attr_accessor :content, :id, :lang, :dir
 
           def to_s
@@ -45,7 +66,19 @@ module EPUB
         end
 
         class Meta
-          attr_accessor :property, :refines, :id, :scheme
+          include Refinable
+
+          attr_accessor :property, :refines, :id, :scheme, :content
+
+          def refines?
+            ! refines.nil?
+          end
+
+          alias subexpression? refines?
+
+          def primary_expression?
+            ! subexpression?
+          end
         end
       end
     end
