@@ -34,6 +34,14 @@ REQUIREMENTS
 * UNIX like `unzip` command
 * libxml2 and libxslt for Nokogiri gem
 
+TODOS
+-----
+* Implementing metadata, navigation document and so on
+* Using zip library instead of unzipping, which has security issue
+* Using SAX on parsing
+* Extracting and organizing common behavior from some classes to modules
+* Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
+
 LICENSE
 -------
 This library is distribuetd under the term of the MIT License.
