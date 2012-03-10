@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package version="3.0"
-	 unique-identifier="pub-id"
-	 xmlns="http://www.idpf.org/2007/opf">
+         unique-identifier="pub-id"
+         xmlns="http://www.idpf.org/2007/opf">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
     <dc:identifier id="pub-id">da265185-8da8-462d-a146-17dd388f61fc</dc:identifier>
 
