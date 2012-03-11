@@ -12,6 +12,23 @@ module EPUB
           alias_method "#{elem}=", "dc_#{elem}="
         end
 
+        def title
+          return extended_title unless extended_title.empty?
+          compositted = titles.select {|title| title.display_seq}.sort.join(' ')
+          return compositted unless compositted.empty?
+          return main_title unless main_title.empty?
+          titles.sort.join(' ')
+        end
+
+        %w[ main short collection edition extended ].each do |type|
+          define_method "#{type}_title" do
+            titles.select {|title| title.title_type.to_s == type}.sort.join(' ')
+          end
+        end
+        def subtitle
+          titles.select {|title| title.title_type.to_s == 'subtitle'}.sort.join(' ')
+        end
+
         def to_hash
           DC_ELEMS.inject({}) do |hsh, elem|
             hsh[elem] = __send__(elem)
@@ -26,19 +43,18 @@ module EPUB
         module Refinable
           PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
 
-          attr_accessor :refiners
           PROPERTIES.each do |voc|
-            attr_accessor voc.gsub(/-/, '_')
+            met = voc.gsub(/-/, '_')
+            attr_accessor met
+            define_method met do
+              @refiners.select {|refiner| refiner.property == voc}.first
+            end
           end
+
+          attr_accessor :refiners
 
           def initialize
             @refiners = []
-          end
-
-          PROPERTIES.each do |voc|
-            define_method voc.gsub(/-/, '_') do
-              @refiners.select {|refiner| refiner.property == voc}.first
-            end
           end
         end
 
@@ -54,8 +70,15 @@ module EPUB
 
         class Title
           include Refinable
+          include Comparable
 
           attr_accessor :content, :id, :lang, :dir
+
+          def <=>(other)
+            return 1 if other.display_seq.nil?
+            return -1 if display_seq.nil?
+            display_seq.to_s.to_i <=> other.display_seq.to_s.to_i
+          end
 
           def to_s
             content

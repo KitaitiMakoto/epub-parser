@@ -50,12 +50,21 @@ module EPUB
 
           identifier
         end
-        metadata.identifiers.each {|i| id_map[i.id] = {metadata: i} if i.id}
+        metadata.identifiers.each {|i| id_map[i.id] = {metadata: i} if i.respond_to?(:id) && i.id}
 
-        metadata.titles = collect_dcmes(elem, './dc:title') do |title, e|
+        metadata.titles = elem.xpath('./dc:title', EPUB::NAMESPACES).collect do |e|
+          title = EPUB::Publication::Package::Metadata::Title.new
+          %w[ id lang dir ].each do |attr|
+            title.__send__("#{attr}=", e[attr])
+          end
           title.content = e.content
+
+          title
         end
-        metadata.titles.each {|t| id_map[t.id] = {metadata: t} if t.id}
+        # metadata.titles = collect_dcmes(elem, './dc:title') do |title, e|
+        #   title.content = e.content
+        # end
+        metadata.titles.each {|t| id_map[t.id] = {metadata: t} if t.respond_to?(:id) && t.id}
 
         metadata.languages = elem.xpath('./dc:language', EPUB::NAMESPACES).collect do |e|
           e.content
