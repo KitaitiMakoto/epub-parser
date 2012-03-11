@@ -35,9 +35,7 @@ module EPUB
         # And if so, where should the namespaces be defined?
         # nav.type = element['epub:type']
         element.namespaces['epub'] = "http://www.idpf.org/2007/ops"
-        p element.namespaces
         nav.type = element['epub:type']
-        p nav.type
 
         nav
       end
