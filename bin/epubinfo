@@ -18,7 +18,7 @@ EOB
 end
 opt.parse!(ARGV)
 
-file = ARGV[0]
+file = ARGV.shift
 unless file
   $stdout.puts "error: you must supply an EPUB file name"
   $stdout.puts opt.help
@@ -27,7 +27,8 @@ end
 
 Dir.mktmpdir('epub-parser') do |dir|
   book = EPUB::Parser.parse file, dir
-  data = book.package.metadata.to_hash
+  data = {'Title' => [book.title]}
+  data.merge!(book.package.metadata.to_hash)
   data['Unique identifier'] = [book.package.metadata.unique_identifier]
   data['EPUB Version'] = [book.package.version]
   if options[:format] == :line

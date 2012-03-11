@@ -14,10 +14,10 @@ module EPUB
 
         def title
           return extended_title unless extended_title.empty?
-          compositted = titles.select {|title| title.display_seq}.sort.join(' ')
+          compositted = titles.select {|title| title.display_seq}.sort.join("\n")
           return compositted unless compositted.empty?
           return main_title unless main_title.empty?
-          titles.sort.join(' ')
+          titles.sort.join("\n")
         end
 
         %w[ main short collection edition extended ].each do |type|
