@@ -77,8 +77,8 @@ module EPUB
           if (refines = e['refines']) && refines[0] == '#'
             id = refines[1..-1]
             id_map[id] ||= {}
-            id_map[id][:metas] ||= []
-            id_map[id][:metas] << meta
+            id_map[id][:refiners] ||= []
+            id_map[id][:refiners] << meta
           end
 
           meta
@@ -86,15 +86,28 @@ module EPUB
         metadata.metas.each {|m| id_map[m.id] = {metadata: m} if m.respond_to?(:id) && m.id}
 
         metadata.links = elem.xpath('./opf:link', EPUB::NAMESPACES).collect do |e|
-          EPUB::Publication::Package::Metadata::Link.new
+          link = EPUB::Publication::Package::Metadata::Link.new
+          %w[ href id media-type ].each do |attr|
+            link.__send__(attr.gsub(/-/, '_') + '=', e[attr])
+          end
+          link.iri = Addressable::URI.parse(e['href'])
+          link.rel = e['rel'].strip.split
+          if (refines = e['refines']) && refines[0] == '#'
+            id = refines[1..-1]
+            id_map[id] ||= {}
+            id_map[id][:refiners] ||= []
+            id_map[id][:refiners] << link
+          end
+
+          link
         end
         metadata.links.each {|l| id_map[l.id] = {metadata: l} if l.respond_to?(:id) && l.id}
 
         id_map.values.each do |hsh|
-          next unless hsh[:metas]
+          next unless hsh[:refiners]
           next unless hsh[:metadata]
-          hsh[:metadata].refiners = hsh[:metas]
-          hsh[:metas].each {|meta| meta.refines = hsh[:metadata]}
+          hsh[:metadata].refiners = hsh[:refiners]
+          hsh[:refiners].each {|meta| meta.refines = hsh[:metadata]}
         end
 
         metadata

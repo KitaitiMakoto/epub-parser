@@ -19,6 +19,10 @@ module EPUB
           end
         end
 
+        def primary_metas
+          metas.select {|meta| meta.primary_expression?}
+        end
+
         module Refinable
           PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
 
@@ -86,6 +90,13 @@ module EPUB
           def to_s
             content
           end
+        end
+
+        class Link
+          include Refinable
+
+          attr_accessor :href, :rel, :id, :refines, :media_type,
+                        :iri
         end
       end
     end

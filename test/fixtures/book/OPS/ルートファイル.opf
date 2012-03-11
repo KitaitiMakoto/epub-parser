@@ -38,6 +38,11 @@
     <dc:creator id="creator02">John Tenniel</dc:creator>
     <meta refines="#creator02" property="role" scheme="marc:relators">ill</meta>
     <meta refines="#creator02" property="display-seq">2</meta>
+
+
+    <link rel="onix-record" href="http://example.org/onix/12389347" refines="#pub-id"/>
+    <link rel="xmp-record" href="http://example.org/xmp/12389347"/>
+    <link rel="foaf:homepage" href="http://example.org/book-info/12389347" />
   </metadata>
   <manifest id="manifest-id">
     <item id="nav"
