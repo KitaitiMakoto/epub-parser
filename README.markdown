@@ -10,11 +10,11 @@ USAGE
 
 ### As a command line tool
 
-	epubinfo path/to/book.epub
+    epubinfo path/to/book.epub
 
 For more info:
 
-	epubinfo -h
+    epubinfo -h
 
 ### As a library
 
@@ -37,7 +37,7 @@ REQUIREMENTS
 TODOS
 -----
 * Adding tests
-* Implementing metadata/link, navigation document and so on
+* Implementing navigation document and so on
 * Using zip library instead of `unzip` command, which has security issue
 * Using SAX on parsing
 * Extracting and organizing common behavior from some classes to modules
