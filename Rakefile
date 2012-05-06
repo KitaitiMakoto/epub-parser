@@ -1,6 +1,8 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'yard'
+require 'cucumber'
+require 'cucumber/rake/task'
 
 task :default => :test
 
@@ -10,6 +12,8 @@ Rake::TestTask.new do |task|
 end
 
 YARD::Rake::YardocTask.new
+
+Cucumber::Rake::Task.new
 
 namespace :sample do
   desc 'Build the test fixture EPUB'

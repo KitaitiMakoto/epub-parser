@@ -15,4 +15,3 @@ class TestParserContentDocument < Test::Unit::TestCase
     assert_equal 'Table of Contents', navs.first.heading
   end
 end
-

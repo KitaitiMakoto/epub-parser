@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'epub_validator'
   s.add_development_dependency 'zipruby'
   s.add_development_dependency 'rubyzip'
+  s.add_development_dependency 'aruba'
 
   s.add_runtime_dependency 'enumerabler'
   s.add_runtime_dependency 'nokogiri'
