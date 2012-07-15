@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = EPUB::Parser::VERSION
   s.authors     = ["KITAITI Makoto"]
   s.email       = ["KitaitiMakoto@gmail.com"]
-  s.homepage    = "https://gitorious.org/epub/parser"
+  s.homepage    = "https://github.com/KitaitiMakoto/epub-parser"
   s.summary     = %q{EPUB 3 Parser}
   s.description = %q{Parse EPUB 3 book loosely}
   s.license     = 'MIT'
