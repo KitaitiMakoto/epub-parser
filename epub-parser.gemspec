@@ -19,12 +19,14 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/**/*.rb`.split("\n") 
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+  s.has_rdoc = 'yard'
 
   s.add_development_dependency 'rubygems-test'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-doc'
-  s.add_development_dependency 'test-unit', '~> 2'
+  s.add_development_dependency 'pry-nav'
+  s.add_development_dependency 'test-unit-full'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'thin'
   s.add_development_dependency 'yard'
