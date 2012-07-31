@@ -22,7 +22,7 @@ file = ARGV.shift
 unless file
   $stdout.puts "error: you must supply an EPUB file name"
   $stdout.puts opt.help
-  exit!
+  abort
 end
 
 Dir.mktmpdir('epub-parser') do |dir|
