@@ -20,7 +20,7 @@ For more info:
 
     require 'epub/parser'
     
-    book = EPUB::Parser.parse 'book.epub', 'working/directory'
+    book = EPUB::Parser.parse 'book.epub'
     book.each_page_on_spine do |page|
       # do somethong...
     end
