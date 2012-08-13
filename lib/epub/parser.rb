@@ -3,51 +3,33 @@ require 'epub/parser/version'
 require 'epub/parser/ocf'
 require 'epub/parser/publication'
 require 'epub/parser/content_document'
-require 'shellwords'
+require 'zipruby'
 require 'nokogiri'
 
 module EPUB
   class Parser
     class << self
-      def parse(file, dir, options = {})
-        new(file, dir, options).parse
+      def parse(file, options = {})
+        new(file, options).parse
       end
     end
 
-    def initialize(filepath, root_directory, options = {})
+    def initialize(filepath, options = {})
       raise "File #{filepath} not readable" unless File.readable_real? filepath
-      raise "File #{root_directory} already exists" if File.file? root_directory
         
       @filepath = File.realpath filepath
-      Dir.mkdir(root_directory) unless File.directory? root_directory
-      @dir = File.realpath root_directory
-
       @book = create_book options
-
-      unzip_cmd = options['unzip-command'] || 'unzip'
-      unzip_cmd << " #{@filepath.to_s.shellescape} -d #{@dir.to_s.shellescape} 1>/dev/null"
-      system unzip_cmd
     end
 
     def parse
-      @book.ocf = parse_ocf
-      @book.package = parse_publication
-      # @book.content_document =??? parse_content_document
-      # ...
+      Zip::Archive.open @filepath do |zip|
+        @book.ocf = OCF.parse(zip)
+        @book.package = Publication.parse(zip, @book.rootfile_path)
+        # @book.content_document =??? parse_content_document
+        # ...
+      end
 
       @book
-    end
-
-    def parse_ocf
-      OCF.parse @dir
-    end
-
-    def parse_publication
-      Publication.parse File.join(@dir, @book.rootfile_path)
-    end
-
-    def parse_content_document
-      # ContentDocument.parse @dir
     end
 
     private

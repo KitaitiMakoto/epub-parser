@@ -4,8 +4,15 @@ require 'epub/parser/publication'
 
 class TestParserPublication < Test::Unit::TestCase
   def setup
-    @parser = EPUB::Parser::Publication.new 'test/fixtures/book/OPS/ルートファイル.opf'
+    file = 'test/fixtures/book.epub'
+    root_file = 'OPS/ルートファイル.opf'
+    @zip = Zip::Archive.open(file)
+    @parser = EPUB::Parser::Publication.new(@zip, root_file)
     @package = @parser.parse_package
+  end
+
+  def teardown
+    @zip.close
   end
 
   def test_parse_package
@@ -41,10 +48,8 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal 8, @manifest.items.length
     end
 
-    def test_item_has_full_path_as_iri_attribute
-      actual = File.expand_path 'fixtures/book/OPS/nav.xhtml', File.dirname(__FILE__)
-
-      assert_equal actual, @manifest['nav'].iri.to_s
+    def test_item_has_relative_path_as_iri_attribute
+      assert_equal 'OPS/nav.xhtml', @manifest['nav'].iri.to_s
     end
 
     def test_fallback_attribute_of_item_should_be_item_object
@@ -55,6 +60,10 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_item_is_readable
+      book = Object.new
+      mock(@package).book {book}
+      mock(book).epub_file {'test/fixtures/book.epub'}
+
       item = @manifest.items.first
       doc = Nokogiri.XML item.read
 

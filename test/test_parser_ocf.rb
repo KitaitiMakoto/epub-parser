@@ -4,7 +4,13 @@ require 'epub/parser/ocf'
 
 class TestParserOCF < Test::Unit::TestCase
   def setup
-    @parser = EPUB::Parser::OCF.new 'test/fixtures/book'
+    file = 'test/fixtures/book.epub'
+    @zip = Zip::Archive.open(file)
+    @parser = EPUB::Parser::OCF.new(@zip)
+  end
+
+  def teardown
+    @zip.close
   end
 
   def test_parsed_container_has_one_rootfile

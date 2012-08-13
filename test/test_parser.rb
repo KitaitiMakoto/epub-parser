@@ -1,16 +1,10 @@
 require File.expand_path 'helper', File.dirname(__FILE__)
 require 'epub/parser'
 require 'fileutils'
-require 'tmpdir'
 
 class TestParser < Test::Unit::TestCase
   def setup
-    @rootdir = Dir.mktmpdir 'epub-parser'
-    @parser = EPUB::Parser.new 'test/fixtures/book.epub', @rootdir
-  end
-
-  def teardown
-    FileUtils.remove_entry_secure @rootdir
+    @parser = EPUB::Parser.new 'test/fixtures/book.epub'
   end
 
   def test_parse

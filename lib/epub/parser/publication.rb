@@ -1,3 +1,4 @@
+require 'zipruby'
 require 'nokogiri'
 require 'addressable/uri'
 require 'epub/publication'
@@ -7,15 +8,16 @@ module EPUB
   class Parser
     class Publication
       class << self
-        def parse(file)
-          new(file).parse
+        def parse(zip_archive, file)
+          new(zip_archive, file).parse
         end
       end
 
-      def initialize(file)
+      def initialize(zip_archive, file)
         @package = EPUB::Publication::Package.new
-        @rootfile = Addressable::URI.parse File.realpath(file)
-        @doc = Nokogiri.XML open(file)
+        @rootfile = Addressable::URI.parse(file)
+        entry = zip_archive.fopen(file)
+        @doc = Nokogiri.XML(entry.read)
       end
 
       def parse

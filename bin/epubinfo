@@ -1,4 +1,3 @@
-require 'tmpdir'
 require 'optparse'
 require 'epub/parser'
 
@@ -25,19 +24,17 @@ unless file
   abort
 end
 
-Dir.mktmpdir('epub-parser') do |dir|
-  book = EPUB::Parser.parse file, dir
-  data = {'Title' => [book.title]}
-  data.merge!(book.package.metadata.to_hash)
-  data['Unique identifier'] = [book.package.metadata.unique_identifier]
-  data['EPUB Version'] = [book.package.version]
-  if options[:format] == :line
-    key_width = data.keys.map {|k| k.length}.max + 3
-    data.each_pair do |k, v|
-      puts (k.to_s.capitalize + ':').ljust(key_width) + v.join(', ')
-    end
-  else
-    require options[:format].to_s
-    puts data.__send__("to_#{options[:format]}")
+book = EPUB::Parser.parse file
+data = {'Title' => [book.title]}
+data.merge!(book.package.metadata.to_hash)
+data['Unique identifier'] = [book.package.metadata.unique_identifier]
+data['EPUB Version'] = [book.package.version]
+if options[:format] == :line
+  key_width = data.keys.map {|k| k.length}.max + 3
+  data.each_pair do |k, v|
+    puts (k.to_s.capitalize + ':').ljust(key_width) + v.join(', ')
   end
+else
+  require options[:format].to_s
+  puts data.__send__("to_#{options[:format]}")
 end

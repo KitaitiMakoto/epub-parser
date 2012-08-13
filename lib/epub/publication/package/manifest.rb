@@ -47,7 +47,9 @@ module EPUB
           end
 
           def read
-            open(iri) {|file| file.read}
+            Zip::Archive.open(manifest.package.book.epub_file) {
+              |zip| zip.fopen(iri.to_s).read
+            }
           end
 
           # To do: Handle circular fallback chain

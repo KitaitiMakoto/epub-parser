@@ -1,5 +1,6 @@
 require 'epub/constants'
 require 'epub/ocf'
+require 'zipruby'
 require 'nokogiri'
 
 module EPUB
@@ -9,13 +10,13 @@ module EPUB
       EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"}
 
       class << self
-        def parse(root_directory)
-          new(root_directory).parse
+        def parse(zip_archive)
+          new(zip_archive).parse
         end
       end
 
-      def initialize(root_directory)
-        @dir = root_directory
+      def initialize(zip_archive)
+        @zip = zip_archive
         @ocf = EPUB::OCF.new
       end
 
@@ -28,8 +29,8 @@ module EPUB
 
       def parse_container
         container = EPUB::OCF::Container.new
-        doc = Nokogiri.XML open(File.join @dir, DIRECTORY, CONTAINER_FILE)
-
+        entry  = @zip.fopen(File.join(DIRECTORY, CONTAINER_FILE))
+        doc = Nokogiri.XML(entry.read)
         doc.xpath('/ocf:container/ocf:rootfiles/ocf:rootfile', EPUB::NAMESPACES).each do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
           %w[full-path media-type].each do |attr|
