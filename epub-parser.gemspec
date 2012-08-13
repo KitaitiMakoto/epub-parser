@@ -35,10 +35,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'epzip'
   s.add_development_dependency 'epubcheck'
   s.add_development_dependency 'epub_validator'
-  s.add_development_dependency 'zipruby'
   s.add_development_dependency 'aruba'
 
   s.add_runtime_dependency 'enumerabler'
+  s.add_runtime_dependency 'zipruby'
   s.add_runtime_dependency 'nokogiri'
   s.add_runtime_dependency 'addressable'
 end
