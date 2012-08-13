@@ -16,7 +16,7 @@ module EPUB
 
     def initialize(filepath, options = {})
       raise "File #{filepath} not readable" unless File.readable_real? filepath
-        
+
       @filepath = File.realpath filepath
       @book = create_book options
     end
