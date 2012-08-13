@@ -27,7 +27,7 @@ For more info:
 
 See the [wiki][] for more info.
 
-[wiki]:https://gitorious.org/epub/pages/EpubParser
+[wiki]:https://github.com/KitaitiMakoto/epub-parser/wiki
 
 REQUIREMENTS
 ------------
