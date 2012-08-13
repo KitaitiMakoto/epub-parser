@@ -47,8 +47,8 @@ module EPUB
           end
 
           def read
-            Zip::Archive.open(manifest.package.book.epub_file) {
-              |zip| zip.fopen(iri.to_s).read
+            Zip::Archive.open(manifest.package.book.epub_file) {|zip|
+              zip.fopen(iri.to_s).read
             }
           end
 
