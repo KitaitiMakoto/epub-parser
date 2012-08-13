@@ -1,8 +1,6 @@
 require 'optparse'
 require 'epub/parser'
 
-Version = EPUB::Parser::VERSION
-
 options = {:format => :line}
 opt = OptionParser.new do |opt|
   opt.banner = <<EOB
@@ -11,6 +9,7 @@ Show metadata of an EPUB file
 Usage: epubinfo [options] EPUBFILE
 
 EOB
+  opt.version = EPUB::Parser::VERSION
   opt.on '-f', '--format=FORMAT', [:line, :json, :yaml], 'format of output(line, json or yaml), defaults to line(for console)' do |format|
     options[:format] = format
   end
