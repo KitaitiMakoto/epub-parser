@@ -38,10 +38,13 @@ TODOS
 -----
 * Adding tests
 * Implementing navigation document and so on
-* Using zip library instead of `unzip` command, which has security issue
 * Using SAX on parsing
 * Extracting and organizing common behavior from some classes to modules
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
+
+DONE
+----
+* Using zip library instead of `unzip` command, which has security issue
 
 LICENSE
 -------
