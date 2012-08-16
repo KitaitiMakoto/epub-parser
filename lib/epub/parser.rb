@@ -37,9 +37,9 @@ module EPUB
     def create_book(params)
       case
       when params[:book]
-        options[:book]
+        params[:book]
       when params[:class]
-        options[:class].new
+        params[:class].new
       else
         require 'epub/book'
         Book.new
