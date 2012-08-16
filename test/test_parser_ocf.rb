@@ -24,9 +24,9 @@ class TestParserOCF < Test::Unit::TestCase
   end
 
   def test_parse
-    ocf = @parser.parse
-
-    pend
+    assert_nothing_raised do
+      @parser.parse
+    end
   end
 end
 
