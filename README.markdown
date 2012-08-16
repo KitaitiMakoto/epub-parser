@@ -31,7 +31,7 @@ See the [wiki][] for more info.
 
 REQUIREMENTS
 ------------
-* UNIX like `unzip` command
+* libzip for Zip/Ruby gem
 * libxml2 and libxslt for Nokogiri gem
 
 TODOS
