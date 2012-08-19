@@ -14,10 +14,10 @@ module EPUB
     end
   end
 
-  def parse(file, dir, options = {})
+  def parse(file, options = {})
     @epub_file = file
     options = options.merge({:book => self})
-    Parser.parse(file, dir, options)
+    Parser.parse(file, options)
   end
   module_function :parse
 
