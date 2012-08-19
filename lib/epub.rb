@@ -19,7 +19,6 @@ module EPUB
     options = options.merge({:book => self})
     Parser.parse(file, options)
   end
-  module_function :parse
 
   %w[ title main_title subtitle short_title collection_title edition_title extended_title ].each do |met|
     define_method met do
