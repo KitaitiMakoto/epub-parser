@@ -6,7 +6,7 @@ require 'epub/parser'
 module EPUB
   modules = [ :ocf, :package, :content_document ]
   attr_reader *modules
-  attr_reader :epub_file
+  attr_accessor :epub_file
   modules.each do |mod|
     define_method "#{mod}=" do |obj|
       instance_variable_set "@#{mod}", obj

@@ -19,6 +19,7 @@ module EPUB
 
       @filepath = File.realpath filepath
       @book = create_book options
+      @book.epub_file = @filepath
     end
 
     def parse
