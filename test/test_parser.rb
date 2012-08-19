@@ -1,6 +1,5 @@
 require File.expand_path 'helper', File.dirname(__FILE__)
 require 'epub/parser'
-require 'fileutils'
 
 class MyBook
   include EPUB
