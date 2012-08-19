@@ -16,4 +16,4 @@ OPTIONS
 -------
 
  * `-f`, `--format`:
-   Output format; currently "line", "json" and "yaml" are acceptable
+   Output format; currently "line"(for human reading), "json" and "yaml" are acceptable
