@@ -9,15 +9,15 @@ module EPUB
     class Publication
       class << self
         def parse(zip_archive, file)
-          new(zip_archive, file).parse
+          opf = zip_archive.fopen(file).read
+          new(opf, file).parse
         end
       end
 
-      def initialize(zip_archive, file)
+      def initialize(opf, rootfile)
         @package = EPUB::Publication::Package.new
-        @rootfile = Addressable::URI.parse(file)
-        entry = zip_archive.fopen(file)
-        @doc = Nokogiri.XML(entry.read)
+        @rootfile = Addressable::URI.parse(rootfile)
+        @doc = Nokogiri.XML(opf)
       end
 
       def parse

@@ -5,9 +5,10 @@ require 'epub/parser/publication'
 class TestParserPublication < Test::Unit::TestCase
   def setup
     file = 'test/fixtures/book.epub'
-    root_file = 'OPS/ルートファイル.opf'
+    rootfile = 'OPS/ルートファイル.opf'
     @zip = Zip::Archive.open(file)
-    @parser = EPUB::Parser::Publication.new(@zip, root_file)
+    opf = @zip.fopen(rootfile).read
+    @parser = EPUB::Parser::Publication.new(opf, rootfile)
     @package = @parser.parse_package
   end
 
