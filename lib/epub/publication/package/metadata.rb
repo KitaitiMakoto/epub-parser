@@ -51,10 +51,10 @@ module EPUB
             end
           end
 
-          attr_accessor :refiners
+          attr_writer :refiners
 
-          def initialize
-            @refiners = []
+          def refiners
+            @refiners ||= []
           end
         end
 
