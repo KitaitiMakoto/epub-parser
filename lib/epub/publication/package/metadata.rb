@@ -41,20 +41,20 @@ module EPUB
         end
 
         module Refinable
+          attr_writer :refiners
+
+          def refiners
+            @refiners ||= []
+          end
+
           PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
 
           PROPERTIES.each do |voc|
             met = voc.gsub(/-/, '_')
             attr_accessor met
             define_method met do
-              @refiners.select {|refiner| refiner.property == voc}.first
+              refiners.select {|refiner| refiner.property == voc}.first
             end
-          end
-
-          attr_writer :refiners
-
-          def refiners
-            @refiners ||= []
           end
         end
 
