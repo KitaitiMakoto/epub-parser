@@ -26,8 +26,10 @@ For more info:
     end
 
 See the [wiki][] for more info.
+Or [API Documentation][rubydoc].
 
-[wiki]:https://github.com/KitaitiMakoto/epub-parser/wiki
+[wiki]: https://github.com/KitaitiMakoto/epub-parser/wiki
+[rubydoc]: http://rubydoc.info/gems/epub-parser/frames
 
 REQUIREMENTS
 ------------
