@@ -183,7 +183,7 @@ module EPUB
       end
 
       def parse_bindings
-        raise 'still not implemented'
+        raise NotImplementedError, 'still not implemented'
       end
 
       def collect_dcmes(elem, selector)
