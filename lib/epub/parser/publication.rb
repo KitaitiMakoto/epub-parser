@@ -26,7 +26,7 @@ module EPUB
         parse_manifest
         parse_spine
         parse_guide
-        # parse_bindings
+        parse_bindings
 
         @package
       end
@@ -180,7 +180,17 @@ module EPUB
       end
 
       def parse_bindings
-        raise NotImplementedError, 'still not implemented'
+        bindings = @package.bindings = EPUB::Publication::Package::Bindings.new
+        @doc.xpath('/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES).each do |elem|
+          media_type = EPUB::Publication::Package::Bindings::MediaType.new
+          media_type.media_type = elem['media-type']
+          items = @package.manifest.items
+          index = items.index {|item| item.id == elem['handler']}
+          media_type.handler = items[index] if index
+          bindings << media_type
+        end
+
+        bindings
       end
 
       def collect_dcmes(elem, selector)
