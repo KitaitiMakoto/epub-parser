@@ -2,7 +2,8 @@ module EPUB
   module Publication
     class Package
       class Bindings
-        attr_accessor :media_types
+        attr_accessor :package,
+                      :media_types
 
         def <<(media_type)
           @media_types ||= []

@@ -5,7 +5,7 @@ module EPUB
     class Package
       attr_accessor :book,
                     :version, :unique_identifier_id, :prefix, :xml_lang, :dir, :id
-      attr_reader :metadata, :manifest, :spine, :guide, :unique_identifier
+      attr_reader :metadata, :manifest, :spine, :guide, :bindings, :unique_identifier
       alias lang  xml_lang
       alias lang= xml_lang=
 
@@ -27,6 +27,11 @@ module EPUB
       def guide=(guide)
         guide.package = self
         @guide = guide
+      end
+
+      def bindings=(bindings)
+        bindings.package = self
+        @buindings = bindings
       end
 
       def unique_identifier
