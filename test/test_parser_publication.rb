@@ -160,7 +160,7 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_media_type_has_handler_attribute
-      assert_equal @bindings.media_types.first.handler
+      assert_not_nil @bindings.media_types.first.handler
     end
 
     def test_media_type_refers_item_as_handler
