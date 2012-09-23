@@ -26,12 +26,7 @@ module EPUB
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Nav.new
         nav.heading = find_heading element
-
-        # to find type, need to use strict xpath for handling namespaces?
-        # And if so, where should the namespaces be defined?
-        # nav.type = element['epub:type']
-        element.namespaces['epub'] = "http://www.idpf.org/2007/ops"
-        nav.type = element['epub:type']
+        nav.type = element['type']
 
         nav
       end
