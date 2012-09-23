@@ -51,7 +51,7 @@ module EPUB
 
           PROPERTIES.each do |voc|
             met = voc.gsub(/-/, '_')
-            attr_accessor met
+            attr_writer met
             define_method met do
               refiners.select {|refiner| refiner.property == voc}.first
             end
