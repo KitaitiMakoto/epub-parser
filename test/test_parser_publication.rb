@@ -154,7 +154,7 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_media_type_has_media_type_attribute
-      assert_equal 'application/x-demo-sideshow', @bindings.media_types.first.media_type
+      assert_equal 'application/x-demo-slideshow', @bindings.media_types.first.media_type
     end
 
     def test_media_type_has_handler_attribute
