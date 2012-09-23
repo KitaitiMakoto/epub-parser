@@ -4,7 +4,8 @@ require 'yard'
 require 'cucumber'
 require 'cucumber/rake/task'
 
-task :default => 'test:default'
+task :default => :test
+task :test => 'test:default'
 
 namespace :test do
   task :default => [:build, :test]
