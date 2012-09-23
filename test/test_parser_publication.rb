@@ -138,4 +138,31 @@ class TestParserPublication < Test::Unit::TestCase
       assert_instance_of EPUB::Publication::Package::Manifest::Item, @guide.cover.item
     end
   end
+
+  class TestParseBindings < TestParserPublication
+    def setup
+      super
+      @bindings = @parser.parse_bindings
+    end
+
+    def test_has_one_bindings
+      assert @bindings
+    end
+
+    def test_bindings_has_one_media_type
+      assert_equal 1, @bindings.media_types.length
+    end
+
+    def test_media_type_has_media_type_attribute
+      assert_equal 'application/x-demo-sideshow', @bindings.media_types.first.media_type
+    end
+
+    def test_media_type_has_handler_attribute
+      assert_equal @bindings.media_types.first.handler
+    end
+
+    def test_media_type_refers_item_as_handler
+      assert_kind_of EPUB::Publication::Package::Manifest::Item, @bindings.media_types.first.handler
+    end
+  end
 end
