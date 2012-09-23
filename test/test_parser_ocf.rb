@@ -7,6 +7,7 @@ class TestParserOCF < Test::Unit::TestCase
     file = 'test/fixtures/book.epub'
     @zip = Zip::Archive.open(file)
     @parser = EPUB::Parser::OCF.new(@zip)
+    @container_xml = @zip.fopen('META-INF/container.xml').read
   end
 
   def teardown
@@ -14,11 +15,11 @@ class TestParserOCF < Test::Unit::TestCase
   end
 
   def test_parsed_container_has_one_rootfile
-    assert_equal 1, @parser.parse_container.rootfiles.length
+    assert_equal 1, @parser.parse_container(@container_xml).rootfiles.length
   end
 
   def test_parse_container_can_find_primary_rootfile
-    container = @parser.parse_container
+    container = @parser.parse_container(@container_xml)
 
     assert_equal 'OPS/ルートファイル.opf', container.rootfile.full_path
   end

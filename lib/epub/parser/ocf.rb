@@ -21,16 +21,17 @@ module EPUB
       end
 
       def parse
-        EPUB::OCF::MODULES.each do |m|
+        container_xml  = @zip.fopen(File.join(DIRECTORY, CONTAINER_FILE)).read
+        @ocf.container = parse_container(container_xml)
+        (EPUB::OCF::MODULES - ['container']).each do |m|
           @ocf.__send__ "#{m}=", __send__("parse_#{m}")
         end
         @ocf
       end
 
-      def parse_container
+      def parse_container(xml)
         container = EPUB::OCF::Container.new
-        entry  = @zip.fopen(File.join(DIRECTORY, CONTAINER_FILE))
-        doc = Nokogiri.XML(entry.read)
+        doc = Nokogiri.XML(xml)
         doc.xpath('/ocf:container/ocf:rootfiles/ocf:rootfile', EPUB::NAMESPACES).each do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
           %w[full-path media-type].each do |attr|
