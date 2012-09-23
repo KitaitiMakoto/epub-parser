@@ -4,7 +4,7 @@ require 'epub/parser/content_document'
 class TestParserContentDocument < Test::Unit::TestCase
   def setup
     @dir = 'test/fixtures/book'
-    @parser = EPUB::Parser::ContentDocument.new @dir
+    @parser = EPUB::Parser::ContentDocument.new
   end
 
   def test_parse_navigations
