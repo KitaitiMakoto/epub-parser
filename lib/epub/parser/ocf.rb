@@ -43,18 +43,23 @@ module EPUB
       end
 
       def parse_encryption
+        warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
       end
 
       def parse_manifest
+        warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
       end
 
       def parse_metadata
+        warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
       end
 
       def parse_rights
+        warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
       end
 
       def parse_signatures
+        warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
       end
     end
   end
