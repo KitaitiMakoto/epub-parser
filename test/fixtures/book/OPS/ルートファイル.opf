@@ -89,4 +89,8 @@
   <guide>
     <reference type="cover" href="cover.xhtml#start" title="カバー"/>
   </guide>
+  <bindings>
+    <mediaType handler="impl"
+               media-type="application/x-demo-slideshow"/>
+  </bindings>
 </package>
