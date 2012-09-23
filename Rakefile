@@ -8,6 +8,7 @@ task :default => :test
 
 Rake::TestTask.new do |task|
   task.test_files = FileList['test/**/test_*.rb']
+  task.warning = true
   task.options = '--no-show-detail-immediately --verbose'
 end
 
