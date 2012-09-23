@@ -40,6 +40,7 @@ REQUIREMENTS
 TODOS
 -----
 * Adding tests
+* Modify methods around fallback to check bindings element in the package
 * Implementing navigation document and so on
 * Using SAX on parsing
 * Extracting and organizing common behavior from some classes to modules
