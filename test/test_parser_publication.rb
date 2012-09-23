@@ -45,8 +45,8 @@ class TestParserPublication < Test::Unit::TestCase
       @manifest = @parser.parse_manifest
     end
 
-    def test_manifest_has_8_items
-      assert_equal 8, @manifest.items.length
+    def test_manifest_has_10_items
+      assert_equal 10, @manifest.items.length
     end
 
     def test_item_has_relative_path_as_iri_attribute
