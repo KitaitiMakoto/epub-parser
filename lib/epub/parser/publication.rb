@@ -167,7 +167,7 @@ module EPUB
 
       def parse_guide
         guide = @package.guide = EPUB::Publication::Package::Guide.new
-        elem = @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
+        @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
           reference = EPUB::Publication::Package::Guide::Reference.new
           %w[ type title href ].each do |attr|
             reference.__send__("#{attr}=", ref[attr])
