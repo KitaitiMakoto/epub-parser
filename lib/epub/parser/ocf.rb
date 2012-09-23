@@ -21,11 +21,14 @@ module EPUB
       end
 
       def parse
-        container_xml  = @zip.fopen(File.join(DIRECTORY, CONTAINER_FILE)).read
-        @ocf.container = parse_container(container_xml)
-        (EPUB::OCF::MODULES - ['container']).each do |m|
-          @ocf.__send__ "#{m}=", __send__("parse_#{m}")
+        EPUB::OCF::MODULES.each do |m|
+          begin
+            file = @zip.fopen(File.join(DIRECTORY, self.class.const_get("#{m.upcase}_FILE")))
+            @ocf.__send__ "#{m}=", __send__("parse_#{m}", file.read)
+          rescue Zip::Error
+          end
         end
+
         @ocf
       end
 
