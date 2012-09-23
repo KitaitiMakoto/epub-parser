@@ -4,19 +4,17 @@ require 'yard'
 require 'cucumber'
 require 'cucumber/rake/task'
 
-task :default => :test
+task :default => 'test:default'
 
-Rake::TestTask.new do |task|
-  task.test_files = FileList['test/**/test_*.rb']
-  task.warning = true
-  task.options = '--no-show-detail-immediately --verbose'
-end
+namespace :test do
+  task :default => [:build, :test]
 
-YARD::Rake::YardocTask.new
+  Rake::TestTask.new do |task|
+    task.test_files = FileList['test/**/test_*.rb']
+    task.warning = true
+    task.options = '--no-show-detail-immediately --verbose'
+  end
 
-Cucumber::Rake::Task.new
-
-namespace :sample do
   desc 'Build the test fixture EPUB'
   task :build do
     input_dir  = 'test/fixtures/book'
@@ -25,3 +23,8 @@ namespace :sample do
     sh "epzip #{input_dir}"
   end
 end
+
+
+YARD::Rake::YardocTask.new
+
+Cucumber::Rake::Task.new
