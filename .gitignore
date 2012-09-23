@@ -8,4 +8,5 @@ coverage/*
 samples/*
 doc/*
 NOTE
+test/fixtures/book.epub
 *~
