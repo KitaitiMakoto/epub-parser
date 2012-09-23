@@ -1,4 +1,4 @@
-require File.expand_path('helper', File.dirname(__FILE__))
+require_relative 'helper'
 require 'epub/parser/content_document'
 
 class TestParserContentDocument < Test::Unit::TestCase
