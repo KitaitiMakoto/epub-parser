@@ -63,9 +63,6 @@ module EPUB
 
           title
         end
-        # metadata.titles = collect_dcmes(elem, './dc:title') do |title, e|
-        #   title.content = e.content
-        # end
         metadata.titles.each {|t| id_map[t.id] = {metadata: t} if t.respond_to?(:id) && t.id}
 
         metadata.languages = elem.xpath('./dc:language', EPUB::NAMESPACES).collect do |e|
