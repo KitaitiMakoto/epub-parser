@@ -2,18 +2,20 @@ module EPUB
   module Publication
     class Package
       class Bindings
-        attr_accessor :package,
-                      :media_types
-
-        def [](media_type)
-          index = @media_types.index {|mt| mt.media_type == media_type}
-          return index unless index
-          @media_types[index]
-        end
+        attr_accessor :package
 
         def <<(media_type)
-          @media_types ||= []
-          @media_types << media_type
+          @media_types ||= {}
+          @media_types[media_type.media_type] = media_type
+        end
+
+        def [](media_type)
+          key, mt = @media_types.detect {|key, _| key == media_type}
+          mt
+        end
+
+        def media_types
+          @media_types.collect {|_, media_type| media_type}
         end
 
         class MediaType
