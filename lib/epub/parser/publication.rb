@@ -185,8 +185,7 @@ module EPUB
           media_type = EPUB::Publication::Package::Bindings::MediaType.new
           media_type.media_type = elem['media-type']
           items = @package.manifest.items
-          index = items.index {|item| item.id == elem['handler']}
-          media_type.handler = items[index] if index
+          media_type.handler = items.detect {|item| item.id == elem['handler']}
           bindings << media_type
         end
 
