@@ -37,6 +37,13 @@ class TestParserPublication < Test::Unit::TestCase
     def test_has_five_titles
       assert_equal 5, @metadata.titles.length
     end
+
+    def test_returns_extended_title_as_title_attribute_if_exists
+      assert_equal 'The Great Cookbooks of the World: 
+        Mon premier guide de cuisson, un Mémoire. 
+        The New French Cuisine Masters, Volume Two. 
+        Special Anniversary Edition', @metadata.title
+    end
   end
 
   class TestParseManifest < TestParserPublication
