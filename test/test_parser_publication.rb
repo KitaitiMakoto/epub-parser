@@ -155,6 +155,12 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal 1, @bindings.media_types.length
     end
 
+    def test_bindings_is_accessible_like_hash
+      media_type = @bindings.media_types.first
+      assert_equal media_type, @bindings['application/x-demo-slideshow']
+      assert_nil @bindings['non-existing-media-type']
+    end
+
     def test_media_type_has_media_type_attribute
       assert_equal 'application/x-demo-slideshow', @bindings.media_types.first.media_type
     end
