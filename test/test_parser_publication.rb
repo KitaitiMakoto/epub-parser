@@ -44,6 +44,14 @@ class TestParserPublication < Test::Unit::TestCase
         The New French Cuisine Masters, Volume Two. 
         Special Anniversary Edition', @metadata.title
     end
+
+    def test_titles_has_order
+      titles = @metadata.titles
+      assert titles[0] > titles[1]
+      assert titles[1] < titles[2]
+      assert titles[2] < titles[3]
+      assert titles[3] > titles[4]
+    end
   end
 
   class TestParseManifest < TestParserPublication
