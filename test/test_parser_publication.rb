@@ -124,6 +124,26 @@ class TestParserPublication < Test::Unit::TestCase
     end
   end
 
+  class TestParseSpine < TestParserPublication
+    def setup
+      super
+      @spine = @parser.parse_spine
+    end
+
+    def test_each_itemref_yields_itemref_in_order_on_spine_element
+      expected = %w[nav manifest-item-1 manifest-item-2].map {|idref|
+        itemref = EPUB::Publication::Package::Spine::Itemref.new
+        itemref.id = nil
+        itemref.spine = @spine
+        itemref.idref = idref
+        itemref.linear = true
+        itemref.properties = []
+        itemref
+      }
+      assert_equal expected, @spine.each_itemref.to_a
+    end
+  end
+
   class TestParseGuide < TestParserPublication
     def setup
       super
