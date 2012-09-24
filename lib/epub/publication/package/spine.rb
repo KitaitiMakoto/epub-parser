@@ -40,6 +40,12 @@ module EPUB
           def item
             @item ||= @spine.package.manifest[idref]
           end
+
+          def ==(other)
+            [:spine, :idref, :linear, :id].all? {|meth|
+              self.__send__(meth) == other.__send__(meth)
+            } and (other.properties - properties).empty?
+          end
         end
       end
     end
