@@ -10,7 +10,7 @@ module EPUB
         end
 
         def [](media_type)
-          key, mt = @media_types.detect {|key, _| key == media_type}
+          _, mt = @media_types.detect {|key, _| key == media_type}
           mt
         end
 
