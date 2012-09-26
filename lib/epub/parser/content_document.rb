@@ -18,7 +18,7 @@ module EPUB
       # @param [Nokogiri::HTML::Document] document HTML document or element including nav
       # @return [Array<EPUB::ContentDocument::Navigation::Nav>] navs array of Nav object
       def parse_navigations(document)
-        navs = document.search('/xhtml:html/xhtml:body//xhtml:nav', EPUB::NAMESPACES).collect {|elem| parse_navigation elem}
+        document.search('/xhtml:html/xhtml:body//xhtml:nav', EPUB::NAMESPACES).collect {|elem| parse_navigation elem}
       end
 
       # @param [Nokogiri::XML::Element] nav nav element
