@@ -58,37 +58,24 @@ module EPUB
           end
         end
 
-        class Identifier
+        class DCMES
           include Refinable
 
-          attr_accessor :content, :id
+          attr_accessor :content, :id, :lang, :dir
 
           def to_s
             content
           end
         end
 
-        class Title
-          include Refinable
+        class Title < DCMES
           include Comparable
-
-          attr_accessor :content, :id, :lang, :dir
 
           def <=>(other)
             return 1 if other.display_seq.nil?
             return -1 if display_seq.nil?
             display_seq.to_s.to_i <=> other.display_seq.to_s.to_i
           end
-
-          def to_s
-            content
-          end
-        end
-
-        class DCMES
-          include Refinable
-
-          attr_accessor :content, :id, :lang, :dir
 
           def to_s
             content
