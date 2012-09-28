@@ -1,11 +1,11 @@
-%w[ metadata manifest spine guide bindings ].each { |f| require "epub/publication/package/#{f}" }
-
 module EPUB
   module Publication
     class Package
+      CONTENT_MODELS = [:metadata, :manifest, :spine, :guide, :bindings]
+
       attr_accessor :book,
                     :version, :unique_identifier_id, :prefix, :xml_lang, :dir, :id
-      attr_reader :metadata, :manifest, :spine, :guide, :bindings
+      attr_reader *CONTENT_MODELS
       alias lang  xml_lang
       alias lang= xml_lang=
 
@@ -44,4 +44,8 @@ module EPUB
       end
     end
   end
+end
+
+EPUB::Publication::Package::CONTENT_MODELS.each do |f|
+  require_relative "package/#{f}"
 end
