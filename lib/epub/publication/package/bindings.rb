@@ -15,7 +15,7 @@ module EPUB
         end
 
         def media_types
-          @media_types.collect {|_, media_type| media_type}
+          @media_types.values
         end
 
         class MediaType

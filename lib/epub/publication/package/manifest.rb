@@ -28,7 +28,7 @@ module EPUB
         end
 
         def items
-          @items.collect {|_, item| item}
+          @items.values
         end
 
         def [](item_id)
