@@ -34,7 +34,7 @@ module EPUB
       def parse_package
         elem = @doc.root
         @package.version = elem['version']
-        @package.unique_identifier_id = elem['unique-identifier']
+        @unique_identifier_id = elem['unique-identifier']
 
         @package
       end
@@ -48,7 +48,7 @@ module EPUB
           identifier = EPUB::Publication::Package::Metadata::Identifier.new
           identifier.content = e.content
           identifier.id = id = e['id']
-          metadata.unique_identifier = identifier if id == @package.unique_identifier_id
+          metadata.unique_identifier = identifier if id == @unique_identifier_id
 
           identifier
         end

@@ -15,7 +15,7 @@ module EPUB
       end
 
       attr_accessor :book,
-                    :version, :unique_identifier_id, :prefix, :xml_lang, :dir, :id
+                    :version, :prefix, :xml_lang, :dir, :id
       attr_reader *CONTENT_MODELS
       alias lang  xml_lang
       alias lang= xml_lang=
