@@ -20,6 +20,11 @@ class TestParserPublication < Test::Unit::TestCase
     assert_equal '3.0', @package.version
   end
 
+  def test_has_unique_identifier
+    assert_equal 'pub-id', @package.unique_identifier.id
+    assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @package.unique_identifier.to_s
+  end
+
   class TestParseMetadata < TestParserPublication
     def setup
       super
