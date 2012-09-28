@@ -41,13 +41,13 @@ module EPUB
         end
 
         module Refinable
+          PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
+
           attr_writer :refiners
 
           def refiners
             @refiners ||= []
           end
-
-          PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
 
           PROPERTIES.each do |voc|
             met = voc.gsub(/-/, '_')
