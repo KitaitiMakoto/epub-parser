@@ -3,40 +3,25 @@ module EPUB
     class Package
       CONTENT_MODELS = [:metadata, :manifest, :spine, :guide, :bindings]
 
+      class << self
+        def define_content_model(model_name)
+          define_method "#{model_name}=" do |model|
+            current_model = __send__(model_name)
+            current_model.package = nil if current_model
+            model.package = self
+            instance_variable_set "@#{model_name}", model
+          end
+        end
+      end
+
       attr_accessor :book,
                     :version, :unique_identifier_id, :prefix, :xml_lang, :dir, :id
       attr_reader *CONTENT_MODELS
       alias lang  xml_lang
       alias lang= xml_lang=
 
-      def metadata=(metadata)
-        @metadata.package = nil if @metadata
-        metadata.package = self
-        @metadata = metadata
-      end
-
-      def manifest=(manifest)
-        @manifest.package = nil if @manifest
-        manifest.package = self
-        @manifest = manifest
-      end
-
-      def spine=(spine)
-        @spine.package = nil if @spine
-        spine.package = self
-        @spine = spine
-      end
-
-      def guide=(guide)
-        @guide.package = nil if @guide
-        guide.package = self
-        @guide = guide
-      end
-
-      def bindings=(bindings)
-        @bindings.package = nil if @bindings
-        bindings.package = self
-        @buindings = bindings
+      CONTENT_MODELS.each do |model|
+        define_content_model model
       end
 
       def unique_identifier
