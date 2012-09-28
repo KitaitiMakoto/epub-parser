@@ -10,26 +10,31 @@ module EPUB
       alias lang= xml_lang=
 
       def metadata=(metadata)
+        @metadata.package = nil if @metadata
         metadata.package = self
         @metadata = metadata
       end
 
       def manifest=(manifest)
+        @manifest.package = nil if @manifest
         manifest.package = self
         @manifest = manifest
       end
 
       def spine=(spine)
+        @spine.package = nil if @spine
         spine.package = self
         @spine = spine
       end
 
       def guide=(guide)
+        @guide.package = nil if @guide
         guide.package = self
         @guide = guide
       end
 
       def bindings=(bindings)
+        @bindings.package = nil if @bindings
         bindings.package = self
         @buindings = bindings
       end
