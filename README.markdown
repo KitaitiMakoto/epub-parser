@@ -34,7 +34,6 @@ Or [API Documentation][rubydoc].
 
 REQUIREMENTS
 ------------
-* libzip for Zip/Ruby gem
 * libxml2 and libxslt for Nokogiri gem
 
 TODOS
