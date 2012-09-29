@@ -129,11 +129,10 @@ module EPUB
         fallback_map = {}
         elem.xpath('./opf:item', EPUB::NAMESPACES).each do |e|
           item = EPUB::Publication::Package::Manifest::Item.new
-          %w[ id media-type media-overlay ].each do |attr|
+          %w[ id media-type media-overlay href ].each do |attr|
             item.__send__("#{attr.gsub(/-/, '_')}=", e[attr])
           end
-          item.href = e['href']
-          item.iri = @rootfile.join Addressable::URI.parse(e['href'])
+          item.iri = @rootfile.join Addressable::URI.parse(item.href)
           fallback_map[e['fallback']] = item if e['fallback']
           item.properties = e['properties'] ? e['properties'].split(' ') : []
           manifest << item
