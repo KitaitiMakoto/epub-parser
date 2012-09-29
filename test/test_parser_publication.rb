@@ -21,6 +21,7 @@ class TestParserPublication < Test::Unit::TestCase
   end
 
   def test_has_unique_identifier
+    @package.metadata = @parser.parse_metadata
     assert_equal 'pub-id', @package.unique_identifier.id
     assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @package.unique_identifier.to_s
   end
