@@ -1,6 +1,12 @@
 module EPUB
   module ContentDocument
     class Navigation
+      module Type
+        TOC       = 'toc'
+        PAGE_LIST = 'page_list'
+        LANDMARKS = 'landmarks'
+      end
+
       attr_accessor :navs
       alias navigations navs
       alias navigations= navs=

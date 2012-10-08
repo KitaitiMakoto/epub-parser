@@ -10,12 +10,6 @@ module EPUB
       'svg'   => 'http://www.w3.org/2000/svg'
     }
 
-    module Type
-      TOC       = 'toc'
-      PAGE_LIST = 'page_list'
-      LANDMARKS = 'landmarks'
-    end
-
     module MediaType
       class UnsupportedError < StandardError; end
 
