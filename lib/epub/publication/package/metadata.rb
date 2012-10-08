@@ -82,10 +82,6 @@ module EPUB
             return -1 if display_seq.nil?
             display_seq.to_s.to_i <=> other.display_seq.to_s.to_i
           end
-
-          def to_s
-            content
-          end
         end
 
         class Meta
