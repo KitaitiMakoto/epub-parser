@@ -40,7 +40,7 @@ module EPUB
                         :id, :href, :media_type, :fallback, :properties, :media_overlay,
                         :iri
 
-          # To do: Handle circular fallback chain
+          # @todo Handle circular fallback chain
           def fallback_chain
             return @fallback_chain if @fallback_chain
             @fallback_chain = traverse_fallback_chain([])
@@ -52,7 +52,7 @@ module EPUB
             }
           end
 
-          # To do: Handle circular fallback chain
+          # @todo Handle circular fallback chain
           def use_fallback_chain(options = {})
             supported = EPUB::MediaType::CORE
             if ad = options[:supported]
