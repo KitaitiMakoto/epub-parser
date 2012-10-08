@@ -13,7 +13,7 @@ module EPUB
         end
 
         def initialize
-          (DC_ELEMS + [:metas, :links] ).each do |elem|
+          (DC_ELEMS + [:metas, :links]).each do |elem|
             __send__ "#{elem}=", []
           end
         end
