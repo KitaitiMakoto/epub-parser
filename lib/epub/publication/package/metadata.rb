@@ -12,6 +12,12 @@ module EPUB
           alias_method "#{elem}=", "dc_#{elem}="
         end
 
+        def initialize
+          (DC_ELEMS + [:metas, :links] ).each do |elem|
+            __send__ "#{elem}=", []
+          end
+        end
+
         def title
           return extended_title unless extended_title.empty?
           compositted = titles.select {|title| title.display_seq}.sort.join("\n")
