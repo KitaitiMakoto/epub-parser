@@ -1,5 +1,6 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
+require 'rake/clean'
 require 'yard'
 require 'cucumber'
 require 'cucumber/rake/task'
