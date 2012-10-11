@@ -36,6 +36,22 @@ module EPUB
         end
 
         class Item
+          # @!attribute [rw] manifest
+          #   @return [Manifest] Returns the value of manifest
+          # @!attribute [rw] id
+          #   @return [String] Returns the value of id
+          # @!attribute [rw] href
+          #   @return [String] Returns the value of href
+          # @!attribute [rw] media_type
+          #   @return [String] Returns the value of media_type
+          # @!attribute [rw] properties
+          #   @return [Array<String>] Returns the value of properties
+          # @!attribute [rw] media_overlay
+          #   @return [String] Returns the value of media_overlay
+          # @!attribute [rw] fallback
+          #   @return [Item] Returns the value of attribute fallback
+          # @!attribute [rw] iri
+          #   @return [Addressable::URI] Returns the value of attribute iri
           attr_accessor :manifest,
                         :id, :href, :media_type, :fallback, :properties, :media_overlay,
                         :iri
