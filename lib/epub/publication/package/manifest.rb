@@ -78,15 +78,12 @@ module EPUB
               supported = supported - (del.respond_to?(:to_ary) ? del : [del])
             end
 
-            if supported.include? media_type
-              yield self
-            elsif binding_media_type = manifest.package.bindings[media_type]
-              yield binding_media_type.handler
-            elsif fallback
-              fallback.use_fallback_chain(options) {|fb| yield fb}
-            else
-              raise EPUB::MediaType::UnsupportedError
+            return yield self if supported.include? media_type
+            if (bindings = manifest.package.bindings) && (binding_media_type = bindings[media_type])
+              return yield binding_media_type.handler
             end
+            return fallback.use_fallback_chain(options) {|fb| yield fb} if fallback
+            raise EPUB::MediaType::UnsupportedError
           end
 
           protected
