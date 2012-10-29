@@ -213,5 +213,12 @@ class TestParserPublication < Test::Unit::TestCase
     def test_media_type_refers_item_as_handler
       assert_kind_of EPUB::Publication::Package::Manifest::Item, @bindings.media_types.first.handler
     end
+
+    def test_use_fallback_chain_use_bindings
+      item = @package.manifest['slideshow']
+      item.use_fallback_chain do |slideshow|
+        assert_equal 'impl', slideshow.id
+      end
+    end
   end
 end
