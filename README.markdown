@@ -42,6 +42,7 @@ TODOS
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
 * Fixed Layout
+* Digital Signature
 * Using SAX on parsing
 * Extracting and organizing common behavior from some classes to modules
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
