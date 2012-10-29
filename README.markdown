@@ -26,8 +26,7 @@ For more info:
       # do somethong...
     end
 
-See the [wiki][] for more info.
-Or [API Documentation][rubydoc].
+See the [wiki][] or [API Documentation][rubydoc] for more info.
 
 [wiki]: https://github.com/KitaitiMakoto/epub-parser/wiki
 [rubydoc]: http://rubydoc.info/gems/epub-parser/frames
