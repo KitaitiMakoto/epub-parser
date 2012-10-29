@@ -39,8 +39,10 @@ REQUIREMENTS
 TODOS
 -----
 * Adding tests
-* Modify methods around fallback to check bindings element in the package
+* Modify methods around fallback to see `bindings` element in the package
+* Vocabulary Association Mechanisms
 * Implementing navigation document and so on
+* Fixed Layout
 * Using SAX on parsing
 * Extracting and organizing common behavior from some classes to modules
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
