@@ -14,4 +14,3 @@ class TestPublication < Test::Unit::TestCase
     assert_nil metadata.package
   end
 end
-
