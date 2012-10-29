@@ -46,8 +46,10 @@ module EPUB
         container
       end
 
-      def parse_encryption
-        warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
+      def parse_encryption(content)
+        encryption = EPUB::OCF::Encryption.new
+        encryption.content = content
+        encryption
       end
 
       def parse_manifest

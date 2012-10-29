@@ -24,6 +24,12 @@ class TestParserOCF < Test::Unit::TestCase
     assert_equal 'OPS/ルートファイル.opf', container.rootfile.full_path
   end
 
+  def test_parse_encryption_do_nothing_excluding_to_have_content
+    encryption = @parser.parse_encryption('content')
+
+    assert_equal 'content', encryption.content
+  end
+
   def test_parse
     assert_nothing_raised do
       @parser.parse
