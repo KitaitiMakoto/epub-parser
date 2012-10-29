@@ -80,8 +80,8 @@ module EPUB
 
             if supported.include? media_type
               yield self
-            elsif binding = manifest.package.bindings[media_type]
-              yield binding.handler
+            elsif binding_media_type = manifest.package.bindings[media_type]
+              yield binding_media_type.handler
             elsif fallback
               fallback.use_fallback_chain(options) {|fb| yield fb}
             else
