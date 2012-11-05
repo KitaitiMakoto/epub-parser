@@ -107,8 +107,7 @@ module EPUB
         class Link
           include Refinable
 
-          attr_accessor :href, :rel, :id, :refines, :media_type,
-                        :iri
+          attr_accessor :href, :rel, :id, :refines, :media_type
         end
       end
     end

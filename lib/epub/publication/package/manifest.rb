@@ -41,7 +41,7 @@ module EPUB
           # @!attribute [rw] id
           #   @return [String] Returns the value of id
           # @!attribute [rw] href
-          #   @return [String] Returns the value of href
+          #   @return [Addressable::URI] Returns the value of href
           # @!attribute [rw] media_type
           #   @return [String] Returns the value of media_type
           # @!attribute [rw] properties
@@ -50,11 +50,8 @@ module EPUB
           #   @return [String] Returns the value of media_overlay
           # @!attribute [rw] fallback
           #   @return [Item] Returns the value of attribute fallback
-          # @!attribute [rw] iri
-          #   @return [Addressable::URI] Returns the value of attribute iri
           attr_accessor :manifest,
-                        :id, :href, :media_type, :fallback, :properties, :media_overlay,
-                        :iri
+                        :id, :href, :media_type, :fallback, :properties, :media_overlay
 
           # @todo Handle circular fallback chain
           def fallback_chain
@@ -64,7 +61,7 @@ module EPUB
 
           def read
             Zip::Archive.open(manifest.package.book.epub_file) {|zip|
-              zip.fopen(iri.to_s).read
+              zip.fopen(href.request_uri).read
             }
           end
 

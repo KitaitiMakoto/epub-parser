@@ -35,9 +35,16 @@ REQUIREMENTS
 ------------
 * libxml2 and libxslt for Nokogiri gem
 
+CHANGELOG
+---------
+
+### 0.1.1
+* `Manifest::Item#iri` wes removed. It have existed for files in unzipped epub books but now EPUB Parser retrieves files from zip archive directly. `#href` now returns `Addressable::URI` object.
+* `Metadata::Link#iri`: ditto.
+* `Guide::Reference#iri`: ditto.
+
 TODOS
 -----
-* Adding tests
 * Modify methods around fallback to see `bindings` element in the package
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on

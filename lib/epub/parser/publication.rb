@@ -95,10 +95,10 @@ module EPUB
 
         metadata.links = elem.xpath('./opf:link', EPUB::NAMESPACES).collect do |e|
           link = EPUB::Publication::Package::Metadata::Link.new
-          %w[ href id media-type ].each do |attr|
+          %w[ id media-type ].each do |attr|
             link.__send__(attr.gsub(/-/, '_') + '=', e[attr])
           end
-          link.iri = Addressable::URI.parse(e['href'])
+          link.href = Addressable::URI.parse(e['href'])
           link.rel = e['rel'].strip.split
           if (refines = e['refines']) && refines[0] == '#'
             id = refines[1..-1]
@@ -129,10 +129,10 @@ module EPUB
         fallback_map = {}
         elem.xpath('./opf:item', EPUB::NAMESPACES).each do |e|
           item = EPUB::Publication::Package::Manifest::Item.new
-          %w[ id media-type media-overlay href ].each do |attr|
+          %w[ id media-type media-overlay ].each do |attr|
             item.__send__("#{attr.gsub(/-/, '_')}=", e[attr])
           end
-          item.iri = @rootfile.join Addressable::URI.parse(item.href)
+          item.href = @rootfile.join Addressable::URI.parse(e['href'])
           fallback_map[e['fallback']] = item if e['fallback']
           item.properties = e['properties'] ? e['properties'].split(' ') : []
           manifest << item
@@ -168,10 +168,10 @@ module EPUB
         guide = @package.guide = EPUB::Publication::Package::Guide.new
         @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
           reference = EPUB::Publication::Package::Guide::Reference.new
-          %w[ type title href ].each do |attr|
+          %w[ type title ].each do |attr|
             reference.__send__("#{attr}=", ref[attr])
           end
-          reference.iri = @rootfile.join Addressable::URI.parse(reference.href)
+          reference.href = @rootfile.join Addressable::URI.parse(ref['href'])
           guide << reference
         end
 

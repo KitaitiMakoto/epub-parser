@@ -70,8 +70,8 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal 10, @manifest.items.length
     end
 
-    def test_item_has_relative_path_as_iri_attribute
-      assert_equal 'OPS/nav.xhtml', @manifest['nav'].iri.to_s
+    def test_item_has_relative_path_as_href_attribute
+      assert_equal 'OPS/nav.xhtml', @manifest['nav'].href.to_s
     end
 
     def test_fallback_attribute_of_item_should_be_item_object
@@ -134,7 +134,7 @@ class TestParserPublication < Test::Unit::TestCase
 
     def test_item_with_absolute_iri_as_href_must_keep_it
       item = @manifest['external-css']
-      assert_equal 'http://example.net/stylesheets/common.css', item.iri.to_s
+      assert_equal 'http://example.net/stylesheets/common.css', item.href.to_s
     end
   end
 
