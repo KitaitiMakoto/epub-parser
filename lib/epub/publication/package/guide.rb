@@ -32,7 +32,6 @@ module EPUB
           def item
             return @item if @item
 
-            len = href.fragment.nil? ? 1 : href.fragment.length + 2
             request_uri = href.request_uri
             @item = @guide.package.manifest.items.selector do |item|
               item.href.request_uri == request_uri
