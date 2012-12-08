@@ -20,7 +20,6 @@ namespace :test do
   desc 'Build the test fixture EPUB'
   task :build do
     input_dir  = 'test/fixtures/book'
-    output_dir = 'test/fixtures/'
     FileList["#{input_dir}/**/*"]
     sh "epzip #{input_dir}"
   end
