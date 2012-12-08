@@ -10,7 +10,10 @@ Usage: epubinfo [options] EPUBFILE
 
 EOB
   opt.version = EPUB::Parser::VERSION
-  opt.on '-f', '--format=FORMAT', [:line, :json, :yaml], 'format of output(line, json or yaml), defaults to line(for console)' do |format|
+  formats = [:line, :json, :yaml]
+  nl_formats = formats.dup
+  nl_last = nl_formats.pop
+  opt.on '-f', '--format=FORMAT', formats, "format of output(#{nl_formats.join(', ')} or #{nl_last}), defaults to line(for console)" do |format|
     options[:format] = format
   end
 end

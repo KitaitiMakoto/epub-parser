@@ -57,6 +57,12 @@
           href="item-2.xhtml"
           media-type="application/pdf"
           fallback="manifest-item-fallback"/>
+    <item id="large-file-name"
+          href="CASE-SENSITIVE.xhtml"
+          media-type="application/xhtml+xml"/>
+    <item id="small-file-name"
+          href="case-sensitive.xhtml"
+          media-type="application/xhtml+xml"/>
     <item id="impl"
           href="impl.xhtml"
           media-type="application/xhtml+xml"

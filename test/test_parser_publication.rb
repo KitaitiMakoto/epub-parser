@@ -66,8 +66,8 @@ class TestParserPublication < Test::Unit::TestCase
       @manifest = @parser.parse_manifest
     end
 
-    def test_manifest_has_10_items
-      assert_equal 10, @manifest.items.length
+    def test_manifest_has_12_items
+      assert_equal 12, @manifest.items.length
     end
 
     def test_item_has_relative_path_as_href_attribute
@@ -90,6 +90,14 @@ class TestParserPublication < Test::Unit::TestCase
       doc = Nokogiri.XML item.read
 
       assert_equal 'html', doc.root.name
+    end
+
+    def test_iri_of_item_is_case_sensitive
+      book = Object.new
+      stub(@package).book {book}
+      stub(book).epub_file {'test/fixtures/book.epub'}
+
+      assert_not_equal @manifest['large-file-name'].read, @manifest['small-file-name'].read
     end
 
     def test_item_can_traverse_fallback_chain
