@@ -27,6 +27,8 @@ namespace :test do
 end
 
 
-YARD::Rake::YardocTask.new
+YARD::Rake::YardocTask.new do |task|
+  task.files = %w[- wiki/*.md]
+end
 
 Cucumber::Rake::Task.new
