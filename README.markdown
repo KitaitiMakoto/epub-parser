@@ -45,7 +45,6 @@ CHANGELOG
 
 TODOS
 -----
-* Modify methods around fallback to see `bindings` element in the package
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
 * Fixed Layout
@@ -57,6 +56,7 @@ TODOS
 DONE
 ----
 * Using zip library instead of `unzip` command, which has security issue
+* Modify methods around fallback to see `bindings` element in the package
 
 LICENSE
 -------
