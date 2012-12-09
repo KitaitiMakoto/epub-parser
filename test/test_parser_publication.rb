@@ -71,7 +71,7 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_item_has_relative_path_as_href_attribute
-      assert_equal 'OPS/nav.xhtml', @manifest['nav'].href.to_s
+      assert_equal 'nav.xhtml', @manifest['nav'].href.to_s
     end
 
     def test_fallback_attribute_of_item_should_be_item_object
