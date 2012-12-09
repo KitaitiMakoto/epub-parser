@@ -3,7 +3,7 @@ module EPUB
     class Container
       FILE = 'container.xml'
 
-      attr_accessor :rootfiles
+      attr_reader :rootfiles
 
       def initialize
         @rootfiles = []
