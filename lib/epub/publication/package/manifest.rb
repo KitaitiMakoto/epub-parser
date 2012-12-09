@@ -60,8 +60,10 @@ module EPUB
           end
 
           def read
+            rootfile = Addressable::URI.parse(manifest.package.book.ocf.container.rootfile.full_path)
             Zip::Archive.open(manifest.package.book.epub_file) {|zip|
-              zip.fopen(href.request_uri).read
+              path = rootfile + href.request_uri
+              zip.fopen(path.to_s).read
             }
           end
 

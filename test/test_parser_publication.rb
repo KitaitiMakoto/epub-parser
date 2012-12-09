@@ -82,22 +82,16 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_item_is_readable
-      book = Object.new
-      mock(@package).book {book}
-      mock(book).epub_file {'test/fixtures/book.epub'}
-
-      item = @manifest.items.first
+      item = EPUB::Parser.parse('test/fixtures/book.epub').package.manifest.items.first
       doc = Nokogiri.XML item.read
 
       assert_equal 'html', doc.root.name
     end
 
     def test_iri_of_item_is_case_sensitive
-      book = Object.new
-      stub(@package).book {book}
-      stub(book).epub_file {'test/fixtures/book.epub'}
+      manifest = EPUB::Parser.parse('test/fixtures/book.epub').package.manifest
 
-      assert_not_equal @manifest['large-file-name'].read, @manifest['small-file-name'].read
+      assert_not_equal manifest['large-file-name'].read, manifest['small-file-name'].read
     end
 
     def test_item_can_traverse_fallback_chain
