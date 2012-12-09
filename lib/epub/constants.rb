@@ -13,6 +13,7 @@ module EPUB
     module MediaType
       class UnsupportedError < StandardError; end
 
+      ROOTFILE = 'application/oebps-package+xml'
       IMAGE = %w[
         image/gif
         image/jpeg
