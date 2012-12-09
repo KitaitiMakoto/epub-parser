@@ -16,12 +16,13 @@ module EPUB
         end
 
         %w[cover title-page toc index glossary acknowledgements bibliography colophon copyright-page dedication epigraph foreword loi lot notes preface text].each do |type|
-          define_method type do
-            var = instance_variable_get "@#{type}"
+          method_name = type.gsub('-', '_')
+          define_method method_name do
+            var = instance_variable_get "@#{method_name}"
             return var if var
 
-            var = references.selector {|ref| ref.type == type.to_s}.first
-            instance_variable_set "@#{type}", var
+            var = references.selector {|ref| ref.type == type}.first
+            instance_variable_set "@#{method_name}", var
           end
         end
 
