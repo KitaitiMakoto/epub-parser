@@ -132,7 +132,7 @@ module EPUB
           %w[ id media-type media-overlay ].each do |attr|
             item.__send__("#{attr.gsub(/-/, '_')}=", e[attr])
           end
-          item.href = @rootfile.join Addressable::URI.parse(e['href'])
+          item.href = Addressable::URI.parse(e['href'])
           fallback_map[e['fallback']] = item if e['fallback']
           item.properties = e['properties'] ? e['properties'].split(' ') : []
           manifest << item
@@ -171,7 +171,7 @@ module EPUB
           %w[ type title ].each do |attr|
             reference.__send__("#{attr}=", ref[attr])
           end
-          reference.href = @rootfile.join Addressable::URI.parse(ref['href'])
+          reference.href = Addressable::URI.parse(ref['href'])
           guide << reference
         end
 
