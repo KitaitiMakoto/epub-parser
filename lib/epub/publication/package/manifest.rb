@@ -55,8 +55,7 @@ module EPUB
 
           # @todo Handle circular fallback chain
           def fallback_chain
-            return @fallback_chain if @fallback_chain
-            @fallback_chain = traverse_fallback_chain([])
+            @fallback_chain ||= traverse_fallback_chain([])
           end
 
           def read
