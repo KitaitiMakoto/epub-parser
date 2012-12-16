@@ -27,8 +27,9 @@ class TestParserPublication < Test::Unit::TestCase
   end
 
   def test_has_prefixes_for_vocabulary
-    assert_equal ({'foaf' => 'http://xmlns.com/foaf/spec/', 'dbp' => 'http://dbpedia.org/ontology/'}),
-                 @package.prefix
+    expected = {'foaf' => 'http://xmlns.com/foaf/spec/',
+                'dbp'  => 'http://dbpedia.org/ontology/'}
+    assert_equal expected, @package.prefix
   end
 
   def test_has_empty_hash_as_prefix_when_no_prefix_attribute
