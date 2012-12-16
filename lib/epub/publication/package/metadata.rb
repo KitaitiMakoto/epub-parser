@@ -46,7 +46,7 @@ module EPUB
           metas.select {|meta| meta.primary_expression?}
         end
 
-        module Refinable
+        module Refinee
           PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
 
           attr_writer :refiners
@@ -59,13 +59,13 @@ module EPUB
             met = voc.gsub(/-/, '_')
             attr_writer met
             define_method met do
-              refiners.select {|refiner| refiner.property == voc}.first
+              refiners.selector {|refiner| refiner.property == voc}.first
             end
           end
         end
 
         class DCMES
-          include Refinable
+          include Refinee
 
           attr_accessor :content, :id, :lang, :dir
 
@@ -85,14 +85,13 @@ module EPUB
         end
 
         class Meta
-          include Refinable
+          include Refinee
 
           attr_accessor :property, :refines, :id, :scheme, :content
 
           def refines?
             ! refines.nil?
           end
-
           alias subexpression? refines?
 
           def primary_expression?
@@ -105,7 +104,7 @@ module EPUB
         end
 
         class Link
-          include Refinable
+          include Refinee
 
           attr_accessor :href, :rel, :id, :refines, :media_type
         end
