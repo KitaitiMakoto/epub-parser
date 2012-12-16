@@ -20,14 +20,20 @@ module EPUB
     Parser.parse(file, options)
   end
 
+  Publication::Package::CONTENT_MODELS.each do |model|
+    define_method model do
+      package.__send__(model)
+    end
+  end
+
   %w[ title main_title subtitle short_title collection_title edition_title extended_title ].each do |met|
     define_method met do
-      @package.metadata.__send__(met)
+      metadata.__send__(met)
     end
   end
 
   def each_page_on_spine(&blk)
-    enum = @package.spine.items
+    enum = package.spine.items
     if block_given?
       enum.each &blk
     else
@@ -36,10 +42,11 @@ module EPUB
   end
 
   def each_page_on_toc(&blk)
+    raise NotImplementedError
   end
 
   def each_content(&blk)
-    enum = @package.manifest.items
+    enum = manifest.items
     if block_given?
       enum.each &blk
     else
@@ -48,10 +55,11 @@ module EPUB
   end
 
   def other_navigation
+    raise NotImplementedError
   end
 
   def resources
-    @package.manifest.items
+    manifest.items
   end
 
   # Syntax sugar
@@ -61,6 +69,6 @@ module EPUB
 
   # Syntax sugar
   def cover_image
-    package.manifest.cover_image
+    manifest.cover_image
   end
 end
