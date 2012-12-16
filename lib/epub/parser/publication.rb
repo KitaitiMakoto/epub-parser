@@ -119,7 +119,6 @@ module EPUB
         id_map.values.each do |hsh|
           next unless hsh[:refiners]
           next unless hsh[:metadata]
-          hsh[:metadata].refiners = hsh[:refiners]
           hsh[:refiners].each {|meta| meta.refines = hsh[:metadata]}
         end
 

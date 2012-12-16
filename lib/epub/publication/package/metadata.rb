@@ -87,7 +87,13 @@ module EPUB
         class Meta
           include Refinee
 
-          attr_accessor :property, :refines, :id, :scheme, :content
+          attr_accessor :property, :id, :scheme, :content
+          attr_reader :refines
+
+          def refines=(refinee)
+            @refines = refinee
+            refinee.refiners << self
+          end
 
           def refines?
             ! refines.nil?
@@ -106,7 +112,13 @@ module EPUB
         class Link
           include Refinee
 
-          attr_accessor :href, :rel, :id, :refines, :media_type
+          attr_accessor :href, :rel, :id, :media_type
+          attr_reader :refines
+
+          def refines=(refinee)
+            @refines = refinee
+            refinee.refiners << self
+          end
         end
       end
     end

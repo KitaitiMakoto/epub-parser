@@ -13,4 +13,20 @@ class TestPublication < Test::Unit::TestCase
     package.metadata = another_metadata
     assert_nil metadata.package
   end
+
+  class TestMetadata < TestPublication
+    def test_meta_refines_setter_connect_refinee_to_the_meta
+      refiner = EPUB::Publication::Package::Metadata::Meta.new
+      refinee = EPUB::Publication::Package::Metadata::Meta.new
+      refiner.refines = refinee
+      assert_same refinee.refiners.first, refiner 
+    end
+
+    def test_link_refines_setter_connect_refinee_to_the_link
+      refiner = EPUB::Publication::Package::Metadata::Meta.new
+      refinee = EPUB::Publication::Package::Metadata::Meta.new
+      refiner.refines = refinee
+      assert_same refinee.refiners.first, refiner 
+    end
+  end
 end
