@@ -26,10 +26,10 @@ unless file
   abort
 end
 
-book = EPUB::Parser.parse file
+book = EPUB::Parser.parse(file)
 data = {'Title' => [book.title]}
-data.merge!(book.package.metadata.to_hash)
-data['Unique identifier'] = [book.package.metadata.unique_identifier]
+data.merge!(book.metadata.to_hash)
+data['Unique identifier'] = [book.metadata.unique_identifier]
 data['EPUB Version'] = [book.package.version]
 if options[:format] == :line
   key_width = data.keys.map {|k| k.length}.max + 3
