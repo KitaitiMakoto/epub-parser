@@ -12,17 +12,19 @@ task :test => 'test:default'
 namespace :test do
   task :default => [:build, :test]
 
+  desc 'Build test fixture EPUB file'
+  task :build do
+    input_dir  = 'test/fixtures/book'
+    sh "epzip #{input_dir}"
+  end
+
   Rake::TestTask.new do |task|
     task.test_files = FileList['test/**/test_*.rb']
     task.warning = true
     task.options = '--no-show-detail-immediately --verbose'
   end
 
-  desc 'Build test fixture EPUB file'
-  task :build do
-    input_dir  = 'test/fixtures/book'
-    sh "epzip #{input_dir}"
-  end
+  Cucumber::Rake::Task.new
 end
 
 
@@ -46,5 +48,3 @@ namespace :gem do
     Bundler::GemHelper.new.release_gem
   end
 end
-
-Cucumber::Rake::Task.new
