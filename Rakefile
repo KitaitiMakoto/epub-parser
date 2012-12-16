@@ -18,7 +18,7 @@ namespace :test do
     task.options = '--no-show-detail-immediately --verbose'
   end
 
-  desc 'Build the test fixture EPUB'
+  desc 'Build test fixture EPUB file'
   task :build do
     input_dir  = 'test/fixtures/book'
     FileList["#{input_dir}/**/*"]
