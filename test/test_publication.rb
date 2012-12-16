@@ -23,7 +23,7 @@ class TestPublication < Test::Unit::TestCase
     end
 
     def test_link_refines_setter_connect_refinee_to_the_link
-      refiner = EPUB::Publication::Package::Metadata::Meta.new
+      refiner = EPUB::Publication::Package::Metadata::Link.new
       refinee = EPUB::Publication::Package::Metadata::Meta.new
       refiner.refines = refinee
       assert_same refinee.refiners.first, refiner 
