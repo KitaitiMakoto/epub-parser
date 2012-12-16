@@ -21,7 +21,7 @@ module EPUB
         document.search('/xhtml:html/xhtml:body//xhtml:nav', EPUB::NAMESPACES).collect {|elem| parse_navigation elem}
       end
 
-      # @param [Nokogiri::XML::Element] nav nav element
+      # @param [Nokogiri::XML::Element] element nav element
       # @return [EPUB::ContentDocument::Navigation::Nav] nav Nav object
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Nav.new
@@ -33,7 +33,7 @@ module EPUB
 
       private
 
-      # @param [Nokogiri::XML::Element] nav nav element
+      # @param [Nokogiri::XML::Element] element nav element
       # @return [String] heading heading text
       def find_heading(element)
         heading = element.xpath('./xhtml:h1|xhtml:h2|xhtml:h3|xhtml:h4|xhtml:h5|xhtml:h6|xhtml:hgroup', EPUB::NAMESPACES).first
