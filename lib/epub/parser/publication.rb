@@ -1,3 +1,4 @@
+require 'strscan'
 require 'zipruby'
 require 'nokogiri'
 require 'addressable/uri'
@@ -33,8 +34,12 @@ module EPUB
 
       def parse_package
         elem = @doc.root
-        @package.version = elem['version']
+        %w[version xml:lang dir id].each do |attr|
+          writer = attr.gsub(/\:/, '_') + '='
+          @package.__send__(writer, elem[attr])
+        end
         @unique_identifier_id = elem['unique-identifier']
+        @package.prefix = parse_prefix(elem['prefix'])
 
         @package
       end
@@ -189,6 +194,24 @@ module EPUB
         end
 
         bindings
+      end
+
+      def parse_prefix(str)
+        prefixes = {}
+        return prefixes if str.nil? or str.empty?
+        scanner = StringScanner.new(str)
+        scanner.scan /\s*/
+        while prefix = scanner.scan(/[^\:\s]+/)
+          scanner.scan /[\:\s]+/
+          iri = scanner.scan(/[^\s]+/)
+          if iri.nil? or iri.empty?
+            warn "no IRI detected for prefix `#{prefix}`"
+          else
+            prefixes[prefix] = iri
+          end
+          scanner.scan /\s*/
+        end
+        prefixes
       end
 
       def collect_dcmes(elem, selector)

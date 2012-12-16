@@ -26,6 +26,11 @@ class TestParserPublication < Test::Unit::TestCase
     assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @package.unique_identifier.to_s
   end
 
+  def test_has_prefixes_for_vocabulary
+    assert_equal ({'foaf' => 'http://xmlns.com/foaf/spec/', 'dbp' => 'http://dbpedia.org/ontology/'}),
+                 @package.prefix
+  end
+
   class TestParseMetadata < TestParserPublication
     def setup
       super
