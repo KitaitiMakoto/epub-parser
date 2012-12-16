@@ -21,7 +21,6 @@ namespace :test do
   desc 'Build test fixture EPUB file'
   task :build do
     input_dir  = 'test/fixtures/book'
-    FileList["#{input_dir}/**/*"]
     sh "epzip #{input_dir}"
   end
 end
@@ -31,19 +30,21 @@ YARD::Rake::YardocTask.new do |task|
   task.files = %w[- wiki/*.md]
 end
 
-desc "Build epub-parser-#{EPUB::Parser::VERSION}.gem into the pkg directory."
-task :build => :yard do
-  Bundler::GemHelper.new.build_gem
-end
+namespace :gem do
+  desc "Build epub-parser-#{EPUB::Parser::VERSION}.gem into the pkg directory."
+  task :build => :yard do
+    Bundler::GemHelper.new.build_gem
+  end
 
-desc "Build and install epub-parser-#{EPUB::Parser::VERSION}.gem into system gems."
-task :install => :yard do
-  Bundler::GemHelper.new.install_gem
-end
+  desc "Build and install epub-parser-#{EPUB::Parser::VERSION}.gem into system gems."
+  task :install => :yard do
+    Bundler::GemHelper.new.install_gem
+  end
 
-desc "Create tag v#{EPUB::Parser::VERSION} and build and push epub-parser-#{EPUB::Parser::VERSION}.gem to Rubygems"
-task :release => :yard do
-  Bundler::GemHelper.new.release_gem
+  desc "Create tag v#{EPUB::Parser::VERSION} and build and push epub-parser-#{EPUB::Parser::VERSION}.gem to Rubygems"
+  task :release => :yard do
+    Bundler::GemHelper.new.release_gem
+  end
 end
 
 Cucumber::Rake::Task.new
