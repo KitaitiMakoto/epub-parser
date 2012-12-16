@@ -31,6 +31,12 @@ class TestParserPublication < Test::Unit::TestCase
                  @package.prefix
   end
 
+  def test_has_empty_hash_as_prefix_when_no_prefix_attribute
+    parser = EPUB::Parser::Publication.new('<package></package>', '')
+    package = parser.parse_package
+    assert_empty package.prefix
+  end
+
   class TestParseMetadata < TestParserPublication
     def setup
       super
