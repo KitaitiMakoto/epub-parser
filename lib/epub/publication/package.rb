@@ -2,6 +2,15 @@ module EPUB
   module Publication
     class Package
       CONTENT_MODELS = [:metadata, :manifest, :spine, :guide, :bindings]
+      RESERVED_VOCABULARY_PREFIXES = {
+        ''        => 'http://idpf.org/epub/vocab/package/#',
+        'dcterms' => 'http://purl.org/dc/terms/',
+        'marc'    => 'http://id.loc.gov/vocabulary/',
+        'media'   => 'http://www.idpf.org/epub/vocab/overlays/#',
+        'onix'    => 'http://www.editeur.org/ONIX/book/codelists/current.html#',
+        'xsd'     => 'http://www.w3.org/2001/XMLSchema#'
+      }
+
 
       class << self
         def define_content_model(model_name)
