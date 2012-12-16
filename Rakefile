@@ -45,6 +45,7 @@ end
 
 desc "Create tag v#{EPUB::Parser::VERSION} and build and push epub-parser-#{EPUB::Parser::VERSION}.gem to Rubygems"
 task :release => :yard do
+  gem_helper.release_gem
 end
 
 Cucumber::Rake::Task.new
