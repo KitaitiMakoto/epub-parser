@@ -31,21 +31,19 @@ YARD::Rake::YardocTask.new do |task|
   task.files = %w[- wiki/*.md]
 end
 
-gem_helper = Bundler::GemHelper.new
-
 desc "Build epub-parser-#{EPUB::Parser::VERSION}.gem into the pkg directory."
 task :build => :yard do
-  gem_helper.build_gem
+  Bundler::GemHelper.new.build_gem
 end
 
 desc "Build and install epub-parser-#{EPUB::Parser::VERSION}.gem into system gems."
 task :install => :yard do
-  gem_helper.install_gem
+  Bundler::GemHelper.new.install_gem
 end
 
 desc "Create tag v#{EPUB::Parser::VERSION} and build and push epub-parser-#{EPUB::Parser::VERSION}.gem to Rubygems"
 task :release => :yard do
-  gem_helper.release_gem
+  Bundler::GemHelper.new.release_gem
 end
 
 Cucumber::Rake::Task.new
