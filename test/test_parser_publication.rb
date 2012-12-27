@@ -100,6 +100,12 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal 'html', doc.root.name
     end
 
+    def test_item_unescape_href_when_reading_file
+      item = EPUB::Parser.parse('test/fixtures/book.epub').package.manifest['containing-encoded-space']
+      doc = Nokogiri.HTML(item.read)
+      assert_equal 'Containing Space', (doc/'title').first.content
+    end
+
     def test_iri_of_item_is_case_sensitive
       manifest = EPUB::Parser.parse('test/fixtures/book.epub').package.manifest
 
