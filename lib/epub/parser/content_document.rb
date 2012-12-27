@@ -26,11 +26,8 @@ module EPUB
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Nav.new
         nav.heading = find_heading(element)
-
-        ns_prefix, _ = element.namespaces.detect {|prefix, uri| uri == EPUB::NAMESPACES['epub']}
-        prefix = ns_prefix.split(':')[1]
-        attr_name = [prefix, 'type'].compact.join(':')
-        nav.type = element[attr_name]
+        attr = element.attribute_with_ns('type', EPUB::NAMESPACES['epub'])
+        nav.type = attr.nil? ? nil : attr.value
 
         nav
       end
