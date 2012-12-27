@@ -105,9 +105,7 @@
     <itemref idref="nav"/>
     <itemref idref="manifest-item-1"/>
     <itemref idref="manifest-item-2"/>
-    <itemref idref="containing-space"/>
     <itemref idref="containing-encoded-space"/>
-    <itemref idref="japanese-filename"/>
     <itemref idref="encoded-japanese-filename"/>
   </spine>
   <guide>
