@@ -25,8 +25,12 @@ module EPUB
       # @return [EPUB::ContentDocument::Navigation::Nav] nav Nav object
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Nav.new
-        nav.heading = find_heading element
-        nav.type = element['type']
+        nav.heading = find_heading(element)
+
+        ns_prefix, _ = element.namespaces.detect {|prefix, uri| uri == EPUB::NAMESPACES['epub']}
+        prefix = ns_prefix.split(':')[1]
+        attr_name = [prefix, 'type'].compact.join(':')
+        nav.type = element[attr_name]
 
         nav
       end
