@@ -37,6 +37,8 @@ REQUIREMENTS
 
 CHANGELOG
 ---------
+### 0.1.2
+* Fix a bug that `Item#read` couldn't read file when `href` is percent-encoded(Thanks, gambhiro!)
 
 ### 0.1.1
 * Parse package@prefix and attach it as `Package#prefix`
