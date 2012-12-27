@@ -16,7 +16,7 @@ namespace :test do
   task :all => [:build, :test, :cucumber]
 
   desc 'Build test fixture EPUB file'
-  task :build do
+  task :build => :clean do
     input_dir  = 'test/fixtures/book'
     sh "epzip #{input_dir}"
   end

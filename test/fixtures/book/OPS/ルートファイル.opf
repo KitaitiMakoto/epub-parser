@@ -88,11 +88,27 @@
     <item id="external-css"
           href="http://example.net/stylesheets/common.css"
           media-type="text/css"/>
+    <item id="containing-space"
+          href="containing space.xhtml"
+          media-type="application/xhtml+xml"/>
+    <item id="containing-encoded-space"
+          href="containing%20space.xhtml"
+          media-type="application/xhtml+xml"/>
+    <item id="japanese-filename"
+          href="日本語.xhtml"
+          media-type="application/xhtml+xml"/>
+    <item id="encoded-japanese-filename"
+          href="%E6%97%A5%E6%9C%AC%E8%AA%9E.xhtml"
+          media-type="application/xhtml+xml"/>
   </manifest>
   <spine>
     <itemref idref="nav"/>
     <itemref idref="manifest-item-1"/>
     <itemref idref="manifest-item-2"/>
+    <itemref idref="containing-space"/>
+    <itemref idref="containing-encoded-space"/>
+    <itemref idref="japanese-filename"/>
+    <itemref idref="encoded-japanese-filename"/>
   </spine>
   <guide>
     <reference type="cover" href="cover.xhtml#start" title="カバー"/>
