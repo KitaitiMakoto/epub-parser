@@ -69,6 +69,13 @@ module EPUB
 
           attr_accessor :content, :id, :lang, :dir
 
+          def inspect
+            ivs = instance_variables.map {|iv|
+              [iv, instance_variable_get(iv).inspect].join('=')
+            }.join(' ')
+            '<#%s:%#0x %s>' % [self.class, __id__, ivs]
+          end
+
           def to_s
             content
           end
@@ -102,6 +109,13 @@ module EPUB
 
           def primary_expression?
             ! subexpression?
+          end
+
+          def inspect
+            ivs = instance_variables.map {|iv|
+              [iv, instance_variable_get(iv).inspect].join('=')
+            }.join(' ')
+            '<#%s:%#0x %s>' % [self.class, __id__, ivs]
           end
 
           def to_s
