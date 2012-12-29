@@ -4,3 +4,4 @@ SimpleCov.start do
 end
 
 require 'test/unit/full'
+require 'epub/parser'

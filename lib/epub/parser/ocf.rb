@@ -6,6 +6,8 @@ require 'nokogiri'
 module EPUB
   class Parser
     class OCF
+      include Utils
+
       DIRECTORY = 'META-INF'
       EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"}
 
@@ -38,7 +40,8 @@ module EPUB
         doc.xpath('/ocf:container/ocf:rootfiles/ocf:rootfile', EPUB::NAMESPACES).each do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
           %w[full-path media-type].each do |attr|
-            rootfile.__send__(attr.gsub(/-/, '_') + '=', elem[attr])
+            value = extract_attribute(elem, attr)
+            rootfile.__send__(attr.gsub(/-/, '_') + '=', value)
           end
           container.rootfiles << rootfile
         end

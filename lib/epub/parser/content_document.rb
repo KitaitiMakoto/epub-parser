@@ -5,6 +5,8 @@ require 'nokogiri'
 module EPUB
   class Parser
     class ContentDocument
+      include Utils
+
       class << self
         def parse
           new.parse
@@ -26,8 +28,7 @@ module EPUB
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Nav.new
         nav.heading = find_heading(element)
-        attr = element.attribute_with_ns('type', EPUB::NAMESPACES['epub'])
-        nav.type = attr.nil? ? nil : attr.value
+        nav.type = extract_attribute(element, 'type', 'epub')
 
         nav
       end

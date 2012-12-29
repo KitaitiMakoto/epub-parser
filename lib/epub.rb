@@ -1,7 +1,6 @@
 require 'epub/ocf'
 require 'epub/publication'
 require 'epub/content_document'
-require 'epub/parser'
 
 module EPUB
   modules = [ :ocf, :package, :content_document ]

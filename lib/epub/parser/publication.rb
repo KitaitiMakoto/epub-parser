@@ -8,6 +8,8 @@ require 'epub/constants'
 module EPUB
   class Parser
     class Publication
+      include Utils
+
       class << self
         def parse(zip_archive, file)
           opf = zip_archive.fopen(Addressable::URI.unencode(file)).read
@@ -36,10 +38,11 @@ module EPUB
         elem = @doc.root
         %w[version xml:lang dir id].each do |attr|
           writer = attr.gsub(/\:/, '_') + '='
-          @package.__send__(writer, elem[attr])
+          value = extract_attribute(elem, attr)
+          @package.__send__(writer, value)
         end
         @unique_identifier_id = elem['unique-identifier']
-        @package.prefix = parse_prefix(elem['prefix'])
+        @package.prefix = parse_prefix(extract_attribute(elem, 'prefix'))
 
         @package
       end
@@ -52,7 +55,7 @@ module EPUB
         metadata.identifiers = elem.xpath('./dc:identifier', EPUB::NAMESPACES).collect do |e|
           identifier = EPUB::Publication::Package::Metadata::DCMES.new
           identifier.content = e.content
-          identifier.id = id = e['id']
+          identifier.id = id = extract_attribute(e, 'id')
           metadata.unique_identifier = identifier if id == @unique_identifier_id
 
           identifier
@@ -62,7 +65,7 @@ module EPUB
         metadata.titles = elem.xpath('./dc:title', EPUB::NAMESPACES).collect do |e|
           title = EPUB::Publication::Package::Metadata::Title.new
           %w[ id lang dir ].each do |attr|
-            title.__send__("#{attr}=", e[attr])
+            title.__send__("#{attr}=", extract_attribute(e, attr))
           end
           title.content = e.content
 
@@ -85,9 +88,12 @@ module EPUB
 
         metadata.metas = elem.xpath('./opf:meta', EPUB::NAMESPACES).collect do |e|
           meta = EPUB::Publication::Package::Metadata::Meta.new
-          %w[ property id scheme ].each { |attr| meta.__send__("#{attr}=", e[attr]) }
+          %w[property id scheme].each do |attr|
+            meta.__send__ "#{attr}=", extract_attribute(e, attr)
+          end
           meta.content = e.content
-          if (refines = e['refines']) && refines[0] == '#'
+          refines = extract_attribute(e, 'refines')
+          if refines && refines[0] == '#'
             id = refines[1..-1]
             id_map[id] ||= {}
             id_map[id][:refiners] ||= []
@@ -101,11 +107,12 @@ module EPUB
         metadata.links = elem.xpath('./opf:link', EPUB::NAMESPACES).collect do |e|
           link = EPUB::Publication::Package::Metadata::Link.new
           %w[ id media-type ].each do |attr|
-            link.__send__(attr.gsub(/-/, '_') + '=', e[attr])
+            link.__send__ (attr.gsub(/-/, '_') + '='), extract_attribute(e, attr)
           end
-          link.href = Addressable::URI.parse(e['href'])
-          link.rel = e['rel'].strip.split
-          if (refines = e['refines']) && refines[0] == '#'
+          link.href = Addressable::URI.parse(extract_attribute(e, 'href'))
+          link.rel = extract_attribute(e, 'rel').strip.split
+          refines = extract_attribute(e, 'refines')
+          if refines && refines[0] == '#'
             id = refines[1..-1]
             id_map[id] ||= {}
             id_map[id][:refiners] ||= []
@@ -128,17 +135,19 @@ module EPUB
       def parse_manifest
         manifest = @package.manifest = EPUB::Publication::Package::Manifest.new
         elem = @doc.xpath('/opf:package/opf:manifest', EPUB::NAMESPACES).first
-        manifest.id = elem['id']
+        manifest.id = extract_attribute(elem, 'id')
 
         fallback_map = {}
         elem.xpath('./opf:item', EPUB::NAMESPACES).each do |e|
           item = EPUB::Publication::Package::Manifest::Item.new
           %w[ id media-type media-overlay ].each do |attr|
-            item.__send__("#{attr.gsub(/-/, '_')}=", e[attr])
+            item.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
           end
-          item.href = Addressable::URI.parse(e['href'])
-          fallback_map[e['fallback']] = item if e['fallback']
-          item.properties = e['properties'] ? e['properties'].split(' ') : []
+          item.href = Addressable::URI.parse(extract_attribute(e, 'href'))
+          fallback = extract_attribute(e, 'fallback')
+          fallback_map[fallback] = item if fallback
+          properties = extract_attribute(e, 'properties')
+          item.properties = properties ? properties.split(' ') : []
           manifest << item
         end
         fallback_map.each_pair do |id, from|
@@ -152,16 +161,17 @@ module EPUB
         spine = @package.spine = EPUB::Publication::Package::Spine.new
         elem = @doc.xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
         %w[ id toc page-progression-direction ].each do |attr|
-          spine.__send__("#{attr.gsub(/-/, '_')}=", elem[attr])
+          spine.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(elem, attr)
         end
 
         elem.xpath('./opf:itemref', EPUB::NAMESPACES).each do |e|
           itemref = EPUB::Publication::Package::Spine::Itemref.new
           %w[ idref id ].each do |attr|
-            itemref.__send__("#{attr}=", e[attr])
+            itemref.__send__ "#{attr}=", extract_attribute(e, attr)
           end
-          itemref.linear = (e['linear'] != 'no')
-          itemref.properties = e['properties'] ? e['properties'].split(' ') : []
+          itemref.linear = (extract_attribute(e, 'linear') != 'no')
+          properties = extract_attribute(e, 'properties')
+          itemref.properties = properties ? properties.split(' ') : []
           spine << itemref
         end
 
@@ -173,9 +183,9 @@ module EPUB
         @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
           reference = EPUB::Publication::Package::Guide::Reference.new
           %w[ type title ].each do |attr|
-            reference.__send__("#{attr}=", ref[attr])
+            reference.__send__ "#{attr}=", extract_attribute(ref, attr)
           end
-          reference.href = Addressable::URI.parse(ref['href'])
+          reference.href = Addressable::URI.parse(extract_attribute(ref, 'href'))
           guide << reference
         end
 
@@ -186,9 +196,9 @@ module EPUB
         bindings = @package.bindings = EPUB::Publication::Package::Bindings.new
         @doc.xpath('/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES).each do |elem|
           media_type = EPUB::Publication::Package::Bindings::MediaType.new
-          media_type.media_type = elem['media-type']
+          media_type.media_type = extract_attribute(elem, 'media-type')
           items = @package.manifest.items
-          media_type.handler = items.detect {|item| item.id == elem['handler']}
+          media_type.handler = items.detect {|item| item.id == extract_attribute(elem, 'handler')}
           bindings << media_type
         end
 
@@ -218,7 +228,7 @@ module EPUB
           md = EPUB::Publication::Package::Metadata::DCMES.new
           md.content = e.content
           %w[ id lang dir ].each do |attr|
-            md.__send__("#{attr}=", e[attr])
+            md.__send__ "#{attr}=", extract_attribute(e, attr)
           end
           yield(md, e) if block_given?
           md

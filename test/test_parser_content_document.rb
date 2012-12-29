@@ -1,5 +1,4 @@
 require_relative 'helper'
-require 'epub/parser/content_document'
 
 class TestParserContentDocument < Test::Unit::TestCase
   def setup

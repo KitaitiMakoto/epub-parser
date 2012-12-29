@@ -1,9 +1,5 @@
 require 'epub'
 require 'epub/constants'
-require 'epub/parser/version'
-require 'epub/parser/ocf'
-require 'epub/parser/publication'
-require 'epub/parser/content_document'
 require 'zipruby'
 require 'nokogiri'
 
@@ -67,5 +63,19 @@ module EPUB
         Book.new
       end
     end
+
+    module Utils
+      # @todo Use refinements instead of this method when Ruby 2.0 becomes popular
+      def extract_attribute(element, name, prefix=nil)
+        attr = element.attribute_with_ns(name, EPUB::NAMESPACES[prefix])
+        attr.nil? ? nil : attr.value
+      end
+      module_function :extract_attribute
+    end
   end
 end
+
+require 'epub/parser/version'
+require 'epub/parser/ocf'
+require 'epub/parser/publication'
+require 'epub/parser/content_document'

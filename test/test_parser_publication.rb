@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 require File.expand_path 'helper', File.dirname(__FILE__)
-require 'epub/parser/publication'
 
 class TestParserPublication < Test::Unit::TestCase
   def setup
