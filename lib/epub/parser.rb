@@ -6,6 +6,8 @@ require 'nokogiri'
 module EPUB
   class Parser
     class << self
+      # Parse an EPUB file
+      # 
       # @example
       #   EPUB::Parser.parse('path/to/book.epub') # => EPUB::Book object
       # @example
