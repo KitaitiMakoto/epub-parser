@@ -3,17 +3,23 @@ require 'optparse'
 require 'irb'
 require 'epub/parser'
 
-opts = OptionParser.new {|opt|
+shell = IRB
+
+OptionParser.new {|opt|
   opt.banner = <<EOB
 Open EPUB file in IRB
 
 Usage: #{File.basename($PROGRAM_NAME)} EPUBFILE
 
 EOB
-}.getopts
+  opt.on '--pry', 'Use Pry instead of IRB as shell' do
+    require 'pry'
+    shell = Pry
+  end
+}.parse!
 
 $0 = File.basename($PROGRAM_NAME)
 include EPUB
 EPUB::Parser.parse(ARGV.shift, :book => self)
-$stderr.puts 'Enter "exit" to exit IRB'
-IRB.start
+$stderr.puts "Enter \"exit\" to exit #{shell}"
+shell.start
