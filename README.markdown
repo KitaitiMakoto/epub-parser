@@ -38,6 +38,7 @@ REQUIREMENTS
 CHANGELOG
 ---------
 ### 0.1.3
+* Add `EPUB::Parser::Utils` module
 * Add a command-line tool `epub-open`
 
 ### 0.1.2
