@@ -9,19 +9,11 @@ INSTALLATION
 USAGE
 -----
 
-### As a command line tool
-
-    epubinfo path/to/book.epub
-
-For more info:
-
-    epubinfo -h
-
 ### As a library
 
     require 'epub/parser'
     
-    book = EPUB::Parser.parse 'book.epub'
+    book = EPUB::Parser.parse('book.epub')
     book.each_page_on_spine do |page|
       # do somethong...
     end
@@ -30,6 +22,46 @@ See the [wiki][] or [API Documentation][rubydoc] for more info.
 
 [wiki]: https://github.com/KitaitiMakoto/epub-parser/wiki
 [rubydoc]: http://rubydoc.info/gems/epub-parser/frames
+
+### `epubinfo` command-line tool
+
+`epubinfo` tool extracts and show the metadata of specified EPUB book.
+
+    epubinfo path/to/book.epub
+
+For more info:
+
+    epubinfo -h
+
+### `epub-open` command-line tool
+
+`epub-open` tool provides interactive shell(IRB) which helps you research about EPUB book.
+
+    epub-open path/to/book.epub
+
+For info for command-line options:
+
+    epub-open -h
+
+IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
+
+    title
+    => "Title of the book"
+    metadata.creators
+    => [Author 1, Author2, ...]
+    resources.first.properties
+    => ["nav"] # You know that first resource of this book is nav document
+    nav = resources.first
+    => ...
+    nav.href
+    => #<Addressable::URI:0x15ce350 URI:nav.xhtml>
+    nav.media_type
+    => "application/xhtml+xml"
+    nav.read
+    => "<?xml version=\"1.0\"?>\n<html xmlns=..." # XHTML document of nav
+    exit # Enter "exit" when exit the session
+
+Development of this tool is still work in progress.
 
 REQUIREMENTS
 ------------
@@ -52,6 +84,8 @@ CHANGELOG
 
 TODOS
 -----
+* Simple inspect for `epub-open` tool
+* Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
 * Fixed Layout
