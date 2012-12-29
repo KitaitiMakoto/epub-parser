@@ -61,7 +61,7 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
     => "<?xml version=\"1.0\"?>\n<html xmlns=..." # XHTML document of nav
     exit # Enter "exit" when exit the session
 
-Development of this tool is still work in progress.
+Development of this tool is still in progress.
 
 REQUIREMENTS
 ------------
