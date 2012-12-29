@@ -57,8 +57,12 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
     => #<Addressable::URI:0x15ce350 URI:nav.xhtml>
     nav.media_type
     => "application/xhtml+xml"
-    nav.read
-    => "<?xml version=\"1.0\"?>\n<html xmlns=..." # XHTML document of nav
+    puts nav.read
+    <?xml version="1.0"?>
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+    ...
+    (HTML of nav)
+    => nil
     exit # Enter "exit" when exit the session
 
 Development of this tool is still in progress.
