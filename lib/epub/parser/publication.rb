@@ -37,9 +37,7 @@ module EPUB
       def parse_package
         elem = @doc.root
         %w[version xml:lang dir id].each do |attr|
-          writer = attr.gsub(/\:/, '_') + '='
-          value = extract_attribute(elem, attr)
-          @package.__send__(writer, value)
+          @package.__send__ "#{attr.gsub(/\:/, '_')}=", extract_attribute(elem, attr)
         end
         @unique_identifier_id = elem['unique-identifier']
         @package.prefix = parse_prefix(extract_attribute(elem, 'prefix'))
