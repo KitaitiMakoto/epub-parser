@@ -1,0 +1,19 @@
+require 'English'
+require 'optparse'
+require 'irb'
+require 'epub/parser'
+
+opts = OptionParser.new {|opt|
+  opt.banner = <<EOB
+Open EPUB file in IRB
+
+Usage: #{File.basename($PROGRAM_NAME)} EPUBFILE
+
+EOB
+}.getopts
+
+$0 = File.basename($PROGRAM_NAME)
+include EPUB
+EPUB::Parser.parse(ARGV.shift, :book => self)
+$stderr.puts 'Enter "exit" to exit IRB'
+IRB.start
