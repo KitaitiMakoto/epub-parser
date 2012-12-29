@@ -25,7 +25,7 @@ See the [wiki][] or [API Documentation][rubydoc] for more info.
 
 ### `epubinfo` command-line tool
 
-`epubinfo` tool extracts and show the metadata of specified EPUB book.
+`epubinfo` tool extracts and shows the metadata of specified EPUB book.
 
     epubinfo path/to/book.epub
 
