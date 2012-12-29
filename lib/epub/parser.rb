@@ -10,14 +10,19 @@ module EPUB
       # 
       # @example
       #   EPUB::Parser.parse('path/to/book.epub') # => EPUB::Book object
+      # 
       # @example
       #   class MyBook
       #     include EPUB
       #   end
       #   book = MyBook.new
-      #   EPUB::Parser.parse('path/to/book.epub', :book => book) # => #<MyBook:0x000000019760e8 @epub_file=..> (book itself)
+      #   parsed_book = EPUB::Parser.parse('path/to/book.epub', :book => book) # => #<MyBook:0x000000019760e8 @epub_file=..>
+      #   parsed_book.equal? book # => true
+      # 
       # @example
-      #   EPUB::Parser.parse('path/to/book.epub', :class => MyBook) # => #<MyBook:0x000000019b0568 @epub_file=...> (the instance of MyClass)
+      #   book = EPUB::Parser.parse('path/to/book.epub', :class => MyBook) # => #<MyBook:0x000000019b0568 @epub_file=...>
+      #   book.instance_of? MyBook # => true
+      # 
       # @param [String] filepath
       # @param [Hash] options the type of return is specified by this argument.
       #   If no options, returns {EPUB::Book} object.
