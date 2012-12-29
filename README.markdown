@@ -39,7 +39,7 @@ For more info:
 
     epub-open path/to/book.epub
 
-For info for command-line options:
+For command-line options:
 
     epub-open -h
 
@@ -60,12 +60,15 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
     puts nav.read
     <?xml version="1.0"?>
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
-    ...
-    (HTML of nav)
+        :
+        :
+        :
+    </html>
     => nil
     exit # Enter "exit" when exit the session
 
 Development of this tool is still in progress.
+Welcome comments and suggestions for this!
 
 REQUIREMENTS
 ------------
@@ -78,7 +81,9 @@ CHANGELOG
 * Add a command-line tool `epub-open`
 
 ### 0.1.2
-* Fix a bug that `Item#read` couldn't read file when `href` is percent-encoded(Thanks, gambhiro!)
+* Fix a bug that `Item#read` couldn't read file when `href` is percent-encoded(Thanks, [gambhiro][]!)
+
+[gambhiro]: https://github.com/gambhiro
 
 ### 0.1.1
 * Parse package@prefix and attach it as `Package#prefix`
@@ -92,6 +97,8 @@ TODOS
 * Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
+* Media Overlays
+* Content Document
 * Fixed Layout
 * Digital Signature
 * Using SAX on parsing
