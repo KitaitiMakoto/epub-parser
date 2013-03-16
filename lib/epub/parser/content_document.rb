@@ -9,21 +9,19 @@ module EPUB
       include Utils
 
       class << self
-        # @param [EPUB::Publication::Package::Manifest] manifest
-        def parse(manifest)
-          new(manifest).parse
+        # @param [EPUB::Publication::Package::Manifest::Item] item
+        def parse(item)
+          new(item).parse
         end
       end
 
-      attr_reader :manifest
-
-      # @param [EPUB::Publication::Package::Manifest] manifest
-      def initialize(manifest)
-        @manifest = manifest
+      # @param [EPUB::Publication::Package::Manifest::Item] item
+      def initialize(item)
+        @item = item
       end
 
       def parse
-        raise 'Not implemented yet'
+        raise NotImplementedError
       end
 
       # @param [Nokogiri::HTML::Document] document HTML document or element including nav
@@ -73,7 +71,7 @@ module EPUB
             item.text = extract_attribute(a_or_span, 'title').to_s if item.text.nil? || item.text.empty?
           end
           item.href = Addressable::URI.parse(extract_attribute(a_or_span, 'href'))
-          item.item = manifest.items.selector {|it| it.href.request_uri == item.href.request_uri}.first
+          item.item = @item.manifest.items.selector {|it| it.href.request_uri == item.href.request_uri}.first
         end
         item.items = element.xpath('./xhtml:ol[1]/xhtml:li', EPUB::NAMESPACES).map {|li| parse_navigation_item(li)}
 

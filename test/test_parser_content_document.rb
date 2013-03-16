@@ -3,7 +3,7 @@ require_relative 'helper'
 class TestParserContentDocument < Test::Unit::TestCase
   def setup
     @manifest = EPUB::Publication::Package::Manifest.new
-    %w[item-1.xhtml item-2.xhtml].each.with_index do |href, index|
+    %w[item-1.xhtml item-2.xhtml nav.xhtml].each.with_index do |href, index|
       item = EPUB::Publication::Package::Manifest::Item.new
       item.id = index
       item.href = Addressable::URI.parse(href)
@@ -11,7 +11,7 @@ class TestParserContentDocument < Test::Unit::TestCase
     end
 
     @dir = 'test/fixtures/book'
-    @parser = EPUB::Parser::ContentDocument.new(@manifest)
+    @parser = EPUB::Parser::ContentDocument.new(@manifest.items.last)
   end
 
   def test_parse_navigations
