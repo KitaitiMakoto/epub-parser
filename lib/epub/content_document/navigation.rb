@@ -3,6 +3,13 @@ require 'epub/content_document/xhtml'
 module EPUB
   module ContentDocument
     class Navigation < XHTML
+      attr_accessor :navigations
+
+      def initialize
+        @navigations = []
+        super
+      end
+
       def toc
         items.selector {|nav| nav.type == Type::TOC}.first
       end
