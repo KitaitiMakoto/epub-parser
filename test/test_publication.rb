@@ -29,4 +29,24 @@ class TestPublication < Test::Unit::TestCase
       assert_same refinee.refiners.first, refiner 
     end
   end
+
+  class TestManifest < TestPublication
+    class TestItem < TestManifest
+      def test_content_document_returns_nil_when_not_xhtml_nor_svg
+        item = EPUB::Publication::Package::Manifest::Item.new
+        item.media_type = 'some/media'
+        assert_nil item.content_document
+      end
+
+      def test_content_document_returns_navigation_document_when_nav
+        item = EPUB::Publication::Package::Manifest::Item.new
+        item.media_type = 'application/xhtml+xml'
+        item.properties = %w[nav]
+        stub(item).read {File.read(File.expand_path('../fixtures/book/OPS/nav.xhtml', __FILE__))}
+        stub(item).manifest.stub!.items {[]}
+
+        assert_instance_of EPUB::ContentDocument::Navigation, item.content_document
+      end
+    end
+  end
 end

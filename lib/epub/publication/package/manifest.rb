@@ -1,5 +1,6 @@
 require 'enumerabler'
 require 'epub/constants'
+require 'epub/parser/content_document'
 
 module EPUB
   module Publication
@@ -85,6 +86,11 @@ module EPUB
             end
             return fallback.use_fallback_chain(options) {|fb| yield fb} if fallback
             raise EPUB::MediaType::UnsupportedError
+          end
+
+          def content_document
+            return nil unless %w[application/xhtml+xml image/svg+xml].include? media_type
+            @content_document ||= Parser::ContentDocument.parse(self)
           end
 
           protected
