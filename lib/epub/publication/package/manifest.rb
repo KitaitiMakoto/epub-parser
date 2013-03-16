@@ -14,9 +14,8 @@ module EPUB
           @items[item.id] = item
         end
 
-        # syntax sugar
         def navs
-          items.selector {|i| i.properties.include? 'nav'}
+          items.selector(&:nav?)
         end
 
         def nav
@@ -64,6 +63,10 @@ module EPUB
               path = Addressable::URI.unescape(rootfile + href.normalize.request_uri)
               zip.fopen(path).read
             }
+          end
+
+          def nav?
+            properties.include? 'nav'
           end
 
           # @todo Handle circular fallback chain
