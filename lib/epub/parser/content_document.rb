@@ -21,7 +21,28 @@ module EPUB
       end
 
       def parse
-        raise NotImplementedError
+        content_document = case @item.media_type
+                           when 'application/xhtml+xml'
+                             if @item.nav?
+                               EPUB::ContentDocument::Navigation.new
+                             else
+                               EPUB::ContentDocument::XHTML.new
+                             end
+                           when 'image/svg+xml'
+                             EPUB::ContentDocument::SVG.new
+                           else
+                             nil
+                           end
+        return content_document if content_document.nil?
+        content_document.item = @item
+        document = Nokogiri.XML(@item.read)
+        # parse_content_document(document)
+        if @item.nav?
+          content_document.navigations = parse_navigations(document)
+        else
+          raise NotImplementedError
+        end
+        content_document
       end
 
       # @param [Nokogiri::HTML::Document] document HTML document or element including nav
