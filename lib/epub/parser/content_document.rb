@@ -1,5 +1,6 @@
 require 'epub/content_document'
 require 'epub/constants'
+require 'epub/parser/utils'
 require 'nokogiri'
 
 module EPUB
