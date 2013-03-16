@@ -1,26 +1,18 @@
+require 'epub/content_document/xhtml'
+
 module EPUB
   module ContentDocument
-    class Navigation
-      module Type
-        TOC       = 'toc'
-        PAGE_LIST = 'page_list'
-        LANDMARKS = 'landmarks'
-      end
-
-      attr_accessor :navs
-      alias navigations navs
-      alias navigations= navs=
-
+    class Navigation < XHTML
       def toc
-        navs.selector {|nav| nav.type == Type::TOC}.first
+        items.selector {|nav| nav.type == Type::TOC}.first
       end
 
       def page_list
-        navs.selector {|nav| nav.type == Type::PAGE_LIST}.first
+        items.selector {|nav| nav.type == Type::PAGE_LIST}.first
       end
 
       def landmarks
-        navs.selector {|nav| nav.type == Type::LANDMARKS}.first
+        items.selector {|nav| nav.type == Type::LANDMARKS}.first
       end
 
       # Enumerator version of toc
@@ -45,41 +37,31 @@ module EPUB
       def each_landmark
       end
 
-      class Nav
-        attr_accessor :heading, :ol,
-                      :items, # children of ol, thus li
-                      :type, # toc, page-list, landmarks or other
-                      :hidden
+      class Item
+        attr_accessor :items, :text, :hidden,
+                      :content_document, :href, :item
 
-        # #show method and #hide are unneccessary
-        # because this is for parser, not for builder nor manipulator
+        def initialize
+          @items = []
+        end
+
         def hidden?
+          !! hidden
+        end
+      end
+
+      class Navigation < Item
+        module Type
+          TOC       = 'toc'
+          PAGE_LIST = 'page_list'
+          LANDMARKS = 'landmarks'
         end
 
-        class Ol
-          # list-style :none
-          attr_accessor :hidden
-
-          def hidden?
-          end
-
-          # may be followed by ol or be a leaf node
-          class A
-            attr_accessor :ol, # optional
-                          :hidden
-
-            def hidden?
-            end
-          end
-
-          # must be followed by ol, or must not be a leaf node
-          class Span
-            attr_accessor :ol, # required
-                          :hidden
-            def hidden?
-            end
-          end
-        end
+        attr_accessor :type
+        alias navigations items
+        alias navigations= items=
+        alias heading text
+        alias heading= text=
       end
     end
   end
