@@ -1,9 +1,10 @@
 module EPUB
   module ContentDocument
     class XHTML
-      attr_accessor :book
+      attr_accessor :item
 
       def read
+        item.read
       end
       alias raw_document read
     end
