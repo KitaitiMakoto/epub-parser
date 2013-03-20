@@ -36,6 +36,14 @@ module EPUB
           titles.select {|title| title.title_type.to_s == 'subtitle'}.sort.join(' ')
         end
 
+        def description
+          descriptions.join ' '
+        end
+
+        def date
+          dates.first
+        end
+
         def to_h
           DC_ELEMS.inject({}) do |hsh, elem|
             hsh[elem] = __send__(elem)
