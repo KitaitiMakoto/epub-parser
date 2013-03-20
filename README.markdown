@@ -80,6 +80,7 @@ CHANGELOG
 ### 0.1.3
 * Add `EPUB::Parser::Utils` module
 * Add a command-line tool `epub-open`
+* Add support for XHTML Navigation Document
 * Make `EPUB::Publication::Package::Metadata#to_hash` obsolete. Use `#to_h` instead
 
 ### 0.1.2

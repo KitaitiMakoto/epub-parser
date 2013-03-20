@@ -31,6 +31,7 @@ module EPUB
             titles.select {|title| title.title_type.to_s == type}.sort.join(' ')
           end
         end
+
         def subtitle
           titles.select {|title| title.title_type.to_s == 'subtitle'}.sort.join(' ')
         end
