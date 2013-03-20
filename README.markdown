@@ -39,10 +39,6 @@ For more info:
 
     epub-open path/to/book.epub
 
-For command-line options:
-
-    epub-open -h
-
 IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
 
     title
@@ -66,6 +62,10 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
     </html>
     => nil
     exit # Enter "exit" when exit the session
+
+For command-line options:
+
+    epub-open -h
 
 Development of this tool is still in progress.
 Welcome comments and suggestions for this!
