@@ -89,7 +89,7 @@ CHANGELOG
 
 ### 0.1.1
 * Parse package@prefix and attach it as `Package#prefix`
-* `Manifest::Item#iri` wes removed. It have existed for files in unzipped epub books but now EPUB Parser retrieves files from zip archive directly. `#href` now returns `Addressable::URI` object.
+* `Manifest::Item#iri` was removed. It have existed for files in unzipped epub books but now EPUB Parser retrieves files from zip archive directly. `#href` now returns `Addressable::URI` object.
 * `Metadata::Link#iri`: ditto.
 * `Guide::Reference#iri`: ditto.
 
