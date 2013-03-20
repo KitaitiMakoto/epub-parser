@@ -25,7 +25,7 @@ module EPUB
     end
   end
 
-  %w[ title main_title subtitle short_title collection_title edition_title extended_title description date ].each do |met|
+  %w[ title main_title subtitle short_title collection_title edition_title extended_title description date unique_identifier ].each do |met|
     define_method met do
       metadata.__send__(met)
     end
