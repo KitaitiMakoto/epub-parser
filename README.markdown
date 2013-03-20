@@ -73,6 +73,7 @@ Welcome comments and suggestions for this!
 REQUIREMENTS
 ------------
 * libxml2 and libxslt for Nokogiri gem
+* C compiler to compile Zip/Ruby and Nokogiri
 
 CHANGELOG
 ---------
