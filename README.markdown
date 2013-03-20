@@ -82,6 +82,7 @@ CHANGELOG
 * Add a command-line tool `epub-open`
 * Add support for XHTML Navigation Document
 * Make `EPUB::Publication::Package::Metadata#to_hash` obsolete. Use `#to_h` instead
+* Add utility methods `EPUB#description`, `EPUB#date` and `EPUB#unique_identifier`
 
 ### 0.1.2
 * Fix a bug that `Item#read` couldn't read file when `href` is percent-encoded(Thanks, [gambhiro][]!)
