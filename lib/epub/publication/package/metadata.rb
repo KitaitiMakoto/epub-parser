@@ -35,11 +35,16 @@ module EPUB
           titles.select {|title| title.title_type.to_s == 'subtitle'}.sort.join(' ')
         end
 
-        def to_hash
+        def to_h
           DC_ELEMS.inject({}) do |hsh, elem|
             hsh[elem] = __send__(elem)
             hsh
           end
+        end
+
+        def to_hash
+          warn "#{self.class}##{__method__} is obsolete"
+          to_h
         end
 
         def primary_metas

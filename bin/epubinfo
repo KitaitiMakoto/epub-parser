@@ -28,7 +28,7 @@ end
 
 book = EPUB::Parser.parse(file)
 data = {'Title' => [book.title]}
-data.merge!(book.metadata.to_hash)
+data.merge!(book.metadata.to_h)
 data['Unique identifier'] = [book.metadata.unique_identifier]
 data['EPUB Version'] = [book.package.version]
 if options[:format] == :line

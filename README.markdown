@@ -79,6 +79,7 @@ CHANGELOG
 ### 0.1.3
 * Add `EPUB::Parser::Utils` module
 * Add a command-line tool `epub-open`
+* Make `EPUB::Publication::Package::Metadata#to_hash` obsolete. Use `#to_h` instead
 
 ### 0.1.2
 * Fix a bug that `Item#read` couldn't read file when `href` is percent-encoded(Thanks, [gambhiro][]!)
