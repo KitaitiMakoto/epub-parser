@@ -31,6 +31,12 @@ module EPUB
     end
   end
 
+  %w[nav].each do |met|
+    define_method met do
+      manifest.__send__ met
+    end
+  end
+
   def each_page_on_spine(&blk)
     enum = package.spine.items
     if block_given?
