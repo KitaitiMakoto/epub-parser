@@ -90,7 +90,7 @@ module EPUB
 
           def content_document
             return nil unless %w[application/xhtml+xml image/svg+xml].include? media_type
-            @content_document ||= Parser::ContentDocument.parse(self)
+            @content_document ||= Parser::ContentDocument.new(self).parse
           end
 
           protected

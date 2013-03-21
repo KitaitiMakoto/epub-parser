@@ -8,13 +8,6 @@ module EPUB
     class ContentDocument
       include Utils
 
-      class << self
-        # @param [EPUB::Publication::Package::Manifest::Item] item
-        def parse(item)
-          new(item).parse
-        end
-      end
-
       # @param [EPUB::Publication::Package::Manifest::Item] item
       def initialize(item)
         @item = item
