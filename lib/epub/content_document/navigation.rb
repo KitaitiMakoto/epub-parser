@@ -44,6 +44,10 @@ module EPUB
       def each_landmark
       end
 
+      def navigation
+        navigations.first
+      end
+
       class Item
         attr_accessor :items, :text, :hidden,
                       :content_document, :href, :item
