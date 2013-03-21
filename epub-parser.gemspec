@@ -43,6 +43,6 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'enumerabler'
   s.add_runtime_dependency 'zipruby'
-  s.add_runtime_dependency 'nokogiri', '1.5.8'
+  s.add_runtime_dependency 'nokogiri', '1.5.9'
   s.add_runtime_dependency 'addressable'
 end
