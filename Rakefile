@@ -57,7 +57,7 @@ namespace :gem do
   end
 
   desc "Create tag v#{EPUB::Parser::VERSION} and build and push epub-parser-#{EPUB::Parser::VERSION}.gem to Rubygems"
-  task :release do
+  task :release => :test do
     Bundler::GemHelper.new.release_gem
   end
 end
