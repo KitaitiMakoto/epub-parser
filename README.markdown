@@ -75,10 +75,9 @@ REQUIREMENTS
 * libxml2 and libxslt for Nokogiri gem
 * C compiler to compile Zip/Ruby and Nokogiri
 
-CHANGELOG
----------
+RECENT CHANGES
+--------------
 ### 0.1.3
-* Add `EPUB::Parser::Utils` module
 * Add a command-line tool `epub-open`
 * Add support for XHTML Navigation Document
 * Make `EPUB::Publication::Package::Metadata#to_hash` obsolete. Use `#to_h` instead
@@ -91,9 +90,11 @@ CHANGELOG
 
 ### 0.1.1
 * Parse package@prefix and attach it as `Package#prefix`
-* `Manifest::Item#iri` was removed. It have existed for files in unzipped epub books but now EPUB Parser retrieves files from zip archive directly. `#href` now returns `Addressable::URI` object.
+* `Manifest::Item#iri` was removed. `#href` now returns `Addressable::URI` object.
 * `Metadata::Link#iri`: ditto.
 * `Guide::Reference#iri`: ditto.
+
+See CHANGELOG.markdown for details.
 
 TODOS
 -----
