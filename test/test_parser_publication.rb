@@ -106,6 +106,9 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_iri_of_item_is_case_sensitive
+      omit_if(Dir::entries('test/fixtures/book/OPS').grep(/case-sensitive\.xhtml/i).length < 2,
+              'This operating system does not support case sensitive file management.')
+
       manifest = EPUB::Parser.parse('test/fixtures/book.epub').package.manifest
 
       assert_not_equal manifest['large-file-name'].read, manifest['small-file-name'].read
