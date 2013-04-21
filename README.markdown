@@ -4,6 +4,7 @@ EPUB Parser
 
 INSTALLATION
 -------
+
     gem install epub-parser  
 
 USAGE
