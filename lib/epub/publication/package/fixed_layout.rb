@@ -23,8 +23,6 @@ module EPUB
           layout ? layout.content : INITIAL_RENDITION_LAYOUT
         end
 
-        
-
         def reflowable?
           rendition_layout == 'reflowable'
         end
