@@ -47,17 +47,14 @@ module EPUB
               RENDITION_LAYOUTS.find {|l| l != layout}
             self.rendition_layout = new_layout
           end
-        end
 
-        def make_reflowable
-          self.reflowable = true
+          method_name = "make_#{layout.gsub('-', '_')}"
+          define_method method_name do
+            self.rendition_layout = layout
+          end
+          destructive_method_name = "#{layout.gsub('-', '_')}!"
+          alias_method destructive_method_name, method_name
         end
-        alias reflowable! make_reflowable
-
-        def make_pre_paginated
-          self.pre_paginated = true
-        end
-        alias pre_paginated! make_pre_paginated
 
         def reflowable?
           self.rendition_layout == 'reflowable'
