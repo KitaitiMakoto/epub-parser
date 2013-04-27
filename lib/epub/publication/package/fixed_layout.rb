@@ -40,20 +40,13 @@ module EPUB
           layout
         end
 
-        # @param reflowable [TrueClass|FalseClass]
-        def reflowable=(reflowable)
-          layout_value = 'reflowable'
-          layout = reflowable ? layout_value :
-            RENDITION_LAYOUTS.find {|l| l != layout_value}
-          self.rendition_layout = layout
-        end
-
-        # @param pre_paginated [TrueClass|FalseClass]
-        def pre_paginated=(pre_paginated)
-          layout_value = 'pre-paginated'
-          layout = pre_paginated ? layout_value :
-            RENDITION_LAYOUTS.find {|l| l != layout_value}
-          self.rendition_layout = layout
+        RENDITION_LAYOUTS.each do |layout|
+          method_name = "#{layout.gsub('-', '_')}="
+          define_method method_name do |layout_value|
+            new_layout = layout_value ? layout :
+              RENDITION_LAYOUTS.find {|l| l != layout}
+            self.rendition_layout = new_layout
+          end
         end
 
         def make_reflowable
