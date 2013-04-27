@@ -25,7 +25,7 @@ class TestFixedLayout < Test::Unit::TestCase
     end
 
     def test_layout_is_pre_paginated_when_has_meta_with_rendition_layout
-      meta = Package::Metata::Meta.new
+      meta = Package::Metadata::Meta.new
       meta.property = 'rendition:layout'
       meta.content = 'pre-paginated'
       @metadata.metas << meta
@@ -34,7 +34,7 @@ class TestFixedLayout < Test::Unit::TestCase
     end
 
     def test_layout_is_reflowable_when_has_meta_with_rendition_layout
-      meta = Package::Metata::Meta.new
+      meta = Package::Metadata::Meta.new
       meta.property = 'rendition:layout'
       meta.content = 'reflowable'
       @metadata.metas << meta
@@ -56,7 +56,7 @@ class TestFixedLayout < Test::Unit::TestCase
     end
 
     def test_remove_meta_for_pre_paginated_when_making_reflowable
-      meta = Package::Metata::Meta.new
+      meta = Package::Metadata::Meta.new
       meta.property = 'rendition:layout'
       meta.content = 'pre-paginated'
       @metadata.metas << meta
@@ -66,11 +66,11 @@ class TestFixedLayout < Test::Unit::TestCase
     end
 
     def test_remoe_meta_for_reflowable_when_making_pre_paginated
-      meta = Package::Metata::Meta.new
+      meta = Package::Metadata::Meta.new
       meta.property = 'rendition:layout'
       meta.content = 'pre-paginated'
       @metadata.metas << meta
-      meta = Package::Metata::Meta.new
+      meta = Package::Metadata::Meta.new
       meta.property = 'rendition:layout'
       meta.content = 'reflowable'
       @metadata.metas << meta
