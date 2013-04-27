@@ -15,16 +15,18 @@ class TestPublication < Test::Unit::TestCase
   end
 
   class TestMetadata < TestPublication
+    include EPUB::Publication
+
     def test_meta_refines_setter_connect_refinee_to_the_meta
-      refiner = EPUB::Publication::Package::Metadata::Meta.new
-      refinee = EPUB::Publication::Package::Metadata::Meta.new
+      refiner = Package::Metadata::Meta.new
+      refinee = Package::Metadata::Meta.new
       refiner.refines = refinee
       assert_same refinee.refiners.first, refiner 
     end
 
     def test_link_refines_setter_connect_refinee_to_the_link
-      refiner = EPUB::Publication::Package::Metadata::Link.new
-      refinee = EPUB::Publication::Package::Metadata::Meta.new
+      refiner = Package::Metadata::Link.new
+      refinee = Package::Metadata::Meta.new
       refiner.refines = refinee
       assert_same refinee.refiners.first, refiner 
     end
