@@ -41,18 +41,19 @@ module EPUB
         end
 
         RENDITION_LAYOUTS.each do |layout|
-          method_name = "#{layout.gsub('-', '_')}="
+          method_name_base = layout.gsub('-', '_')
+          method_name = "#{method_name_base}="
           define_method method_name do |layout_value|
             new_layout = layout_value ? layout :
               RENDITION_LAYOUTS.find {|l| l != layout}
             self.rendition_layout = new_layout
           end
 
-          method_name = "make_#{layout.gsub('-', '_')}"
+          method_name = "make_#{method_name_base}"
           define_method method_name do
             self.rendition_layout = layout
           end
-          destructive_method_name = "#{layout.gsub('-', '_')}!"
+          destructive_method_name = "#{method_name_base}!"
           alias_method destructive_method_name, method_name
         end
 
