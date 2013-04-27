@@ -47,13 +47,36 @@ class TestFixedLayout < Test::Unit::TestCase
       assert_equal 'pre-paginated', @metadata.rendition_layout
       assert_false @metadata.reflowable?
       assert_true @metadata.pre_paginaged?
-      assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content -= 'reflowable'}
 
       @metadata.reflowable = true
       assert_equal 'reflowable', @metadata.rendition_layout
       assert_true @metadata.reflowable?
       assert_false @metadata.pre_paginaged?
       assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content == 'pre-paginated'}
+    end
+
+    def test_remove_meta_for_pre_paginated_when_making_reflowable
+      meta = Package::Metata::Meta.new
+      meta.property = 'rendition:layout'
+      meta.content = 'pre-paginated'
+      @metadata.metas << meta
+
+      @metadata.reflowable = true
+      assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content -= 'pre-paginated'}
+    end
+
+    def test_remoe_meta_for_reflowable_when_making_pre_paginated
+      meta = Package::Metata::Meta.new
+      meta.property = 'rendition:layout'
+      meta.content = 'pre-paginated'
+      @metadata.metas << meta
+      meta = Package::Metata::Meta.new
+      meta.property = 'rendition:layout'
+      meta.content = 'reflowable'
+      @metadata.metas << meta
+
+      @metadata.pre_paginated = true
+      assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content -= 'reflowable'}
     end
   end
 
