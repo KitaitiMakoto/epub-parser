@@ -30,6 +30,38 @@ class TestPublication < Test::Unit::TestCase
       refiner.refines = refinee
       assert_same refinee.refiners.first, refiner 
     end
+
+    def test_title_returns_extended_title_when_it_exists
+      extended_title = Package::Metadata::Title.new
+      extended_title.id = 'extended-title'
+      extended_title.content = 'Extended Title'
+      extended_refiner = Package::Metadata::Meta.new
+      extended_refiner.property = 'title-type'
+      extended_refiner.content = 'extended'
+      extended_refiner.refines = extended_title
+      extended_order = Package::Metadata::Meta.new
+      extended_order.property = 'display-seq'
+      extended_order.content = 2
+      extended_order.refines = extended_title
+
+      main_title = Package::Metadata::Title.new
+      main_title.id = 'main-title'
+      main_title.content = 'Main Title'
+      main_refiner = Package::Metadata::Meta.new
+      main_refiner.property = 'title-type'
+      main_refiner.content = 'main'
+      main_refiner.refines = main_title
+      main_order = Package::Metadata::Meta.new
+      main_order.property = 'display-seq'
+      main_order.content = 1
+      main_order.refines = main_title
+
+      package = Package::Metadata.new
+      package.titles << main_title
+      package.titles << extended_title
+
+      assert_equal 'Extended Title', package.title
+    end
   end
 
   class TestManifest < TestPublication
