@@ -62,7 +62,7 @@ class TestFixedLayout < Test::Unit::TestCase
       @metadata.metas << meta
 
       @metadata.reflowable = true
-      assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content -= 'pre-paginated'}
+      assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content == 'pre-paginated'}
     end
 
     def test_remove_meta_for_reflowable_when_making_pre_paginated
@@ -76,7 +76,8 @@ class TestFixedLayout < Test::Unit::TestCase
       @metadata.metas << meta
 
       @metadata.pre_paginated = true
-      assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content -= 'reflowable'}
+      assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content == 'reflowable'}
+    end
     end
   end
 
