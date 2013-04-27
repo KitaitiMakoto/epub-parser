@@ -56,6 +56,16 @@ module EPUB
           self.rendition_layout = layout
         end
 
+        def make_reflowable
+          self.reflowable = true
+        end
+        alias reflowable! make_reflowable
+
+        def make_pre_paginated
+          self.pre_paginated = true
+        end
+        alias pre_paginated! make_pre_paginated
+
         def reflowable?
           self.rendition_layout == 'reflowable'
         end

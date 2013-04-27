@@ -77,6 +77,12 @@ class TestFixedLayout < Test::Unit::TestCase
       @metadata.pre_paginated = true
       assert_false @metadata.metas.any? {|meta| meta.property == 'rendition:layout' && meta.content == 'reflowable'}
     end
+
+    def test_layout_setter
+      pend
+      @metadata.rendition_layout = 'reflowable'
+      @metadata.rendition_layout = 'pre-paginated'
+      @metadata.rendition_layout = 'undefined'
     end
   end
 
