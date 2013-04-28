@@ -118,6 +118,9 @@ class TestFixedLayout < Test::Unit::TestCase
       @metadata.reflowable!
       assert_equal 'reflowable', @metadata.rendition_layout
     end
+
+    def test_default_orientation_is_auto
+      assert_equal 'auto', @metadata.rendition_orientation
     end
   end
 
