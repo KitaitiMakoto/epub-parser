@@ -33,21 +33,21 @@ module EPUB
               alias_method "#{property}=", "rendition_#{property}="
 
               method_name_base = value.gsub('-', '_')
-              method_name = "#{method_name_base}="
-              define_method method_name do |new_value|
+              setter_name = "#{method_name_base}="
+              define_method setter_name do |new_value|
                 new_prop = new_value ? value : values.find {|l| l != value}
                 __send__ "rendition_#{property}=", new_prop
               end
 
-              method_name = "make_#{method_name_base}"
-              define_method method_name do
+              maker_name = "make_#{method_name_base}"
+              define_method maker_name do
                 __send__ "rendition_#{property}=", value
               end
               destructive_method_name = "#{method_name_base}!"
-              alias_method destructive_method_name, method_name
+              alias_method destructive_method_name, maker_name
 
-              method_name = "#{method_name_base}?"
-              define_method method_name do
+              predicate_name = "#{method_name_base}?"
+              define_method predicate_name do
                 __send__("rendition_#{property}") == value
               end
             end
