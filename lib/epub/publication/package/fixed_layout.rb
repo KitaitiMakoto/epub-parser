@@ -1,6 +1,8 @@
 module EPUB
   module Publication
     module FixedLayout
+      class UnsupportedRenditionLayout < StandardError; end
+
       class << self
         def included(package_class)
           [
@@ -27,7 +29,7 @@ module EPUB
 
         # @param layout [String] the value of rendition:layout. "reflowable" or "pre-paginated"
         def rendition_layout=(layout)
-          raise unless RENDITION_LAYOUTS.include? layout
+          raise UnsupportedRenditionLayout, layout unless RENDITION_LAYOUTS.include? layout
 
           layouts_to_be_deleted = RENDITION_LAYOUTS - [layout]
           metas.delete_if {|meta| meta.property == 'rendition:layout' && layouts_to_be_deleted.include?(meta.content)}
