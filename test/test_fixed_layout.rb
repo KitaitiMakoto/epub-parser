@@ -106,7 +106,59 @@ class TestFixedLayout < Test::Unit::TestCase
   end
 
   class TestItemref < TestFixedLayout
-    
+    def setup
+      @itemref = Package::Spine::Itemref.new
+      @package = Package.new
+      @package.metadata = Package::Metadata.new
+      @package.spine = Package::Spine.new
+      @package.spine << @itemref
+    end
+
+    def test_inherits_metadatas_rendition_layout_by_default
+      assert_equal 'reflowable', @itemref.rendition_layout
+
+      @package.metadata.rendition_layout = 'pre-paginated'
+      assert_equal 'pre-paginated', @itemref.rendition_layout
+    end
+
+    def test_overwrite_rendition_layout_of_metadata_when_set_explicitly
+      @package.metadata.rendition_layout = 'pre-paginated'
+      @itemref.properties << 'rendition:layout-reflowable'
+      assert_equal 'reflowable', @itemref.rendition_layout
+    end
+
+    def test_can_set_explicitly
+      @itemref.rendition_layout = 'pre-paginated'
+      assert_equal 'pre-paginated', @itemref.rendition_layout
+    end
+
+    def test_can_unset_explicitly
+      @itemref.rendition_layout = 'pre-paginated'
+      @itemref.rendition_layout = nil
+      assert_equal 'reflowable', @itemref.rendition_layout
+      assert_not_include @itemref.properties, 'rendition:layout-reflowable'
+    end
+
+    def test_property_added_when_rendition_layout_set
+      @itemref.rendition_layout = 'pre-paginated'
+      assert_include @itemref.properties, 'rendition:layout-pre-paginated'
+    end
+
+    def test_opposite_property_removed_if_exists_when_rendition_layout_set
+      @itemref.rendition_layout = 'reflowable'
+      @itemref.rendition_layout = 'pre-paginated'
+      assert_not_include @itemref.properties, 'rendition:layout-reflowable'
+    end
+
+    def test_utility_methods
+      assert_true @itemref.reflowable?
+
+      @itemref.make_pre_paginated
+      assert_false @itemref.reflowable?
+      assert_true @itemref.pre_paginated?
+      assert_not_include @itemref.properties, 'rendition:layout-reflowbale'
+      assert_include @itemref.properties, 'rendition:layout-pre-paginated'
+    end
   end
 
   class TestItem < TestFixedLayout
