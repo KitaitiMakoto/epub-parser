@@ -70,8 +70,8 @@ module EPUB
 
         RENDITION_PROPERTIES.each_pair do |property, values|
           define_method "rendition_#{property}" do
-            layout = metas.find {|meta| meta.property == "rendition:#{property}"}
-            layout ? layout.content : values.first
+            meta = metas.find {|meta| meta.property == "rendition:#{property}"}
+            meta ? meta.content : values.first
           end
           define_method "rendition_#{property}=" do |new_value|
             raise UnsupportedRenditionValue, new_value unless values.include? new_value
@@ -97,11 +97,15 @@ module EPUB
 
         RENDITION_LAYOUT_PREFIX = 'rendition:layout-'
 
-        # @return ["reflowable", "pre-paginated"] the value of "rendition:layout"
-        def rendition_layout
-          layout = properties.find {|prop| prop.start_with? RENDITION_LAYOUT_PREFIX}
-          layout ? layout.gsub(/\A#{Regexp.escape(RENDITION_LAYOUT_PREFIX)}/o, '') :
-            spine.package.metadata.rendition_layout
+        RENDITION_PROPERTIES.each do |property, values|
+          rendition_property_prefix = "rendition:#{property}-"
+
+          method_name = "rendition_#{property}"
+          define_method method_name do
+            prop_value = properties.find {|prop| prop.start_with? rendition_property_prefix}
+            prop_value ? prop_value.gsub(/\A#{Regexp.escape(rendition_property_prefix)}/o, '') :
+              spine.package.metadata.__send__(method_name)
+          end
         end
 
         # @param layout ["reflowable", "pre-paginated", nil]
