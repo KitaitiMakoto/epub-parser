@@ -21,7 +21,7 @@ module EPUB
         end
       end
 
-      module RenditionLayout
+      module Rendition
         def def_rendition_layout_methods
           RENDITION_LAYOUTS.each do |layout|
             method_name_base = layout.gsub('-', '_')
@@ -57,7 +57,7 @@ module EPUB
       end
 
       module MetadataMixin
-        extend RenditionLayout
+        extend Rendition
 
         # @return ["reflowable", "pre-paginated"] the value of rendition:layout
         # @return ["reflowable"] when rendition_layout not set explicitly ever
@@ -87,7 +87,7 @@ module EPUB
       end
 
       module ItemrefMixin
-        extend RenditionLayout
+        extend Rendition
 
         RENDITION_LAYOUT_PREFIX = 'rendition:layout-'
 
