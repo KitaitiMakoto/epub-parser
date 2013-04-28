@@ -107,16 +107,17 @@ class TestFixedLayout < Test::Unit::TestCase
 
     def test_utility_methods_for_rendition_layout_setter
       @metadata.make_pre_paginated
-      @metadata.rendition_layout == 'pre-paginated'
+      assert_equal 'pre-paginated', @metadata.rendition_layout
 
       @metadata.make_reflowable
-      @metadata.rendition_layout == 'reflowable'
+      assert_equal 'reflowable', @metadata.rendition_layout
 
       @metadata.pre_paginated!
-      @metadata.rendition_layout == 'pre-paginated'
+      assert_equal 'pre-paginated', @metadata.rendition_layout
 
       @metadata.reflowable!
-      @metadata.rendition_layout == 'reflowable'
+      assert_equal 'reflowable', @metadata.rendition_layout
+    end
     end
   end
 
