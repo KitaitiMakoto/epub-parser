@@ -29,27 +29,26 @@ module EPUB
         def def_rendition_layout_methods
           RENDITION_PROPERTIES.each_pair do |property, values|
             values.each do |value|
-              alias_method :layout, :rendition_layout
-              alias_method :layout=, :rendition_layout=
+              alias_method property, "rendition_#{property}"
+              alias_method "#{property}=", "rendition_#{property}="
 
-                method_name_base = value.gsub('-', '_')
+              method_name_base = value.gsub('-', '_')
               method_name = "#{method_name_base}="
-              define_method method_name do |layout_value|
-                new_layout = layout_value ? value :
-                  RENDITION_PROPERTIES['layout'].find {|l| l != value}
-                self.rendition_layout = new_layout
+              define_method method_name do |new_value|
+                new_prop = new_value ? value : values.find {|l| l != value}
+                __send__ "rendition_#{property}=", new_prop
               end
 
               method_name = "make_#{method_name_base}"
               define_method method_name do
-                self.rendition_layout = value
+                __send__ "rendition_#{property}=", value
               end
               destructive_method_name = "#{method_name_base}!"
               alias_method destructive_method_name, method_name
 
               method_name = "#{method_name_base}?"
               define_method method_name do
-                self.rendition_layout == value
+                __send__("rendition_#{property}") == value
               end
             end
           end
