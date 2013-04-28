@@ -33,6 +33,10 @@ module EPUB
         define_content_model model
       end
 
+      def initialize
+        @prefix = {}
+      end
+
       def unique_identifier
         @metadata.unique_identifier
       end

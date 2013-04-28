@@ -1,6 +1,9 @@
 module EPUB
   module Publication
     module FixedLayout
+      PREFIX_KEY = 'rendition'
+      PREFIX_VALUE = 'http://www.idpf.org/vocab/rendition/#'
+
       RENDITION_PROPERTIES = {
         'layout'      => ['reflowable'.freeze, 'pre-paginated'.freeze].freeze,
         'orientation' => ['auto'.freeze, 'landscape'.freeze, 'portrait'.freeze].freeze,
@@ -60,13 +63,20 @@ module EPUB
       end
 
       module PackageMixin
-        # @todo use package.prefix
-        attr_writer :using_fixed_layout
-
         def using_fixed_layout
-          !! @using_fixed_layout
+          prefix.has_key? PREFIX_KEY and
+            prefix[PREFIX_KEY] == PREFIX_VALUE
         end
         alias using_fixed_layout? using_fixed_layout
+
+        # @param using_fixed_layout [true, false]
+        def using_fixed_layout=(using_fixed_layout)
+          if using_fixed_layout
+            prefix[PREFIX_KEY] = PREFIX_VALUE
+          else
+            prefix.delete PREFIX_KEY
+          end
+        end
       end
 
       module MetadataMixin
