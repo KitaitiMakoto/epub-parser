@@ -24,6 +24,9 @@ module EPUB
       module Rendition
         def def_rendition_layout_methods
           RENDITION_LAYOUTS.each do |layout|
+            alias_method :layout, :rendition_layout
+            alias_method :layout=, :rendition_layout=
+
             method_name_base = layout.gsub('-', '_')
             method_name = "#{method_name_base}="
             define_method method_name do |layout_value|
