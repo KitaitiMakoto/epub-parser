@@ -7,7 +7,7 @@ module EPUB
         'spread'      => ['auto'.freeze, 'none'.freeze, 'landscape'.freeze, 'portrait'.freeze, 'both'.freeze].freeze
       }.freeze
 
-      class UnsupportedRenditionLayout < StandardError; end
+      class UnsupportedRenditionValue < StandardError; end
 
       class << self
         def included(package_class)
@@ -68,28 +68,25 @@ module EPUB
       module MetadataMixin
         extend Rendition
 
-        # @return ["reflowable", "pre-paginated"] the value of rendition:layout
-        # @return ["reflowable"] when rendition_layout not set explicitly ever
-        def rendition_layout
-          layout = metas.find {|meta| meta.property == 'rendition:layout'}
-          layout ? layout.content : RENDITION_PROPERTIES['layout'].first
-        end
-
-        # @param layout ["reflowable", "pre-paginated"] the value of "rendition:layout"
-        # @return [String] the value of "rendition:layout"
-        # @raise [UnsupportedRenditionLayout] when the argument not in {RENDITION_PROPERTIES['layout']}
-        def rendition_layout=(layout)
-          raise UnsupportedRenditionLayout, layout unless RENDITION_PROPERTIES['layout'].include? layout
-
-          layouts_to_be_deleted = RENDITION_PROPERTIES['layout'] - [layout]
-          metas.delete_if {|meta| meta.property == 'rendition:layout' && layouts_to_be_deleted.include?(meta.content)}
-          unless metas.any? {|meta| meta.property == 'rendition:layout' && meta.content == layout}
-            meta = Package::Metadata::Meta.new
-            meta.property = 'rendition:layout'
-            meta.content = layout
-            metas << meta
+        RENDITION_PROPERTIES.each_pair do |property, values|
+          define_method "rendition_#{property}" do
+            layout = metas.find {|meta| meta.property == "rendition:#{property}"}
+            layout ? layout.content : values.first
           end
-          layout
+          define_method "rendition_#{property}=" do |new_value|
+            raise UnsupportedRenditionValue, new_value unless values.include? new_value
+
+            prefixed_property = "rendition:#{property}"
+            values_to_be_deleted = values - [new_value]
+            metas.delete_if {|meta| meta.property == prefixed_property && values_to_be_deleted.include?(meta.content)}
+            unless metas.any? {|meta| meta.property == prefixed_property && meta.content == new_value}
+              meta = Package::Metadata::Meta.new
+              meta.property = prefixed_property
+              meta.content = new_value
+              metas << meta
+            end
+            new_value
+          end
         end
 
         def_rendition_layout_methods
@@ -116,7 +113,7 @@ module EPUB
             return layout
           end
 
-          raise UnsupportedRenditionLayout, layout unless RENDITION_PROPERTIES['layout'].include? layout
+          raise UnsupportedRenditionValue, layout unless RENDITION_PROPERTIES['layout'].include? layout
 
           layouts_to_be_deleted = (RENDITION_PROPERTIES['layout'] - [layout]).map {|l| "#{RENDITION_LAYOUT_PREFIX}#{l}"}
           properties.delete_if {|prop| layouts_to_be_deleted.include? prop}
