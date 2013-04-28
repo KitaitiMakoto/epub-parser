@@ -100,7 +100,7 @@ class TestFixedLayout < Test::Unit::TestCase
       @metadata.rendition_layout = 'pre-paginated'
       assert_equal 'pre-paginated', @metadata.rendition_layout
 
-      assert_raise FixedLayout::UnsupportedRenditionLayout do
+      assert_raise FixedLayout::UnsupportedRenditionValue do
         @metadata.rendition_layout = 'undefined'
       end
     end
