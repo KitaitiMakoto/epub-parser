@@ -55,14 +55,11 @@ module EPUB
           end
           destructive_method_name = "#{method_name_base}!"
           alias_method destructive_method_name, method_name
-        end
 
-        def reflowable?
-          self.rendition_layout == 'reflowable'
-        end
-
-        def pre_paginated?
-          self.rendition_layout == 'pre-paginated'
+          method_name = "#{method_name_base}?"
+          define_method method_name do
+            self.rendition_layout == layout
+          end
         end
       end
 
