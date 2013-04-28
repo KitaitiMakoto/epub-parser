@@ -20,7 +20,35 @@ module EPUB
         end
       end
 
+      module RenditionLayout
+        def def_rendition_layout_methods
+          RENDITION_LAYOUTS.each do |layout|
+            method_name_base = layout.gsub('-', '_')
+            method_name = "#{method_name_base}="
+            define_method method_name do |layout_value|
+              new_layout = layout_value ? layout :
+                RENDITION_LAYOUTS.find {|l| l != layout}
+              self.rendition_layout = new_layout
+            end
+
+            method_name = "make_#{method_name_base}"
+            define_method method_name do
+              self.rendition_layout = layout
+            end
+            destructive_method_name = "#{method_name_base}!"
+            alias_method destructive_method_name, method_name
+
+            method_name = "#{method_name_base}?"
+            define_method method_name do
+              self.rendition_layout == layout
+            end
+          end
+        end
+      end
+
       module MetadataMixin
+        extend RenditionLayout
+
         # @return ["reflowable", "pre-paginated"] the value of rendition:layout
         # @return ["reflowable"] when rendition_layout not set explicitly ever
         def rendition_layout
@@ -45,27 +73,7 @@ module EPUB
           layout
         end
 
-        RENDITION_LAYOUTS.each do |layout|
-          method_name_base = layout.gsub('-', '_')
-          method_name = "#{method_name_base}="
-          define_method method_name do |layout_value|
-            new_layout = layout_value ? layout :
-              RENDITION_LAYOUTS.find {|l| l != layout}
-            self.rendition_layout = new_layout
-          end
-
-          method_name = "make_#{method_name_base}"
-          define_method method_name do
-            self.rendition_layout = layout
-          end
-          destructive_method_name = "#{method_name_base}!"
-          alias_method destructive_method_name, method_name
-
-          method_name = "#{method_name_base}?"
-          define_method method_name do
-            self.rendition_layout == layout
-          end
-        end
+        def_rendition_layout_methods
       end
 
       module ItemrefMixin
