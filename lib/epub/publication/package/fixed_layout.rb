@@ -21,13 +21,16 @@ module EPUB
       module MetadataMixin
         RENDITION_LAYOUTS = ['reflowable'.freeze, 'pre-paginated'.freeze].freeze
 
-        # @return [String] the value of rendition:layout. "reflowable" or "pre-paginated"
+        # @return ["reflowable", "pre-paginated"] the value of rendition:layout
+        # @return ["reflowable"] when rendition_layout not set explicitly ever
         def rendition_layout
           layout = metas.find {|meta| meta.property == 'rendition:layout'}
           layout ? layout.content : RENDITION_LAYOUTS.first
         end
 
-        # @param layout [String] the value of rendition:layout. "reflowable" or "pre-paginated"
+        # @param layout ["reflowable", "pre-paginated"] the value of "rendition:layout"
+        # @return [String] the value of "rendition:layout"
+        # @raise [UnsupportedRenditionLayout] when the argument not in {RENDITION_LAYOUTS}
         def rendition_layout=(layout)
           raise UnsupportedRenditionLayout, layout unless RENDITION_LAYOUTS.include? layout
 
