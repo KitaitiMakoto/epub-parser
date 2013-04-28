@@ -1,7 +1,11 @@
 module EPUB
   module Publication
     module FixedLayout
-      RENDITION_LAYOUTS = ['reflowable'.freeze, 'pre-paginated'.freeze].freeze
+      RENDITION_PROPERTIES = {
+        'layout'      => ['reflowable'.freeze, 'pre-paginated'.freeze].freeze,
+        'orientation' => ['auto'.freeze, 'landscape'.freeze, 'portrait'.freeze].freeze,
+        'spread'      => ['auto'.freeze, 'none'.freeze, 'landscape'.freeze, 'portrait'.freeze, 'both'.freeze].freeze
+      }.freeze
 
       class UnsupportedRenditionLayout < StandardError; end
 
@@ -23,7 +27,7 @@ module EPUB
 
       module Rendition
         def def_rendition_layout_methods
-          RENDITION_LAYOUTS.each do |layout|
+          RENDITION_PROPERTIES['layout'].each do |layout|
             alias_method :layout, :rendition_layout
             alias_method :layout=, :rendition_layout=
 
@@ -31,7 +35,7 @@ module EPUB
             method_name = "#{method_name_base}="
             define_method method_name do |layout_value|
               new_layout = layout_value ? layout :
-                RENDITION_LAYOUTS.find {|l| l != layout}
+                RENDITION_PROPERTIES['layout'].find {|l| l != layout}
               self.rendition_layout = new_layout
             end
 
@@ -51,6 +55,7 @@ module EPUB
       end
 
       module PackageMixin
+        # @todo use package.prefix
         attr_writer :using_fixed_layout
 
         def using_fixed_layout
@@ -66,16 +71,16 @@ module EPUB
         # @return ["reflowable"] when rendition_layout not set explicitly ever
         def rendition_layout
           layout = metas.find {|meta| meta.property == 'rendition:layout'}
-          layout ? layout.content : RENDITION_LAYOUTS.first
+          layout ? layout.content : RENDITION_PROPERTIES['layout'].first
         end
 
         # @param layout ["reflowable", "pre-paginated"] the value of "rendition:layout"
         # @return [String] the value of "rendition:layout"
-        # @raise [UnsupportedRenditionLayout] when the argument not in {RENDITION_LAYOUTS}
+        # @raise [UnsupportedRenditionLayout] when the argument not in {RENDITION_PROPERTIES['layout']}
         def rendition_layout=(layout)
-          raise UnsupportedRenditionLayout, layout unless RENDITION_LAYOUTS.include? layout
+          raise UnsupportedRenditionLayout, layout unless RENDITION_PROPERTIES['layout'].include? layout
 
-          layouts_to_be_deleted = RENDITION_LAYOUTS - [layout]
+          layouts_to_be_deleted = RENDITION_PROPERTIES['layout'] - [layout]
           metas.delete_if {|meta| meta.property == 'rendition:layout' && layouts_to_be_deleted.include?(meta.content)}
           unless metas.any? {|meta| meta.property == 'rendition:layout' && meta.content == layout}
             meta = Package::Metadata::Meta.new
@@ -110,9 +115,9 @@ module EPUB
             return layout
           end
 
-          raise UnsupportedRenditionLayout, layout unless RENDITION_LAYOUTS.include? layout
+          raise UnsupportedRenditionLayout, layout unless RENDITION_PROPERTIES['layout'].include? layout
 
-          layouts_to_be_deleted = (RENDITION_LAYOUTS - [layout]).map {|l| "#{RENDITION_LAYOUT_PREFIX}#{l}"}
+          layouts_to_be_deleted = (RENDITION_PROPERTIES['layout'] - [layout]).map {|l| "#{RENDITION_LAYOUT_PREFIX}#{l}"}
           properties.delete_if {|prop| layouts_to_be_deleted.include? prop}
           property = "#{RENDITION_LAYOUT_PREFIX}#{layout}"
           properties << property unless properties.any? {|prop| prop == property}
