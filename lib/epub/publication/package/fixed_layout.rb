@@ -89,6 +89,8 @@ module EPUB
         end
 
         # @param layout ["reflowable", "pre-paginated", nil]
+        # @return ["reflowable", "pre-paginated", nil] the value of "rendition:layout"
+        # @raise [UnsupportedRenditionLayout] when the argument not in {RENDITION_LAYOUT} nor nil
         def rendition_layout=(layout)
           if layout.nil?
             properties.delete_if {|prop| prop.start_with? RENDITION_LAYOUT_PREFIX}
