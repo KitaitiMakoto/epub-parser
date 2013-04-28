@@ -70,7 +70,7 @@ module EPUB
 
         RENDITION_PROPERTIES.each_pair do |property, values|
           define_method "rendition_#{property}" do
-            meta = metas.find {|meta| meta.property == "rendition:#{property}"}
+            meta = metas.find {|m| m.property == "rendition:#{property}"}
             meta ? meta.content : values.first
           end
           define_method "rendition_#{property}=" do |new_value|
