@@ -100,30 +100,28 @@ module EPUB
         RENDITION_PROPERTIES.each do |property, values|
           rendition_property_prefix = "rendition:#{property}-"
 
-          method_name = "rendition_#{property}"
-          define_method method_name do
+          getter_name = "rendition_#{property}"
+          define_method getter_name do
             prop_value = properties.find {|prop| prop.start_with? rendition_property_prefix}
             prop_value ? prop_value.gsub(/\A#{Regexp.escape(rendition_property_prefix)}/o, '') :
-              spine.package.metadata.__send__(method_name)
-          end
-        end
-
-        # @param layout ["reflowable", "pre-paginated", nil]
-        # @return ["reflowable", "pre-paginated", nil] the value of "rendition:layout"
-        # @raise [UnsupportedRenditionLayout] when the argument not in {RENDITION_LAYOUT} nor nil
-        def rendition_layout=(layout)
-          if layout.nil?
-            properties.delete_if {|prop| prop.start_with? RENDITION_LAYOUT_PREFIX}
-            return layout
+              spine.package.metadata.__send__(getter_name)
           end
 
-          raise UnsupportedRenditionValue, layout unless RENDITION_PROPERTIES['layout'].include? layout
+          setter_name = "#{getter_name}="
+          define_method setter_name do |new_value|
+            if new_value.nil?
+              properties.delete_if {|prop| prop.start_with? rendition_property_prefix}
+              return new_value
+            end
 
-          layouts_to_be_deleted = (RENDITION_PROPERTIES['layout'] - [layout]).map {|l| "#{RENDITION_LAYOUT_PREFIX}#{l}"}
-          properties.delete_if {|prop| layouts_to_be_deleted.include? prop}
-          property = "#{RENDITION_LAYOUT_PREFIX}#{layout}"
-          properties << property unless properties.any? {|prop| prop == property}
-          layout
+            raise UnsupportedRenditionValue, new_value unless values.include? new_value
+
+            values_to_be_deleted = (values - [new_value]).map {|value| "#{rendition_property_prefix}#{value}"}
+            properties.delete_if {|prop| values_to_be_deleted.include? prop}
+            new_property = "#{rendition_property_prefix}#{new_value}"
+            properties << new_property unless properties.any? {|prop| prop == new_property}
+            new_value
+          end
         end
 
         def_rendition_layout_methods
