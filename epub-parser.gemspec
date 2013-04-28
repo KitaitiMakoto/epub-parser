@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.has_rdoc = 'yard'
 
-  s.add_development_dependency 'rubygems-test'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-doc'
