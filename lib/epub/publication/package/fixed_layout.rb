@@ -77,6 +77,8 @@ module EPUB
       end
 
       module ItemrefMixin
+        extend RenditionLayout
+
         RENDITION_LAYOUT_PREFIX = 'rendition:layout-'
 
         # @return ["reflowable", "pre-paginated"] the value of "rendition:layout"
@@ -101,6 +103,8 @@ module EPUB
           properties << property unless properties.any? {|prop| prop == property}
           layout
         end
+
+        def_rendition_layout_methods
       end
 
       module ItemMixin
