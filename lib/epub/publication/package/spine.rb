@@ -36,6 +36,10 @@ module EPUB
                         :idref, :linear, :id, :properties
           alias linear? linear
 
+          def initialize
+            @properties = []
+          end
+
           # @return [Package::Manifest::Item] item referred by this object
           def item
             @item ||= @spine.package.manifest[idref]

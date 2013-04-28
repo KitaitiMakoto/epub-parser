@@ -1,6 +1,8 @@
 module EPUB
   module Publication
     module FixedLayout
+      RENDITION_LAYOUTS = ['reflowable'.freeze, 'pre-paginated'.freeze].freeze
+
       class UnsupportedRenditionLayout < StandardError; end
 
       class << self
@@ -19,8 +21,6 @@ module EPUB
       end
 
       module MetadataMixin
-        RENDITION_LAYOUTS = ['reflowable'.freeze, 'pre-paginated'.freeze].freeze
-
         # @return ["reflowable", "pre-paginated"] the value of rendition:layout
         # @return ["reflowable"] when rendition_layout not set explicitly ever
         def rendition_layout
@@ -69,7 +69,30 @@ module EPUB
       end
 
       module ItemrefMixin
-        
+        RENDITION_LAYOUT_PREFIX = 'rendition:layout-'
+
+        # @return ["reflowable", "pre-paginated"] the value of "rendition:layout"
+        def rendition_layout
+          layout = properties.find {|prop| prop.start_with? RENDITION_LAYOUT_PREFIX}
+          layout ? layout.gsub(/\A#{Regexp.escape(RENDITION_LAYOUT_PREFIX)}/o, '') :
+            spine.package.metadata.rendition_layout
+        end
+
+        # @param layout ["reflowable", "pre-paginated", nil]
+        def rendition_layout=(layout)
+          if layout.nil?
+            properties.delete_if {|prop| prop.start_with? RENDITION_LAYOUT_PREFIX}
+            return layout
+          end
+
+          raise UnsupportedRenditionLayout, layout unless RENDITION_LAYOUTS.include? layout
+
+          layouts_to_be_deleted = (RENDITION_LAYOUTS - [layout]).map {|l| "#{RENDITION_LAYOUT_PREFIX}#{l}"}
+          properties.delete_if {|prop| layouts_to_be_deleted.include? prop}
+          property = "#{RENDITION_LAYOUT_PREFIX}#{layout}"
+          properties << property unless properties.any? {|prop| prop == property}
+          layout
+        end
       end
 
       module ItemMixin
