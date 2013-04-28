@@ -1,5 +1,10 @@
 CHANGELOG
 =========
+0.1.4
+-----
+* [Fixed-Layout Documents][fixed-layout] support
+
+[fixed-layout]: http://www.idpf.org/epub/fxl/
 
 0.1.3
 -----

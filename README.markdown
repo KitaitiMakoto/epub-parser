@@ -78,6 +78,11 @@ REQUIREMENTS
 
 RECENT CHANGES
 --------------
+### 0.1.4
+* [Fixed-Layout Documents][fixed-layout] support
+
+[fixed-layout]: http://www.idpf.org/epub/fxl/
+
 ### 0.1.3
 * Add a command-line tool `epub-open`
 * Add support for XHTML Navigation Document
