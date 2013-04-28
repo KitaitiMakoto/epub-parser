@@ -178,6 +178,13 @@ class TestFixedLayout < Test::Unit::TestCase
       assert_not_include @itemref.properties, 'rendition:layout-reflowbale'
       assert_include @itemref.properties, 'rendition:layout-pre-paginated'
     end
+
+    def test_inherits_metadatas_rendition_spread_by_default
+      assert_equal 'auto', @itemref.rendition_spread
+
+      @package.metadata.rendition_spread = 'portrait'
+      assert_equal 'portrait', @itemref.rendition_spread
+    end
   end
 
   class TestItem < TestFixedLayout
