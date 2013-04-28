@@ -8,6 +8,7 @@ module EPUB
       class << self
         def included(package_class)
           [
+           [Package, PackageMixin],
            [Package::Metadata, MetadataMixin],
            [Package::Spine::Itemref, ItemrefMixin],
            [Package::Manifest::Item, ItemMixin],
@@ -44,6 +45,15 @@ module EPUB
             end
           end
         end
+      end
+
+      module PackageMixin
+        attr_writer :using_fixed_layout
+
+        def using_fixed_layout
+          !! @using_fixed_layout
+        end
+        alias using_fixed_layout? using_fixed_layout
       end
 
       module MetadataMixin

@@ -10,6 +10,21 @@ end
 class TestFixedLayout < Test::Unit::TestCase
   include EPUB::Publication
 
+  class TestPackage < TestFixedLayout
+    def test_package_dont_use_fixed_layout_by_default
+      assert_false Package.new.using_fixed_layout?
+    end
+
+    def test_make_package_use_fixed_layout
+      package = Package.new
+      package.using_fixed_layout = true
+      assert_true package.using_fixed_layout?
+
+      package.using_fixed_layout = false
+      assert_false package.using_fixed_layout?
+    end
+  end
+
   class TestMetadata < TestFixedLayout
     def setup
       @metadata = Package::Metadata.new
