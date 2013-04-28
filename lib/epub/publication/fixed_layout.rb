@@ -26,30 +26,34 @@ module EPUB
       end
 
       module Rendition
+        def def_rendition_methods
+          RENDITION_PROPERTIES.each_key do |property|
+            alias_method property, "rendition_#{property}"
+            alias_method "#{property}=", "rendition_#{property}="
+          end
+          def_rendition_layout_methods
+        end
+
         def def_rendition_layout_methods
-          RENDITION_PROPERTIES.each_pair do |property, values|
-            values.each do |value|
-              alias_method property, "rendition_#{property}"
-              alias_method "#{property}=", "rendition_#{property}="
+          property = 'layout'
+          RENDITION_PROPERTIES[property].each do |value|
+            method_name_base = value.gsub('-', '_')
+            setter_name = "#{method_name_base}="
+            define_method setter_name do |new_value|
+              new_prop = new_value ? value : values.find {|l| l != value}
+              __send__ "rendition_#{property}=", new_prop
+            end
 
-              method_name_base = value.gsub('-', '_')
-              setter_name = "#{method_name_base}="
-              define_method setter_name do |new_value|
-                new_prop = new_value ? value : values.find {|l| l != value}
-                __send__ "rendition_#{property}=", new_prop
-              end
+            maker_name = "make_#{method_name_base}"
+            define_method maker_name do
+              __send__ "rendition_#{property}=", value
+            end
+            destructive_method_name = "#{method_name_base}!"
+            alias_method destructive_method_name, maker_name
 
-              maker_name = "make_#{method_name_base}"
-              define_method maker_name do
-                __send__ "rendition_#{property}=", value
-              end
-              destructive_method_name = "#{method_name_base}!"
-              alias_method destructive_method_name, maker_name
-
-              predicate_name = "#{method_name_base}?"
-              define_method predicate_name do
-                __send__("rendition_#{property}") == value
-              end
+            predicate_name = "#{method_name_base}?"
+            define_method predicate_name do
+              __send__("rendition_#{property}") == value
             end
           end
         end
@@ -89,7 +93,7 @@ module EPUB
           end
         end
 
-        def_rendition_layout_methods
+        def_rendition_methods
       end
 
       module ItemrefMixin
@@ -124,7 +128,7 @@ module EPUB
           end
         end
 
-        def_rendition_layout_methods
+        def_rendition_methods
       end
 
       module ItemMixin
