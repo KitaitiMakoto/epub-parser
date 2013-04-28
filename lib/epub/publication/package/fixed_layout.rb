@@ -4,10 +4,10 @@ module EPUB
       class << self
         def included(package_class)
           [
-           [Package::Metadata, self::MetadataMixin],
-           [Package::Spine::Itemref, self::ItemrefMixin],
-           [Package::Manifest::Item, self::ItemMixin],
-           [ContentDocument, self::ContentDocumentMixin],
+           [Package::Metadata, MetadataMixin],
+           [Package::Spine::Itemref, ItemrefMixin],
+           [Package::Manifest::Item, ItemMixin],
+           [ContentDocument, ContentDocumentMixin],
           ].each do |(base, mixin)|
             base.module_eval do
               include mixin
