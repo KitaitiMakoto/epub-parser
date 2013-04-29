@@ -185,6 +185,13 @@ class TestFixedLayout < Test::Unit::TestCase
       @package.metadata.rendition_spread = 'portrait'
       assert_equal 'portrait', @itemref.rendition_spread
     end
+
+    def test_rendition_property_reader_has_alias
+      assert_equal 'auto', @itemref.orientation
+
+      @itemref.orientation = 'landscape'
+      assert_equal 'landscape', @itemref.rendition_orientation
+    end
   end
 
   class TestItem < TestFixedLayout

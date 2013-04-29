@@ -118,7 +118,7 @@ module EPUB
           reader_name = "rendition_#{property}"
           define_method reader_name do
             prop_value = properties.find {|prop| prop.start_with? rendition_property_prefix}
-            prop_value ? prop_value.gsub(/\A#{Regexp.escape(rendition_property_prefix)}/o, '') :
+            prop_value ? prop_value.gsub(/\A#{Regexp.escape(rendition_property_prefix)}/, '') :
               spine.package.metadata.__send__(reader_name)
           end
 
