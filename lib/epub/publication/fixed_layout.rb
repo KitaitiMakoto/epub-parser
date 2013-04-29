@@ -87,6 +87,7 @@ module EPUB
             meta = metas.find {|m| m.property == "rendition:#{property}"}
             meta ? meta.content : values.first
           end
+
           define_method "rendition_#{property}=" do |new_value|
             raise UnsupportedRenditionValue, new_value unless values.include? new_value
 
