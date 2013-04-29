@@ -41,8 +41,8 @@ module EPUB
           property = 'layout'
           RENDITION_PROPERTIES[property].each do |value|
             method_name_base = value.gsub('-', '_')
-            setter_name = "#{method_name_base}="
-            define_method setter_name do |new_value|
+            writer_name = "#{method_name_base}="
+            define_method writer_name do |new_value|
               new_prop = new_value ? value : values.find {|l| l != value}
               __send__ "rendition_#{property}=", new_prop
             end
@@ -114,15 +114,15 @@ module EPUB
         RENDITION_PROPERTIES.each do |property, values|
           rendition_property_prefix = "rendition:#{property}-"
 
-          getter_name = "rendition_#{property}"
-          define_method getter_name do
+          reader_name = "rendition_#{property}"
+          define_method reader_name do
             prop_value = properties.find {|prop| prop.start_with? rendition_property_prefix}
             prop_value ? prop_value.gsub(/\A#{Regexp.escape(rendition_property_prefix)}/o, '') :
-              spine.package.metadata.__send__(getter_name)
+              spine.package.metadata.__send__(reader_name)
           end
 
-          setter_name = "#{getter_name}="
-          define_method setter_name do |new_value|
+          writer_name = "#{reader_name}="
+          define_method writer_name do |new_value|
             if new_value.nil?
               properties.delete_if {|prop| prop.start_with? rendition_property_prefix}
               return new_value
