@@ -7,6 +7,11 @@ module EPUB
         item.read
       end
       alias raw_document read
+
+      # referenced directly from spine?
+      def top_level?
+        !! item.itemref
+      end
     end
   end
 end
