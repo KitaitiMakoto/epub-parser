@@ -2,6 +2,8 @@ require_relative 'helper'
 require 'epub/publication'
 
 class TestPublication < Test::Unit::TestCase
+  include EPUB::Publication
+
   def test_package_clear_package_attribute_of_submodules_when_attribute_writer_called
     metadata = EPUB::Publication::Package::Metadata.new
     another_metadata = EPUB::Publication::Package::Metadata.new
@@ -15,8 +17,6 @@ class TestPublication < Test::Unit::TestCase
   end
 
   class TestMetadata < TestPublication
-    include EPUB::Publication
-
     def test_meta_refines_setter_connect_refinee_to_the_meta
       refiner = Package::Metadata::Meta.new
       refinee = Package::Metadata::Meta.new
@@ -92,6 +92,33 @@ class TestPublication < Test::Unit::TestCase
         stub(item).manifest.stub!.package.stub!.spine.stub!.itemrefs {[itemref]}
 
         assert_same itemref, item.itemref
+      end
+    end
+  end
+
+  class TestSpine < TestPublication
+    class TestItemref < TestSpine
+      def setup
+        super
+        @itemref = Package::Spine::Itemref.new
+      end
+
+      def test_default_page_spread_is_nil
+        assert_nil @itemref.page_spread
+      end
+
+      def test_can_set_page_spread
+        @itemref.page_spread = 'left'
+
+        assert_equal 'left', @itemref.page_spread
+        assert_include @itemref.properties, 'page-spread-left'
+      end
+
+      def test_page_spread_is_exclusive
+        @itemref.page_spread = 'left'
+        @itemref.page_spread = 'right'
+
+        assert_not_include @itemref.properties, 'page-spread-left'
       end
     end
   end

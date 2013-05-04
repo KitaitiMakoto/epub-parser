@@ -34,6 +34,9 @@ module EPUB
         end
 
         class Itemref
+          PAGE_SPREAD_PROPERTIES = ['left'.freeze, 'right'.freeze].freeze
+          PAGE_SPREAD_PREFIX = 'page-spread-'.freeze
+
           attr_accessor :spine,
                         :idref, :linear, :id, :properties
           alias linear? linear
@@ -55,6 +58,28 @@ module EPUB
             [:spine, :idref, :linear, :id].all? {|meth|
               self.__send__(meth) == other.__send__(meth)
             } and (other.properties - properties).empty?
+          end
+
+          # @return ["left", "right", nil]
+          def page_spread
+            property = properties.find {|prop| prop.start_with? PAGE_SPREAD_PREFIX}
+            property ? property.gsub(/\A#{Regexp.escape(PAGE_SPREAD_PREFIX)}/, '') : nil
+          end
+
+          # @param new_valuve ["left", "right", nil]
+          def page_spread=(new_value)
+            if new_value.nil?
+              properties.delete_if {|prop| prop.start_with? PAGE_SPREAD_PREFIX}
+              return new_value
+            end
+
+            raise "Unsupported page-spread property: #{new_value}" unless PAGE_SPREAD_PROPERTIES.include? new_value
+
+            props_to_be_deleted = (PAGE_SPREAD_PROPERTIES - [new_value]).map {|prop| "#{PAGE_SPREAD_PREFIX}#{prop}"}
+            properties.delete_if {|prop| props_to_be_deleted.include? prop}
+            new_property = "#{PAGE_SPREAD_PREFIX}#{new_value}"
+            properties << new_property unless properties.include? new_property
+            new_value
           end
         end
       end
