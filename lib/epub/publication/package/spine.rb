@@ -6,10 +6,12 @@ module EPUB
                       :id, :toc, :page_progression_direction
         attr_reader :itemrefs
 
+        # @return self
         def <<(itemref)
           @itemrefs ||= []
           itemref.spine = self
           @itemrefs << itemref
+          self
         end
 
         # @yield [itemref]
@@ -43,6 +45,10 @@ module EPUB
           # @return [Package::Manifest::Item] item referred by this object
           def item
             @item ||= @spine.package.manifest[idref]
+          end
+
+          def item=(item)
+            raise NotImplementedError
           end
 
           def ==(other)
