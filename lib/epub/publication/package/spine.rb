@@ -66,7 +66,7 @@ module EPUB
             property ? property.gsub(/\A#{Regexp.escape(PAGE_SPREAD_PREFIX)}/, '') : nil
           end
 
-          # @param new_valuve ["left", "right", nil]
+          # @param new_value ["left", "right", nil]
           def page_spread=(new_value)
             if new_value.nil?
               properties.delete_if {|prop| prop.start_with? PAGE_SPREAD_PREFIX}
