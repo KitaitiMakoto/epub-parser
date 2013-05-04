@@ -3,6 +3,11 @@ CHANGELOG
 0.1.4
 -----
 * [Fixed-Layout Documents][fixed-layout] support
+* Define `ContentDocument::XHTML#top_level?`
+* Define `Spine::Itemref#page_spread` and `#page_spread=`
+* Define some utility methods around `Manifest::Item` and `Spine::Itemref`
+  * `Manifest::Item#itemref`
+  * `Spine::Itemref#item=`
 
 [fixed-layout]: http://www.idpf.org/epub/fxl/
 
