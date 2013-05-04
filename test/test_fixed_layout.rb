@@ -195,6 +195,25 @@ class TestFixedLayout < Test::Unit::TestCase
   end
 
   class TestItem < TestFixedLayout
+    def setup
+      package = Package.new
+      package.manifest = Package::Manifest.new
+      @item = Package::Manifest::Item.new
+      @item.id = 'item'
+      package.manifest << @item
+      package.spine = Package::Spine.new
+      @itemref = Package::Spine::Itemref.new
+      @itemref.idref = 'item'
+      package.spine << @itemref
+    end
+
+    def test_can_access_rendition_attributes
+      @itemref.rendition_layout = 'pre-paginated'
+      assert_true @item.pre_paginated?
+
+      @item.rendition_orientation = 'portrait'
+      assert_equal 'portrait', @itemref.rendition_orientation
+    end
   end
 
   class TestContentDocument < TestFixedLayout

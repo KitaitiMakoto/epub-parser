@@ -139,7 +139,20 @@ module EPUB
       end
 
       module ItemMixin
-        
+        extend Rendition
+
+        RENDITION_PROPERTIES.each_key do |property|
+          define_method "rendition_#{property}" do
+            itemref.__send__ property
+          end
+
+          writer_name = "rendition_#{property}="
+          define_method writer_name do |value|
+            itemref.__send__ writer_name, value
+          end
+        end
+
+        def_rendition_methods
       end
 
       module ContentDocumentMixin
