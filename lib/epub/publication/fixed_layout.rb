@@ -19,7 +19,7 @@ module EPUB
            [Package::Metadata, MetadataMixin],
            [Package::Spine::Itemref, ItemrefMixin],
            [Package::Manifest::Item, ItemMixin],
-           [ContentDocument, ContentDocumentMixin],
+           [ContentDocument::XHTML, ContentDocumentMixin],
           ].each do |(base, mixin)|
             base.__send__ :include, mixin
           end
@@ -156,7 +156,21 @@ module EPUB
       end
 
       module ContentDocumentMixin
-        
+        extend Rendition
+
+        RENDITION_PROPERTIES.each_key do |property|
+          reader_name = "rendition_#{property}"
+          define_method reader_name do
+            item.__send__ reader_name
+          end
+
+          writer_name = "rendition_#{property}="
+          define_method writer_name do |value|
+            item.__send__ writer_name, value
+          end
+        end
+
+        def_rendition_methods
       end
     end
   end

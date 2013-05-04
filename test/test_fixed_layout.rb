@@ -217,6 +217,26 @@ class TestFixedLayout < Test::Unit::TestCase
   end
 
   class TestContentDocument < TestFixedLayout
-    
+    def setup
+      package = Package.new
+      package.manifest = Package::Manifest.new
+      item = Package::Manifest::Item.new
+      item.id = 'item'
+      package.manifest << item
+      package.spine = Package::Spine.new
+      @itemref = Package::Spine::Itemref.new
+      @itemref.idref = 'item'
+      package.spine << @itemref
+      @doc = EPUB::ContentDocument::XHTML.new
+      @doc.item = item
+    end
+
+    def test_can_access_rendition_attributes
+      @itemref.rendition_layout = 'pre-paginated'
+      assert_true @doc.pre_paginated?
+
+      @doc.rendition_spread = 'none'
+      assert_equal 'none', @itemref.rendition_spread
+    end
   end
 end
