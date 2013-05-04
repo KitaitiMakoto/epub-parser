@@ -110,8 +110,6 @@ module EPUB
       module ItemrefMixin
         extend Rendition
 
-        RENDITION_LAYOUT_PREFIX = 'rendition:layout-'
-
         RENDITION_PROPERTIES.each do |property, values|
           rendition_property_prefix = "rendition:#{property}-"
 
