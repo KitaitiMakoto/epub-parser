@@ -62,6 +62,7 @@ module EPUB
       end
 
       module PackageMixin
+        # @return [true, false]
         def using_fixed_layout
           prefix.has_key? PREFIX_KEY and
             prefix[PREFIX_KEY] == PREFIX_VALUE
