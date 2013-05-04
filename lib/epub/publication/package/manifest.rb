@@ -93,6 +93,12 @@ module EPUB
             @content_document ||= Parser::ContentDocument.new(self).parse
           end
 
+          # @return [Package::Spine::Itemref]
+          # @return nil when no Itemref refers this Item
+          def itemref
+            manifest.package.spine.itemrefs.find {|itemref| itemref.idref == id}
+          end
+
           protected
 
           def traverse_fallback_chain(chain)

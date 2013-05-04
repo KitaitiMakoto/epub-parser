@@ -65,6 +65,8 @@ class TestPublication < Test::Unit::TestCase
   end
 
   class TestManifest < TestPublication
+    include EPUB::Publication
+
     class TestItem < TestManifest
       def test_content_document_returns_nil_when_not_xhtml_nor_svg
         item = EPUB::Publication::Package::Manifest::Item.new
@@ -80,6 +82,16 @@ class TestPublication < Test::Unit::TestCase
         stub(item).manifest.stub!.items {[]}
 
         assert_instance_of EPUB::ContentDocument::Navigation, item.content_document
+      end
+
+      def test_can_refer_itemref_which_refers_self
+        itemref = stub!
+        stub(itemref).idref {'item'}
+        item = Package::Manifest::Item.new
+        item.id = 'item'
+        stub(item).manifest.stub!.package.stub!.spine.stub!.itemrefs {[itemref]}
+
+        assert_same itemref, item.itemref
       end
     end
   end
