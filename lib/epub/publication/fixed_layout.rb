@@ -21,9 +21,7 @@ module EPUB
            [Package::Manifest::Item, ItemMixin],
            [ContentDocument, ContentDocumentMixin],
           ].each do |(base, mixin)|
-            base.module_eval do
-              include mixin
-            end
+            base.__send__ :include, mixin
           end
         end
       end
