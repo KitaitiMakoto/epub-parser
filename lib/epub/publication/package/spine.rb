@@ -51,7 +51,8 @@ module EPUB
           end
 
           def item=(item)
-            raise NotImplementedError
+            self.idref = item.id
+            item
           end
 
           def ==(other)

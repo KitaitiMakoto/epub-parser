@@ -120,6 +120,24 @@ class TestPublication < Test::Unit::TestCase
 
         assert_not_include @itemref.properties, 'page-spread-left'
       end
+
+      def test_can_set_item
+        package = Package.new
+        item = Package::Manifest::Item.new
+        item.id = 'item'
+        manifest = Package::Manifest.new
+        spine = Package::Spine.new
+        manifest << item
+        spine << @itemref
+        package.manifest = manifest
+        package.spine = spine
+
+        @itemref.item = item
+
+        assert_equal 'item', @itemref.idref
+        assert_include spine.items, item
+        assert_same item, @itemref.item
+      end
     end
   end
 end
