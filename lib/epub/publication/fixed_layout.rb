@@ -27,6 +27,7 @@ module EPUB
       end
 
       module Rendition
+        # @note Call after defining #rendition_xxx and #renditionn_xxx=
         def def_rendition_methods
           RENDITION_PROPERTIES.each_key do |property|
             alias_method property, "rendition_#{property}"
