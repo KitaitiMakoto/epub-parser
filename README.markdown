@@ -19,9 +19,8 @@ USAGE
       # do somethong...
     end
 
-See the [wiki][] or [API Documentation][rubydoc] for more info.
+See [API Documentation][rubydoc] for more info.
 
-[wiki]: https://github.com/KitaitiMakoto/epub-parser/wiki
 [rubydoc]: http://rubydoc.info/gems/epub-parser/frames
 
 ### `epubinfo` command-line tool

@@ -32,9 +32,7 @@ This book object can yield page by spine's order(spine defines the order to read
       # do something...
     end
 
-`page` above is a [`EPUB::Publication::Package::Manifest::Item`][1] object and you can call `#href` to see where is the page file:
-
-[1]:http://rubydoc.info/gems/epub-parser/EPUB/Publication/Package/Manifest/Item
+`page` above is a {EPUB::Publication::Package::Manifest::Item} object and you can call {EPUB::Publication::Package::Manifest::Item#href #href} to see where is the page file:
 
     book.each_page_on_spine do |page|
       file = page.href # => path/to/page/in/zip/archive
@@ -43,15 +41,15 @@ This book object can yield page by spine's order(spine defines the order to read
       }
     end
 
-And `Item` provides syntax suger `#read` for above:
+And {EPUB::Publication::Package::Manifest::Item Item} provides syntax suger {EPUB::Publication::Package::Manifest::Item#read #read} for above:
 
     html = page.read
     doc = Nokogiri.HTML html
     # do something with Nokogiri as always
 
-For several utilities of Item, see [[Item]] page.
+For several utilities of Item, see {file:docs/Item.markdown} page.
 
-By the way, although `book` above is a `EPUB::Book` object, all features are provided by `EPUB` module. Therefore YourBook class can include the features of EPUB:
+By the way, although `book` above is a {EPUB::Book} object, all features are provided by {EPUB} module. Therefore YourBook class can include the features of {EPUB}:
 
     require 'epub'
     
@@ -111,4 +109,4 @@ License
 =======
 
 This library is distributed under the term of the MIT Licence.
-See [MIT-LICENSE](/epub/parser/blobs/master/MIT-LICENSE) file for more info.
+See {file:MIT-LICENSE} file for more info.

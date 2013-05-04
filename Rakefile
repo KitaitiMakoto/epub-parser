@@ -46,7 +46,7 @@ namespace :doc do
     rdoc.rdoc_files = FileList['lib/**/*.rb']
     rdoc.rdoc_files.include 'README.markdown'
     rdoc.rdoc_files.include 'MIT-LICENSE'
-    rdoc.rdoc_files.include 'wiki/**/*.md'
+    rdoc.rdoc_files.include 'docs/**/*.md'
   end
 end
 

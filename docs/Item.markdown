@@ -1,17 +1,17 @@
-[[Home]] > **[[Item]]**
+{file:docs/Home.markdown} > **{file:docs/Item}**
 
 Overview
 ========
 
-When manipulating resources (XHTML, images, audio...) in EPUB, [`EPUB::Publication::Manifest::Item`](http://rubydoc.info/gems/epub-parser/EPUB/Publication/Package/Manifest/Item) object will be used.
-And objects which `EPUB#each_page_on_spine` yields are also instances of this class.
+When manipulating resources (XHTML, images, audio...) in EPUB, {EPUB::Publication::Package::Manifest::Item} object will be used.
+And objects which {EPUB#each_page_on_spine} yields are also instances of this class.
 
 Here's the tutorial of this class.
 
 Getting Items
 =============
 
-Getting the `Item` object you want is due to other classes, mainly `EPUB` module:
+Getting the {EPUB::Publication::Package::Manifest::Item Item} object you want is due to other classes, mainly {EPUB} module:
 
     book = EPUB::Parser.parse 'book.epub'
     book.resouces # => all items including XHTMLs, CSSs, images, audios and so on
@@ -27,7 +27,7 @@ For the last two examples, knowledge for EPUB structure is required.
 Using Items
 ===========
 
-Once you've got an `Item`, it provides informations about the item(file).
+Once you've got an {EPUB::Publication::Package::Manifest::Item Item}, it provides informations about the item(file).
 
     item.id # => the ID of the item
     item.media_type # => media type like application/xhtml+xml
@@ -37,7 +37,7 @@ Once you've got an `Item`, it provides informations about the item(file).
     item.fallback_chain # => ditto.
     item.using_fallback_chain # => ditto.
 
-And `Item` also provides some methods which helps you handle the item.
+And {EPUB::Publication::Package::Manifest::Item Item} also provides some methods which helps you handle the item.
 
 For example, for XHTML:
 
@@ -52,13 +52,13 @@ For image:
 Fallback Chain
 ==============
 
-Some items have `fallback` attribute, which provides the item to be used when reading system(your app) cannot handle with given item for some reason(for example, media type not supported).
+Some items have {EPUB::Publication::Package::Manifest::Item#fallback `fallback`} attribute, which provides the item to be used when reading system(your app) cannot handle with given item for some reason(for example, media type not supported).
 
-Of course, you can get it by calling `fallback` method:
+Of course, you can get it by calling {EPUB::Publication::Package::Manifest::Item#fallback `fallback`} method:
 
     item.fallback # => fallback `Item` or nil
 
-Also you can use `use_fallback_chain` not to check if you can accept item or not for every item:
+Also you can use {EPUB::Publication::Package::Manifest::Item#use_fallback_chain `use_fallback_chain`} not to check if you can accept item or not for every item:
 
     item.use_fallback_chain :supported => 'image/png' do |png|
       # do something with PNG image
@@ -66,7 +66,7 @@ Also you can use `use_fallback_chain` not to check if you can accept item or not
 
 If item's media type is, for instance, 'image/x-eps', the fallback is used.
 If the fallback item's media type is 'image/png', `png` variable means the item, if not, "fallback of fallback" will be checked.
-Finally you can use the item you want, or `EPUB::MediaType::UnsupportedError` exception will be raised(if no item you can accept found).
+Finally you can use the item you want, or {EPUB::Constants::MediaType::UnsupportedError EPUB::MediaType::UnsupportedError} exception will be raised(if no item you can accept found).
 Therefore, you should `rescue` clause:
 
     # :unsupported option can also be used
