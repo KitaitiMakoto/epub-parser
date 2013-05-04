@@ -19,7 +19,7 @@ USAGE
       # do somethong...
     end
 
-See [API Documentation][rubydoc] for more info.
+See files in docs directory or [API Documentation][rubydoc] for more info.
 
 [rubydoc]: http://rubydoc.info/gems/epub-parser/frames
 
