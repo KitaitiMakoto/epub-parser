@@ -9,10 +9,12 @@ module EPUB
         attr_accessor :package,
                       :id
 
+        # @return self
         def <<(item)
           @items ||= {}
           item.manifest = self
           @items[item.id] = item
+          self
         end
 
         def navs
