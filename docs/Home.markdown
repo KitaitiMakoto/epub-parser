@@ -32,7 +32,7 @@ This book object can yield page by spine's order(spine defines the order to read
       # do something...
     end
 
-`page` above is a {EPUB::Publication::Package::Manifest::Item} object and you can call {EPUB::Publication::Package::Manifest::Item#href #href} to see where is the page file:
+`page` above is an {EPUB::Publication::Package::Manifest::Item} object and you can call {EPUB::Publication::Package::Manifest::Item#href #href} to see where is the page file:
 
     book.each_page_on_spine do |page|
       file = page.href # => path/to/page/in/zip/archive
