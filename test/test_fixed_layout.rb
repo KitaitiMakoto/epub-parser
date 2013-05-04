@@ -192,6 +192,22 @@ class TestFixedLayout < Test::Unit::TestCase
       @itemref.orientation = 'landscape'
       assert_equal 'landscape', @itemref.rendition_orientation
     end
+
+    def test_page_spread_center_defined
+      @itemref.properties << 'rendition:page-spread-center'
+      assert_equal 'center', @itemref.page_spread
+    end
+
+    def test_can_make_page_spread_center_explicitly
+      @itemref.page_spread = 'center'
+      assert_include @itemref.properties, 'rendition:page-spread-center'
+    end
+
+    def test_page_spread_is_exclusive
+      @itemref.page_spread = 'right'
+      @itemref.page_spread = 'center'
+      assert_not_include @itemref.properties, 'page-spread-right'
+    end
   end
 
   class TestItem < TestFixedLayout

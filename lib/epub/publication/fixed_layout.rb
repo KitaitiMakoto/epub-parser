@@ -109,6 +109,35 @@ module EPUB
       module ItemrefMixin
         extend Rendition
 
+        PAGE_SPREAD_PROPERTY = 'center'
+        PAGE_SPREAD_PREFIX = 'rendition:page-spread-'
+
+        class << self
+          # @todo Define using Module#prepend after Ruby 2.0 will become popular
+          def included(base)
+            base.__send__ :alias_method, :page_spread_without_fixed_layout, :page_spread
+            base.__send__ :alias_method, :page_spread_writer_without_fixed_layout, :page_spread=
+
+            prefixed_page_spread_property = "#{PAGE_SPREAD_PREFIX}#{PAGE_SPREAD_PROPERTY}"
+            base.__send__ :define_method, :page_spread do
+              property = page_spread_without_fixed_layout
+              return property if property
+              property = properties.find {|prop| prop == prefixed_page_spread_property}
+              property ? PAGE_SPREAD_PROPERTY : nil
+            end
+
+            base.__send__ :define_method, :page_spread= do |new_value|
+              if new_value == PAGE_SPREAD_PROPERTY
+                page_spread_writer_without_fixed_layout nil
+                properties << prefixed_page_spread_property
+              else
+                page_spread_writer_without_fixed_layout new_value
+              end
+              new_value
+            end
+          end
+        end
+
         RENDITION_PROPERTIES.each do |property, values|
           rendition_property_prefix = "rendition:#{property}-"
 
