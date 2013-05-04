@@ -116,6 +116,7 @@ module EPUB
         class << self
           # @todo Define using Module#prepend after Ruby 2.0 will become popular
           def included(base)
+            return if base.instance_methods.include? :page_spread_without_fixed_layout
             base.__send__ :alias_method, :page_spread_without_fixed_layout, :page_spread
             base.__send__ :alias_method, :page_spread_writer_without_fixed_layout, :page_spread=
 
