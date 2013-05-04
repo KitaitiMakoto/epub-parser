@@ -1,8 +1,8 @@
 module EPUB
   module Publication
     module FixedLayout
-      PREFIX_KEY = 'rendition'
-      PREFIX_VALUE = 'http://www.idpf.org/vocab/rendition/#'
+      PREFIX_KEY = 'rendition'.freeze
+      PREFIX_VALUE = 'http://www.idpf.org/vocab/rendition/#'.freeze
 
       RENDITION_PROPERTIES = {
         'layout'      => ['reflowable'.freeze, 'pre-paginated'.freeze].freeze,
