@@ -2,6 +2,9 @@ module EPUB
   module Publication
     class Package
       class Metadata
+        include MethodDecorators
+        extend MethodDecorators
+
         DC_ELEMS = [:identifiers, :titles, :languages] +
                    [:contributors, :coverages, :creators, :dates, :descriptions, :formats, :publishers,
                     :relations, :rights, :sources, :subjects, :types]
@@ -51,8 +54,8 @@ module EPUB
           end
         end
 
+        +Deprecated.new {|klass, method| "#{klass}##{method} is deprecated. Use #to_h instead."}
         def to_hash
-          warn "#{self.class}##{__method__} is obsolete"
           to_h
         end
 
