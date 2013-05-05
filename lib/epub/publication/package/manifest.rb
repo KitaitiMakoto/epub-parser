@@ -29,6 +29,12 @@ module EPUB
           items.selector {|i| i.properties.include? 'cover-image'}.first
         end
 
+        def each_item
+          @items.each_value do |item|
+            yield item
+          end
+        end
+
         def items
           @items.values
         end
