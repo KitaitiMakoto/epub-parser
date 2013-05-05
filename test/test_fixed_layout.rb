@@ -1,7 +1,6 @@
 require_relative 'helper'
 require 'epub/book'
 require 'epub/publication'
-require 'epub/publication/fixed_layout'
 
 class EPUB::Publication::Package
   include EPUB::Publication::FixedLayout

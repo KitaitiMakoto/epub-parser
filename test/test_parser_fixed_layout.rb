@@ -11,6 +11,6 @@ class TestParserFixedLayout < Test::Unit::TestCase
     </package>
 OPF
     package = parser.parse_package
-    assert_true package.using_fixed_layout
+    assert_true package.using_fixed_layout?
   end
 end

@@ -41,10 +41,7 @@ module EPUB
         end
         @unique_identifier_id = elem['unique-identifier']
         @package.prefix = parse_prefix(extract_attribute(elem, 'prefix'))
-        if @package.prefix.key? 'rendition'
-          require 'epub/publication/fixed_layout'
-          EPUB::Publication.__send__ :include, EPUB::Publication::FixedLayout
-        end
+        EPUB::Publication.__send__ :include, EPUB::Publication::FixedLayout if @package.prefix.key? EPUB::Publication::FixedLayout::PREFIX_KEY
 
         @package
       end
