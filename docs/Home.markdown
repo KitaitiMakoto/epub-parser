@@ -1,30 +1,37 @@
+EPUB Parser
+===========
+
 EPUB Parser gem parses EPUB 3 book loosely.
 
 Installation
-============
+------------
 
     gem install epub-parser
 
 Usage
-=====
+-----
 
-As a command-line tool
-----------------------
+### As command-line tools
 
-    epubinfo path/to/book.epub
+#### epubinfo
 
-To see help:
+`epubinfo` tool extracts and shows the metadata of specified EPUB book.
 
-    epubinfo -h
+See {file:docs/Epubinfo}.
 
-As a library
-------------
+#### epub-open
+
+`epub-open` tool provides interactive shell(IRB) which helps you research about EPUB book.
+
+See {file:docs/EpubOpen}.
+
+### As a library
 
 Use `EPUB::Parser.parse` at first:
 
     require 'epub/parser'
     
-    book = EPUB::Parser.parse '/path/to/book.epub'
+    book = EPUB::Parser.parse('/path/to/book.epub')
 
 This book object can yield page by spine's order(spine defines the order to read that the author determines):
 
@@ -44,7 +51,7 @@ This book object can yield page by spine's order(spine defines the order to read
 And {EPUB::Publication::Package::Manifest::Item Item} provides syntax suger {EPUB::Publication::Package::Manifest::Item#read #read} for above:
 
     html = page.read
-    doc = Nokogiri.HTML html
+    doc = Nokogiri.HTML(html)
     # do something with Nokogiri as always
 
 For several utilities of Item, see {file:docs/Item.markdown} page.
@@ -83,15 +90,19 @@ You are also able to find YourBook object for the first:
     ret == book # => true; this API is not good I feel... Welcome suggestion!
     # do something with your book
 
-More documents comming soon..., hopefully :)
+More documentations are avaiable in:
+
+* {file:docs/Item.markdown}
+* {file:docs/FixedLayout.markdown}
 
 Requirements
-============
+------------
 
 * libxml2 and libxslt for Nokogiri gem
+* C compiler to compile Zip/Ruby and Nokogiri
 
 Note
-====
+----
 
 This library is still in work.
 Only a few features are implemented and APIs might be changed in the future.
@@ -101,12 +112,16 @@ Currently implemented:
 
 * container.xml of [EPUB Open Container Format (OCF) 3.0][]
 * [EPUB Publications 3.0][]
+* EPUB Navigation Documents of [EPUB Content Documents 3.0][]
+* [EPUB 3 Fixed-Layout Documents][]
 
 [EPUB Open Container Format (OCF) 3.0]:http://idpf.org/epub/30/spec/epub30-ocf.html#sec-container-metainf-container.xml
 [EPUB Publications 3.0]:http://idpf.org/epub/30/spec/epub30-publications.html
+[EPUB Content Documents 3.0]:http://www.idpf.org/epub/30/spec/epub30-contentdocs.html
+[EPUB 3 Fixed-Layout Documents]:http://www.idpf.org/epub/fxl/
 
 License
-=======
+-------
 
 This library is distributed under the term of the MIT Licence.
 See {file:MIT-LICENSE} file for more info.

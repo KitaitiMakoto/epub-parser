@@ -19,7 +19,7 @@ USAGE
       # do somethong...
     end
 
-See files in docs directory or [API Documentation][rubydoc] for more info.
+See documet's {file:docs/Home.markdown} or [API Documentation][rubydoc] for more info.
 
 [rubydoc]: http://rubydoc.info/gems/epub-parser/frames
 
@@ -27,11 +27,27 @@ See files in docs directory or [API Documentation][rubydoc] for more info.
 
 `epubinfo` tool extracts and shows the metadata of specified EPUB book.
 
-    epubinfo path/to/book.epub
+    $ epubinfo ~/Documebts/Books/build_awesome_command_line_applications_in_ruby_fo.epub 
+    Title:              Build Awesome Command-Line Applications in Ruby (for KITAITI MAKOTO)
+    Identifiers:        978-1-934356-91-3
+    Titles:             Build Awesome Command-Line Applications in Ruby (for KITAITI MAKOTO)
+    Languages:          en
+    Contributors:       
+    Coverages:          
+    Creators:           David Bryant Copeland
+    Dates:              
+    Descriptions:       
+    Formats:            
+    Publishers:         The Pragmatic Bookshelf, LLC (338304)
+    Relations:          
+    Rights:             Copyright © 2012 Pragmatic Programmers, LLC
+    Sources:            
+    Subjects:           Pragmatic Bookshelf
+    Types:              
+    Unique identifier:  978-1-934356-91-3
+    Epub version:       2.0
 
-For more info:
-
-    epubinfo -h
+See {file:docs/Epubinfo} for more info.
 
 ### `epub-open` command-line tool
 
@@ -63,12 +79,7 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
     => nil
     exit # Enter "exit" when exit the session
 
-For command-line options:
-
-    epub-open -h
-
-Development of this tool is still in progress.
-Welcome comments and suggestions for this!
+See {file:docs/EpubOpen} for more info.
 
 REQUIREMENTS
 ------------
@@ -77,6 +88,8 @@ REQUIREMENTS
 
 RECENT CHANGES
 --------------
+### 0.1.5
+
 ### 0.1.4
 * [Fixed-Layout Documents][fixed-layout] support
 * Define `ContentDocument::XHTML#top_level?`
@@ -96,13 +109,7 @@ RECENT CHANGES
 
 [gambhiro]: https://github.com/gambhiro
 
-### 0.1.1
-* Parse package@prefix and attach it as `Package#prefix`
-* `Manifest::Item#iri` was removed. `#href` now returns `Addressable::URI` object.
-* `Metadata::Link#iri`: ditto.
-* `Guide::Reference#iri`: ditto.
-
-See CHANGELOG.markdown for details.
+See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
 -----
@@ -112,7 +119,6 @@ TODOS
 * Implementing navigation document and so on
 * Media Overlays
 * Content Document
-* Fixed Layout
 * Digital Signature
 * Using SAX on parsing
 * Extracting and organizing common behavior from some classes to modules
@@ -122,6 +128,9 @@ DONE
 ----
 * Using zip library instead of `unzip` command, which has security issue
 * Modify methods around fallback to see `bindings` element in the package
+* Content Document(only for Navigation Documents)
+* Fixed Layout
+* Vocabulary Association Mechanisms(only for itemref)
 
 LICENSE
 -------

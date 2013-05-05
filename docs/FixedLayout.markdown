@@ -25,7 +25,7 @@ It is `true` when `package@prefix` attribute has `rendition` property.
     package = parser.parse_package
     package.using_fixed_layout # => true
 
-And you can set by your self:
+And you can set by yourself:
 
     package.using_fixed_layout = true
     package.prefix # => {"rendition"=>"http://www.idpf.org/vocab/rendition/#"}
@@ -42,7 +42,7 @@ Methods below are provided for
 
 ### #rendition_layout, #rendition_orientation and #rendition_spread
 
-`rendition:xxx` property is specified `meta` element in `package/metadata` and `properties` attribute of `package/spine/itemref` elements in EPUB Publications. You can recommended to use `rendition_xxx` attribute to set them although you can do it by manipulating {EPUB::Publication::Package::Metadata} and {EPUB::Publication::Package::Spine::Itemref}s directly. It is the reason why it be recommended that you must manipulate some objects not only one object to set a document's `rendition:layout` to, for instance, `reflowable`; {EPUB::Publication::Package::Metadata::Meta Metadata::Meta} and {EPUB::Publication::Package::Spine::Itemref#properties Spine::Itemref#properties}. It is bothered and tends to be mistaken, so you're recommended to use not them but `rendition_layout`.
+`rendition:xxx` property is specified by `meta` elements in `/package/metadata` and `properties` attribute of `/package/spine/itemref` elements in EPUB Publications. You are recommended to use `rendition_xxx` attribute to set them although you can do it by manipulating {EPUB::Publication::Package::Metadata} and {EPUB::Publication::Package::Spine::Itemref}s directly. It is the reason why it is recommended that you must manipulate some objects not only one object to set a document's `rendition:layout` to, for instance, `reflowable`; {EPUB::Publication::Package::Metadata::Meta Metadata::Meta} and {EPUB::Publication::Package::Spine::Itemref#properties Spine::Itemref#properties}. It is bothered and tends to be mistaken, so you're strongly recommended to use not them but `rendition_layout`.
 
 Usage is simple. Just read and write attribute values.
 
@@ -74,9 +74,7 @@ Predicate methods `#reflowable?` and `#pre_paginated?` which are shortcuts for c
 
 ### #make_reflowable and make_pre_paginated
 
-`#make_reflowable` and `#make_pre_paginated` can be used instead of calling `rendition_layout` and comparing with `String` `"reflowable"` or `"pre-paginated"`, they help you from mistyping such like `"pre_paginated"`(using underscore rather than hyphen).
-
-They are aliased to `#reflowable!` and `#pre_paginated!`.
+`#make_reflowable`(alias: `#reflowable!`) and `#make_pre_paginated`(alias: `#pre_paginated!`) can be used instead of calling `rendition_layout` and comparing it with `String` `"reflowable"` or `"pre-paginated"`, they help you from mistyping such like `"pre_paginated"`(using underscore rather than hyphen).
 
 Methods for {EPUB::Publication::Package::Spine::Itemref}
 --------------------------------------------------------

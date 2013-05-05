@@ -13,13 +13,13 @@ Getting Items
 
 Getting the {EPUB::Publication::Package::Manifest::Item Item} object you want is due to other classes, mainly {EPUB} module:
 
-    book = EPUB::Parser.parse 'book.epub'
-    book.resouces # => all items including XHTMLs, CSSs, images, audios and so on
-    book.cover_image # => item representing cover image file
-    book.each_page_by_spine do |page|
-      page # => item in spine(order of "page" the author determined, often XHTML file)
+    book = EPUB::Parser.parse('book.epub')
+    book.resouces                    # => all items including XHTMLs, CSSs, images, audios and so on
+    book.cover_image                 # => item representing cover image file
+    book.each_page_on_spine do |page|
+      page                           # => item in spine(order of "page" the author determined, often XHTML file)
     end
-    book.package.manifest.navs # => navigation items(XHTML files including <nav> element)
+    book.package.manifest.navs       # => navigation items(XHTML files including <nav> element)
     book.package.manifest['item-id'] # => item referenced by the ID "item-id"
 
 For the last two examples, knowledge for EPUB structure is required.
@@ -29,19 +29,19 @@ Using Items
 
 Once you've got an {EPUB::Publication::Package::Manifest::Item Item}, it provides informations about the item(file).
 
-    item.id # => the ID of the item
-    item.media_type # => media type like application/xhtml+xml
-    item.href # => Addressable::URI object which represents the IRI of the item
-    item.properties # => array of properties
-    item.fallback # => see the next section for details
-    item.fallback_chain # => ditto.
+    item.id                   # => the ID of the item
+    item.media_type           # => media type like application/xhtml+xml
+    item.href                 # => Addressable::URI object which represents the IRI of the item
+    item.properties           # => array of properties
+    item.fallback             # => see the next section for details
+    item.fallback_chain       # => ditto.
     item.using_fallback_chain # => ditto.
 
 And {EPUB::Publication::Package::Manifest::Item Item} also provides some methods which helps you handle the item.
 
 For example, for XHTML:
 
-    item.read # => content of the item
+    item.read                # => content of the item
     Nokogiri.HTML(item.read) #=> Nokogiri::HTML::Document object
 
 For image:
