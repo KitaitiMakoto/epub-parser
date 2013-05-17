@@ -62,6 +62,76 @@ class TestPublication < Test::Unit::TestCase
 
       assert_equal 'Extended Title', package.title
     end
+
+    def test_title_returns_compositted_title_when_it_is_not_empty
+      main_title = Package::Metadata::Title.new
+      main_title.id = 'main-title'
+      main_title.content = 'main title'
+      main_refiner = Package::Metadata::Meta.new
+      main_refiner.property = 'title-type'
+      main_refiner.content = 'main'
+      main_refiner.refines = main_title
+      main_order = Package::Metadata::Meta.new
+      main_order.property = 'display-seq'
+      main_order.content = 1
+      main_order.refines = main_title
+
+      subtitle = Package::Metadata::Title.new
+      subtitle.id = 'subtitle'
+      subtitle.content = 'subtitle'
+      sub_refiner = Package::Metadata::Meta.new
+      sub_refiner.property = 'title-type'
+      sub_refiner.content = 'subtitle'
+      sub_refiner.refines = subtitle
+      sub_order = Package::Metadata::Meta.new
+      sub_order.property = 'display-seq'
+      sub_order.content = 2
+      sub_order.refines = subtitle
+
+      package = Package::Metadata.new
+      package.titles << main_title << subtitle
+
+      assert_equal "main title\nsubtitle", package.title
+    end
+
+    def test_title_returns_main_title_when_no_title_has_order
+      main_title = Package::Metadata::Title.new
+      main_title.id = 'main-title'
+      main_title.content = 'main title'
+      main_refiner = Package::Metadata::Meta.new
+      main_refiner.property = 'title-type'
+      main_refiner.content = 'main'
+      main_refiner.refines = main_title
+
+      subtitle = Package::Metadata::Title.new
+      subtitle.id = 'subtitle'
+      subtitle.content = 'subtitle'
+      sub_refiner = Package::Metadata::Meta.new
+      sub_refiner.property = 'title-type'
+      sub_refiner.content = 'subtitle'
+      sub_refiner.refines = subtitle
+
+      package = Package::Metadata.new
+      package.titles << subtitle << main_title
+
+      assert_equal "main title", package.title
+    end
+
+    def test_meta_refining_publication_is_primary_expression
+      meta = Package::Metadata::Meta.new
+      meta.property = 'dcterms:modified'
+
+      assert_true meta.primary_expression?
+    end
+
+    def test_meta_refining_other_element_is_subexpression
+      title = Package::Metadata::Title.new
+      title.id = 'title'
+      meta = Package::Metadata::Meta.new
+      meta.refines = title
+
+      assert_true meta.subexpression?
+    end
   end
 
   class TestManifest < TestPublication

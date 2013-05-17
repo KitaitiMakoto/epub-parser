@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require_relative 'helper'
 
 class TestParserContentDocument < Test::Unit::TestCase
@@ -27,5 +28,7 @@ class TestParserContentDocument < Test::Unit::TestCase
     assert_equal @manifest.items.first, nav.items.first.item
     assert_equal @manifest.items[1], nav.items[1].items[0].item
     assert_equal @manifest.items[1], nav.items[1].items[1].item
+
+    assert_equal '第四節', nav.items.last.items.last.text
   end
 end
