@@ -71,12 +71,12 @@ module EPUB
               when 'canvas'
               when 'embed'
               when 'iframe'
-                item.text = (extract_attribute(embedded_content, 'name') || extract_attribute(embedded_content, 'srcdoc')).to_s
+                item.text = extract_attribute(embedded_content, 'name') || extract_attribute(embedded_content, 'srcdoc')
               when 'img'
-                item.text = extract_attribute(embedded_content, 'alt').to_s
+                item.text = extract_attribute(embedded_content, 'alt')
               when 'math'
               when 'object'
-                item.text = extract_attribute(embedded_content, 'name').to_s
+                item.text = extract_attribute(embedded_content, 'name')
               when 'svg'
               when 'video'
               else
