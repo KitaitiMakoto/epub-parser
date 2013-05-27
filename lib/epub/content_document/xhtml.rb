@@ -12,6 +12,11 @@ module EPUB
       def top_level?
         !! item.itemref
       end
+
+      def title
+        title_elem = Nokogiri.XML(read).search('title').first
+        title_elem ? title_elem.text : ''
+      end
     end
   end
 end
