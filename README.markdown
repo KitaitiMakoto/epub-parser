@@ -89,6 +89,7 @@ REQUIREMENTS
 RECENT CHANGES
 --------------
 ### 0.1.5
+* Add `ContentDocument::XHTML#title`
 
 ### 0.1.4
 * [Fixed-Layout Documents][fixed-layout] support

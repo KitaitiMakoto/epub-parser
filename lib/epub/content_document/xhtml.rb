@@ -3,16 +3,19 @@ module EPUB
     class XHTML
       attr_accessor :item
 
+      # @return [String] Returns the content string.
       def read
         item.read
       end
       alias raw_document read
 
-      # referenced directly from spine?
+      # @return [true|false] Whether referenced directly from spine or not.
       def top_level?
         !! item.itemref
       end
 
+      # @return [String] Returns the value of title element.
+      #                  If none, returns empty string
       def title
         title_elem = Nokogiri.XML(read).search('title').first
         title_elem ? title_elem.text : ''
