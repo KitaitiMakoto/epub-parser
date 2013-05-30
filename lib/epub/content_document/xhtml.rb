@@ -18,7 +18,12 @@ module EPUB
       #                  If none, returns empty string
       def title
         title_elem = Nokogiri.XML(read).search('title').first
-        title_elem ? title_elem.text : ''
+        if title_elem
+          title_elem.text
+        else
+          warn 'title element not found'
+          ''
+        end
       end
     end
   end
