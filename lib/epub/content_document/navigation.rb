@@ -1,5 +1,3 @@
-require 'epub/content_document/xhtml'
-
 module EPUB
   module ContentDocument
     class Navigation < XHTML
