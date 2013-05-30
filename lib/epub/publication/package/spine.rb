@@ -6,9 +6,12 @@ module EPUB
                       :id, :toc, :page_progression_direction
         attr_reader :itemrefs
 
+        def initialize
+          @itemrefs = []
+        end
+
         # @return self
         def <<(itemref)
-          @itemrefs ||= []
           itemref.spine = self
           @itemrefs << itemref
           self

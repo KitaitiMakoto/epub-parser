@@ -9,9 +9,12 @@ module EPUB
         attr_accessor :package,
                       :id
 
+        def initialize
+          @items = {}
+        end
+
         # @return self
         def <<(item)
-          @items ||= {}
           item.manifest = self
           @items[item.id] = item
           self

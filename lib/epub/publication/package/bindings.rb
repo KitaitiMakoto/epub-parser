@@ -4,8 +4,11 @@ module EPUB
       class Bindings
         attr_accessor :package
 
+        def initialize
+          @media_types = {}
+        end
+
         def <<(media_type)
-          @media_types ||= {}
           @media_types[media_type.media_type] = media_type
         end
 
