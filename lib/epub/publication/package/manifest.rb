@@ -64,6 +64,10 @@ module EPUB
           attr_accessor :manifest,
                         :id, :href, :media_type, :fallback, :properties, :media_overlay
 
+          def initialize
+            @properties = []
+          end
+
           # @todo Handle circular fallback chain
           def fallback_chain
             @fallback_chain ||= traverse_fallback_chain([])
