@@ -45,4 +45,10 @@ class TestContentDocument < Test::Unit::TestCase
     stub(content_doc).read {File.read(File.join(__dir__, 'fixtures', 'book', 'OPS', '日本語.xhtml'))}
     assert_equal '日本語', content_doc.title
   end
+
+  def test_title_returns_empty_string_when_title_element_not_exist
+    content_doc = XHTML.new
+    stub(content_doc).read {'content'}
+    assert_equal '', content_doc.title
+  end
 end
