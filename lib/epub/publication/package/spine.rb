@@ -42,10 +42,14 @@ module EPUB
 
           attr_accessor :spine,
                         :idref, :linear, :id, :properties
-          alias linear? linear
 
           def initialize
             @properties = []
+          end
+
+          # @return [true|false]
+          def linear?
+            !! linear
           end
 
           # @return [Package::Manifest::Item] item referred by this object
@@ -59,9 +63,11 @@ module EPUB
           end
 
           def ==(other)
-            [:spine, :idref, :linear, :id].all? {|meth|
+            [:spine, :idref, :id].all? {|meth|
               self.__send__(meth) == other.__send__(meth)
-            } and (other.properties - properties).empty?
+            } and
+              (linear? == other.linear?) and
+              (other.properties - properties).empty?
           end
 
           # @return ["left", "right", nil]

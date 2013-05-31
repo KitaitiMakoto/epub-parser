@@ -161,8 +161,14 @@ class TestPublication < Test::Unit::TestCase
             itemref.__send__ "#{attr}=", attr.to_s
           end
           itemref.linear = false
-          itemref.properties = ['property1', 'property2']
         end
+        base.properties = ['property1', 'property2']
+        another.properties = ['property2', 'property1']
+
+        assert_true base == another
+
+        base.linear = true
+        another.linear = 'yes'
 
         assert_true base == another
       end
