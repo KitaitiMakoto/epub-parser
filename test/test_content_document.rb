@@ -29,4 +29,13 @@ class TestContentDocument < Test::Unit::TestCase
     doc.item = item2
     assert_false doc.top_level?
   end
+
+  def read_returns_content_document_as_String
+    item = stub
+    stub(item).read {'content'}
+    content_doc = XHTML.new
+    content_doc.item = item
+
+    assert_equal 'content', content_doc.read
+  end
 end
