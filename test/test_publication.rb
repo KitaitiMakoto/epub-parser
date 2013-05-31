@@ -172,6 +172,21 @@ class TestPublication < Test::Unit::TestCase
 
         assert_true base == another
       end
+
+      def test_itemref_doesnt_equal_itemref_with_different_attributes
+        base = Package::Spine::Itemref.new
+        another = Package::Spine::Itemref.new
+        [base, another].each do |itemref|
+          [:spine, :idref, :id].each do |attr|
+            itemref.__send__ "#{attr}=", attr.to_s
+          end
+          itemref.linear = false
+        end
+        base.properties = ['property1', 'property2']
+        another.properties = ['property1', 'property2', 'property3']
+
+        assert_false base == another
+      end
     end
   end
 end
