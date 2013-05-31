@@ -90,6 +90,7 @@ RECENT CHANGES
 --------------
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
+* Add `Manifest::Item#xhtml?`
 
 ### 0.1.4
 * [Fixed-Layout Documents][fixed-layout] support
