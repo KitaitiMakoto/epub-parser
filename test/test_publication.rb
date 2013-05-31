@@ -93,6 +93,20 @@ class TestPublication < Test::Unit::TestCase
 
         assert_same itemref, item.itemref
       end
+
+      def test_xhtml_returns_true_when_xhtml
+        item = Package::Manifest::Item.new
+        item.media_type = 'application/xhtml+xml'
+
+        assert_true item.xhtml?
+      end
+
+      def test_xhtml_returns_false_when_not_xhtml
+        item = Package::Manifest::Item.new
+        item.media_type = 'text/css'
+
+        assert_false item.xhtml?
+      end
     end
   end
 
