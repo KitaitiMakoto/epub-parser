@@ -1,6 +1,6 @@
 require 'simplecov'
 SimpleCov.start do
-  add_filter '/test|deps/'
+  add_filter '/test|deps|method_decorators/'
 end
 
 require 'test/unit'
