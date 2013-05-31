@@ -37,7 +37,7 @@ Once you've got an {EPUB::Publication::Package::Manifest::Item Item}, it provide
     item.fallback_chain       # => ditto.
     item.using_fallback_chain # => ditto.
 
-And {EPUB::Publication::Package::Manifest::Item Item} also provides some methods which helps you handle the item.
+And {EPUB::Publication::Package::Manifest::Item Item} also provides some methods which help you handle the item.
 
 For example, for XHTML:
 
