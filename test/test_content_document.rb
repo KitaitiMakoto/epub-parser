@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require_relative 'helper'
 
 class TestContentDocument < Test::Unit::TestCase
@@ -37,5 +38,11 @@ class TestContentDocument < Test::Unit::TestCase
     content_doc.item = item
 
     assert_equal 'content', content_doc.read
+  end
+
+  def test_title_returns_value_of_title_element
+    content_doc = XHTML.new
+    stub(content_doc).read {File.read(File.join(__dir__, 'fixtures', 'book', 'OPS', '日本語.xhtml'))}
+    assert_equal '日本語', content_doc.title
   end
 end
