@@ -85,6 +85,10 @@ module EPUB
             }
           end
 
+          def xhtml?
+            media_type == 'application/xhtml+xml'
+          end
+
           def nav?
             properties.include? 'nav'
           end
