@@ -152,6 +152,20 @@ class TestPublication < Test::Unit::TestCase
         assert_include spine.items, item
         assert_same item, @itemref.item
       end
+
+      def test_itemref_equals_itemref_with_same_attributes
+        base = Package::Spine::Itemref.new
+        another = Package::Spine::Itemref.new
+        [base, another].each do |itemref|
+          [:spine, :idref, :id].each do |attr|
+            itemref.__send__ "#{attr}=", attr.to_s
+          end
+          itemref.linear = false
+          itemref.properties = ['property1', 'property2']
+        end
+
+        assert_true base == another
+      end
     end
   end
 end
