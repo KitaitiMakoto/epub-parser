@@ -73,22 +73,19 @@ module EPUB
             @fallback_chain ||= traverse_fallback_chain([])
           end
 
-          # full path in archive
-          def entry_name
-            rootfile = Addressable::URI.parse(manifest.package.book.ocf.container.rootfile.full_path)
-            Addressable::URI.unescape(rootfile + href.normalize.request_uri)
-          end
-
+          # @return [String]
           def read
             Zip::Archive.open(manifest.package.book.epub_file) {|zip|
               zip.fopen(entry_name).read
             }
           end
 
+          # @return [true|false]
           def xhtml?
             media_type == 'application/xhtml+xml'
           end
 
+          # @return [true|false]
           def nav?
             properties.include? 'nav'
           end
