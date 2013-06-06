@@ -91,6 +91,7 @@ RECENT CHANGES
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
 * Add `Manifest::Item#xhtml?`
+* Add `--char-count` option to `epubinfo` command
 
 ### 0.1.4
 * [Fixed-Layout Documents][fixed-layout] support
@@ -120,6 +121,7 @@ TODOS
 * Using SAX on parsing
 * Extracting and organizing common behavior from some classes to modules
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
+* Handle with encodings other than UTF-8
 
 DONE
 ----

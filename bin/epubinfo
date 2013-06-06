@@ -16,6 +16,9 @@ EOB
   opt.on '-f', '--format=FORMAT', formats, "format of output(#{nl_formats.join(', ')} or #{nl_last}), defaults to line(for console)" do |format|
     options[:format] = format
   end
+  opt.on '--char-count', "count charactors of content documents" do
+    options[:char_count] = true
+  end
 end
 opt.parse!(ARGV)
 
@@ -31,6 +34,21 @@ data = {'Title' => [book.title]}
 data.merge!(book.metadata.to_h)
 data['Unique identifier'] = [book.metadata.unique_identifier]
 data['EPUB Version'] = [book.package.version]
+if options[:char_count]
+  char_count =  book.resources.select(&:xhtml?).inject(0) do |count, xhtml|
+    count +=
+      begin
+        doc = Nokogiri.XML(xhtml.read)
+        body = doc.search('body').first
+        next unless body
+        body.content.length
+      rescue => error
+        warn "#{xhtml.href}: #{error}"
+        0
+      end
+  end
+  data['Charactor count'] = [char_count]
+end
 if options[:format] == :line
   key_width = data.keys.map {|k| k.length}.max + 3
   data.each_pair do |k, v|
