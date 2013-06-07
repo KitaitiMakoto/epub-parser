@@ -41,7 +41,7 @@ if options[:chars]
         doc = Nokogiri.XML(xhtml.read)
         body = doc.search('body').first
         next 0 unless body
-        body.content.length
+        body.content.gsub(/(\r|\n)/, '').length
       rescue => error
         warn "#{xhtml.href}: #{error}"
         0
