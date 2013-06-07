@@ -34,21 +34,20 @@ data = {'Title' => [book.title]}
 data.merge!(book.metadata.to_h)
 data['Unique identifier'] = [book.metadata.unique_identifier]
 data['EPUB Version'] = [book.package.version]
-if options[:chars]
-  char_count =  book.resources.select(&:xhtml?).inject(0) do |count, xhtml|
-    count +=
-      begin
-        doc = Nokogiri.XML(xhtml.read)
-        body = doc.search('body').first
-        next 0 unless body
-        body.content.gsub(/(\r|\n)/, '').length
-      rescue => error
-        warn "#{xhtml.href}: #{error}"
-        0
-      end
+counts = {:chars => 0, :words => 0}
+book.resources.select(&:xhtml?).each do |xhtml|
+  begin
+    doc = Nokogiri.XML(xhtml.read)
+    body = doc.search('body').first
+    content = body.content
+    if body
+      counts[:chars] += content.gsub(/\r|\n/, '').length
+    end
+  rescue => error
+    warn "#{xhtml.href}: #{error}"
   end
-  data['Charactors'] = [char_count]
 end
+data['Charactors'] = [counts[:chars]] if options[:chars]
 if options[:format] == :line
   key_width = data.keys.map {|k| k.length}.max + 3
   data.each_pair do |k, v|
