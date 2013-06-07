@@ -91,7 +91,7 @@ RECENT CHANGES
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
 * Add `Manifest::Item#xhtml?`
-* Add `--char-count` option to `epubinfo` command
+* Add `--words` and `--char` options to `epubinfo` command
 
 ### 0.1.4
 * [Fixed-Layout Documents][fixed-layout] support

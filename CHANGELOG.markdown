@@ -4,7 +4,7 @@ CHANGELOG
 -----
 * Add `ContentDocument::XHTML#title`
 * Add `Manifest::Item#xhtml?`
-* Add `--char-count` option to `epubinfo` command which count charactors of XHTMLs in EPUB file
+* Add `--words` and `--chars` options to `epubinfo` command which count words and charactors of XHTMLs in EPUB file
 
 0.1.4
 -----
