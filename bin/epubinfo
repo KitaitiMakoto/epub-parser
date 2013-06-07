@@ -40,7 +40,7 @@ if options[:chars]
       begin
         doc = Nokogiri.XML(xhtml.read)
         body = doc.search('body').first
-        next unless body
+        next 0 unless body
         body.content.length
       rescue => error
         warn "#{xhtml.href}: #{error}"
