@@ -16,6 +16,9 @@ EOB
   opt.on '-f', '--format=FORMAT', formats, "format of output(#{nl_formats.join(', ')} or #{nl_last}), defaults to line(for console)" do |format|
     options[:format] = format
   end
+  opt.on '--words', 'count words of content documents' do
+    options[:words] = true
+  end
   opt.on '--chars', "count charactors of content documents" do
     options[:chars] = true
   end
@@ -41,12 +44,14 @@ book.resources.select(&:xhtml?).each do |xhtml|
     body = doc.search('body').first
     content = body.content
     if body
+      counts[:words] += content.scan(/\S+/).length
       counts[:chars] += content.gsub(/\r|\n/, '').length
     end
   rescue => error
     warn "#{xhtml.href}: #{error}"
   end
 end
+data['Words'] = [counts[:words]] if options[:words]
 data['Charactors'] = [counts[:chars]] if options[:chars]
 if options[:format] == :line
   key_width = data.keys.map {|k| k.length}.max + 3
