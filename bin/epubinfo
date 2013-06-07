@@ -19,7 +19,7 @@ EOB
   opt.on '--words', 'count words of content documents' do
     options[:words] = true
   end
-  opt.on '--chars', "count charactors of content documents" do
+  opt.on '--chars', 'count charactors of content documents' do
     options[:chars] = true
   end
 end
