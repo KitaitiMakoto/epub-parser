@@ -39,10 +39,8 @@ module EPUB
         doc = Nokogiri.XML(xml)
         doc.xpath('/ocf:container/ocf:rootfiles/ocf:rootfile', EPUB::NAMESPACES).each do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
-          %w[full-path media-type].each do |attr|
-            value = extract_attribute(elem, attr)
-            rootfile.__send__(attr.gsub(/-/, '_') + '=', value)
-          end
+          rootfile.full_path = Addressable::URI.parse(extract_attribute(elem, 'full-path'))
+          rootfile.media_type = extract_attribute(elem, 'media-type')
           container.rootfiles << rootfile
         end
 

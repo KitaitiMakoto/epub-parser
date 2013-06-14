@@ -20,7 +20,7 @@ class TestParserOCF < Test::Unit::TestCase
   def test_parse_container_can_find_primary_rootfile
     container = @parser.parse_container(@container_xml)
 
-    assert_equal 'OPS/ルートファイル.opf', container.rootfile.full_path
+    assert_equal 'OPS/ルートファイル.opf', container.rootfile.full_path.to_s
   end
 
   def test_parse_encryption_do_nothing_excluding_to_have_content
