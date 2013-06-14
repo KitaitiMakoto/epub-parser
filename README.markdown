@@ -92,6 +92,7 @@ RECENT CHANGES
 * Add `ContentDocument::XHTML#title`
 * Add `Manifest::Item#xhtml?`
 * Add `--words` and `--char` options to `epubinfo` command
+* API change: `OCF::Container::Rootfile#full_path` became Addressable::URI object rather than `String`
 
 ### 0.1.4
 * [Fixed-Layout Documents][fixed-layout] support
