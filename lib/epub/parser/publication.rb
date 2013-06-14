@@ -200,8 +200,7 @@ module EPUB
         @doc.xpath('/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES).each do |elem|
           media_type = EPUB::Publication::Package::Bindings::MediaType.new
           media_type.media_type = extract_attribute(elem, 'media-type')
-          items = @package.manifest.items
-          media_type.handler = items.detect {|item| item.id == extract_attribute(elem, 'handler')}
+          media_type.handler = @package.manifest[extract_attribute(elem, 'handler')]
           bindings << media_type
         end
 
