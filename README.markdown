@@ -32,7 +32,7 @@ See document's {file:docs/Home.markdown} or [API Documentation][rubydoc] for mor
 
 `epubinfo` tool extracts and shows the metadata of specified EPUB book.
 
-    $ epubinfo ~/Documebts/Books/build_awesome_command_line_applications_in_ruby_fo.epub 
+    $ epubinfo ~/Documebts/Books/build_awesome_command_line_applications_in_ruby.epub
     Title:              Build Awesome Command-Line Applications in Ruby (for KITAITI MAKOTO)
     Identifiers:        978-1-934356-91-3
     Titles:             Build Awesome Command-Line Applications in Ruby (for KITAITI MAKOTO)
