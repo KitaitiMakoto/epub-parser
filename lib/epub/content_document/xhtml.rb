@@ -25,6 +25,17 @@ module EPUB
           ''
         end
       end
+
+      # @return [REXML::Document]
+      def rexml
+        require 'rexml/document'
+        @rexml ||= REXML::Document.new(raw_document)
+      end
+
+      # @return [Nokogiri::XML::Document]
+      def nokogiri
+        @nokogiri ||= Nokogiri.XML(raw_document)
+      end
     end
   end
 end
