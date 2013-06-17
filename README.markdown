@@ -24,7 +24,7 @@ USAGE
       #    :
     end
 
-See documet's {file:docs/Home.markdown} or [API Documentation][rubydoc] for more info.
+See document's {file:docs/Home.markdown} or [API Documentation][rubydoc] for more info.
 
 [rubydoc]: http://rubydoc.info/gems/epub-parser/frames
 
