@@ -32,8 +32,6 @@ module EPUB
         # parse_content_document(document)
         if @item.nav?
           content_document.navigations = parse_navigations(document)
-        else
-          raise NotImplementedError
         end
         content_document
       end
