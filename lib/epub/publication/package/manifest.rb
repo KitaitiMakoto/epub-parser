@@ -52,7 +52,8 @@ module EPUB
           # @!attribute [rw] id
           #   @return [String] Returns the value of id
           # @!attribute [rw] href
-          #   @return [Addressable::URI] Returns the value of href
+          #   @return [Addressable::URI] Returns the value of href,
+          #                              which is relative path from rootfile(OPF file)
           # @!attribute [rw] media_type
           #   @return [String] Returns the value of media_type
           # @!attribute [rw] properties
