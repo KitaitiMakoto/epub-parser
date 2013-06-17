@@ -26,13 +26,13 @@ module EPUB
         end
       end
 
-      # @return [REXML::Document]
+      # @return [REXML::Document] content as REXML::Document object
       def rexml
         require 'rexml/document'
         @rexml ||= REXML::Document.new(raw_document)
       end
 
-      # @return [Nokogiri::XML::Document]
+      # @return [Nokogiri::XML::Document] content as Nokogiri::XML::Document object
       def nokogiri
         @nokogiri ||= Nokogiri.XML(raw_document)
       end

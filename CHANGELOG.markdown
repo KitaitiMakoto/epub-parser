@@ -5,7 +5,9 @@ CHANGELOG
 * Add `ContentDocument::XHTML#title`
 * Add `Manifest::Item#xhtml?`
 * Add `--words` and `--chars` options to `epubinfo` command which count words and charactors of XHTMLs in EPUB file
-* API change: `OCF::Container::Rootfile#full_path` became Addressable::URI object rather than `String`
+* API change: `OCF::Container::Rootfile#full_path` became Addressable::URI object rather than `String`. `EPUB#rootfile_path` still returns `String`
+* Add `ContentDocument::XHTML#rexml` which returns document as `REXML::Document` object
+* Add `ContentDocument::XHTML#nokogiri` which returns document as `Nokogiri::XML::Document` object
 
 0.1.4
 -----
