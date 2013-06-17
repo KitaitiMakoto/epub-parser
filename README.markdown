@@ -88,6 +88,7 @@ See {file:docs/EpubOpen} for more info.
 
 REQUIREMENTS
 ------------
+* Ruby 1.9.2 or later
 * C compiler to compile Zip/Ruby and Nokogiri
 
 RECENT CHANGES
