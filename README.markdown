@@ -16,7 +16,12 @@ USAGE
     
     book = EPUB::Parser.parse('book.epub')
     book.each_page_on_spine do |page|
-      # do somethong...
+      page.media_type # => "application/xhtml+xml"
+      page.entry_name #=> "OPS/nav.xhtml" entry name in EPUB package(zip archive)
+      page.read # => raw content document
+      page.content_document.nokogiri # => Nokogiri::XML::Document. The same to Nokogiri.XML(page.read)
+      # do something more
+      #    :
     end
 
 See documet's {file:docs/Home.markdown} or [API Documentation][rubydoc] for more info.
