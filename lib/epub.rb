@@ -38,6 +38,11 @@ module EPUB
     end
   end
 
+  # @overload each_page_on_spine(&blk)
+  #   iterate over items in order of spine when block given
+  #   @yieldparam item [Publication::Package::Manifest::Item]
+  # @overload each_page_on_spine
+  #   @return [Enumerator] which iterates over {Publication::Package::Manifest::Item}s in order of spine when block not given
   def each_page_on_spine(&blk)
     enum = package.spine.items
     if block_given?
@@ -51,6 +56,11 @@ module EPUB
     raise NotImplementedError
   end
 
+  # @overload each_content(&blk)
+  #   iterate all items over when block given
+  #   @yieldparam item [Publication::Package::Manifest::Item]
+  # @overload each_content
+  #   @return [Enumerator] which iterates over all {Publication::Package::Manifest::Item}s in EPUB package when block not given
   def each_content(&blk)
     enum = manifest.items
     if block_given?
@@ -64,6 +74,7 @@ module EPUB
     raise NotImplementedError
   end
 
+  # @return [Array<Publication::Package::Manifest::Item>] All {Publication::Package::Manifest::Item}s in EPUB package
   def resources
     manifest.items
   end
