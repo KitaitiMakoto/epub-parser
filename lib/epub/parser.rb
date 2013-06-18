@@ -50,8 +50,6 @@ module EPUB
       Zip::Archive.open @filepath do |zip|
         @book.ocf = OCF.parse(zip)
         @book.package = Publication.parse(zip, @book.rootfile_path)
-        # @book.content_document =??? parse_content_document
-        # ...
       end
 
       @book
