@@ -52,8 +52,11 @@ class TestInspect < Test::Unit::TestCase
 
       def test_dcmes_inspect_includes_class_name
         meta = Package::Metadata::Title.new
+        meta.content = 'Book Title'
 
-        assert_match /Package::Metadata::Title/, meta.inspect
+        title_pattern = RUBY_VERSION >= '2.0' ? '#<EPUB::Publication::Package::Metadata::Title' : 'Book Title'
+
+        assert_match title_pattern, meta.inspect
       end
 
       def test_dcmes_inspect_includes_instance_variables
@@ -61,10 +64,14 @@ class TestInspect < Test::Unit::TestCase
         meta.lang = 'en-US'
         meta.dir = 'rtl'
 
-        assert_match /@lang/, meta.inspect
-        assert_match /en\-US/, meta.inspect
-        assert_match /@dir/, meta.inspect
-        assert_match /rtl/, meta.inspect
+        if RUBY_VERSION >= '2.0'
+          assert_match /@lang/, meta.inspect
+          assert_match /en\-US/, meta.inspect
+          assert_match /@dir/, meta.inspect
+          assert_match /rtl/, meta.inspect
+        else
+          assert_equal '', meta.inspect
+        end
       end
 
       def test_meta_inspect_includes_class_name
