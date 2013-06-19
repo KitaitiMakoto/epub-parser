@@ -45,7 +45,9 @@ class TestInspect < Test::Unit::TestCase
         title.content = 'Book Title'
         @metadata.titles << title
 
-        assert_match '@dc_titles=[#<EPUB::Publication::Package::Metadata::Title', @metadata.inspect
+        title_pattern = RUBY_VERSION >= '2.0' ? '@dc_titles=[#<EPUB::Publication::Package::Metadata::Title' : 'Book Title'
+
+        assert_match title_pattern, @metadata.inspect
       end
     end
 
