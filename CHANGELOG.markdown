@@ -8,6 +8,7 @@ CHANGELOG
 * API change: `OCF::Container::Rootfile#full_path` became Addressable::URI object rather than `String`. `EPUB#rootfile_path` still returns `String`
 * Add `ContentDocument::XHTML#rexml` which returns document as `REXML::Document` object
 * Add `ContentDocument::XHTML#nokogiri` which returns document as `Nokogiri::XML::Document` object
+* Inspect more readbly
 
 0.1.4
 -----
