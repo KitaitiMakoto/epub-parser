@@ -2,6 +2,7 @@ module EPUB
   module Publication
     class Package
       class Bindings
+        include Inspector::PublicationModel
         attr_accessor :package
 
         def initialize

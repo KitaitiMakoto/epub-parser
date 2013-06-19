@@ -6,6 +6,8 @@ module EPUB
   module Publication
     class Package
       class Manifest
+        include Inspector::PublicationModel
+
         attr_accessor :package,
                       :id
 
@@ -47,6 +49,8 @@ module EPUB
         end
 
         class Item
+          include Inspector
+
           # @!attribute [rw] manifest
           #   @return [Manifest] Returns the value of manifest
           # @!attribute [rw] id
@@ -121,6 +125,15 @@ module EPUB
           # @return nil when no Itemref refers this Item
           def itemref
             manifest.package.spine.itemrefs.find {|itemref| itemref.idref == id}
+          end
+
+          def inspect
+            "#<%{class}:%{object_id} %{manifest} %{attributes}>" % {
+              :class      => self.class,
+              :object_id  => inspect_object_id,
+              :manifest   => "@manifest=#{@manifest.inspect_simply}",
+              :attributes => inspect_instance_variables(exclude: [:@manifest])
+            }
           end
 
           protected

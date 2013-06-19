@@ -4,6 +4,7 @@ module EPUB
   module Publication
     class Package
       class Guide
+        include Inspector::PublicationModel
         attr_accessor :package
 
         def references

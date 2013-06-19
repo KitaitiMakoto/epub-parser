@@ -2,6 +2,7 @@ module EPUB
   module Publication
     class Package
       class Metadata
+        include Inspector::PublicationModel
         include MethodDecorators
         extend MethodDecorators
 
@@ -85,13 +86,6 @@ module EPUB
           include Refinee
 
           attr_accessor :content, :id, :lang, :dir
-
-          def inspect
-            ivs = instance_variables.map {|iv|
-              [iv, instance_variable_get(iv).inspect].join('=')
-            }.join(' ')
-            '<#%s:%#0x %s>' % [self.class, __id__, ivs]
-          end
 
           def to_s
             content

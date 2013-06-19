@@ -1,6 +1,8 @@
 module EPUB
   module Publication
     class Package
+      include Inspector
+
       CONTENT_MODELS = [:metadata, :manifest, :spine, :guide, :bindings]
       RESERVED_VOCABULARY_PREFIXES = {
         ''        => 'http://idpf.org/epub/vocab/package/#',
@@ -23,7 +25,7 @@ module EPUB
         end
       end
 
-      attr_accessor :book,
+      attr_accessor :book, 
                     :version, :prefix, :xml_lang, :dir, :id
       attr_reader *CONTENT_MODELS
       alias lang  xml_lang
@@ -39,6 +41,23 @@ module EPUB
 
       def unique_identifier
         @metadata.unique_identifier
+      end
+
+      def inspect
+        "#<%{class}:%{object_id} %{attributes} %{models}>" % {
+          :class      => self.class,
+          :object_id  => inspect_object_id,
+          :attributes => inspect_instance_variables(exclude: CONTENT_MODELS.map {|model| :"@#{model}"}),
+          :models     => inspect_models
+        }
+      end
+
+      def inspect_models
+        CONTENT_MODELS.map {|name|
+          model = __send__(name)
+          representation = model.nil? ? model.inspect : model.inspect_simply
+          "@#{name}=#{representation}"
+        }.join(' ')
       end
     end
   end

@@ -2,6 +2,7 @@ module EPUB
   module Publication
     class Package
       class Spine
+        include Inspector::PublicationModel
         attr_accessor :package,
                       :id, :toc, :page_progression_direction
         attr_reader :itemrefs
