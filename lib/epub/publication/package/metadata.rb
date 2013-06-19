@@ -88,7 +88,7 @@ module EPUB
           attr_accessor :content, :id, :lang, :dir
 
           def to_s
-            content
+            content.to_s
           end
         end
 
@@ -130,7 +130,7 @@ module EPUB
           end
 
           def to_s
-            content
+            content.to_s
           end
         end
 
