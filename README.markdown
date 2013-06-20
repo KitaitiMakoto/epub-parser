@@ -119,7 +119,6 @@ See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
 -----
-* Simple inspect for `epub-open` tool
 * Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
@@ -133,6 +132,7 @@ TODOS
 
 DONE
 ----
+* Simple inspect for `epub-open` tool
 * Using zip library instead of `unzip` command, which has security issue
 * Modify methods around fallback to see `bindings` element in the package
 * Content Document(only for Navigation Documents)
