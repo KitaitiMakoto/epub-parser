@@ -119,6 +119,7 @@ See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
 -----
+* Multiple rootfiles
 * Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
