@@ -91,6 +91,17 @@ REQUIREMENTS
 * Ruby 1.9.2 or later
 * C compiler to compile Zip/Ruby and Nokogiri
 
+Related Gems
+------------
+* [gepub](https://github.com/skoji/gepub) - a generic EPUB library for Ruby
+* [epubinfo](https://github.com/chdorner/epubinfo) - Extracts metadata information from EPUB files. Supports EPUB2 and EPUB3 formats.
+* [ReVIEW](https://github.com/kmuto/review) - ReVIEW is a easy-to-use digital publishing system for books and ebooks.
+* [epzip](https://github.com/takahashim/epzip) - epzip is EPUB packing tool. It's just only doing 'zip.' :)
+* [eeepub](https://github.com/jugyo/eeepub) - EeePub is a Ruby ePub generator
+* [epub-maker](https://github.com/KitaitiMakoto/epub-maker) - This library supports making and editing EPUB books
+
+If you find other gems, please tell me or request a pull request.
+
 RECENT CHANGES
 --------------
 ### 0.1.5
