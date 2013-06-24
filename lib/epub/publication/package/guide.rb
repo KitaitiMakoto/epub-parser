@@ -7,6 +7,13 @@ module EPUB
         include Inspector::PublicationModel
         attr_accessor :package
 
+        def initialize
+          Reference::TYPES.each do |type|
+            variable_name = '@' + type.gsub('-', '_')
+            instance_variable_set variable_name, nil
+          end
+        end
+
         def references
           @references ||= []
         end
