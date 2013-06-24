@@ -5,17 +5,14 @@ module EPUB
     class Package
       class Guide
         include Inspector::PublicationModel
-        attr_accessor :package
+        attr_accessor :package, :references
 
         def initialize
           Reference::TYPES.each do |type|
             variable_name = '@' + type.gsub('-', '_')
             instance_variable_set variable_name, nil
           end
-        end
-
-        def references
-          @references ||= []
+          @references = []
         end
 
         def <<(reference)
