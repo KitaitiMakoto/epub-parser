@@ -6,7 +6,7 @@ require 'epub/content_document'
 
 module EPUB
   modules = [ :ocf, :package, :content_document ]
-  attr_reader *modules
+  attr_reader(*modules)
   attr_accessor :epub_file
   modules.each do |mod|
     define_method "#{mod}=" do |obj|
@@ -47,7 +47,7 @@ module EPUB
   def each_page_on_spine(&blk)
     enum = package.spine.items
     if block_given?
-      enum.each &blk
+      enum.each(&blk)
     else
       enum
     end
@@ -65,7 +65,7 @@ module EPUB
   def each_content(&blk)
     enum = manifest.items
     if block_given?
-      enum.each &blk
+      enum.each(&blk)
     else
       enum.to_enum
     end

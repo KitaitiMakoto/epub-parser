@@ -55,7 +55,7 @@ module EPUB
           end
         end
 
-        +Deprecated.new {|klass, method| "#{klass}##{method} is deprecated. Use #to_h instead."}
+        Deprecated.new {|klass, method| "#{klass}##{method} is deprecated. Use #to_h instead."}
         def to_hash
           to_h
         end
