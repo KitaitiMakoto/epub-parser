@@ -211,16 +211,16 @@ module EPUB
         prefixes = {}
         return prefixes if str.nil? or str.empty?
         scanner = StringScanner.new(str)
-        scanner.scan /\s*/
+        scanner.scan(/\s*/)
         while prefix = scanner.scan(/[^\:\s]+/)
-          scanner.scan /[\:\s]+/
+          scanner.scan(/[\:\s]+/)
           iri = scanner.scan(/[^\s]+/)
           if iri.nil? or iri.empty?
             warn "no IRI detected for prefix `#{prefix}`"
           else
             prefixes[prefix] = iri
           end
-          scanner.scan /\s*/
+          scanner.scan(/\s*/)
         end
         prefixes
       end
