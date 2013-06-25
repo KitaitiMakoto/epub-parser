@@ -110,7 +110,7 @@ RECENT CHANGES
 * Add `--words` and `--char` options to `epubinfo` command
 * API change: `OCF::Container::Rootfile#full_path` became Addressable::URI object rather than `String`
 * Add `ContentDocument::XHTML#rexml` and `#nokogiri`
-* Inspect more readbly
+* Inspect more readably
 
 ### 0.1.4
 * [Fixed-Layout Documents][fixed-layout] support
