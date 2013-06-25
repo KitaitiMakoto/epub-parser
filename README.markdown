@@ -15,9 +15,12 @@ USAGE
     require 'epub/parser'
     
     book = EPUB::Parser.parse('book.epub')
+    book.metadata.titles # => Array of EPUB::Publication::Package::Metadata::Title. Main title, subtitle, etc...
+    book.metadata.title # => Title string including all titles
+    book.metadata.creators # => Creators(authors)
     book.each_page_on_spine do |page|
       page.media_type # => "application/xhtml+xml"
-      page.entry_name #=> "OPS/nav.xhtml" entry name in EPUB package(zip archive)
+      page.entry_name # => "OPS/nav.xhtml" entry name in EPUB package(zip archive)
       page.read # => raw content document
       page.content_document.nokogiri # => Nokogiri::XML::Document. The same to Nokogiri.XML(page.read)
       # do something more
