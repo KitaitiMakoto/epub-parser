@@ -1,9 +1,10 @@
 module EPUB
   module Inspector
     INSTANCE_VARIABLES_OPTION = {:exclude => []}
+    SIMPLE_TEMPLATE = "#<%{class}:%{object_id}>"
 
     def inspect_simply
-      "#<%{class}:%{object_id}>" % {
+      SIMPLE_TEMPLATE % {
         :class => self.class,
         :object_id => inspect_object_id
       }
@@ -24,6 +25,7 @@ module EPUB
     end
 
     module PublicationModel
+      TEMPLATE = "#<%{class}:%{object_id} @package=%{package} %{attributes}>"
       class << self
         def included(mod)
           mod.__send__ :include, Inspector
@@ -31,7 +33,7 @@ module EPUB
       end
 
       def inspect
-          "#<%{class}:%{object_id} @package=%{package} %{attributes}>" % {
+        TEMPLATE % {
             :class      => self.class,
             :package    => package.inspect_simply,
             :object_id  => inspect_object_id,
