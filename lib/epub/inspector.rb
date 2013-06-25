@@ -34,11 +34,11 @@ module EPUB
 
       def inspect
         TEMPLATE % {
-            :class      => self.class,
-            :package    => package.inspect_simply,
-            :object_id  => inspect_object_id,
-            :attributes => inspect_instance_variables(exclude: [:@package])
-          }
+          :class      => self.class,
+          :package    => package.inspect_simply,
+          :object_id  => inspect_object_id,
+          :attributes => inspect_instance_variables(exclude: [:@package])
+        }
       end
     end
   end
