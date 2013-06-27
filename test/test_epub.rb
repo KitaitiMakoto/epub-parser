@@ -6,13 +6,6 @@ class TestEUPB < Test::Unit::TestCase
     @file = 'test/fixtures/book.epub'
   end
 
-  def test_parse
-    book = EPUB::Book.new
-    assert_nothing_raised do
-      book.parse @file
-    end
-  end
-
   def test_each_page_on_spine_returns_enumerator_when_block_not_given
     book = EPUB::Parser.parse(@file)
     assert_kind_of Enumerator, book.each_page_on_spine
