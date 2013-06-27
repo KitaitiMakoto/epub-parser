@@ -107,6 +107,9 @@ If you find other gems, please tell me or request a pull request.
 
 RECENT CHANGES
 --------------
+### 0.1.6
+* Remove `EPUB.parse` method
+
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
 * Add `Manifest::Item#xhtml?`

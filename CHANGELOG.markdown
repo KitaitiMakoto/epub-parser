@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+0.1.6
+-----
+* Remove `EPUB.parse` method
+
 0.1.5
 -----
 * Add `ContentDocument::XHTML#title`

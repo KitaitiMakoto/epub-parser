@@ -15,12 +15,6 @@ module EPUB
     end
   end
 
-  def parse(file, options = {})
-    @epub_file = file
-    options = options.merge({:book => self})
-    Parser.parse(file, options)
-  end
-
   Publication::Package::CONTENT_MODELS.each do |model|
     define_method model do
       package.__send__(model)
