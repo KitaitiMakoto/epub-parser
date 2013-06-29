@@ -55,11 +55,6 @@ module EPUB
           end
         end
 
-        +Deprecated.new {|klass, method| "#{klass}##{method} is deprecated. Use #to_h instead."}
-        def to_hash
-          to_h
-        end
-
         def primary_metas
           metas.select {|meta| meta.primary_expression?}
         end
