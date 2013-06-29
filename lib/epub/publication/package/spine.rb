@@ -1,3 +1,5 @@
+require 'set'
+
 module EPUB
   module Publication
     class Package
@@ -42,10 +44,15 @@ module EPUB
           PAGE_SPREAD_PREFIX = 'page-spread-'.freeze
 
           attr_accessor :spine,
-                        :idref, :linear, :id, :properties
+                        :idref, :linear, :id
+          attr_reader :properties
 
           def initialize
-            @properties = []
+            @properties = Set.new
+          end
+
+          def properties=(props)
+            @properties = props.kind_of?(Set) ? props : Set.new(props)
           end
 
           # @return [true|false]
@@ -68,7 +75,7 @@ module EPUB
               self.__send__(meth) == other.__send__(meth)
             } and
               (linear? == other.linear?) and
-              (other.properties - properties).empty?
+              (properties == other.properties)
           end
 
           # @return ["left", "right", nil]

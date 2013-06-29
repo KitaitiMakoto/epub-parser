@@ -174,7 +174,7 @@ module EPUB
           end
           itemref.linear = (extract_attribute(e, 'linear') != 'no')
           properties = extract_attribute(e, 'properties')
-          itemref.properties = properties ? properties.split(' ') : []
+          itemref.properties = properties.split(' ') if properties
           spine << itemref
         end
 
