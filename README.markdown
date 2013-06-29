@@ -109,6 +109,7 @@ RECENT CHANGES
 --------------
 ### 0.1.6
 * Remove `EPUB.parse` method
+* Remove `EPUB::Publication::Package::Metadata#to_hash`
 
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
