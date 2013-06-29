@@ -70,7 +70,7 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
     metadata.creators
     => [Author 1, Author2, ...]
     resources.first.properties
-    => ["nav"] # You know that first resource of this book is nav document
+    => #<Set: {"nav"}> # You know that first resource of this book is nav document
     nav = resources.first
     => ...
     nav.href

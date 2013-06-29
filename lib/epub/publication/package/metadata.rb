@@ -1,3 +1,5 @@
+require 'set'
+
 module EPUB
   module Publication
     class Package
@@ -65,7 +67,7 @@ module EPUB
           attr_writer :refiners
 
           def refiners
-            @refiners ||= []
+            @refiners ||= Set.new
           end
 
           PROPERTIES.each do |voc|

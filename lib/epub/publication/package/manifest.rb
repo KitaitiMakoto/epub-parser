@@ -1,3 +1,4 @@
+require 'set'
 require 'enumerabler'
 require 'epub/constants'
 require 'epub/parser/content_document'
@@ -61,16 +62,21 @@ module EPUB
           # @!attribute [rw] media_type
           #   @return [String] Returns the value of media_type
           # @!attribute [rw] properties
-          #   @return [Array<String>] Returns the value of properties
+          #   @return [Set<String>] Returns the value of properties
           # @!attribute [rw] media_overlay
           #   @return [String] Returns the value of media_overlay
           # @!attribute [rw] fallback
           #   @return [Item] Returns the value of attribute fallback
           attr_accessor :manifest,
-                        :id, :href, :media_type, :fallback, :properties, :media_overlay
+                        :id, :href, :media_type, :fallback, :media_overlay
+          attr_reader :properties
 
           def initialize
-            @properties = []
+            @properties = Set.new
+          end
+
+          def properties=(props)
+            @properties = props.kind_of?(Set) ? props : Set.new(props)
           end
 
           # @todo Handle circular fallback chain

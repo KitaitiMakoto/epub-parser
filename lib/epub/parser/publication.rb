@@ -150,7 +150,7 @@ module EPUB
           fallback = extract_attribute(e, 'fallback')
           fallback_map[fallback] = item if fallback
           properties = extract_attribute(e, 'properties')
-          item.properties = properties ? properties.split(' ') : []
+          item.properties = properties.split(' ') if properties
           manifest << item
         end
         fallback_map.each_pair do |id, from|
