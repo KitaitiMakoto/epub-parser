@@ -124,8 +124,7 @@ module EPUB
             base.__send__ :define_method, :page_spread do
               property = page_spread_without_fixed_layout
               return property if property
-              property = properties.find {|prop| prop == prefixed_page_spread_property}
-              property ? PAGE_SPREAD_PROPERTY : nil
+              properties.include?(prefixed_page_spread_property) ? PAGE_SPREAD_PROPERTY : nil
             end
 
             base.__send__ :define_method, :page_spread= do |new_value|
@@ -162,7 +161,7 @@ module EPUB
             values_to_be_deleted = (values - [new_value]).map {|value| "#{rendition_property_prefix}#{value}"}
             properties.delete_if {|prop| values_to_be_deleted.include? prop}
             new_property = "#{rendition_property_prefix}#{new_value}"
-            properties << new_property unless properties.any? {|prop| prop == new_property}
+            properties << new_property unless properties.include? new_property
             new_value
           end
         end
