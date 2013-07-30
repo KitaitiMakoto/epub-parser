@@ -55,6 +55,7 @@ module EPUB
           identifier = EPUB::Publication::Package::Metadata::Identifier.new
           identifier.content = e.content
           identifier.id = id = extract_attribute(e, 'id')
+          identifier.scheme = extract_attribute(e, 'scheme', 'opf')
           metadata.unique_identifier = identifier if id == @unique_identifier_id
 
           identifier

@@ -47,6 +47,10 @@ class TestParserPublication < Test::Unit::TestCase
       assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @metadata.identifiers.first.content
     end
 
+    def test_identifier_has_scheme_when_qualified_by_attribute
+      assert_equal 'ISBN', @metadata.identifiers[1].scheme
+    end
+
     def test_has_unique_identifier
       assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @metadata.unique_identifier.to_s
     end

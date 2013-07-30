@@ -4,8 +4,9 @@
          xmlns="http://www.idpf.org/2007/opf"
          prefix=" foaf:  http://xmlns.com/foaf/spec/
                   dbp: http://dbpedia.org/ontology/  ">
-  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
     <dc:identifier id="pub-id">da265185-8da8-462d-a146-17dd388f61fc</dc:identifier>
+    <dc:identifier opf:scheme="ISBN">0000000000000</dc:identifier>
 
     <dc:title id="t1" xml:lang="fr">Mon premier guide de cuisson, un Mémoire</dc:title>
     <meta refines="#t1" property="title-type">main</meta>
