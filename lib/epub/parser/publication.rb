@@ -52,7 +52,7 @@ module EPUB
         id_map = {}
 
         metadata.identifiers = elem.xpath('./dc:identifier', EPUB::NAMESPACES).collect do |e|
-          identifier = EPUB::Publication::Package::Metadata::DCMES.new
+          identifier = EPUB::Publication::Package::Metadata::Identifier.new
           identifier.content = e.content
           identifier.id = id = extract_attribute(e, 'id')
           metadata.unique_identifier = identifier if id == @unique_identifier_id
