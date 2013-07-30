@@ -134,6 +134,51 @@ class TestPublication < Test::Unit::TestCase
 
       assert_true meta.subexpression?
     end
+
+    class TestIdentifier < self
+      def setup
+        @identifier = Package::Metadata::Identifier.new
+      end
+
+      def test_is_isbn_when_refined_by_onix_scheme
+        meta = Package::Metadata::Meta.new
+        meta.property = 'identifier-type'
+        meta.scheme = 'onix:codelist5'
+        meta.content = '02'
+        meta.refines = @identifier
+
+        assert_true @identifier.isbn?
+      end
+
+      def test_is_isbn_when_qualified_by_attribute
+        @identifier.content = '0000000000'
+        @identifier.scheme = 'ISBN'
+
+        assert_true @identifier.isbn?
+      end
+
+      def test_is_isbn_when_content_is_isbn_urn
+        @identifier.content = 'urn:isbn:0000000000'
+
+        assert_true @identifier.isbn?
+      end
+
+      def test_is_not_isbn_when_no_refiner_nor_scheme
+        assert_false @identifier.isbn?
+      end
+
+      def test_refiner_take_precedence_over_scheme_for_isbn
+        @identifier.content = '0000000000000'
+        @identifier.scheme = 'something'
+        meta = Package::Metadata::Meta.new
+        meta.property = 'identifier-type'
+        meta.scheme = 'onix:codelist5'
+        meta.content = '15'
+        meta.refines = @identifier
+
+        assert_true @identifier.isbn?
+      end
+    end
   end
 
   class TestManifest < TestPublication

@@ -89,6 +89,26 @@ module EPUB
           end
         end
 
+        class Identifier < DCMES
+          # @note This is ad-hoc
+          # @todo Define and include OPF module for opf:scheme attribute
+          # @todo Define generale way to handle with identifier-type refiners
+          attr_accessor :scheme
+
+          # @note This is ad-hoc
+          # @todo Define and include OPF module for opf:scheme attribute
+          # @todo Define generale way to handle with identifier-type refiners
+          def isbn?
+            refiners.any? {|refiner|
+              refiner.property == 'identifier-type' and
+              refiner.scheme == 'onix:codelist5' and
+              %w[02 15].include? refiner.content
+            } or
+            scheme == 'ISBN' or
+            content.to_s.downcase.start_with? 'urn:isbn'
+          end
+        end
+
         class Title < DCMES
           include Comparable
 
