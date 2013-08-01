@@ -50,6 +50,10 @@ module EPUB
           dates.first
         end
 
+        def language
+          languages.first
+        end
+
         def to_h
           DC_ELEMS.inject({}) do |hsh, elem|
             hsh[elem] = __send__(elem)
