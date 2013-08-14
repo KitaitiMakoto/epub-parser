@@ -5,8 +5,6 @@ module EPUB
     class Package
       class Metadata
         include Inspector::PublicationModel
-        include MethodDecorators
-        extend MethodDecorators
 
         DC_ELEMS = [:identifiers, :titles, :languages] +
                    [:contributors, :coverages, :creators, :dates, :descriptions, :formats, :publishers,

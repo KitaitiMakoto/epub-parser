@@ -5,6 +5,7 @@ CHANGELOG
 * Remove `EPUB.parse` method
 * Remove `EPUB::Publication::Package::Metadata#to_hash`
 * Add `EPUB::Publication::Package::Metadata::Identifier` for ad-hoc `scheme` attribute and `#isbn?` method
+* Remove `MethodDecorators::Deprecated`
 
 0.1.5
 -----

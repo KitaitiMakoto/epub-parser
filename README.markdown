@@ -111,6 +111,7 @@ RECENT CHANGES
 * Remove `EPUB.parse` method
 * Remove `EPUB::Publication::Package::Metadata#to_hash`
 * Add `EPUB::Publication::Package::Metadata::Identifier`
+* Remove `MethodDecorators::Deprecated`
 
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`

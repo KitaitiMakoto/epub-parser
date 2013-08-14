@@ -1,4 +1,3 @@
-require 'method_decorators/deprecated'
 require 'epub/inspector'
 require 'epub/ocf'
 require 'epub/publication'
