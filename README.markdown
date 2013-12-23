@@ -113,6 +113,7 @@ RECENT CHANGES
 * Remove `EPUB::Publication::Package::Metadata#to_hash`
 * Add `EPUB::Publication::Package::Metadata::Identifier`
 * Remove `MethodDecorators::Deprecated`
+* Make `EPUB::Parser::OCF::CONTAINER_FILE` and other constants deprecated
 
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`

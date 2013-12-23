@@ -9,7 +9,7 @@ module EPUB
       include Utils
 
       DIRECTORY = 'META-INF'
-      EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"}
+      EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"} # Deprecated
 
       class << self
         def parse(zip_archive)
@@ -25,7 +25,7 @@ module EPUB
       def parse
         EPUB::OCF::MODULES.each do |m|
           begin
-            file = @zip.fopen(File.join(DIRECTORY, self.class.const_get("#{m.upcase}_FILE")))
+            file = @zip.fopen(File.join(DIRECTORY, "#{m}.xml"))
             @ocf.__send__ "#{m}=", __send__("parse_#{m}", file.read)
           rescue Zip::Error
           end
