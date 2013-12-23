@@ -63,23 +63,7 @@ module EPUB
 
         metadata.rights = extract_dcmes(elem, './dc:rights', id_map)
 
-        metadata.metas = elem.xpath('./opf:meta', EPUB::NAMESPACES).collect do |e|
-          meta = EPUB::Publication::Package::Metadata::Meta.new
-          %w[property id scheme].each do |attr|
-            meta.__send__ "#{attr}=", extract_attribute(e, attr)
-          end
-          meta.content = e.content
-          refines = extract_attribute(e, 'refines')
-          if refines && refines[0] == '#'
-            id = refines[1..-1]
-            id_map[id] ||= {}
-            id_map[id][:refiners] ||= []
-            id_map[id][:refiners] << meta
-          end
-
-          meta
-        end
-        metadata.metas.each {|m| id_map[m.id] = {metadata: m} if m.respond_to?(:id) && m.id}
+        metadata.metas = extract_refinee(elem, './opf:meta', id_map, :Meta, %w[property id scheme])
 
         metadata.links = elem.xpath('./opf:link', EPUB::NAMESPACES).collect do |e|
           link = EPUB::Publication::Package::Metadata::Link.new
@@ -217,6 +201,19 @@ module EPUB
         end
 
         dcmeses
+      end
+
+      def extract_refinee(elem, xpath, id_map, klass, attributes)
+        models = extract_dcmes(elem, xpath, id_map, klass, attributes) {|model, e|
+          yield model, e if block_given?
+          refines = extract_attribute(e, 'refines')
+          if refines && refines[0] == '#'
+            id = refines[1..-1]
+            id_map[id] ||= {}
+            id_map[id][:refiners] ||= []
+            id_map[id][:refiners] << model
+          end
+        }
       end
     end
   end
