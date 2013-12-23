@@ -48,7 +48,7 @@ module EPUB
         elem = @doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
         id_map = {}
 
-        metadata.identifiers = extract_dcmes(elem, './dc:identifier', id_map, ['id'], :Identifier) {|identifier, e|
+        metadata.identifiers = extract_dcmes(elem, './dc:identifier', id_map, :Identifier, ['id']) {|identifier, e|
           identifier.scheme = extract_attribute(e, 'scheme', 'opf')
           metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
         }
@@ -219,7 +219,7 @@ module EPUB
         prefixes
       end
 
-      def extract_dcmes(elem, xpath, id_map, attributes=%w[id lang dir], klass=:DCMES)
+      def extract_dcmes(elem, xpath, id_map, klass=:DCMES, attributes=%w[id lang dir])
         dcmeses = elem.xpath(xpath, EPUB::NAMESPACES).collect do |e|
           dcmes = EPUB::Publication::Package::Metadata.const_get(klass).new
           attributes.each do |attr|
