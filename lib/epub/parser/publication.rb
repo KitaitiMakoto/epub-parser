@@ -55,14 +55,7 @@ module EPUB
 
         metadata.titles = extract_dcmes(elem, './dc:title', id_map, :Title)
 
-        metadata.languages = elem.xpath('./dc:language', EPUB::NAMESPACES).collect do |e|
-          language = EPUB::Publication::Package::Metadata::DCMES.new
-          language.content = e.content
-          language.id = e['id'] if e['id']
-
-          language
-        end
-        metadata.languages.each {|l| id_map[l.id] = {metadata: l} if l.respond_to?(:id) && l.id}
+        metadata.languages = extract_dcmes(elem, './dc:language', id_map, :DCMES, %w[id])
 
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
           metadata.__send__ "#{dcmes}s=", collect_dcmes(elem, "./dc:#{dcmes}")
