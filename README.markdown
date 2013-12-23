@@ -114,6 +114,7 @@ RECENT CHANGES
 * Add `EPUB::Publication::Package::Metadata::Identifier`
 * Remove `MethodDecorators::Deprecated`
 * Make `EPUB::Parser::OCF::CONTAINER_FILE` and other constants deprecated
+* Make `EPUB::Publication::Package::Metadata::Link#rel` a `Set`
 
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
