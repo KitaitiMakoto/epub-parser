@@ -53,16 +53,7 @@ module EPUB
           metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
         }
 
-        metadata.titles = elem.xpath('./dc:title', EPUB::NAMESPACES).collect do |e|
-          title = EPUB::Publication::Package::Metadata::Title.new
-          %w[ id lang dir ].each do |attr|
-            title.__send__("#{attr}=", extract_attribute(e, attr))
-          end
-          title.content = e.content
-
-          title
-        end
-        metadata.titles.each {|t| id_map[t.id] = {metadata: t} if t.respond_to?(:id) && t.id}
+        metadata.titles = extract_dcmes(elem, './dc:title', id_map, :Title)
 
         metadata.languages = elem.xpath('./dc:language', EPUB::NAMESPACES).collect do |e|
           language = EPUB::Publication::Package::Metadata::DCMES.new
