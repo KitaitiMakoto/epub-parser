@@ -24,12 +24,9 @@ module EPUB
       end
 
       def parse
-        parse_package
-        parse_metadata
-        parse_manifest
-        parse_spine
-        parse_guide
-        parse_bindings
+        ([:package] + EPUB::Publication::Package::CONTENT_MODELS).each do |model|
+          __send__ "parse_#{model}"
+        end
 
         @package
       end
