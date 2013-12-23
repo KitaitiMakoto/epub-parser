@@ -67,7 +67,7 @@ module EPUB
 
         metadata.links = extract_refinee(elem, './opf:link', id_map, :Link, %w[id media-type]) {|link, e|
           link.href = Addressable::URI.parse(extract_attribute(e, 'href'))
-          link.rel = extract_attribute(e, 'rel').strip.split
+          link.rel = extract_attribute(e, 'rel').split(nil)
         }
 
         id_map.values.each do |hsh|
