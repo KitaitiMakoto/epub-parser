@@ -58,8 +58,7 @@ module EPUB
         metadata.languages = extract_dcmes(elem, './dc:language', id_map, :DCMES, %w[id])
 
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
-          metadata.__send__ "#{dcmes}s=", collect_dcmes(elem, "./dc:#{dcmes}")
-          metadata.__send__("#{dcmes}s").each {|d| id_map[d.id] = {metadata: d} if d.respond_to?(:id) && d.id}
+          metadata.__send__ "#{dcmes}s=", extract_dcmes(elem, "./dc:#{dcmes}", id_map)
         end
 
         metadata.rights = collect_dcmes(elem, './dc:rights')
