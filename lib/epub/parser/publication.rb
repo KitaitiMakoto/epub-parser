@@ -61,8 +61,7 @@ module EPUB
           metadata.__send__ "#{dcmes}s=", extract_dcmes(elem, "./dc:#{dcmes}", id_map)
         end
 
-        metadata.rights = collect_dcmes(elem, './dc:rights')
-        metadata.rights.each {|r| id_map[r.id] = {metadata: r} if r.respond_to?(:id) && r.id}
+        metadata.rights = extract_dcmes(elem, './dc:rights', id_map)
 
         metadata.metas = elem.xpath('./opf:meta', EPUB::NAMESPACES).collect do |e|
           meta = EPUB::Publication::Package::Metadata::Meta.new
