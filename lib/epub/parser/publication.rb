@@ -65,24 +65,10 @@ module EPUB
 
         metadata.metas = extract_refinee(elem, './opf:meta', id_map, :Meta, %w[property id scheme])
 
-        metadata.links = elem.xpath('./opf:link', EPUB::NAMESPACES).collect do |e|
-          link = EPUB::Publication::Package::Metadata::Link.new
-          %w[ id media-type ].each do |attr|
-            link.__send__ (attr.gsub(/-/, '_') + '='), extract_attribute(e, attr)
-          end
+        metadata.links = extract_refinee(elem, './opf:link', id_map, :Link, %w[id media-type]) {|link, e|
           link.href = Addressable::URI.parse(extract_attribute(e, 'href'))
           link.rel = extract_attribute(e, 'rel').strip.split
-          refines = extract_attribute(e, 'refines')
-          if refines && refines[0] == '#'
-            id = refines[1..-1]
-            id_map[id] ||= {}
-            id_map[id][:refiners] ||= []
-            id_map[id][:refiners] << link
-          end
-
-          link
-        end
-        metadata.links.each {|l| id_map[l.id] = {metadata: l} if l.respond_to?(:id) && l.id}
+        }
 
         id_map.values.each do |hsh|
           next unless hsh[:refiners]
@@ -189,7 +175,7 @@ module EPUB
           attributes.each do |attr|
             dcmes.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
           end
-          dcmes.content = e.content
+          dcmes.content = e.content unless klass == :Link
 
           yield dcmes, e if block_given?
 
