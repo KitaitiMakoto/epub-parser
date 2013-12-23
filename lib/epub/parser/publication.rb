@@ -203,7 +203,7 @@ module EPUB
         dcmeses = elem.xpath(xpath, EPUB::NAMESPACES).collect do |e|
           dcmes = EPUB::Publication::Package::Metadata.const_get(klass).new
           attributes.each do |attr|
-            dcmes.__send__ "#{attr}=", extract_attribute(e, attr)
+            dcmes.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
           end
           dcmes.content = e.content
 
