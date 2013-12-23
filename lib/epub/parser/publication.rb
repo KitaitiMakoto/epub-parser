@@ -218,18 +218,6 @@ module EPUB
 
         dcmeses
       end
-
-      def collect_dcmes(elem, selector)
-        elem.xpath(selector, EPUB::NAMESPACES).collect do |e|
-          md = EPUB::Publication::Package::Metadata::DCMES.new
-          md.content = e.content
-          %w[ id lang dir ].each do |attr|
-            md.__send__ "#{attr}=", extract_attribute(e, attr)
-          end
-          yield(md, e) if block_given?
-          md
-        end
-      end
     end
   end
 end
