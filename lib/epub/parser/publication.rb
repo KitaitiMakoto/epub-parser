@@ -53,8 +53,6 @@ module EPUB
           metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
         }
 
-
-
         metadata.titles = elem.xpath('./dc:title', EPUB::NAMESPACES).collect do |e|
           title = EPUB::Publication::Package::Metadata::Title.new
           %w[ id lang dir ].each do |attr|
