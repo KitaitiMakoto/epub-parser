@@ -48,16 +48,12 @@ module EPUB
         elem = @doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
         id_map = {}
 
-        metadata.identifiers = elem.xpath('./dc:identifier', EPUB::NAMESPACES).collect do |e|
-          identifier = EPUB::Publication::Package::Metadata::Identifier.new
-          identifier.content = e.content
-          identifier.id = id = extract_attribute(e, 'id')
+        metadata.identifiers = extract_dcmes(elem, './dc:identifier', id_map, ['id'], :Identifier) {|identifier, e|
           identifier.scheme = extract_attribute(e, 'scheme', 'opf')
-          metadata.unique_identifier = identifier if id == @unique_identifier_id
+          metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
+        }
 
-          identifier
-        end
-        metadata.identifiers.each {|i| id_map[i.id] = {metadata: i} if i.respond_to?(:id) && i.id}
+
 
         metadata.titles = elem.xpath('./dc:title', EPUB::NAMESPACES).collect do |e|
           title = EPUB::Publication::Package::Metadata::Title.new
@@ -221,6 +217,26 @@ module EPUB
           scanner.scan /\s*/
         end
         prefixes
+      end
+
+      def extract_dcmes(elem, xpath, id_map, attributes=%w[id lang dir], klass=:DCMES)
+        dcmeses = elem.xpath(xpath, EPUB::NAMESPACES).collect do |e|
+          dcmes = EPUB::Publication::Package::Metadata.const_get(klass).new
+          attributes.each do |attr|
+            dcmes.__send__ "#{attr}=", extract_attribute(e, attr)
+          end
+          dcmes.content = e.content
+
+          yield dcmes, e if block_given?
+
+          dcmes
+        end
+
+        dcmeses.each do |dcmes|
+          id_map[dcmes.id] = {metadata: dcmes} if dcmes.respond_to?(:id) && dcmes.id
+        end
+
+        dcmeses
       end
 
       def collect_dcmes(elem, selector)
