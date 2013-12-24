@@ -46,7 +46,7 @@ module EPUB
       def parse_metadata
         metadata = @package.metadata = EPUB::Publication::Package::Metadata.new
         elem = @doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
-        id_map = {} # Can this an attribute of EPUB::Package::Metadata or Manifest?
+        id_map = {} # Can this make an attribute of EPUB::Package::Metadata or Manifest?
 
         metadata.identifiers = extract_model(elem, './dc:identifier', id_map, :Identifier, ['id']) {|identifier, e|
           identifier.scheme = extract_attribute(e, 'scheme', 'opf')
