@@ -48,24 +48,24 @@ module EPUB
         elem = @doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
         id_map = {} # Can this make an attribute of EPUB::Package::Metadata or Manifest?
 
-        metadata.identifiers = extract_model(elem, './dc:identifier', id_map, :Identifier, ['id']) {|identifier, e|
+        metadata.identifiers = extract_model(elem, id_map, './dc:identifier', :Identifier, ['id']) {|identifier, e|
           identifier.scheme = extract_attribute(e, 'scheme', 'opf')
           metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
         }
 
-        metadata.titles = extract_model(elem, './dc:title', id_map, :Title)
+        metadata.titles = extract_model(elem, id_map, './dc:title', :Title)
 
-        metadata.languages = extract_model(elem, './dc:language', id_map, :DCMES, %w[id])
+        metadata.languages = extract_model(elem, id_map, './dc:language', :DCMES, %w[id])
 
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
-          metadata.__send__ "#{dcmes}s=", extract_model(elem, "./dc:#{dcmes}", id_map)
+          metadata.__send__ "#{dcmes}s=", extract_model(elem, id_map, "./dc:#{dcmes}")
         end
 
-        metadata.rights = extract_model(elem, './dc:rights', id_map)
+        metadata.rights = extract_model(elem, id_map, './dc:rights')
 
-        metadata.metas = extract_refinee(elem, './opf:meta', id_map, :Meta, %w[property id scheme])
+        metadata.metas = extract_refinee(elem, id_map, './opf:meta', :Meta, %w[property id scheme])
 
-        metadata.links = extract_refinee(elem, './opf:link', id_map, :Link, %w[id media-type]) {|link, e|
+        metadata.links = extract_refinee(elem, id_map, './opf:link', :Link, %w[id media-type]) {|link, e|
           link.href = Addressable::URI.parse(extract_attribute(e, 'href'))
           link.rel = Set.new(extract_attribute(e, 'rel').split(nil))
         }
@@ -169,7 +169,7 @@ module EPUB
         prefixes
       end
 
-      def extract_model(elem, xpath, id_map, klass=:DCMES, attributes=%w[id lang dir])
+      def extract_model(elem, id_map, xpath, klass=:DCMES, attributes=%w[id lang dir])
         models = elem.xpath(xpath, EPUB::NAMESPACES).collect do |e|
           model = EPUB::Publication::Package::Metadata.const_get(klass).new
           attributes.each do |attr|
@@ -189,8 +189,8 @@ module EPUB
         models
       end
 
-      def extract_refinee(elem, xpath, id_map, klass, attributes)
-        extract_model(elem, xpath, id_map, klass, attributes) {|model, e|
+      def extract_refinee(elem, id_map, xpath, klass, attributes)
+        extract_model(elem, id_map, xpath, klass, attributes) {|model, e|
           yield model, e if block_given?
           refines = extract_attribute(e, 'refines')
           if refines && refines[0] == '#'
