@@ -48,20 +48,20 @@ module EPUB
         elem = @doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
         id_map = {} # Can this an attribute of EPUB::Package::Metadata or Manifest?
 
-        metadata.identifiers = extract_dcmes(elem, './dc:identifier', id_map, :Identifier, ['id']) {|identifier, e|
+        metadata.identifiers = extract_model(elem, './dc:identifier', id_map, :Identifier, ['id']) {|identifier, e|
           identifier.scheme = extract_attribute(e, 'scheme', 'opf')
           metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
         }
 
-        metadata.titles = extract_dcmes(elem, './dc:title', id_map, :Title)
+        metadata.titles = extract_model(elem, './dc:title', id_map, :Title)
 
-        metadata.languages = extract_dcmes(elem, './dc:language', id_map, :DCMES, %w[id])
+        metadata.languages = extract_model(elem, './dc:language', id_map, :DCMES, %w[id])
 
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
-          metadata.__send__ "#{dcmes}s=", extract_dcmes(elem, "./dc:#{dcmes}", id_map)
+          metadata.__send__ "#{dcmes}s=", extract_model(elem, "./dc:#{dcmes}", id_map)
         end
 
-        metadata.rights = extract_dcmes(elem, './dc:rights', id_map)
+        metadata.rights = extract_model(elem, './dc:rights', id_map)
 
         metadata.metas = extract_refinee(elem, './opf:meta', id_map, :Meta, %w[property id scheme])
 
@@ -169,28 +169,28 @@ module EPUB
         prefixes
       end
 
-      def extract_dcmes(elem, xpath, id_map, klass=:DCMES, attributes=%w[id lang dir])
-        dcmeses = elem.xpath(xpath, EPUB::NAMESPACES).collect do |e|
-          dcmes = EPUB::Publication::Package::Metadata.const_get(klass).new
+      def extract_model(elem, xpath, id_map, klass=:DCMES, attributes=%w[id lang dir])
+        models = elem.xpath(xpath, EPUB::NAMESPACES).collect do |e|
+          model = EPUB::Publication::Package::Metadata.const_get(klass).new
           attributes.each do |attr|
-            dcmes.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
+            model.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
           end
-          dcmes.content = e.content unless klass == :Link
+          model.content = e.content unless klass == :Link
 
-          yield dcmes, e if block_given?
+          yield model, e if block_given?
 
-          dcmes
+          model
         end
 
-        dcmeses.each do |dcmes|
-          id_map[dcmes.id] = {metadata: dcmes} if dcmes.respond_to?(:id) && dcmes.id
+        models.each do |model|
+          id_map[model.id] = {metadata: model} if model.respond_to?(:id) && model.id
         end
 
-        dcmeses
+        models
       end
 
       def extract_refinee(elem, xpath, id_map, klass, attributes)
-        extract_dcmes(elem, xpath, id_map, klass, attributes) {|model, e|
+        extract_model(elem, xpath, id_map, klass, attributes) {|model, e|
           yield model, e if block_given?
           refines = extract_attribute(e, 'refines')
           if refines && refines[0] == '#'
