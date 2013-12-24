@@ -190,7 +190,7 @@ module EPUB
       end
 
       def extract_refinee(elem, xpath, id_map, klass, attributes)
-        models = extract_dcmes(elem, xpath, id_map, klass, attributes) {|model, e|
+        extract_dcmes(elem, xpath, id_map, klass, attributes) {|model, e|
           yield model, e if block_given?
           refines = extract_attribute(e, 'refines')
           if refines && refines[0] == '#'
