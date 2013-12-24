@@ -52,19 +52,13 @@ module EPUB
           identifier.scheme = extract_attribute(e, 'scheme', 'opf')
           metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
         }
-
         metadata.titles = extract_model(elem, id_map, './dc:title', :Title)
-
         metadata.languages = extract_model(elem, id_map, './dc:language', :DCMES, %w[id])
-
         %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
           metadata.__send__ "#{dcmes}s=", extract_model(elem, id_map, "./dc:#{dcmes}")
         end
-
         metadata.rights = extract_model(elem, id_map, './dc:rights')
-
         metadata.metas = extract_refinee(elem, id_map, './opf:meta', :Meta, %w[property id scheme])
-
         metadata.links = extract_refinee(elem, id_map, './opf:link', :Link, %w[id media-type]) {|link, e|
           link.href = Addressable::URI.parse(extract_attribute(e, 'href'))
           link.rel = Set.new(extract_attribute(e, 'rel').split(nil))
