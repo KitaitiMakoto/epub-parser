@@ -98,7 +98,6 @@ More documentations are avaiable in:
 Requirements
 ------------
 
-* libxml2 and libxslt for Nokogiri gem
 * C compiler to compile Zip/Ruby and Nokogiri
 
 Note
