@@ -8,6 +8,8 @@ CHANGELOG
 * Remove `MethodDecorators::Deprecated`
 * Make `EPUB::Parser::OCF::CONTAINER_FILE` and other constants deprecated
 * Make `EPUB::Publication::Package::Metadata::Link#rel` a `Set`
+* Add exception class `EPUB::Constants::MediaType::UnsupportedMediaType`
+* Make `EPUB::Constants::MediaType::UnsupportedError` deprecated. Use `UnsupportedMediatType` instead
 
 0.1.5
 -----

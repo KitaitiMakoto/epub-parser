@@ -66,15 +66,15 @@ Also you can use {EPUB::Publication::Package::Manifest::Item#use_fallback_chain 
 
 If item's media type is, for instance, 'image/x-eps', the fallback is used.
 If the fallback item's media type is 'image/png', `png` variable means the item, if not, "fallback of fallback" will be checked.
-Finally you can use the item you want, or {EPUB::Constants::MediaType::UnsupportedError EPUB::MediaType::UnsupportedError} exception will be raised(if no item you can accept found).
+Finally you can use the item you want, or {EPUB::Constants::MediaType::UnsupportedMediaType EPUB::MediaType::UnsupportedMediaType} exception will be raised(if no item you can accept found).
 Therefore, you should `rescue` clause:
 
     # :unsupported option can also be used
-    # fallback chain will be followed until EPUB's Core Media Types found or UnsupportedError raised
+    # fallback chain will be followed until EPUB's Core Media Types found or UnsupportedMediaType raised
     begin
       item.use_fallback_chain :unsupported => 'application/pdf' do |page|
         # do something with item with core media type
       end
-    rescue EPUB::MediaType::UnsupportedError => evar
+    rescue EPUB::MediaType::UnsupportedMediaType => evar
       # error handling
     end

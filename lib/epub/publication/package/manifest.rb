@@ -119,7 +119,7 @@ module EPUB
               return yield binding_media_type.handler
             end
             return fallback.use_fallback_chain(options) {|fb| yield fb} if fallback
-            raise EPUB::MediaType::UnsupportedError
+            raise EPUB::MediaType::UnsupportedMediaType
           end
 
           def content_document
