@@ -92,6 +92,7 @@ You are also able to find YourBook object for the first:
 
 More documentations are avaiable in:
 
+* {file:docs/Publication.markdown}
 * {file:docs/Item.markdown}
 * {file:docs/FixedLayout.markdown}
 
