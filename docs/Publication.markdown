@@ -13,10 +13,10 @@ Let
 
 for continuing.
 
-File Models
+Five Models
 -----------
 
-`book.package` is a package document, a root of information tree about the book, and it has attributes to access file major models of the publication; {EPUB::Publication::Package::Metadata Metadata}, {EPUB::Publication::Package::Manifest Manifest}, {EPUB::Publication::Package::Spine Spine}, {EPUB::Publication::Package::Guide Guide} and {EPUB::Publication::Package::Bindings Bindings}.
+`book.package` is a package document, a root of information tree about the book, and it has attributes to access five major models of the publication; {EPUB::Publication::Package::Metadata Metadata}, {EPUB::Publication::Package::Manifest Manifest}, {EPUB::Publication::Package::Spine Spine}, {EPUB::Publication::Package::Guide Guide} and {EPUB::Publication::Package::Bindings Bindings}.
 
 Each of them has information the book in the way its own.
 
