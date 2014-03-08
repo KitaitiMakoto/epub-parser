@@ -10,6 +10,7 @@ CHANGELOG
 * Make `EPUB::Publication::Package::Metadata::Link#rel` a `Set`
 * Add exception class `EPUB::Constants::MediaType::UnsupportedMediaType`
 * Make `EPUB::Constants::MediaType::UnsupportedError` deprecated. Use `UnsupportedMediatType` instead
+* Add `EPUB::Publication::Package::Item#find_item_by_relative_iri`
 
 0.1.5
 -----
