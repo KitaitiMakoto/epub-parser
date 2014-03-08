@@ -118,6 +118,7 @@ RECENT CHANGES
 * Add exception class `EPUB::Constants::MediaType::UnsupportedMediaType`
 * Make `EPUB::Constants::MediaType::UnsupportedError` deprecated
 * Add `EPUB::Publication::Package::Item#find_item_by_relative_iri`
+* Add `EPUB::Publication::Package::Item#cover_image?`
 
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`

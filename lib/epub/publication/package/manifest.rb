@@ -32,7 +32,7 @@ module EPUB
         end
 
         def cover_image
-          items.selector {|i| i.properties.include? 'cover-image'}.first
+          items.selector(&:cover_image?).first
         end
 
         def each_item
@@ -102,6 +102,10 @@ module EPUB
 
           def nav?
             properties.include? 'nav'
+          end
+
+          def cover_image?
+            properties.include? 'cover-image'
           end
 
           # @todo Handle circular fallback chain
