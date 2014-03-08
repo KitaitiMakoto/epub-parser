@@ -224,6 +224,15 @@ class TestPublication < Test::Unit::TestCase
 
         assert_false item.xhtml?
       end
+
+      def test_find_item_by_relative_iri_returns_item_which_has_resolved_iri_as_href
+        xhtml_item = Package::Maniest::Item.new.tap {|item| item.href = Addressable::URI.parse('text/01.xhtml')}
+        image_item = Package::Manifest::Item.new.tap {|item| item.href = Addressable::URI.parse('image/01.png')}
+        manifest = stub!
+        stub(manifest).items {[xhtml_item, image_item]}
+
+        assert_equal image_item, xhtml_image.find_item_by_relative_iri(Addrssable::URI.parse('../image/01.png'))
+      end
     end
   end
 
