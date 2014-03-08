@@ -237,7 +237,7 @@ class TestPublication < Test::Unit::TestCase
         manifest = Package::Manifest.new
         manifest << xhtml_item = Package::Manifest::Item.new.tap {|item| item.href = Addressable::URI.parse('text/01.xhtml')}
 
-        assert_nil xhtml_item.find_by_relative_iri(Addressable::URI.parse('../image/01.png'))
+        assert_nil xhtml_item.find_item_by_relative_iri(Addressable::URI.parse('../image/01.png'))
       end
     end
   end
