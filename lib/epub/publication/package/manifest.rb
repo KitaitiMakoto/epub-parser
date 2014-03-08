@@ -133,6 +133,26 @@ module EPUB
             manifest.package.spine.itemrefs.find {|itemref| itemref.idref == id}
           end
 
+          # @param iri [Addressable::URI] relative iri
+          # @return [Item]
+          # @return [nil] when item not found
+          # @raise ArgumentError when +iri+ is not relative
+          # @raise ArgumentError when +iri+ starts with "/"(slash)
+          # @note Algorithm stolen form Rack::Utils#clean_path_info
+          def find_item_by_relative_iri(iri)
+            raise ArgumentError, "Not relative: #{iri.inspect}" unless iri.relative?
+            raise ArgumentError, "Start with slash: #{iri.inspect}" if iri.to_s.start_with? Addressable::URI::SLASH
+            target_href = href + iri
+            segments = target_href.to_s.split(Addressable::URI::SLASH)
+            clean_segments = []
+            segments.each do |segment|
+              next if segment.empty? || segment == '.'
+              segment == '..' ? clean_segments.pop : clean_segments << segment
+            end
+            target_iri = Addressable::URI.parse(clean_segments.join(Addressable::URI::SLASH))
+            manifest.items.find { |item| item.href == target_iri}
+          end
+
           def inspect
             "#<%{class}:%{object_id} %{manifest} %{attributes}>" % {
               :class      => self.class,
