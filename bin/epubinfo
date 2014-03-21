@@ -40,7 +40,7 @@ data['EPUB Version'] = [book.package.version]
 counts = {:chars => 0, :words => 0}
 book.resources.select(&:xhtml?).each do |xhtml|
   begin
-    doc = Nokogiri.XML(xhtml.read)
+    doc = xhtml.content_document.nokogiri
     body = doc.search('body').first
     content = body.content
     if body
