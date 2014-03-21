@@ -11,9 +11,7 @@ Usage: epubinfo [options] EPUBFILE
 EOB
   opt.version = EPUB::Parser::VERSION
   formats = [:line, :json, :yaml]
-  nl_formats = formats.dup
-  nl_last = nl_formats.pop
-  opt.on '-f', '--format=FORMAT', formats, "format of output(#{nl_formats.join(', ')} or #{nl_last}), defaults to line(for console)" do |format|
+  opt.on '-f', '--format=FORMAT', formats, "format of output(#{formats[0..-2].join(', ')} or #{formats.last}), defaults to line(for console)" do |format|
     options[:format] = format
   end
   opt.on '--words', 'count words of content documents' do
