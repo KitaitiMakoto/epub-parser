@@ -54,7 +54,7 @@ if options[:words] or options[:chars]
   end
 end
 data['Words'] = [counts[:words]] if options[:words]
-data['Charactors'] = [counts[:chars]] if options[:chars]
+data['Characters'] = [counts[:chars]] if options[:chars]
 if options[:format] == :line
   key_width = data.keys.map {|k| k.length}.max + 3
   data.each_pair do |k, v|
