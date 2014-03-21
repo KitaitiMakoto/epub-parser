@@ -38,17 +38,19 @@ data.merge!(book.metadata.to_h)
 data['Unique identifier'] = [book.metadata.unique_identifier]
 data['EPUB Version'] = [book.package.version]
 counts = {:chars => 0, :words => 0}
-book.resources.select(&:xhtml?).each do |xhtml|
-  begin
-    doc = xhtml.content_document.nokogiri
-    body = doc.search('body').first
-    content = body.content
-    if body
-      counts[:words] += content.scan(/\S+/).length
-      counts[:chars] += content.gsub(/\r|\n/, '').length
+if options[:words] or options[:chars]
+  book.resources.select(&:xhtml?).each do |xhtml|
+    begin
+      doc = xhtml.content_document.nokogiri
+      body = doc.search('body').first
+      content = body.content
+      if body
+        counts[:words] += content.scan(/\S+/).length
+        counts[:chars] += content.gsub(/\r|\n/, '').length
+      end
+    rescue => error
+      warn "#{xhtml.href}: #{error}"
     end
-  rescue => error
-    warn "#{xhtml.href}: #{error}"
   end
 end
 data['Words'] = [counts[:words]] if options[:words]
