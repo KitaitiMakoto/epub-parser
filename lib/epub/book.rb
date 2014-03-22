@@ -2,6 +2,6 @@ require 'epub'
 
 module EPUB
   class Book
-    include EPUB
+    include EPUB::Base
   end
 end

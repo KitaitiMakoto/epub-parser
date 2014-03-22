@@ -61,7 +61,7 @@ By the way, although `book` above is a {EPUB::Book} object, all features are pro
     require 'epub'
     
     class YourBook < ActiveRecord::Base
-        include EPUB
+        include EPUB::Base
     end
     
     book = EPUB::Parser.parse(

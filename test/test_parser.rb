@@ -1,7 +1,7 @@
 require File.expand_path 'helper', File.dirname(__FILE__)
 
 class MyBook
-  include EPUB
+  include EPUB::Base
 end
 
 class TestParser < Test::Unit::TestCase
@@ -13,16 +13,16 @@ class TestParser < Test::Unit::TestCase
     assert_instance_of EPUB::Book, @parser.parse
 
     book = Object.new
-    book.extend EPUB
+    book.extend EPUB::Base
     assert_nothing_raised do
       EPUB::Parser.parse('test/fixtures/book.epub', book: book)
     end
-    assert_kind_of EPUB, EPUB::Parser.parse('test/fixtures/book.epub', book: book)
+    assert_kind_of EPUB::Base, EPUB::Parser.parse('test/fixtures/book.epub', book: book)
 
     assert_nothing_raised do
       EPUB::Parser.parse('test/fixtures/book.epub', class: MyBook)
     end
-    assert_kind_of EPUB, EPUB::Parser.parse('test/fixtures/book.epub', class: MyBook)
+    assert_kind_of EPUB::Base, EPUB::Parser.parse('test/fixtures/book.epub', class: MyBook)
   end
 
   class TestBook < TestParser
