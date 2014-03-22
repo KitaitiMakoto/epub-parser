@@ -1,5 +1,6 @@
 module EPUB
-  module Base
+  class Book
+    module Features
     modules = [:ocf, :package]
     attr_reader *modules
     attr_accessor :epub_file
@@ -79,5 +80,6 @@ module EPUB
       manifest.cover_image
     end
 
+    end
   end
 end
