@@ -19,7 +19,7 @@ EOB
 }.parse!
 
 $0 = File.basename($PROGRAM_NAME)
-include EPUB
+include EPUB::Book::Features
 EPUB::Parser.parse(ARGV.shift, :book => self)
 $stderr.puts "Enter \"exit\" to exit #{shell}"
 shell.start
