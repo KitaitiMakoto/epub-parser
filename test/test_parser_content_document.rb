@@ -30,5 +30,7 @@ class TestParserContentDocument < Test::Unit::TestCase
     assert_equal @manifest.items[1], nav.items[1].items[1].item
 
     assert_equal '第四節', nav.items.last.items.last.text
+
+    assert_true nav.hidden?
   end
 end
