@@ -52,3 +52,5 @@ Example to show tree of Table of Contents:
           203 OLD PIPES AND THE DRYAD
         John Ruskin
           204 THE KING OF THE GOLDEN RIVER OR THE BLACK BROTHERS
+
+**NOTE**: This API is not stable.
