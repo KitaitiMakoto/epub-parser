@@ -137,12 +137,6 @@ RECENT CHANGES
 
 [fixed-layout]: http://www.idpf.org/epub/fxl/
 
-### 0.1.3
-* Add a command-line tool `epub-open`
-* Add support for XHTML Navigation Document
-* Make `EPUB::Publication::Package::Metadata#to_hash` obsolete. Use `#to_h` instead
-* Add utility methods `EPUB#description`, `EPUB#date` and `EPUB#unique_identifier`
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
