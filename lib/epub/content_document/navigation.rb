@@ -57,6 +57,13 @@ module EPUB
         def hidden?
           !! hidden
         end
+
+        def traverse(depth=0, &block)
+          block.call self, depth
+          items.each do |item|
+            item.traverse depth + 1, &block
+          end
+        end
       end
 
       class Navigation < Item
