@@ -10,8 +10,10 @@ CHANGELOG
 * Make `EPUB::Publication::Package::Metadata::Link#rel` a `Set`
 * Add exception class `EPUB::Constants::MediaType::UnsupportedMediaType`
 * Make `EPUB::Constants::MediaType::UnsupportedError` deprecated. Use `UnsupportedMediatType` instead
-* Add `EPUB::Publication::Package::Item#cover_image?`* Add `EPUB::Book::Features` module and move methods of `EPUB` module to it(Thanks, [takahashim][]!)
+* Add `EPUB::Publication::Package::Item#cover_image?`
+* Add `EPUB::Book::Features` module and move methods of `EPUB` module to it(Thanks, [takahashim][]!)
 * Make including `EPUB` deprecated
+* Parse `hidden` attribute of `nav` elements
 
 [takahashim]: https://github.com/takahashim
 
