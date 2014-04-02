@@ -50,4 +50,25 @@ class TestContentDocument < Test::Unit::TestCase
     stub(content_doc).raw_document {'content'}
     assert_equal '', content_doc.title
   end
+
+  class TestNavigationDocument < self
+    def test_item_hidden_returns_true_when_it_has_some_value
+      item = Navigation::Item.new.tap {|item| item.hidden = 'hello'}
+      assert_true item.hidden?
+    end
+
+    def test_item_hidden_returns_false_when_no_parent_and_no_value
+      item = Navigation::Item.new
+      assert_false item.hidden?
+    end
+
+    def test_item_hidden_cascade_parent_item
+      parent = Navigation::Item.new.tap {|item| item.hidden = true}
+      child = Navigation::Item.new.tap {|item|
+        item.parent = parent
+        item.hidden = nil
+      }
+      assert_true child.hidden?
+    end
+  end
 end

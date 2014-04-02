@@ -48,14 +48,19 @@ module EPUB
 
       class Item
         attr_accessor :items, :text, :hidden,
-                      :content_document, :href, :item
+                      :content_document, :href, :item,
+                      :parent
 
         def initialize
           @items = []
         end
 
         def hidden?
-          !! hidden
+          if @hidden.nil?
+            @parent ? @parent.hidden? : false
+          else
+            true
+          end
         end
 
         def traverse(depth=0, &block)

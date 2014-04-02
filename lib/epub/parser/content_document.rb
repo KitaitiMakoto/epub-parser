@@ -47,7 +47,8 @@ module EPUB
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Navigation.new
         nav.text = find_heading(element)
-        nav.hidden = !!extract_attribute(element, 'hidden')
+        hidden = extract_attribute(element, 'hidden')
+        nav.hidden = hidden.nil? ? nil : true
         nav.type = extract_attribute(element, 'type', 'epub')
         nav.items = element.xpath('./xhtml:ol/xhtml:li', EPUB::NAMESPACES).map {|elem| parse_navigation_item(elem)}
 
