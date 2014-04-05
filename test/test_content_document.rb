@@ -53,7 +53,7 @@ class TestContentDocument < Test::Unit::TestCase
 
   class TestNavigationDocument < self
     def test_item_hidden_returns_true_when_it_has_some_value
-      item = Navigation::Item.new.tap {|item| item.hidden = 'hello'}
+      item = Navigation::Item.new.tap {|item| item.hidden = ''}
       assert_true item.hidden?
     end
 
