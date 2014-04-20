@@ -46,15 +46,8 @@ module EPUB
         navigations.first
       end
 
-      class Item
-        attr_accessor :items, :text, :hidden,
-                      :content_document, :href, :item,
-                      :parent
-
-        def initialize
-          @items = ItemList.new
-          @items.parent = self
-        end
+      module Hidable
+        attr_accessor :hidden, :parent
 
         def hidden?
           if @hidden.nil?
@@ -62,6 +55,18 @@ module EPUB
           else
             true
           end
+        end
+      end
+
+      class Item
+        include Hidable
+
+        attr_accessor :items, :text,
+                      :content_document, :href, :item
+
+        def initialize
+          @items = ItemList.new
+          @items.parent = self
         end
 
         def traverse(depth=0, &block)
@@ -87,15 +92,7 @@ module EPUB
       end
 
       class ItemList < Array
-        attr_accessor :hidden, :parent
-
-        def hidden?
-          if @hidden.nil?
-            @parent ? @parent.hidden? : false
-          else
-            true
-          end
-        end
+        include Hidable
       end
     end
   end
