@@ -93,6 +93,11 @@ module EPUB
 
       class ItemList < Array
         include Hidable
+
+        def <<(item)
+          super
+          item.parent = self
+        end
       end
     end
   end
