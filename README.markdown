@@ -119,7 +119,7 @@ RECENT CHANGES
 * Make `EPUB::Constants::MediaType::UnsupportedError` deprecated
 * Add `EPUB::Publication::Package::Item#find_item_by_relative_iri`
 * Add `EPUB::Publication::Package::Item#cover_image?`
-* Add `EPUB::Book::Features` module and move methods of `EPUB` module to it.
+* Add `EPUB::Book::Features` module and move methods of `EPUB` module to it.(Thanks, [takahashim][]!)
 * Make including `EPUB` deprecated
 * Parse `hidden` attribute of `nav` elements
 * [Experimental]Add `EPUB::ContentDocument::Navigation::Item#traverse`
