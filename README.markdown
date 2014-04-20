@@ -122,6 +122,7 @@ RECENT CHANGES
 * Add `EPUB::Book::Features` module and move methods of `EPUB` module to it.
 * Make including `EPUB` deprecated
 * Parse `hidden` attribute of `nav` elements
+* [Experimental]Add `EPUB::ContentDocument::Navigation::Item#traverse`
 
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
