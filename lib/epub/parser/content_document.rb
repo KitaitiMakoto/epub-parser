@@ -50,7 +50,9 @@ module EPUB
         hidden = extract_attribute(element, 'hidden')
         nav.hidden = hidden.nil? ? nil : true
         nav.type = extract_attribute(element, 'type', 'epub')
-        nav.items = element.xpath('./xhtml:ol/xhtml:li', EPUB::NAMESPACES).map {|elem| parse_navigation_item(elem)}
+        element.xpath('./xhtml:ol/xhtml:li', EPUB::NAMESPACES).map do |elem|
+          nav.items << parse_navigation_item(elem)
+        end
 
         nav
       end

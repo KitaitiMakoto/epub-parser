@@ -52,7 +52,8 @@ module EPUB
                       :parent
 
         def initialize
-          @items = []
+          @items = ItemList.new
+          @items.parent = self
         end
 
         def hidden?
@@ -83,6 +84,18 @@ module EPUB
         alias navigations= items=
         alias heading text
         alias heading= text=
+      end
+
+      class ItemList < Array
+        attr_accessor :hidden, :parent
+
+        def hidden?
+          if @hidden.nil?
+            @parent ? @parent.hidden? : false
+          else
+            true
+          end
+        end
       end
     end
   end
