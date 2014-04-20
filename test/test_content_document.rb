@@ -69,5 +69,24 @@ class TestContentDocument < Test::Unit::TestCase
       assert_true parent.items.hidden?
       assert_true child.hidden?
     end
+
+    def test_item_is_traversable
+      parent = Navigation::Item.new
+      child = Navigation::Navigation.new
+      grandchild = Navigation::Item.new
+      parent.items << child
+      child.items << grandchild
+
+      parent.traverse do |item, deps|
+        case deps
+        when 0
+          assert_equal item, parent
+        when 1
+          assert_equal item, child
+        when 2
+          assert_equal item, grandchild
+        end
+      end
+    end
   end
 end
