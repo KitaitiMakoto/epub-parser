@@ -64,10 +64,9 @@ class TestContentDocument < Test::Unit::TestCase
 
     def test_item_hidden_cascade_parent_item
       parent = Navigation::Item.new.tap {|item| item.hidden = true}
-      child = Navigation::Item.new.tap {|item|
-        item.parent = parent
-        item.hidden = nil
-      }
+      child = Navigation::Item.new.tap {|item| item.hidden = nil}
+      parent.items << child
+      assert_true parent.items.hidden?
       assert_true child.hidden?
     end
   end
