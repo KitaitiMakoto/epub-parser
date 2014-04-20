@@ -124,6 +124,8 @@ RECENT CHANGES
 * Parse `hidden` attribute of `nav` elements
 * [Experimental]Add `EPUB::ContentDocument::Navigation::Item#traverse`
 
+[takahashim]: https://github.com/takahashim
+
 ### 0.1.5
 * Add `ContentDocument::XHTML#title`
 * Add `Manifest::Item#xhtml?`
