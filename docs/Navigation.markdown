@@ -9,6 +9,8 @@ Example to show tree of Table of Contents:
     toc = nav.toc # => EPUB::ContentDocument::Navigation::Navigation
     toc_tree = ''
     toc.traverse do |item, depth|
+      item # => EPUB::ContentDocument::Navigation::Item
+      depth # => Integer
       toc_tree << "#{' ' * depth * 2}#{item.text}\n"
     end
     puts toc_tree
