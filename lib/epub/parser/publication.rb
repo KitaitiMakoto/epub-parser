@@ -58,7 +58,7 @@ module EPUB
           metadata.__send__ "#{dcmes}s=", extract_model(elem, id_map, "./dc:#{dcmes}")
         end
         metadata.rights = extract_model(elem, id_map, './dc:rights')
-        metadata.metas = extract_refinee(elem, id_map, './opf:meta', :Meta, %w[property id scheme])
+        metadata.metas = extract_refinee(elem, id_map, './opf:meta', :Meta, %w[property id scheme name])
         metadata.links = extract_refinee(elem, id_map, './opf:link', :Link, %w[id media-type]) {|link, e|
           link.href = Addressable::URI.parse(extract_attribute(e, 'href'))
           link.rel = Set.new(extract_attribute(e, 'rel').split(nil))
@@ -169,7 +169,11 @@ module EPUB
           attributes.each do |attr|
             model.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
           end
-          model.content = e.content unless klass == :Link
+          if e.name == "meta"
+            model.content = extract_attribute(e, "content")
+          else
+            model.content = e.content unless klass == :Link
+          end
 
           yield model, e if block_given?
 

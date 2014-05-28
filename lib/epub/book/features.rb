@@ -77,7 +77,32 @@ module EPUB
 
       # Syntax sugar
       def cover_image
-        manifest.cover_image
+        # Old implementation
+        # manifest.cover_image
+
+        # Returns something in the like of:
+        # { :file_name=>"cover.jpg", :media_type=>"image/jpeg", :file_contents=> "\xFF\xD8\xFF\xE0\x00\x10JFIF\x00\x01\..." }
+        "XX"
+        if package.metadata.metas.size > 0
+          cover_items = package.metadata.metas.select{|m|m.name == "cover"}
+          if cover_items.size > 0
+            cover_item_id = cover_items.first.content
+            if cover_item_id
+              if cover_item_id != ""
+                ret_cover_file = package.manifest.items.select{ |current_item| current_item.id == cover_item_id }.first
+                { file_name: File.basename(ret_cover_file.href.path), media_type: ret_cover_file.media_type, file_contents: ret_cover_file.read }
+              else
+                nil
+              end
+            else
+              nil
+            end
+          else
+            nil
+          end
+        else
+          nil
+        end
       end
 
     end

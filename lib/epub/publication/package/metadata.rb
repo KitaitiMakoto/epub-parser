@@ -124,7 +124,7 @@ module EPUB
         class Meta
           include Refinee
 
-          attr_accessor :property, :id, :scheme, :content
+          attr_accessor :property, :id, :scheme, :content, :name
           attr_reader :refines
 
           def refines=(refinee)
