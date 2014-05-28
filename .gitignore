@@ -10,3 +10,4 @@ doc/*
 NOTE
 test/fixtures/book.epub
 *~
+.rvmrc
