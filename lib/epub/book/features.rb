@@ -82,7 +82,6 @@ module EPUB
 
         # Returns something in the like of:
         # { :file_name=>"cover.jpg", :media_type=>"image/jpeg", :file_contents=> "\xFF\xD8\xFF\xE0\x00\x10JFIF\x00\x01\..." }
-        "XX"
         if package.metadata.metas.size > 0
           cover_items = package.metadata.metas.select{|m|m.name == "cover"}
           if cover_items.size > 0
