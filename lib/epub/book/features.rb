@@ -91,16 +91,32 @@ module EPUB
                 ret_cover_file = package.manifest.items.select{ |current_item| current_item.id == cover_item_id }.first
                 { file_name: File.basename(ret_cover_file.href.path), media_type: ret_cover_file.media_type, file_contents: ret_cover_file.read }
               else
-                nil
+                try_adhoc_cover
               end
             else
-              nil
+              try_adhoc_cover
             end
+          else
+            try_adhoc_cover
+          end
+        else
+          try_adhoc_cover
+        end
+      end
+
+      def try_adhoc_cover
+        possible_covers = package.manifest.items.select{ |item| item.id == "cover-image" and item.media_type =~ /^image\/.*$/ }
+        if possible_covers.size > 0
+          ret_cover_file = possible_covers.first
+          { file_name: File.basename(ret_cover_file.href.path), media_type: ret_cover_file.media_type, file_contents: ret_cover_file.read }
+        else
+          possible_covers = package.manifest.items.select{ |item| item.id == "cover" and item.media_type =~ /^image\/.*$/ }
+          if possible_covers.size > 0
+            ret_cover_file = possible_covers.first
+            { file_name: File.basename(ret_cover_file.href.path), media_type: ret_cover_file.media_type, file_contents: ret_cover_file.read }
           else
             nil
           end
-        else
-          nil
         end
       end
 
