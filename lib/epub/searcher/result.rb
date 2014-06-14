@@ -9,7 +9,7 @@ module EPUB
       end
 
       def to_xpath_and_offset(with_xmlns=false)
-        xpath = @steps.reduce('') {|path, step|
+        xpath = @steps.reduce('.') {|path, step|
           case step.type
           when :element
             path + '/%s*[%d]' % [with_xmlns ? 'xhtml:' : nil, step.index + 1]
