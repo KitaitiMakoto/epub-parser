@@ -6,7 +6,7 @@ module EPUB
       class << self
         # @param element [Nokogiri::XML::Element, Nokogiri::XML::Document]
         # @param word [String]
-        # @return [Array<Array<Array>>] array of stacks of steps to search result
+        # @return [Array<Result>]
         def search(element, word)
           new(word).search(element.respond_to?(:root) ? element.root : element)
         end
@@ -18,7 +18,7 @@ module EPUB
       end
 
       # @param element [Nokogiri::XML::Element]
-      # @return [Array<Array<Array>>] array of stacks of steps to search result
+      # @return [Array<Result>]
       def search(element)
         results = []
 
@@ -28,14 +28,14 @@ module EPUB
           if child.element?
             child_step = Result::Step.new(:element, elem_index, child.name)
             search(child).each do |sub_result|
-              results << Result.new([child_step] + sub_result.steps)
+              results << Result.new([child_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
             end
             elem_index += 1
           elsif child.text?
             char_index = 0
             text_step = Result::Step.new(:text, text_index)
             while char_index = child.text.index(@word, char_index)
-              results << Result.new([text_step, Result::Step.new(:character, char_index)])
+              results << Result.new([text_step], [Result::Step.new(:character, char_index)], [Result::Step.new(:character, char_index + @word.length)])
               char_index += 1
             end
             text_index += 1

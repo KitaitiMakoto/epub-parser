@@ -17,27 +17,27 @@ class TestSearcher < Test::Unit::TestCase
     end
 
     def test_simple
-      assert_equal results([[[:text, 0], [:character, 9]]]), EPUB::Searcher::XHTML.search(@h1, 'Content')
+      assert_equal results([[[[:text, 0]], [[:character, 9]], [[:character, 16]]]]), EPUB::Searcher::XHTML.search(@h1, 'Content')
     end
 
     def test_multiple_text_result
-      assert_equal results([[[:text, 0], [:character, 6]], [[:text, 0], [:character, 10]]]), EPUB::Searcher::XHTML.search(@h1, 'o')
+      assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]], [[[:text, 0]], [[:character, 10]], [[:character, 11]]]]), EPUB::Searcher::XHTML.search(@h1, 'o')
     end
 
     def test_text_after_element
       elem = Nokogiri.XML('<root>before<elem>inner</elem>after</root>')
 
-      assert_equal results([[[:text, 1], [:character, 0]]]), EPUB::Searcher::XHTML.search(elem, 'after')
+      assert_equal results([[[[:text, 1]], [[:character, 0]], [[:character, 5]]]]), EPUB::Searcher::XHTML.search(elem, 'after')
     end
 
     def test_entity_reference
       elem = Nokogiri.XML('<root>before&lt;after</root>')
 
-      assert_equal results([[[:text, 0], [:character, 6]]]), EPUB::Searcher::XHTML.search(elem, '<')
+      assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]]]), EPUB::Searcher::XHTML.search(elem, '<')
     end
 
     def test_nested_result
-      assert_equal results([[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0], [:character, 0]]]), EPUB::Searcher::XHTML.search(@nav, '第二節')
+      assert_equal results([[[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), EPUB::Searcher::XHTML.search(@nav, '第二節')
     end
 
     private
@@ -46,16 +46,14 @@ class TestSearcher < Test::Unit::TestCase
       results.collect {|res| result(res)}
     end
 
-    def result(steps)
-      EPUB::Searcher::Result.new(steps.collect {|s| step(s)})
+    def result(steps_triple)
+      EPUB::Searcher::Result.new(*steps_triple.collect {|steps|
+        steps.collect {|s| step(s)}
+      })
     end
 
     def step(step)
-      if step.kind_of? EPUB::Searcher::Result::Step
-        step
-      else
-        EPUB::Searcher::Result::Step.new(*step)
-      end
+      EPUB::Searcher::Result::Step.new(*step)
     end
 
     class TestResult < self
@@ -70,7 +68,7 @@ class TestSearcher < Test::Unit::TestCase
       end
 
       def test_to_cfi
-        assert_equal '/4/2/2/4/4/4/4/2:0', @result.to_cfi
+        assert_equal '/4/2/2/4/4/4/4/2,:0,:3', @result.to_cfi
       end
     end
   end
