@@ -8,6 +8,36 @@ module EPUB
         @steps = steps
       end
 
+      def to_xpath_and_offset(with_xmlns=false)
+        xpath = @steps.reduce('') {|path, step|
+          case step.type
+          when :element
+            path + '/%s*[%d]' % [with_xmlns ? 'xhtml:' : nil, step.index + 1]
+          when :text
+            path + '/text()[%s]' % [step.index + 1]
+          else
+            path
+          end
+        }
+
+        [xpath, @steps.last.index]
+      end
+
+      def to_cfi
+        @steps.reduce('') {|path, step|
+          case step.type
+          when :element
+            path + '/%d' % [(step.index + 1) * 2]
+          when :text
+            path + ':'
+          when :character
+            path + step.index.to_s
+          else
+            path
+          end
+        }
+      end
+
       protected
 
       def ==(other)

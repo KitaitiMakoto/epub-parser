@@ -5,6 +5,7 @@ require 'epub/searcher'
 class TestSearcher < Test::Unit::TestCase
   class TestXHTML < self
     def setup
+      super
       nav_path = File.expand_path('../fixtures/book/OPS/nav.xhtml', __FILE__)
       @doc = Nokogiri.XML(open(nav_path))
       @h1 = @doc.search('h1').first
@@ -54,6 +55,22 @@ class TestSearcher < Test::Unit::TestCase
         step
       else
         EPUB::Searcher::Result::Step.new(*step)
+      end
+    end
+
+    class TestResult < self
+      def setup
+        super
+        @result = EPUB::Searcher::XHTML.search(@doc, '第二節').first
+      end
+
+      def test_to_xpath_and_offset
+        assert_equal ['/*[2]/*[1]/*[1]/*[2]/*[2]/*[2]/*[2]/*[1]/text()[1]', 0], @result.to_xpath_and_offset
+        assert_equal ['/xhtml:*[2]/xhtml:*[1]/xhtml:*[1]/xhtml:*[2]/xhtml:*[2]/xhtml:*[2]/xhtml:*[2]/xhtml:*[1]/text()[1]', 0], @result.to_xpath_and_offset(true)
+      end
+
+      def test_to_cfi
+        assert_equal '/4/2/2/4/4/4/4/2:0', @result.to_cfi
       end
     end
   end
