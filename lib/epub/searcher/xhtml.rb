@@ -26,16 +26,16 @@ module EPUB
         text_index = 0
         element.children.each_with_index do |child, elem|
           if child.element?
-            child_step = [:element, elem_index, child.name]
+            child_step = Result::Step.new(:element, elem_index, child.name)
             search(child).each do |sub_result|
-              results << sub_result.unshift(child_step)
+              results << Result.new([child_step] + sub_result.steps)
             end
             elem_index += 1
           elsif child.text?
             char_index = 0
-            text_step = [:text, text_index]
+            text_step = Result::Step.new(:text, text_index)
             while char_index = child.text.index(@word, char_index)
-              results << [text_step, [:character, char_index]]
+              results << Result.new([text_step, Result::Step.new(:character, char_index)])
               char_index += 1
             end
             text_index += 1

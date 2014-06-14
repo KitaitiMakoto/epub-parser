@@ -16,27 +16,45 @@ class TestSearcher < Test::Unit::TestCase
     end
 
     def test_simple
-      assert_equal [[[:text, 0], [:character, 9]]], EPUB::Searcher::XHTML.search(@h1, 'Content')
+      assert_equal results([[[:text, 0], [:character, 9]]]), EPUB::Searcher::XHTML.search(@h1, 'Content')
     end
 
     def test_multiple_text_result
-      assert_equal [[[:text, 0], [:character, 6]], [[:text, 0], [:character, 10]]], EPUB::Searcher::XHTML.search(@h1, 'o')
+      assert_equal results([[[:text, 0], [:character, 6]], [[:text, 0], [:character, 10]]]), EPUB::Searcher::XHTML.search(@h1, 'o')
     end
 
     def test_text_after_element
       elem = Nokogiri.XML('<root>before<elem>inner</elem>after</root>')
 
-      assert_equal [[[:text, 1], [:character, 0]]], EPUB::Searcher::XHTML.search(elem, 'after')
+      assert_equal results([[[:text, 1], [:character, 0]]]), EPUB::Searcher::XHTML.search(elem, 'after')
     end
 
     def test_entity_reference
       elem = Nokogiri.XML('<root>before&lt;after</root>')
 
-      assert_equal [[[:text, 0], [:character, 6]]], EPUB::Searcher::XHTML.search(elem, '<')
+      assert_equal results([[[:text, 0], [:character, 6]]]), EPUB::Searcher::XHTML.search(elem, '<')
     end
 
     def test_nested_result
-      assert_equal [[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0], [:character, 0]]], EPUB::Searcher::XHTML.search(@nav, '第二節')
+      assert_equal results([[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0], [:character, 0]]]), EPUB::Searcher::XHTML.search(@nav, '第二節')
+    end
+
+    private
+
+    def results(results)
+      results.collect {|res| result(res)}
+    end
+
+    def result(steps)
+      EPUB::Searcher::Result.new(steps.collect {|s| step(s)})
+    end
+
+    def step(step)
+      if step.kind_of? EPUB::Searcher::Result::Step
+        step
+      else
+        EPUB::Searcher::Result::Step.new(*step)
+      end
     end
   end
 end
