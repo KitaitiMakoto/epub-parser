@@ -28,14 +28,14 @@ module EPUB
       def to_cfi
         [@parent_steps, @start_steps, @end_steps].collect {|steps|
           steps.reduce('') {|path, step|
-          case step.type
-          when :element
-            path + '/%d' % [(step.index + 1) * 2]
-          when :character
-            path + ':%d' % step.index
-          else
-            path
-          end
+            case step.type
+            when :element
+              path + '/%d' % [(step.index + 1) * 2]
+            when :character
+              path + ':%d' % step.index
+            else
+              path
+            end
           }
         }.join(',')
       end
