@@ -27,7 +27,7 @@ module EPUB
           text_index = 0
           element.children.each_with_index do |child, elem|
             if child.element?
-              child_step = Result::Step.new(:element, elem_index, child.name)
+              child_step = Result::Step.new(:element, elem_index, {:name => child.name})
               search(child).each do |sub_result|
                 results << Result.new([child_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
               end

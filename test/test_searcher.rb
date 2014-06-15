@@ -23,8 +23,8 @@ class TestSearcher < Test::Unit::TestCase
     def test_simple
       assert_equal(
         results([
-          [[[:element, 2, 'spine'], [:itemref, 0], [:element, 0, 'head'], [:element, 0, 'title'], [:text, 0]], [[:character, 9]], [[:character, 16]]],
-          [[[:element, 2, 'spine'], [:itemref, 0], [:element, 1, 'body'], [:element, 0, 'div'], [:element, 0, 'nav'], [:element, 0, 'hgroup'], [:element, 1, 'h1'], [:text, 0]], [[:character, 9]], [[:character, 16]]]
+          [[[:element, 2, {:name => 'spine'}], [:itemref, 0], [:element, 0, {:name => 'head'}], [:element, 0, {:name => 'title'}], [:text, 0]], [[:character, 9]], [[:character, 16]]],
+          [[[:element, 2, {:name => 'spine'}], [:itemref, 0], [:element, 1, {:name => 'body'}], [:element, 0, {:name => 'div'}], [:element, 0, {:name => 'nav'}], [:element, 0, {:name => 'hgroup'}], [:element, 1, {:name => 'h1'}], [:text, 0]], [[:character, 9]], [[:character, 16]]]
         ]),
         EPUB::Searcher::Publication.search(@package, 'Content')
     )
@@ -71,7 +71,7 @@ class TestSearcher < Test::Unit::TestCase
     end
 
     def test_nested_result
-      assert_equal results([[[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), EPUB::Searcher::XHTML::Restricted.search(@nav, '第二節')
+      assert_equal results([[[[:element, 1, {:name => 'ol'}], [:element, 1, {:name => 'li'}], [:element, 1, {:name => 'ol'}], [:element, 1, {:name => 'li'}], [:element, 0, {:name => 'a'}], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), EPUB::Searcher::XHTML::Restricted.search(@nav, '第二節')
     end
 
     class TestResult < self

@@ -37,17 +37,16 @@ module EPUB
       end
 
       class Step
-        attr_reader :type, :index, :name
+        attr_reader :type, :index, :info
 
-        def initialize(type, index, name=nil)
-          @type, @index = type, index
-          @name = name.dup.freeze if name
+        def initialize(type, index, info={})
+          @type, @index, @info = type, index, info
         end
 
         def ==(other)
           self.type == other.type and
             self.index == other.index and
-            self.name == other.name
+            self.info == other.info
         end
 
         def to_cfi_s

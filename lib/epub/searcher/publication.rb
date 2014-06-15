@@ -16,7 +16,7 @@ module EPUB
       def search(package)
         results = []
 
-        spine_step = Result::Step.new(:element, 2, 'spine')
+        spine_step = Result::Step.new(:element, 2, {:name => 'spine'})
         package.spine.each_itemref.with_index do |itemref, index|
           itemref_step = Result::Step.new(:itemref, index)
           XHTML::Restricted.search(Nokogiri.XML(itemref.item.read), @word).each do |sub_result|
