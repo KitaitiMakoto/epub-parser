@@ -1,7 +1,7 @@
 require 'epub'
 
 module EPUB
-  class Searcher
+  module Searcher
     class XHTML
       class Restricted
         class << self

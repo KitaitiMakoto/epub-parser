@@ -1,5 +1,5 @@
 module EPUB
-  class Searcher
+  module Searcher
     class Result
       attr_reader :parent_steps, :start_steps, :end_steps
 

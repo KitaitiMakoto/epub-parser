@@ -1,7 +1,7 @@
 require 'epub/publication'
 
 module EPUB
-  class Searcher
+  module Searcher
     class Publication
       class << self
         def search(package, word)
