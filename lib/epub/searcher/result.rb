@@ -25,7 +25,7 @@ module EPUB
         [xpath, @start_steps.last.index]
       end
 
-      def to_cfi
+      def to_cfi_s
         [@parent_steps, @start_steps, @end_steps].collect {|steps|
           steps.reduce('') {|path, step|
             case step.type

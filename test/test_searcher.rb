@@ -67,8 +67,8 @@ class TestSearcher < Test::Unit::TestCase
         assert_equal ['./xhtml:*[2]/xhtml:*[1]/xhtml:*[1]/xhtml:*[2]/xhtml:*[2]/xhtml:*[2]/xhtml:*[2]/xhtml:*[1]/text()[1]', 0], @result.to_xpath_and_offset(true)
       end
 
-      def test_to_cfi
-        assert_equal '/4/2/2/4/4/4/4/2/1,:0,:3', @result.to_cfi
+      def test_to_cfi_s
+        assert_equal '/4/2/2/4/4/4/4/2/1,:0,:3', @result.to_cfi_s
       end
     end
   end
