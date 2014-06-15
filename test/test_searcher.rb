@@ -32,7 +32,7 @@ class TestSearcher < Test::Unit::TestCase
 
     class TesetResult < self
       def test_to_cfi_s
-        assert_equal '/6/2!/4/2/2/2/4/1,:9,:16', EPUB::Searcher::Publication.search(@package, 'Content').last.to_cfi_s
+        assert_equal '/6/2!/4/2/2[idid]/2/4/1,:9,:16', EPUB::Searcher::Publication.search(@package, 'Content').last.to_cfi_s
       end
     end
   end
@@ -86,7 +86,7 @@ class TestSearcher < Test::Unit::TestCase
       end
 
       def test_to_cfi_s
-        assert_equal '/4/2/2/4/4/4/4/2/1,:0,:3', @result.to_cfi_s
+        assert_equal '/4/2/2[idid]/4/4/4/4/2/1,:0,:3', @result.to_cfi_s
       end
     end
   end

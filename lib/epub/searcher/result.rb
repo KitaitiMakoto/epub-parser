@@ -52,14 +52,20 @@ module EPUB
         def to_cfi_s
           case type
           when :element
-            '/%d' % [(index + 1) * 2]
+            '/%d%s' % [(index + 1) * 2, id_assertion]
           when :text
             '/%d' % [(index + 1)]
           when :character
             ':%d' % [index]
           when :itemref
-            '/%d!' % [(index + 1) * 2]
+            '/%d%s!' % [(index + 1) * 2, id_assertion]
           end
+        end
+
+        private
+
+        def id_assertion
+          info[:id] ? "[#{info[:id]}]" : nil
         end
       end
     end
