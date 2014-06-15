@@ -31,8 +31,10 @@ module EPUB
             case step.type
             when :element
               path + '/%d' % [(step.index + 1) * 2]
+            when :text
+              path + '/%d' % [(step.index + 1)]
             when :character
-              path + ':%d' % step.index
+              path + ':%d' % [step.index]
             else
               path
             end

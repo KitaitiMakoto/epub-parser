@@ -68,7 +68,7 @@ class TestSearcher < Test::Unit::TestCase
       end
 
       def test_to_cfi
-        assert_equal '/4/2/2/4/4/4/4/2,:0,:3', @result.to_cfi
+        assert_equal '/4/2/2/4/4/4/4/2/1,:0,:3', @result.to_cfi
       end
     end
   end
