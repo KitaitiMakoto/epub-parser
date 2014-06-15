@@ -3,9 +3,9 @@ module EPUB
     class Result
       attr_reader :parent_steps, :start_steps, :end_steps
 
-      # @param parent_steps [Array<Step>]
-      # @param start_steps [Array<Step>]
-      # @param end_steps [Array<Step>]
+      # @param parent_steps [Array<Step>] common steps between start and end
+      # @param start_steps [Array<Step>] steps to start from +parent_steps+
+      # @param end_steps [Array<Step>] steps to end from +parent_steps+
       def initialize(parent_steps, start_steps, end_steps)
         @parent_steps, @start_steps, @end_steps = parent_steps, start_steps, end_steps
       end
