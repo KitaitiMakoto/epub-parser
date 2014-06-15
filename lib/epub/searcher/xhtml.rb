@@ -1,4 +1,5 @@
 require 'epub'
+require 'epub/parser/utils'
 
 module EPUB
   module Searcher
@@ -25,9 +26,9 @@ module EPUB
 
           elem_index = 0
           text_index = 0
-          element.children.each_with_index do |child, elem|
+          element.children.each do |child|
             if child.element?
-              child_step = Result::Step.new(:element, elem_index, {:name => child.name})
+              child_step = Result::Step.new(:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')})
               search(child).each do |sub_result|
                 results << Result.new([child_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
               end
