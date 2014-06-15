@@ -29,8 +29,14 @@ module EPUB
           element.children.each do |child|
             if child.element?
               child_step = Result::Step.new(:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')})
-              search(child).each do |sub_result|
-                results << Result.new([child_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
+              if child.name == 'img'
+                if Parser::Utils.extract_attribute(child, 'alt').index(@word)
+                  results << Result.new([child_step], nil, nil)
+                end
+              else
+                search(child).each do |sub_result|
+                  results << Result.new([child_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
+                end
               end
               elem_index += 1
             elsif child.text?

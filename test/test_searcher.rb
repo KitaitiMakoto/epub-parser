@@ -74,6 +74,10 @@ class TestSearcher < Test::Unit::TestCase
       assert_equal results([[[[:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 0, {:name => 'a', :id => nil}], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), EPUB::Searcher::XHTML::Restricted.search(@nav, '第二節')
     end
 
+    def test_img
+      assert_equal [result([[[:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 1, {:name => 'ol', :id => nil}], [:element, 2, {:name => 'li', :id => nil}], [:element, 0, {:name => 'a', :id => nil}], [:element, 0, {:name => 'img', :id => nil}]], nil, nil])], EPUB::Searcher::XHTML::Restricted.search(@nav, '第三節')
+    end
+
     class TestResult < self
       def setup
         super
@@ -88,6 +92,10 @@ class TestSearcher < Test::Unit::TestCase
       def test_to_cfi_s
         assert_equal '/4/2/2[idid]/4/4/4/4/2/1,:0,:3', @result.to_cfi_s
       end
+
+      def test_to_cfi_s_img
+        assert_equal '/4/2/2[idid]/4/4/4/6/2/2', EPUB::Searcher::XHTML::Restricted.search(@doc, '第三節').first.to_cfi_s
+      end
     end
   end
 
@@ -99,7 +107,7 @@ class TestSearcher < Test::Unit::TestCase
 
   def result(steps_triple)
     EPUB::Searcher::Result.new(*steps_triple.collect {|steps|
-      steps.collect {|s| step(s)}
+      steps ? steps.collect {|s| step(s)} : steps
     })
   end
 

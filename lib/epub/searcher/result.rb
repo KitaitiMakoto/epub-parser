@@ -27,13 +27,13 @@ module EPUB
 
       def to_cfi_s
         [@parent_steps, @start_steps, @end_steps].collect {|steps|
-          steps.collect(&:to_cfi_s).join
-        }.join(',')
+          steps ? steps.collect(&:to_cfi_s).join : nil
+        }.compact.join(',')
       end
 
       def ==(other)
-        [@parent_steps + @start_steps] == [other.parent_steps + other.start_steps] and
-          [@parent_steps + @end_steps] == [other.parent_steps + other.end_steps]
+        [@parent_steps + @start_steps.to_a] == [other.parent_steps + other.start_steps.to_a] and
+          [@parent_steps + @end_steps.to_a] == [other.parent_steps + other.end_steps.to_a]
       end
 
       class Step
