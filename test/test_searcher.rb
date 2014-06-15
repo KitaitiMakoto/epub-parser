@@ -59,7 +59,7 @@ class TestSearcher < Test::Unit::TestCase
     end
 
     def test_text_after_element
-      elem = Nokogiri.XML('<root>before<elem>inner</elem>after</root>')
+      elem = Nokogiri.XML('<root><elem>inner</elem>after</root>')
 
       assert_equal results([[[[:text, 1]], [[:character, 0]], [[:character, 5]]]]), EPUB::Searcher::XHTML::Restricted.search(elem, 'after')
     end

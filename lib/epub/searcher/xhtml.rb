@@ -25,7 +25,6 @@ module EPUB
           results = []
 
           elem_index = 0
-          text_index = 0
           element.children.each do |child|
             if child.element?
               child_step = Result::Step.new(:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')})
@@ -40,13 +39,13 @@ module EPUB
               end
               elem_index += 1
             elsif child.text?
+              text_index = elem_index
               char_index = 0
               text_step = Result::Step.new(:text, text_index)
               while char_index = child.text.index(@word, char_index)
                 results << Result.new([text_step], [Result::Step.new(:character, char_index)], [Result::Step.new(:character, char_index + @word.length)])
                 char_index += 1
               end
-              text_index += 1
             end
           end
 
