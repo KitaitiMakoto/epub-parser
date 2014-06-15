@@ -40,22 +40,6 @@ class TestSearcher < Test::Unit::TestCase
       assert_equal results([[[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), EPUB::Searcher::XHTML.search(@nav, '第二節')
     end
 
-    private
-
-    def results(results)
-      results.collect {|res| result(res)}
-    end
-
-    def result(steps_triple)
-      EPUB::Searcher::Result.new(*steps_triple.collect {|steps|
-        steps.collect {|s| step(s)}
-      })
-    end
-
-    def step(step)
-      EPUB::Searcher::Result::Step.new(*step)
-    end
-
     class TestResult < self
       def setup
         super
@@ -71,5 +55,21 @@ class TestSearcher < Test::Unit::TestCase
         assert_equal '/4/2/2/4/4/4/4/2/1,:0,:3', @result.to_cfi_s
       end
     end
+  end
+
+  private
+
+  def results(results)
+    results.collect {|res| result(res)}
+  end
+
+  def result(steps_triple)
+    EPUB::Searcher::Result.new(*steps_triple.collect {|steps|
+      steps.collect {|s| step(s)}
+    })
+  end
+
+  def step(step)
+    EPUB::Searcher::Result::Step.new(*step)
   end
 end
