@@ -27,18 +27,7 @@ module EPUB
 
       def to_cfi_s
         [@parent_steps, @start_steps, @end_steps].collect {|steps|
-          steps.reduce('') {|path, step|
-            case step.type
-            when :element
-              path + '/%d' % [(step.index + 1) * 2]
-            when :text
-              path + '/%d' % [(step.index + 1)]
-            when :character
-              path + ':%d' % [step.index]
-            else
-              path
-            end
-          }
+          steps.collect(&:to_cfi_s).join
         }.join(',')
       end
 
@@ -51,13 +40,25 @@ module EPUB
         attr_reader :type, :index, :name
 
         def initialize(type, index, name=nil)
-          @type, @index, @name = type, index, name
+          @type, @index = type, index
+          @name = name.dup.freeze if name
         end
 
         def ==(other)
           self.type == other.type and
             self.index == other.index and
             self.name == other.name
+        end
+
+        def to_cfi_s
+          case type
+          when :element
+            '/%d' % [(index + 1) * 2]
+          when :text
+            '/%d' % [(index + 1)]
+          when :character
+            ':%d' % [index]
+          end
         end
       end
     end
