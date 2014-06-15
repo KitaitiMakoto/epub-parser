@@ -47,37 +47,37 @@ class TestSearcher < Test::Unit::TestCase
     end
 
     def test_no_result
-      assert_empty EPUB::Searcher::XHTML.search(@h1, 'no result')
+      assert_empty EPUB::Searcher::XHTML::Restricted.search(@h1, 'no result')
     end
 
     def test_simple
-      assert_equal results([[[[:text, 0]], [[:character, 9]], [[:character, 16]]]]), EPUB::Searcher::XHTML.search(@h1, 'Content')
+      assert_equal results([[[[:text, 0]], [[:character, 9]], [[:character, 16]]]]), EPUB::Searcher::XHTML::Restricted.search(@h1, 'Content')
     end
 
     def test_multiple_text_result
-      assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]], [[[:text, 0]], [[:character, 10]], [[:character, 11]]]]), EPUB::Searcher::XHTML.search(@h1, 'o')
+      assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]], [[[:text, 0]], [[:character, 10]], [[:character, 11]]]]), EPUB::Searcher::XHTML::Restricted.search(@h1, 'o')
     end
 
     def test_text_after_element
       elem = Nokogiri.XML('<root>before<elem>inner</elem>after</root>')
 
-      assert_equal results([[[[:text, 1]], [[:character, 0]], [[:character, 5]]]]), EPUB::Searcher::XHTML.search(elem, 'after')
+      assert_equal results([[[[:text, 1]], [[:character, 0]], [[:character, 5]]]]), EPUB::Searcher::XHTML::Restricted.search(elem, 'after')
     end
 
     def test_entity_reference
       elem = Nokogiri.XML('<root>before&lt;after</root>')
 
-      assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]]]), EPUB::Searcher::XHTML.search(elem, '<')
+      assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]]]), EPUB::Searcher::XHTML::Restricted.search(elem, '<')
     end
 
     def test_nested_result
-      assert_equal results([[[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), EPUB::Searcher::XHTML.search(@nav, '第二節')
+      assert_equal results([[[[:element, 1, 'ol'], [:element, 1, 'li'], [:element, 1, 'ol'], [:element, 1, 'li'], [:element, 0, 'a'], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), EPUB::Searcher::XHTML::Restricted.search(@nav, '第二節')
     end
 
     class TestResult < self
       def setup
         super
-        @result = EPUB::Searcher::XHTML.search(@doc, '第二節').first
+        @result = EPUB::Searcher::XHTML::Restricted.search(@doc, '第二節').first
       end
 
       def test_to_xpath_and_offset
