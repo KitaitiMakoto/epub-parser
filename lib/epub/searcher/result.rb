@@ -43,7 +43,6 @@ module EPUB
       def ==(other)
         [@parent_steps + @start_steps] == [other.parent_steps + other.start_steps] and
           [@parent_steps + @end_steps] == [other.parent_steps + other.end_steps]
-
       end
 
       class Step
