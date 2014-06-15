@@ -1,5 +1,11 @@
 CHANGELOG
 =========
+
+0.1.7
+-----
+
+* [Experimental]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
+
 0.1.6
 -----
 * Remove `EPUB.parse` method

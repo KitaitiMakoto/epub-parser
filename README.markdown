@@ -108,6 +108,11 @@ If you find other gems, please tell me or request a pull request.
 
 RECENT CHANGES
 --------------
+
+### 0.1.7
+
+* [Extracts]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
+
 ### 0.1.6
 * Remove `EPUB.parse` method
 * Remove `EPUB::Publication::Package::Metadata#to_hash`
@@ -133,14 +138,6 @@ RECENT CHANGES
 * API change: `OCF::Container::Rootfile#full_path` became Addressable::URI object rather than `String`
 * Add `ContentDocument::XHTML#rexml` and `#nokogiri`
 * Inspect more readably
-
-### 0.1.4
-* [Fixed-Layout Documents][fixed-layout] support
-* Define `ContentDocument::XHTML#top_level?`
-* Define `Spine::Itemref#page_spread` and `#page_spread=`
-* Define some utility methods around `Manifest::Item` and `Spine::Itemref`
-
-[fixed-layout]: http://www.idpf.org/epub/fxl/
 
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
