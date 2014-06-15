@@ -58,6 +58,8 @@ module EPUB
             '/%d' % [(index + 1)]
           when :character
             ':%d' % [index]
+          when :itemref
+            '/%d!' % [(index + 1) * 2]
           end
         end
       end

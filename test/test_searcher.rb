@@ -3,6 +3,40 @@ require_relative 'helper'
 require 'epub/searcher'
 
 class TestSearcher < Test::Unit::TestCase
+  class TestPublication < self
+    def setup
+      super
+      opf_path = File.expand_path('../fixtures/book/OPS/ルートファイル.opf', __FILE__)
+      nav_path = File.expand_path('../fixtures/book/OPS/nav.xhtml', __FILE__)
+      @package = EPUB::Parser::Publication.new(open(opf_path), 'OPS/ルートファイル.opf').parse
+      @package.spine.each_itemref do |itemref|
+        stub(itemref.item).read {
+          itemref.idref == 'nav' ? File.read(nav_path) : '<html></html>'
+        }
+      end
+    end
+
+    def test_no_result
+      assert_empty EPUB::Searcher::Publication.search(@package, 'no result')
+    end
+
+    def test_simple
+      assert_equal(
+        results([
+          [[[:element, 2, 'spine'], [:itemref, 0], [:element, 0, 'head'], [:element, 0, 'title'], [:text, 0]], [[:character, 9]], [[:character, 16]]],
+          [[[:element, 2, 'spine'], [:itemref, 0], [:element, 1, 'body'], [:element, 0, 'div'], [:element, 0, 'nav'], [:element, 0, 'hgroup'], [:element, 1, 'h1'], [:text, 0]], [[:character, 9]], [[:character, 16]]]
+        ]),
+        EPUB::Searcher::Publication.search(@package, 'Content')
+    )
+    end
+
+    class TesetResult < self
+      def test_to_cfi_s
+        assert_equal '/6/2!/4/2/2/2/4/1,:9,:16', EPUB::Searcher::Publication.search(@package, 'Content').last.to_cfi_s
+      end
+    end
+  end
+
   class TestXHTML < self
     def setup
       super
