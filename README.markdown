@@ -112,7 +112,7 @@ RECENT CHANGES
 
 ### 0.1.7
 
-* [Extracts]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
+* [Experimental]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
 
 ### 0.1.6
 * Remove `EPUB.parse` method
