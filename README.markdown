@@ -93,6 +93,7 @@ See {file:docs/EpubOpen} for more info.
 REQUIREMENTS
 ------------
 * Ruby 1.9.3 or later
+* `patch` command to install Nokogiri
 * C compiler to compile Zip/Ruby and Nokogiri
 
 Related Gems
