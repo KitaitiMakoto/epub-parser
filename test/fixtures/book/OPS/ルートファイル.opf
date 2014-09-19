@@ -101,6 +101,15 @@
     <item id="encoded-japanese-filename"
           href="%E6%97%A5%E6%9C%AC%E8%AA%9E.xhtml"
           media-type="application/xhtml+xml"/>
+    <item id="utf-8-encoded"
+          href="japanese.utf8.xhtml"
+          media-type="application/xhtml+xml"/>
+    <item id="euc-jp-encoded"
+          href="japanese.eucjp.xhtml"
+          media-type="application/xhtml+xml"/>
+    <item id="shift_jis-encoded"
+          href="japanese.sjis.xhtml"
+          media-type="application/xhtml+xml"/>
   </manifest>
   <spine>
     <itemref idref="nav"/>

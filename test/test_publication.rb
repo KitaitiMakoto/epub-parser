@@ -239,6 +239,16 @@ class TestPublication < Test::Unit::TestCase
 
         assert_nil xhtml_item.find_item_by_relative_iri(Addressable::URI.parse('../image/01.png'))
       end
+
+      data('UTF-8'     => [Encoding::UTF_8,     'utf-8-encoded'],
+           'EUC-JP'    => [Encoding::EUC_JP,    'euc-jp-encoded'],
+           'Shift-JIS' => [Encoding::Shift_JIS, 'shift_jis-encoded'])
+      def test_read_detects_encoding_automatically(data)
+        encoding, id = data
+        epub = EPUB::Parser.parse('test/fixtures/book.epub')
+        item = epub.package.manifest[id]
+        assert_equal encoding, item.read.encoding
+      end
     end
   end
 
