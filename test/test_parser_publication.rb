@@ -81,8 +81,8 @@ class TestParserPublication < Test::Unit::TestCase
       @manifest = @parser.parse_manifest
     end
 
-    def test_manifest_has_16_items
-      assert_equal 16, @manifest.items.length
+    def test_manifest_has_19_items
+      assert_equal 19, @manifest.items.length
     end
 
     def test_item_has_relative_path_as_href_attribute
