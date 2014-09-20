@@ -5,6 +5,7 @@ CHANGELOG
 -----
 
 * [Experimental]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
+* Detect and set character encoding in `EPUB::Publication::Package::Item#read`
 
 0.1.6
 -----
