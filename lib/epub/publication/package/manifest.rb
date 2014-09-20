@@ -1,5 +1,6 @@
 require 'set'
 require 'enumerabler'
+require 'rchardet'
 require 'epub/constants'
 require 'epub/parser/content_document'
 
@@ -91,9 +92,21 @@ module EPUB
           end
 
           def read
-            Zip::Archive.open(manifest.package.book.epub_file) {|zip|
+            raw_content = Zip::Archive.open(manifest.package.book.epub_file) {|zip|
               zip.fopen(entry_name).read
             }
+            # CharDet.detect doesn't raise Encoding::CompatibilityError
+            # that is caused when trying compare CharDet's internal
+            # ASCII-8BIT RegExp with a String with other encoding
+            # because Zip::File#read returns a String with encoding ASCII-8BIT.
+            # So, no need to rescue the error here.
+            encoding = CharDet.detect(raw_content)['encoding']
+            if encoding
+              raw_content.force_encoding(encoding)
+            else
+              warn "No encoding detected for #{entry_name}. Set to ASCII-8BIT" if $DEBUG || $VERBOSE
+              raw_content
+            end
           end
 
           def xhtml?
