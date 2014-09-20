@@ -95,6 +95,11 @@ module EPUB
             raw_content = Zip::Archive.open(manifest.package.book.epub_file) {|zip|
               zip.fopen(entry_name).read
             }
+            unless media_type.start_with?('text/') or
+                media_type.end_with?('xml') or
+                ['application/json', 'application/javascript', 'application/ecmascript', 'application/xml-dtd'].include?(media_type)
+              return raw_content
+            end
             # CharDet.detect doesn't raise Encoding::CompatibilityError
             # that is caused when trying compare CharDet's internal
             # ASCII-8BIT RegExp with a String with other encoding
