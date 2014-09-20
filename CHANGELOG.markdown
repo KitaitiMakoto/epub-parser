@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.1.7.1
+-------
+
+* Don't set encoding when content is not text
+
 0.1.7
 -----
 

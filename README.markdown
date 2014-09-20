@@ -110,6 +110,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.1.7.1
+
+* Don't set encoding when content is not text
+
 ### 0.1.7
 
 * [Experimental]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
