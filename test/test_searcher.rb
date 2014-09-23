@@ -27,7 +27,7 @@ class TestSearcher < Test::Unit::TestCase
           [[[:element, 2, {:name => 'spine', :id => nil}], [:itemref, 0, {:id => nil}], [:element, 1, {:name => 'body', :id => nil}], [:element, 0, {:name => 'div', :id => nil}], [:element, 0, {:name => 'nav', :id => 'idid'}], [:element, 0, {:name => 'hgroup', :id => nil}], [:element, 1, {:name => 'h1', :id => nil}], [:text, 0]], [[:character, 9]], [[:character, 16]]]
         ]),
         EPUB::Searcher::Publication.search(@package, 'Content')
-    )
+      )
     end
 
     class TesetResult < self
