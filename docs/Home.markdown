@@ -43,9 +43,11 @@ This book object can yield page by spine's order(spine defines the order to read
 
     book.each_page_on_spine do |page|
       file = page.href # => path/to/page/in/zip/archive
-      html = Zip::Archive.open('/path/to/book.epub') {|zip|
-        zip.fopen(file.to_s).read
-      }
+      html = Zip::Archive.open('/path/to/book.epub') do |zip|
+        zip.fopen(file.to_s) do |file|
+          file.read
+        end
+      end
     end
 
 And {EPUB::Publication::Package::Manifest::Item Item} provides syntax suger {EPUB::Publication::Package::Manifest::Item#read #read} for above:

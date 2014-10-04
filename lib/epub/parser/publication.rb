@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'addressable/uri'
 require 'epub/publication'
 require 'epub/constants'
+require "digest/md5" # for charset independent filename comparison in parse()
 
 module EPUB
   class Parser
@@ -12,7 +13,10 @@ module EPUB
 
       class << self
         def parse(zip_archive, file)
-          opf = zip_archive.fopen(Addressable::URI.unencode(file)).read
+          opf = zip_archive.fopen(Addressable::URI.unencode(file)) do |member|
+            member.read
+          end
+
           new(opf, file).parse
         end
       end
