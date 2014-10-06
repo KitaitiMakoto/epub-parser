@@ -12,7 +12,8 @@ module EPUB
 
       class << self
         def parse(zip_archive, file)
-          opf = zip_archive.fopen(Addressable::URI.unencode(file)).read
+          opf = zip_archive.fopen(Addressable::URI.unencode(file)) {|member| member.read}
+
           new(opf, file).parse
         end
       end

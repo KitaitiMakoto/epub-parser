@@ -44,7 +44,7 @@ This book object can yield page by spine's order(spine defines the order to read
     book.each_page_on_spine do |page|
       file = page.href # => path/to/page/in/zip/archive
       html = Zip::Archive.open('/path/to/book.epub') {|zip|
-        zip.fopen(file.to_s).read
+        zip.fopen(file.to_s) {|file| file.read}
       }
     end
 

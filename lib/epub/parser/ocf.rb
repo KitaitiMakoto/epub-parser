@@ -25,8 +25,8 @@ module EPUB
       def parse
         EPUB::OCF::MODULES.each do |m|
           begin
-            file = @zip.fopen(File.join(DIRECTORY, "#{m}.xml"))
-            @ocf.__send__ "#{m}=", __send__("parse_#{m}", file.read)
+            data = @zip.fopen(File.join(DIRECTORY, "#{m}.xml")) {|file| file.read}
+            @ocf.__send__ "#{m}=", __send__("parse_#{m}", data)
           rescue Zip::Error
           end
         end

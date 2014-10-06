@@ -93,8 +93,9 @@ module EPUB
 
           def read
             raw_content = Zip::Archive.open(manifest.package.book.epub_file) {|zip|
-              zip.fopen(entry_name).read
+              zip.fopen(entry_name) {|member| member.read}
             }
+
             unless media_type.start_with?('text/') or
                 media_type.end_with?('xml') or
                 ['application/json', 'application/javascript', 'application/ecmascript', 'application/xml-dtd'].include?(media_type)
