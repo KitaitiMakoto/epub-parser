@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+0.1.8
+-----
+
+* Explicity #close each zip member file that has been opened via #fopen(Thanks, [xunker][]!)
+
+[xunker]: https://github.com/xunker
+
 0.1.7.1
 -------
 
