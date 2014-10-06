@@ -4,7 +4,6 @@ require 'nokogiri'
 require 'addressable/uri'
 require 'epub/publication'
 require 'epub/constants'
-require "digest/md5" # for charset independent filename comparison in parse()
 
 module EPUB
   class Parser
