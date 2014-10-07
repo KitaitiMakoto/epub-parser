@@ -41,7 +41,7 @@ module EPUB
         end
 
         def description
-          descriptions.join ' '
+          descriptions.join(' ')
         end
 
         def date

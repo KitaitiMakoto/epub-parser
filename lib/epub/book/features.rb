@@ -25,7 +25,7 @@ module EPUB
 
       %w[nav].each do |met|
         define_method met do
-          manifest.__send__ met
+          manifest.__send__(met)
         end
       end
 

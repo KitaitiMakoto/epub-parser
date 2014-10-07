@@ -29,9 +29,9 @@ module EPUB
             return @item if @item
 
             request_uri = href.request_uri
-            @item = @guide.package.manifest.items.selector do |item|
+            @item = @guide.package.manifest.items.selector {|item|
               item.href.request_uri == request_uri
-            end.first
+            }.first
           end
         end
 
