@@ -55,7 +55,7 @@ module EPUB
         }
         metadata.titles = extract_model(elem, id_map, './dc:title', :Title)
         metadata.languages = extract_model(elem, id_map, './dc:language', :DCMES, %w[id])
-        %w[ contributor coverage creator date description format publisher relation source subject type ].each do |dcmes|
+        %w[contributor coverage creator date description format publisher relation source subject type].each do |dcmes|
           metadata.__send__ "#{dcmes}s=", extract_model(elem, id_map, "./dc:#{dcmes}")
         end
         metadata.rights = extract_model(elem, id_map, './dc:rights')
@@ -82,7 +82,7 @@ module EPUB
         fallback_map = {}
         elem.xpath('./opf:item', EPUB::NAMESPACES).each do |e|
           item = EPUB::Publication::Package::Manifest::Item.new
-          %w[ id media-type media-overlay ].each do |attr|
+          %w[id media-type media-overlay].each do |attr|
             item.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
           end
           item.href = Addressable::URI.parse(extract_attribute(e, 'href'))
@@ -102,13 +102,13 @@ module EPUB
       def parse_spine
         spine = @package.spine = EPUB::Publication::Package::Spine.new
         elem = @doc.xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
-        %w[ id toc page-progression-direction ].each do |attr|
+        %w[id toc page-progression-direction].each do |attr|
           spine.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(elem, attr)
         end
 
         elem.xpath('./opf:itemref', EPUB::NAMESPACES).each do |e|
           itemref = EPUB::Publication::Package::Spine::Itemref.new
-          %w[ idref id ].each do |attr|
+          %w[idref id].each do |attr|
             itemref.__send__ "#{attr}=", extract_attribute(e, attr)
           end
           itemref.linear = (extract_attribute(e, 'linear') != 'no')
@@ -124,7 +124,7 @@ module EPUB
         guide = @package.guide = EPUB::Publication::Package::Guide.new
         @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
           reference = EPUB::Publication::Package::Guide::Reference.new
-          %w[ type title ].each do |attr|
+          %w[type title].each do |attr|
             reference.__send__ "#{attr}=", extract_attribute(ref, attr)
           end
           reference.href = Addressable::URI.parse(extract_attribute(ref, 'href'))

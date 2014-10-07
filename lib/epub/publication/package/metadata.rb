@@ -30,7 +30,7 @@ module EPUB
           titles.sort.join("\n")
         end
 
-        %w[ main short collection edition extended ].each do |type|
+        %w[main short collection edition extended].each do |type|
           define_method "#{type}_title" do
             titles.select {|title| title.title_type.to_s == type}.sort.join(' ')
           end
@@ -64,7 +64,7 @@ module EPUB
         end
 
         module Refinee
-          PROPERTIES = %w[ alternate-script display-seq file-as group-position identifier-type meta-auth role title-type ]
+          PROPERTIES = %w[alternate-script display-seq file-as group-position identifier-type meta-auth role title-type]
 
           attr_writer :refiners
 
