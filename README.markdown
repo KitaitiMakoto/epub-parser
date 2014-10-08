@@ -143,14 +143,6 @@ RECENT CHANGES
 
 [takahashim]: https://github.com/takahashim
 
-### 0.1.5
-* Add `ContentDocument::XHTML#title`
-* Add `Manifest::Item#xhtml?`
-* Add `--words` and `--char` options to `epubinfo` command
-* API change: `OCF::Container::Rootfile#full_path` became Addressable::URI object rather than `String`
-* Add `ContentDocument::XHTML#rexml` and `#nokogiri`
-* Inspect more readably
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
