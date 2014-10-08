@@ -12,8 +12,6 @@ Gem::Specification.new do |s|
   s.description = %q{Parse EPUB 3 book loosely}
   s.license     = 'MIT'
 
-  # s.rubyforge_project = "epub-parser"
-
   s.files         = `git ls-files`.split("\n")
                     .push('test/fixtures/book/OPS/ルートファイル.opf')
                     .push('test/fixtures/book/OPS/日本語.xhtml')
