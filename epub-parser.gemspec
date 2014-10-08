@@ -38,8 +38,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'gem-man'
   s.add_development_dependency 'ronn'
   s.add_development_dependency 'epzip'
-  s.add_development_dependency 'epubcheck'
-  s.add_development_dependency 'epub_validator'
   s.add_development_dependency 'aruba'
 
   s.add_runtime_dependency 'enumerabler'
