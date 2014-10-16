@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+0.1.9
+-----
+
+* Introduce [Nokogumbo][] for XHTML Content Documents
+
+[nokogumbo]: https://github.com/rubys/nokogumbo/
+
 0.1.8
 -----
 

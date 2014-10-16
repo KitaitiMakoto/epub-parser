@@ -110,6 +110,12 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.1.9
+
+* Introduce [Nokogumbo][] for XHTML Content Documents
+
+[nokogumbo]: https://github.com/rubys/nokogumbo/
+
 ### 0.1.8
 
 * Explicity #close each zip member file that has been opened via #fopen(Thanks [xunker][]!)
