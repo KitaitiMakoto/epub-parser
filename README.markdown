@@ -125,24 +125,6 @@ RECENT CHANGES
 * [Experimental]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
 * Detect and set character encoding in `EPUB::Publication::Package::Item#read`
 
-### 0.1.6
-* Remove `EPUB.parse` method
-* Remove `EPUB::Publication::Package::Metadata#to_hash`
-* Add `EPUB::Publication::Package::Metadata::Identifier`
-* Remove `MethodDecorators::Deprecated`
-* Make `EPUB::Parser::OCF::CONTAINER_FILE` and other constants deprecated
-* Make `EPUB::Publication::Package::Metadata::Link#rel` a `Set`
-* Add exception class `EPUB::Constants::MediaType::UnsupportedMediaType`
-* Make `EPUB::Constants::MediaType::UnsupportedError` deprecated
-* Add `EPUB::Publication::Package::Item#find_item_by_relative_iri`
-* Add `EPUB::Publication::Package::Item#cover_image?`
-* Add `EPUB::Book::Features` module and move methods of `EPUB` module to it.(Thanks, [takahashim][]!)
-* Make including `EPUB` deprecated
-* Parse `hidden` attribute of `nav` elements
-* [Experimental]Add `EPUB::ContentDocument::Navigation::Item#traverse`
-
-[takahashim]: https://github.com/takahashim
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
