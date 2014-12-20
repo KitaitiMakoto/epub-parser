@@ -4,21 +4,21 @@ require 'epub/parser/utils'
 module EPUB
   module Searcher
     class XHTML
-      class Restricted
-        class << self
-          # @param element [Nokogiri::XML::Element, Nokogiri::XML::Document]
-          # @param word [String]
-          # @return [Array<Result>]
-          def search(element, word)
-            new(word).search(element.respond_to?(:root) ? element.root : element)
-          end
-        end
-
+      class << self
+        # @param element [Nokogiri::XML::Element, Nokogiri::XML::Document]
         # @param word [String]
-        def initialize(word)
-          @word = word
+        # @return [Array<Result>]
+        def search(element, word)
+          new(word).search(element.respond_to?(:root) ? element.root : element)
         end
+      end
 
+      # @param word [String]
+      def initialize(word)
+        @word = word
+      end
+
+      class Restricted < self
         # @param element [Nokogiri::XML::Element]
         # @return [Array<Result>]
         def search(element)
