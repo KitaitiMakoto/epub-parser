@@ -89,6 +89,20 @@ class TestSearcher < Test::Unit::TestCase
       end
     end
 
+    class TestSeamless < self
+      include TestSearch
+
+      def setup
+        super
+        @searcher = EPUB::Searcher::XHTML::Seamless
+      end
+
+      def test_seamless
+        elem = Nokogiri.XML('<root>This <em>includes</em> a child element.</root>')
+        assert_equal results([[[], [[:text, 1], [:character, 0]], [[:text, 3], [:character, 17]]]]), @searcher.search(elem, 'This. includes a child element.')
+      end
+    end
+
     class TestResult < self
       def setup
         super
