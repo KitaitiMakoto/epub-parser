@@ -92,7 +92,7 @@ See {file:docs/EpubOpen} for more info.
 
 REQUIREMENTS
 ------------
-* Ruby 1.9.3 or later
+* Ruby 1.9.3 or later(1.9 is deprecated now)
 * `patch` command to install Nokogiri
 * C compiler to compile Zip/Ruby and Nokogiri
 
@@ -113,6 +113,7 @@ RECENT CHANGES
 ### 0.1.9
 
 * Introduce [Nokogumbo][] for XHTML Content Documents
+* Make Ruby 1.9 deprecated
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
 

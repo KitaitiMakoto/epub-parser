@@ -5,6 +5,7 @@ CHANGELOG
 -----
 
 * Introduce [Nokogumbo][] for XHTML Content Documents
+* Make Ruby 1.9 deprecated
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
 
