@@ -101,13 +101,19 @@ module EPUB
           i = 0
           while i = content.index(@word, i)
             offset = find_offset(offsets, i)
-            parent_steps = indices[offset]
-            last_step = parent_steps.last
+            start_steps = indices[offset]
+            last_step = start_steps.last
             if last_step.info[:name] == 'img'
+              parent_steps = start_steps
               start_steps = end_steps = nil
             else
-              start_steps = [Result::Step.new(:character, i - offset)]
-              end_steps = [Result::Step.new(:character, i - offset + @word.length)] # FIXME: when stepping over sub elements, end_steps is wrong
+              start_char_step = Result::Step.new(:character, i - offset)
+              end_offset = find_offset(offsets, i + @word.length, true)
+              end_steps = indices[end_offset]
+              end_char_step = Result::Step.new(:character, i + @word.length - end_offset)
+              parent_steps, start_steps, end_steps = Result.aggregate_step_intersection(start_steps, end_steps)
+              start_steps << start_char_step
+              end_steps << end_char_step
             end
             results << Result.new(parent_steps, start_steps, end_steps)
             i += 1
