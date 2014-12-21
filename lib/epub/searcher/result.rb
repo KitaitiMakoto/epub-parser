@@ -1,6 +1,36 @@
 module EPUB
   module Searcher
     class Result
+      class << self
+        # @example
+        #   Result.aggregate_step_intersection([a, b, c], [a, b, d]) # => [[a, b], [c], [d]]
+        # @example
+        #   Result.aggregate_step_intersection([a, b, c], [a, d, c]) # => [[a], [b, c], [d, c]]
+        #   # Note that c here is not included in the first element of returned value.
+        # @param steps1 [Array<Step>]
+        # @param steps2 [Array<Step>]
+        # @return [Array<Array<Step>>] Thee arrays:
+        #   1. "intersection" of +steps1+ and +steps2+. "intersection" here is not the term of mathmatics
+        #   2. remaining steps of +steps1+
+        #   3. remaining steps of +steps2+
+        def aggregate_step_intersection(steps1, steps2)
+          intersection = []
+          steps1_remaining = []
+          steps2_remaining = []
+          broken = false
+          steps1.zip steps2 do |step1, step2|
+            broken = true unless step1 && step2 && step1 == step2
+            if broken
+              steps1_remaining << step1 unless step1.nil?
+              steps2_remaining << step2 unless step2.nil?
+            else
+              intersection << step1
+            end
+          end
+          [intersection, steps1_remaining, steps2_remaining]
+        end
+      end
+
       attr_reader :parent_steps, :start_steps, :end_steps
 
       # @param parent_steps [Array<Step>] common steps between start and end
