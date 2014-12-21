@@ -109,7 +109,7 @@ module EPUB
               start_steps = [Result::Step.new(:character, i - offset)]
               end_steps = [Result::Step.new(:character, i - offset + @word.length)] # FIXME: when stepping over sub elements, end_steps is wrong
             end
-            results << Result.new(indices[offset], start_steps, end_steps)
+            results << Result.new(parent_steps, start_steps, end_steps)
             i += 1
           end
 
