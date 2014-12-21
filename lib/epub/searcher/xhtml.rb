@@ -117,11 +117,14 @@ module EPUB
         end
 
         # Find max offset greater than or equal to index
+        # @param offsets [Array<Integer>] keys of indices
+        # @param index [Integer] position of search word in content string
         # @todo: more efficient algorithm
-        def find_offset(offsets, index)
+        def find_offset(offsets, index, for_end_position=false)
+          comparison_operator = for_end_position ? :< : :<=
           offset = 0
           offsets.each do |o|
-            if o <= index
+            if o.__send__(comparison_operator, index)
               offset = o
               next
             else
