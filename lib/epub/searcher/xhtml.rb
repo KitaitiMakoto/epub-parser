@@ -100,16 +100,7 @@ module EPUB
           offsets = indices.keys
           i = 0
           while i = content.index(@word, i)
-            offset = 0
-            while o = offsets.shift
-              if o <= i
-                offset = o
-                next
-              else
-                offsets.unshift o
-                break
-              end
-            end
+            offset = find_offset(offsets, i)
             parent_steps = indices[offset]
             last_step = parent_steps.last
             if last_step.info[:name] == 'img'
@@ -123,6 +114,21 @@ module EPUB
           end
 
           results
+        end
+
+        # Find max offset greater than or equal to index
+        # @todo: more efficient algorithm
+        def find_offset(offsets, index)
+          offset = 0
+          offsets.each do |o|
+            if o <= index
+              offset = o
+              next
+            else
+              break
+            end
+          end
+          offset
         end
       end
     end
