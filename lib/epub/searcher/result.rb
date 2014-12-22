@@ -27,6 +27,7 @@ module EPUB
               intersection << step1
             end
           end
+
           [intersection, steps1_remaining, steps2_remaining]
         end
       end
