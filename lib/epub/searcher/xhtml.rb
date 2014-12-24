@@ -66,7 +66,7 @@ module EPUB
           elem_index = 0
           element.children.each do |child|
             if child.element?
-              child_step = Result::Step.new(:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')})
+              child_step = [:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')}]
               elem_index += 1
               if child.name == 'img'
                 alt = Parser::Utils.extract_attribute(child, 'alt')
@@ -84,7 +84,7 @@ module EPUB
               end
             elsif child.text? || child.cdata?
               text_index = elem_index
-              text_step = Result::Step.new(:text, text_index)
+              text_step = [:text, text_index]
               indices[content.length] = [text_step]
               content << child.content
             end
@@ -101,7 +101,7 @@ module EPUB
           i = 0
           while i = content.index(@word, i)
             offset = find_offset(offsets, i)
-            start_steps = indices[offset]
+            start_steps = to_result_steps(indices[offset])
             last_step = start_steps.last
             if last_step.info[:name] == 'img'
               parent_steps = start_steps
@@ -110,7 +110,7 @@ module EPUB
               word_length = @word.length
               start_char_step = Result::Step.new(:character, i - offset)
               end_offset = find_offset(offsets, i + word_length, true)
-              end_steps = indices[end_offset]
+              end_steps = to_result_steps(indices[end_offset])
               end_char_step = Result::Step.new(:character, i + word_length - end_offset)
               parent_steps, start_steps, end_steps = Result.aggregate_step_intersection(start_steps, end_steps)
               start_steps << start_char_step
@@ -136,6 +136,10 @@ module EPUB
             o.send(comparison_operator, index)
           }
           offsets[l - offset_index]
+        end
+
+        def to_result_steps(steps)
+          steps.map {|step| Result::Step.new(*step)}
         end
       end
     end

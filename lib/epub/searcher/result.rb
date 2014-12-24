@@ -7,9 +7,9 @@ module EPUB
         # @example
         #   Result.aggregate_step_intersection([a, b, c], [a, d, c]) # => [[a], [b, c], [d, c]]
         #   # Note that c here is not included in the first element of returned value.
-        # @param steps1 [Array<Step>]
-        # @param steps2 [Array<Step>]
-        # @return [Array<Array<Step>>] Thee arrays:
+        # @param steps1 [Array<Step>, Array<Array>]
+        # @param steps2 [Array<Step>, Array<Array>]
+        # @return [Array<Array<Array>>] Thee arrays:
         #   1. "intersection" of +steps1+ and +steps2+. "intersection" here is not the term of mathmatics
         #   2. remaining steps of +steps1+
         #   3. remaining steps of +steps2+
