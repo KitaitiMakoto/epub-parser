@@ -128,16 +128,13 @@ module EPUB
         # @todo: more efficient algorithm
         def find_offset(offsets, index, for_end_position=false)
           comparison_operator = for_end_position ? :< : :<=
-          offset = 0
-          offsets.each do |o|
-            if o.__send__(comparison_operator, index)
-              offset = o
-              next
-            else
-              break
-            end
-          end
-          offset
+          l = offsets.length
+          offset_index = (0..l).bsearch {|i|
+            o = offsets[l - i]
+            next false unless o
+            o.send(comparison_operator, index)
+          }
+          offsets[l - offset_index]
         end
       end
     end
