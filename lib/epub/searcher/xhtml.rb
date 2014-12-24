@@ -107,10 +107,11 @@ module EPUB
               parent_steps = start_steps
               start_steps = end_steps = nil
             else
+              word_length = @word.length
               start_char_step = Result::Step.new(:character, i - offset)
-              end_offset = find_offset(offsets, i + @word.length, true)
+              end_offset = find_offset(offsets, i + word_length, true)
               end_steps = indices[end_offset]
-              end_char_step = Result::Step.new(:character, i + @word.length - end_offset)
+              end_char_step = Result::Step.new(:character, i + word_length - end_offset)
               parent_steps, start_steps, end_steps = Result.aggregate_step_intersection(start_steps, end_steps)
               start_steps << start_char_step
               end_steps << end_char_step
