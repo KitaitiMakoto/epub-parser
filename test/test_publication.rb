@@ -184,6 +184,26 @@ class TestPublication < Test::Unit::TestCase
   class TestManifest < TestPublication
     include EPUB::Publication
 
+    def setup
+      @manifest = EPUB::Publication::Package::Manifest.new
+      @nav1 = EPUB::Publication::Package::Manifest::Item.new
+      @nav1.id = 'nav1'
+      @nav1.properties = %w[nav]
+      @nav2 = EPUB::Publication::Package::Manifest::Item.new
+      @nav2.id = 'nav2'
+      @nav2.properties = %w[nav]
+      @item = EPUB::Publication::Package::Manifest::Item.new
+      @item.id = 'item'
+      @manifest << @nav1 << @item << @nav2
+    end
+
+    def test_navs_iterates_over_items_with_nav_property
+      navs = [@nav1, @nav2]
+      @manifest.navs.each_with_index do |nav, i|
+        assert_same navs[i], nav
+      end
+    end
+
     class TestItem < TestManifest
       def test_content_document_returns_nil_when_not_xhtml_nor_svg
         item = EPUB::Publication::Package::Manifest::Item.new
