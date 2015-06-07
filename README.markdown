@@ -116,6 +116,7 @@ RECENT CHANGES
 * Make Ruby 1.9 deprecated
 * Remove `EPUB.included` method. Now including `EPUB` module empowers nothing of EPUB features. Include `EPUB::Book::Features` instead.
 * Add `EPUB::Searcher::XHTML::Seamless` and make it default searcher
+* Add `EPUB::Publication::Package::Manifest#each_nav`
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
 
