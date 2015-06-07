@@ -197,6 +197,15 @@ class TestPublication < Test::Unit::TestCase
       @manifest << @nav1 << @item << @nav2
     end
 
+    def test_each_nav_iterates_over_items_with_nav_property
+      navs = [@nav1, @nav2]
+      i = 0
+      @manifest.each_nav do |nav|
+        assert_same navs[i], nav
+        i += 1
+      end
+    end
+
     def test_navs_iterates_over_items_with_nav_property
       navs = [@nav1, @nav2]
       @manifest.navs.each_with_index do |nav, i|
