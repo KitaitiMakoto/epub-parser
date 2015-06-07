@@ -46,6 +46,22 @@ Search result
 
 Search result is an array of {EPUB::Searcher::Result} and it may be converted to an EPUBCFI string by {EPUB::Searcher::Result#to_cfi_s}.
 
+Seamless XHTML Searcher
+-----------------------
+
+Now default searcher for XHTML is *seamless* searcher, which ignores tags when searching.
+
+You can search words 'search word' from XHTML document below:
+
+    <html>
+      <head>
+        <title>Sample document</title>
+      </head>
+      <body>
+        <p><em>search</em> word</p>
+      </body>
+    </html>
+
 Restricted XHTML Searcher
 -------------------------
 
