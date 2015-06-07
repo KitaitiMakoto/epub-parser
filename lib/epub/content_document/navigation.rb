@@ -32,6 +32,9 @@ module EPUB
 
       # iterator for #toc
       def each_content
+        toc.traverse do |content, _|
+          yield content
+        end
       end
 
       # iterator for #page_list
