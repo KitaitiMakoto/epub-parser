@@ -194,7 +194,10 @@ class TestPublication < Test::Unit::TestCase
       @nav2.properties = %w[nav]
       @item = EPUB::Publication::Package::Manifest::Item.new
       @item.id = 'item'
-      @manifest << @nav1 << @item << @nav2
+      @cover_image = EPUB::Publication::Package::Manifest::Item.new
+      @cover_image.id = 'cover-image'
+      @cover_image.properties = %w[cover-image]
+      @manifest << @nav1 << @item << @nav2 << @cover_image
     end
 
     def test_each_nav_iterates_over_items_with_nav_property
@@ -215,6 +218,10 @@ class TestPublication < Test::Unit::TestCase
 
     def test_nav_returns_first_item_with_nav_property
       assert_same @nav1, @manifest.nav
+    end
+
+    def test_cover_image_returns_item_with_cover_image_property
+      assert_same @cover_image, @manifest.cover_image
     end
 
     class TestItem < TestManifest
