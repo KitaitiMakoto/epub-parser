@@ -213,6 +213,15 @@ class TestPublication < Test::Unit::TestCase
       end
     end
 
+    def test_each_nav_returns_iterable_object_when_no_block_given
+      navs = [@nav1, @nav2]
+
+      assert_respond_to @manifest.each_nav, :each
+      @manifest.each_nav.with_index do |nav, i|
+        assert_same navs[i], nav
+      end
+    end
+
     def test_navs_iterates_over_items_with_nav_property
       navs = [@nav1, @nav2]
       @manifest.navs.each_with_index do |nav, i|
