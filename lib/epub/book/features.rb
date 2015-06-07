@@ -39,7 +39,7 @@ module EPUB
         if block_given?
           enum.each &blk
         else
-          enum
+          enum.each
         end
       end
 

@@ -1,5 +1,3 @@
-require 'enumerabler'
-
 module EPUB
   module Publication
     class Package
@@ -29,9 +27,9 @@ module EPUB
             return @item if @item
 
             request_uri = href.request_uri
-            @item = @guide.package.manifest.items.selector {|item|
+            @item = @guide.package.manifest.items.find {|item|
               item.href.request_uri == request_uri
-            }.first
+            }
           end
         end
 
@@ -41,7 +39,7 @@ module EPUB
             var = instance_variable_get "@#{method_name}"
             return var if var
 
-            var = references.selector {|ref| ref.type == type}.first
+            var = references.find {|ref| ref.type == type}
             instance_variable_set "@#{method_name}", var
           end
         end

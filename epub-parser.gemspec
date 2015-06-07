@@ -38,7 +38,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'epzip'
   s.add_development_dependency 'aruba'
 
-  s.add_runtime_dependency 'enumerabler'
   s.add_runtime_dependency 'zipruby'
   s.add_runtime_dependency 'nokogiri', '~> 1.6'
   s.add_runtime_dependency 'nokogumbo'

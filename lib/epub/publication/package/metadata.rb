@@ -76,7 +76,7 @@ module EPUB
             met = voc.gsub(/-/, '_')
             attr_writer met
             define_method met do
-              refiners.selector {|refiner| refiner.property == voc}.first
+              refiners.find {|refiner| refiner.property == voc}
             end
           end
         end
