@@ -4,6 +4,8 @@ require 'epub/parser/utils'
 module EPUB
   module Searcher
     class XHTML
+      ALGORITHM = {}
+
       class << self
         # @param element [Nokogiri::XML::Element, Nokogiri::XML::Document]
         # @param word [String]
@@ -52,6 +54,7 @@ module EPUB
           results
         end
       end
+      ALGORITHM[:restricted] = Restricted
 
       class Seamless < self
         def search(element)
@@ -142,6 +145,7 @@ module EPUB
           steps.map {|step| Result::Step.new(*step)}
         end
       end
+      ALGORITHM[:seamless] = Seamless
     end
   end
 end
