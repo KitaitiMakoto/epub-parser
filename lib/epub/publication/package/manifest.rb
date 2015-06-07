@@ -24,6 +24,12 @@ module EPUB
           self
         end
 
+        def each_nav
+          each_item do |item|
+            yield item if item.nav?
+          end
+        end
+
         def navs
           items.selector(&:nav?)
         end
