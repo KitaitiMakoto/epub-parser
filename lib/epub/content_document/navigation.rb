@@ -9,15 +9,15 @@ module EPUB
       end
 
       def toc
-        navigations.find {|nav| nav.type == Navigation::Type::TOC}
+        navigations.find(&:toc?)
       end
 
       def page_list
-        navigations.find {|nav| nav.type == Nagivation::Type::PAGE_LIST}
+        navigations.find(&:page_list?)
       end
 
       def landmarks
-        navigations.find {|nav| nav.type == Navigation::Type::LANDMARKS}
+        navigations.find(&:landmarks?)
       end
 
       # Enumerator version of toc
@@ -89,6 +89,12 @@ module EPUB
         alias navigations= items=
         alias heading text
         alias heading= text=
+
+        %w[toc page_list landmarks].each do |type|
+          define_method "#{type}?" do
+            type == Type.const_get(type.upcase)
+          end
+        end
       end
 
       class ItemList < Array
