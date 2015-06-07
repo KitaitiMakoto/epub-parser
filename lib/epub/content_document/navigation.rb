@@ -9,15 +9,15 @@ module EPUB
       end
 
       def toc
-        navigations.selector {|nav| nav.type == Navigation::Type::TOC}.first
+        navigations.find {|nav| nav.type == Navigation::Type::TOC}
       end
 
       def page_list
-        navigations.selector {|nav| nav.type == Nagivation::Type::PAGE_LIST}.first
+        navigations.find {|nav| nav.type == Nagivation::Type::PAGE_LIST}
       end
 
       def landmarks
-        navigations.selector {|nav| nav.type == Navigation::Type::LANDMARKS}.first
+        navigations.find {|nav| nav.type == Navigation::Type::LANDMARKS}
       end
 
       # Enumerator version of toc
