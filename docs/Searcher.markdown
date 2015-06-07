@@ -10,35 +10,35 @@ Example
 
     epub = EPUB::Parser.parse('childrens-literature-20130206.epub')
     search_word = 'INTRODUCTORY'
-    results = EPUB::Searcher.search(epub.package, search_word)
-    # => [#<EPUB::Searcher::Result:0x007f74d2b31548
-    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f74d2b7baa8 @index=12, @type=:character>],
+    results = EPUB::Searcher.search(epub, search_word)
+    # => [#<EPUB::Searcher::Result:0x007f938ed517a8
+    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f938ed51a50 @index=12, @info={}, @type=:character>],
     #   @parent_steps=
-    #    [#<EPUB::Searcher::Result::Step:0x007f74d2b81318 @index=2, @name="spine", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7f4c8 @index=1, @type=:itemref>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7d560 @index=1, @name="body", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7d308 @index=0, @name="nav", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7cdb8 @index=1, @name="ol", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7cb38 @index=0, @name="li", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7c5e8 @index=1, @name="ol", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7bf80 @index=1, @name="li", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7bd28 @index=0, @name="a", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b7bb70 @index=0, @type=:text>],
-    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f74d2b7baf8 @index=0, @type=:character>]>,
-    #  #<EPUB::Searcher::Result:0x007f74d294e258
-    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f74d2b0f8d0 @index=12, @type=:character>],
+    #    [#<EPUB::Searcher::Result::Step:0x007f938f1c1e78 @index=2, @info={:name=>"spine", :id=>nil}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938f1caa78 @index=1, @info={:id=>nil}, @type=:itemref>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed521d0 @index=1, @info={:name=>"body", :id=>nil}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed52158 @index=0, @info={:name=>"nav", :id=>"toc"}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed52108 @index=1, @info={:name=>"ol", :id=>"tocList"}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed52090 @index=0, @info={:name=>"li", :id=>"np-313"}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed52040 @index=1, @info={:name=>"ol", :id=>nil}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed51ff0 @index=1, @info={:name=>"li", :id=>"np-317"}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed51f78 @index=0, @info={:name=>"a", :id=>nil}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed51f28 @index=0, @info={}, @type=:text>],
+    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f938ed51e88 @index=0, @info={}, @type=:character>]>,
+    #  #<EPUB::Searcher::Result:0x007f938ef8f5d8
+    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f938ef8f808 @index=12, @info={}, @type=:character>],
     #   @parent_steps=
-    #    [#<EPUB::Searcher::Result::Step:0x007f74d2b81318 @index=2, @name="spine", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b314f8 @index=2, @type=:itemref>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b2fb80 @index=1, @name="body", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b2f900 @index=0, @name="section", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b10578 @index=3, @name="section", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b0fb50 @index=1, @name="h3", @type=:element>,
-    #     # #<EPUB::Searcher::Result::Step:0x007f74d2b0f998 @index=0, @type=:text>],
-    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f74d2b0f920 @index=0, @type=:character>]>]
+    #    [#<EPUB::Searcher::Result::Step:0x007f938f1c1e78 @index=2, @info={:name=>"spine", :id=>nil}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ed51730 @index=2, @info={:id=>nil}, @type=:itemref>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fce0 @index=1, @info={:name=>"body", :id=>nil}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fc90 @index=0, @info={:name=>"section", :id=>"pgepubid00492"}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fc40 @index=3, @info={:name=>"section", :id=>"pgepubid00498"}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fbf0 @index=1, @info={:name=>"h3", :id=>nil}, @type=:element>,
+    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fb28 @index=0, @info={}, @type=:text>],
+    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f938ef8fa88 @index=0, @info={}, @type=:character>]>]
     puts results.collect(&:to_cfi_s)
-    # /6/4!/4/2/4/2/4/4/2/1,:0,:12
-    # /6/6!/4/2/8/4/1,:0,:12
+    # /6/4!/4/2[toc]/4[tocList]/2[np-313]/4/4[np-317]/2/1,:0,:12
+    # /6/6!/4/2[pgepubid00492]/8[pgepubid00498]/4/1,:0,:12
     # => nil
 
 Search result
