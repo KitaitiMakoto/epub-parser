@@ -25,8 +25,12 @@ module EPUB
         end
 
         def each_nav
-          each_item do |item|
-            yield item if item.nav?
+          if block_given?
+            each_item do |item|
+              yield item if item.nav?
+            end
+          else
+            each_item.lazy.select(&:nav?)
           end
         end
 
