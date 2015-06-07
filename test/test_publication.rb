@@ -23,14 +23,14 @@ class TestPublication < Test::Unit::TestCase
       refiner = Package::Metadata::Meta.new
       refinee = Package::Metadata::Meta.new
       refiner.refines = refinee
-      assert_same refinee.refiners.first, refiner 
+      assert_same refinee.refiners.first, refiner
     end
 
     def test_link_refines_setter_connect_refinee_to_the_link
       refiner = Package::Metadata::Link.new
       refinee = Package::Metadata::Meta.new
       refiner.refines = refinee
-      assert_same refinee.refiners.first, refiner 
+      assert_same refinee.refiners.first, refiner
     end
 
     def test_title_returns_extended_title_when_it_exists
