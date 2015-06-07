@@ -30,6 +30,8 @@ module EPUB
       def pages
       end
 
+      # @todo Enumerator version of landmarks
+
       # iterator for #toc
       def each_content
         toc.traverse do |content, _|
