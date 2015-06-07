@@ -9,6 +9,7 @@ CHANGELOG
 * Remove `EPUB.included` method. Now including `EPUB` module empowers nothing of EPUB features. Include `EPUB::Book::Features` instead.
 * Add `EPUB::Searcher::XHTML::Seamless` and make it default searcher
 * Add `EPUB::Publication::Package::Manifest#each_nav`
+* Stop to use enumerabler gem
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
 
