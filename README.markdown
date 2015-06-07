@@ -115,6 +115,7 @@ RECENT CHANGES
 * Introduce [Nokogumbo][] for XHTML Content Documents
 * Make Ruby 1.9 deprecated
 * Remove `EPUB.included` method. Now including `EPUB` module empowers nothing of EPUB features. Include `EPUB::Book::Features` instead.
+* Add `EPUB::Searcher::XHTML::Seamless` and make it default searcher
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
 
