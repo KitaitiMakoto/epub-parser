@@ -43,8 +43,12 @@ module EPUB
         end
 
         def each_item
-          @items.each_value do |item|
-            yield item
+          if block_given?
+            @items.each_value do |item|
+              yield item
+            end
+          else
+            @items.each_value
           end
         end
 
