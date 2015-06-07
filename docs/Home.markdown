@@ -56,7 +56,7 @@ And {EPUB::Publication::Package::Manifest::Item Item} provides syntax suger {EPU
 
 For several utilities of Item, see {file:docs/Item.markdown} page.
 
-By the way, although `book` above is a {EPUB::Book} object, all features are provided by {EPUB} module. Therefore YourBook class can include the features of {EPUB}:
+By the way, although `book` above is a {EPUB::Book} object, all features are provided by {EPUB::Book::Features} module. Therefore YourBook class can include the features of {EPUB::Book::Features}:
 
     require 'epub'
     
