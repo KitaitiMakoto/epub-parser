@@ -21,8 +21,8 @@ module EPUB
       end
 
       # Enumerator version of toc
-      #  Usage: nagivation.enum_for(:contents)
       def contents
+        enum_for(:each_content).to_a
       end
 
       # Enumerator version of page_list
