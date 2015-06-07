@@ -204,6 +204,10 @@ class TestPublication < Test::Unit::TestCase
       end
     end
 
+    def test_nav_returns_first_item_with_nav_property
+      assert_same @nav1, @manifest.nav
+    end
+
     class TestItem < TestManifest
       def test_content_document_returns_nil_when_not_xhtml_nor_svg
         item = EPUB::Publication::Package::Manifest::Item.new
