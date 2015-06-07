@@ -1,5 +1,4 @@
 require 'set'
-require 'enumerabler'
 require 'rchardet'
 require 'epub/constants'
 require 'epub/parser/content_document'
@@ -35,7 +34,7 @@ module EPUB
         end
 
         def navs
-          items.selector(&:nav?)
+          items.select(&:nav?)
         end
 
         def nav
@@ -43,7 +42,7 @@ module EPUB
         end
 
         def cover_image
-          items.selector(&:cover_image?).first
+          items.select(&:cover_image?).first
         end
 
         def each_item
