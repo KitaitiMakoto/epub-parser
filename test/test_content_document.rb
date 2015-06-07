@@ -52,6 +52,14 @@ class TestContentDocument < Test::Unit::TestCase
   end
 
   class TestNavigationDocument < self
+    def test_toc_returns_nav_with_type_toc
+      navigation = Navigation.new
+      toc = Navigation::Navigation.new.tap {|nav| nav.type = 'toc'}
+      navigation.navigations << toc
+
+      assert_same toc, navigation.toc
+    end
+
     def test_item_hidden_returns_true_when_it_has_some_value
       item = Navigation::Item.new.tap {|item| item.hidden = ''}
       assert_true item.hidden?
