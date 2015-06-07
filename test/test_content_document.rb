@@ -60,6 +60,19 @@ class TestContentDocument < Test::Unit::TestCase
       assert_same toc, navigation.toc
     end
 
+    def test_contents_returns_items_of_toc
+      manifest = EPUB::Publication::Package::Manifest.new
+      item = EPUB::Publication::Package::Manifest::Item.new
+      item.media_type = 'application/xhtml+xml'
+      item.properties = %w[nav]
+      item.href = Addressable::URI.parse('nav.xhtml')
+      stub(item).read {File.read(File.expand_path('../fixtures/book/OPS/nav.xhtml', __FILE__))}
+      manifest << item
+      nav_doc = EPUB::Parser::ContentDocument.new(item).parse
+
+      assert_equal ['Table of Contents', '一ページ目', '二ページ目', '第一節', '第二節', '第三節', '第四節'], nav_doc.contents.collect(&:text)
+    end
+
     def test_item_hidden_returns_true_when_it_has_some_value
       item = Navigation::Item.new.tap {|item| item.hidden = ''}
       assert_true item.hidden?
