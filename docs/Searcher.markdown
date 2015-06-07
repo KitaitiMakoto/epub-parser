@@ -65,7 +65,7 @@ You can search words 'search word' from XHTML document below:
 Restricted XHTML Searcher
 -------------------------
 
-Now searcher for XHTML documents is *restricted*, which means that it can search from only single elements. For instance, it can find 'search word' from XHTML document below:
+You can also use *restricted* searcher, which means that it can search from only single elements. For instance, it can find 'search word' from XHTML document below:
 
     <html>
       <head>
@@ -88,3 +88,7 @@ But cannot from document below:
     </html>
 
 because the words 'search' and 'word' are not in the same element.
+
+To use restricted searcher, specify `algorithm` option for `search` method:
+
+    results = EPUB::Searcher.search(epub, search_word, algorithm: :restricted)
