@@ -99,7 +99,7 @@ More documentations are avaiable in:
 Requirements
 ------------
 
-* Ruby 1.9.3 or later
+* Ruby 1.9.3 or later(1.9 is deprecated now)
 * C compiler to compile Zip/Ruby and Nokogiri
 
 Note
