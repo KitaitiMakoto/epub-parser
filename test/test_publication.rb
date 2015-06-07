@@ -200,6 +200,10 @@ class TestPublication < Test::Unit::TestCase
       @manifest << @nav1 << @item << @nav2 << @cover_image
     end
 
+    def test_each_item_returns_enumerator_when_no_block_given
+      assert_instance_of Enumerator, @manifest.each_item
+    end
+
     def test_each_nav_iterates_over_items_with_nav_property
       navs = [@nav1, @nav2]
       i = 0
