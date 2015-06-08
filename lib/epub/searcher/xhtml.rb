@@ -11,31 +11,31 @@ module EPUB
         # @param word [String]
         # @return [Array<Result>]
         def search(element, word)
-          new(word).search(element.respond_to?(:root) ? element.root : element)
+          new(element.respond_to?(:root) ? element.root : element).search(word)
         end
       end
 
       # @param word [String]
-      def initialize(word)
-        @word = word
+      def initialize(element)
+        @element = element
       end
 
       class Restricted < self
         # @param element [Nokogiri::XML::Element]
         # @return [Array<Result>]
-        def search(element)
+        def search(word, element=nil)
           results = []
 
           elem_index = 0
-          element.children.each do |child|
+          (element || @element).children.each do |child|
             if child.element?
               child_step = Result::Step.new(:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')})
               if child.name == 'img'
-                if Parser::Utils.extract_attribute(child, 'alt').index(@word)
+                if Parser::Utils.extract_attribute(child, 'alt').index(word)
                   results << Result.new([child_step], nil, nil)
                 end
               else
-                search(child).each do |sub_result|
+                search(word, child).each do |sub_result|
                   results << Result.new([child_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
                 end
               end
@@ -44,8 +44,8 @@ module EPUB
               text_index = elem_index
               char_index = 0
               text_step = Result::Step.new(:text, text_index)
-              while char_index = child.text.index(@word, char_index)
-                results << Result.new([text_step], [Result::Step.new(:character, char_index)], [Result::Step.new(:character, char_index + @word.length)])
+              while char_index = child.text.index(word, char_index)
+                results << Result.new([text_step], [Result::Step.new(:character, char_index)], [Result::Step.new(:character, char_index + word.length)])
                 char_index += 1
               end
             end
@@ -57,9 +57,9 @@ module EPUB
       ALGORITHMS[:restricted] = Restricted
 
       class Seamless < self
-        def search(element)
-          indices, content = build_indices(element)
-          visit(indices, content)
+        def search(word)
+          indices, content = build_indices(@element)
+          visit(indices, content, word)
         end
 
         def build_indices(element)
@@ -98,11 +98,11 @@ module EPUB
 
         private
 
-        def visit(indices, content)
+        def visit(indices, content, word)
           results = []
           offsets = indices.keys
           i = 0
-          while i = content.index(@word, i)
+          while i = content.index(word, i)
             offset = find_offset(offsets, i)
             start_steps = to_result_steps(indices[offset])
             last_step = start_steps.last
@@ -110,7 +110,7 @@ module EPUB
               parent_steps = start_steps
               start_steps = end_steps = nil
             else
-              word_length = @word.length
+              word_length = word.length
               start_char_step = Result::Step.new(:character, i - offset)
               end_offset = find_offset(offsets, i + word_length, true)
               end_steps = to_result_steps(indices[end_offset])
