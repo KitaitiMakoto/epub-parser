@@ -5,8 +5,7 @@ require 'epub/searcher/xhtml'
 module EPUB
   module Searcher
     class << self
-      # @todo Use named argument in the future
-      def search(epub, word, options={algorithm: :seamless})
+      def search(epub, word, **options)
         Publication.search(epub.package, word, options)
       end
     end
