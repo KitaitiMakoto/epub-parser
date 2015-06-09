@@ -58,8 +58,10 @@ module EPUB
 
       class Seamless < self
         def search(word)
-          indices, content = build_indices(@element)
-          visit(indices, content, word)
+          unless @indices
+            @indices, @content = build_indices(@element)
+          end
+          visit(@indices, @content, word)
         end
 
         def build_indices(element)
