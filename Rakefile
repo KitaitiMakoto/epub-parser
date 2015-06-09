@@ -51,18 +51,5 @@ namespace :doc do
 end
 
 namespace :gem do
-  desc "Build epub-parser-#{EPUB::Parser::VERSION}.gem into the pkg directory."
-  task :build do
-    Bundler::GemHelper.new.build_gem
-  end
-
-  desc "Build and install epub-parser-#{EPUB::Parser::VERSION}.gem into system gems."
-  task :install do
-    Bundler::GemHelper.new.install_gem
-  end
-
-  desc "Create tag v#{EPUB::Parser::VERSION} and build and push epub-parser-#{EPUB::Parser::VERSION}.gem to Rubygems"
-  task :release => :test do
-    Bundler::GemHelper.new.release_gem
-  end
+  Bundler::GemHelper.install_tasks
 end
