@@ -92,7 +92,7 @@ See {file:docs/EpubOpen} for more info.
 
 REQUIREMENTS
 ------------
-* Ruby 1.9.3 or later(1.9 is deprecated now)
+* Ruby 2.0.0 or later
 * `patch` command to install Nokogiri
 * C compiler to compile Zip/Ruby and Nokogiri
 
@@ -113,7 +113,7 @@ RECENT CHANGES
 ### 0.1.9
 
 * Introduce [Nokogumbo][] for XHTML Content Documents
-* Make Ruby 1.9 deprecated
+* Stop support for Ruby 1.9
 * Remove `EPUB.included` method. Now including `EPUB` module empowers nothing of EPUB features. Include `EPUB::Book::Features` instead.
 * Add `EPUB::Searcher::XHTML::Seamless` and make it default searcher
 * Add `EPUB::Publication::Package::Manifest#each_nav`
