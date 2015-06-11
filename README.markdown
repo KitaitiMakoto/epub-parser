@@ -139,6 +139,7 @@ See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
 -----
+* Archive library abstraction
 * EPUB 3.0.1
 * Multiple rootfiles
 * Help features for `epub-open` tool
