@@ -57,6 +57,11 @@ module EPUB
       ALGORITHMS[:restricted] = Restricted
 
       class Seamless < self
+        def initialize(element)
+          super
+          @indices = nil
+        end
+
         def search(word)
           unless @indices
             @indices, @content = build_indices(@element)
