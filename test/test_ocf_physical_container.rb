@@ -4,14 +4,18 @@ require 'epub/ocf/physical_container'
 
 class TestOCFPhysicalContainer < Test::Unit::TestCase
   def setup
+    @container_path = 'test/fixtures/book.epub'
     @path = 'OPS/nav.xhtml'
     @content = File.read(File.join('test/fixtures/book', @path))
+  end
+
+  def test_read
+    assert_equal @content, EPUB::OCF::PhysicalContainer.read(@container_path, @path).force_encoding('UTF-8')
   end
 
   class TestZipruby < self
     def setup
       super
-      @container_path = 'test/fixtures/book.epub'
       @container = EPUB::OCF::PhysicalContainer::Zipruby.new(@container_path)
     end
 
