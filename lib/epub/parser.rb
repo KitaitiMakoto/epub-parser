@@ -1,5 +1,6 @@
 require 'epub'
 require 'epub/constants'
+require 'epub/book'
 require 'nokogiri'
 
 module EPUB
@@ -63,7 +64,6 @@ module EPUB
       when params[:class]
         params[:class].new
       else
-        require 'epub/book'
         Book.new
       end
     end
