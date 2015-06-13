@@ -10,7 +10,6 @@ module EPUB
       include Utils
 
       DIRECTORY = 'META-INF'
-      EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"} # Deprecated
 
       class << self
         def parse(container)
