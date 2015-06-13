@@ -95,6 +95,9 @@ More documentations are avaiable in:
 * {file:docs/Publication.markdown}
 * {file:docs/Item.markdown}
 * {file:docs/FixedLayout.markdown}
+* {file:docs/Navigation.markdown}
+* {file:docs/Searcher.markdown}
+* {file:docs/UnpackedArchive.markdown}
 
 Requirements
 ------------
