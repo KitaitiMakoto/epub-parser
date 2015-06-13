@@ -1,6 +1,8 @@
 # coding: utf-8
 require_relative 'helper'
 require 'epub/ocf/physical_container'
+require 'epub/ocf/physical_container/zipruby'
+require 'epub/ocf/physical_container/file'
 
 class TestOCFPhysicalContainer < Test::Unit::TestCase
   def setup
@@ -58,6 +60,7 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
 
     def setup
       super
+      @container_path = @container_path[0..-'.epub'.length-1]
       @class = EPUB::OCF::PhysicalContainer::File
       @container = @class.new(@container_path)
     end
