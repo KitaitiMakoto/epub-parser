@@ -28,6 +28,7 @@ module EPUB
       # Enumerator version of page_list
       #  Usage: navigation.enum_for(:pages)
       def pages
+        raise NotImplementedError
       end
 
       # @todo Enumerator version of landmarks
@@ -41,10 +42,12 @@ module EPUB
 
       # iterator for #page_list
       def each_page
+        raise NotImplementedError
       end
 
       # iterator for #landmark
       def each_landmark
+        raise NotImplementedError
       end
 
       def navigation
