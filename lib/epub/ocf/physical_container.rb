@@ -17,7 +17,7 @@ module EPUB
 
         def adapter=(adapter)
           if self == PhysicalContainer
-            @adapter = adapter
+            @adapter = adapter.instance_of?(Class) ? adapter : const_get(adapter)
           else
             raise NoMethodError.new("undefined method `#{__method__}' for #{self}")
 
