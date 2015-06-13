@@ -38,6 +38,15 @@ class TestParser < Test::Unit::TestCase
     end
   end
 
+  def test_can_specify_container_adapter_when_parsing_individually
+    epub = EPUB::Parser.parse('test/fixtures/book', container_adapter: :File)
+
+    assert_equal 'Mon premier guide de cuisson, un Mémoire', epub.main_title
+    assert_equal File.read('test/fixtures/book/OPS/nav.xhtml'), epub.nav.read
+    assert_equal EPUB::OCF::PhysicalContainer::File, epub.container_adapter
+    assert_equal EPUB::OCF::PhysicalContainer::Zipruby, EPUB::OCF::PhysicalContainer.adapter
+  end
+
   class TestBook < TestParser
     def setup
       super
