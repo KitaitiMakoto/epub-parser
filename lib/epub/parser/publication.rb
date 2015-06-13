@@ -11,8 +11,8 @@ module EPUB
       include Utils
 
       class << self
-        def parse(zip_archive, file)
-          opf = zip_archive.fopen(Addressable::URI.unencode(file)) {|member| member.read}
+        def parse(container, file)
+          opf = container.read(Addressable::URI.unencode(file))
 
           new(opf, file).parse
         end

@@ -1,6 +1,5 @@
 require 'epub'
 require 'epub/constants'
-require 'zipruby'
 require 'nokogiri'
 
 module EPUB
@@ -47,9 +46,9 @@ module EPUB
     end
 
     def parse
-      Zip::Archive.open @filepath do |zip|
-        @book.ocf = OCF.parse(zip)
-        @book.package = Publication.parse(zip, @book.ocf.container.rootfile.full_path.to_s)
+      EPUB::OCF::PhysicalContainer.open @filepath do |container|
+        @book.ocf = OCF.parse(container)
+        @book.package = Publication.parse(container, @book.ocf.container.rootfile.full_path.to_s)
       end
 
       @book

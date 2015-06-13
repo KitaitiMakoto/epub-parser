@@ -4,13 +4,12 @@ require File.expand_path 'helper', File.dirname(__FILE__)
 class TestParserOCF < Test::Unit::TestCase
   def setup
     file = 'test/fixtures/book.epub'
-    @zip = Zip::Archive.open(file)
-    @parser = EPUB::Parser::OCF.new(@zip)
-    @container_xml = @zip.fopen('META-INF/container.xml').read
-  end
-
-  def teardown
-    @zip.close
+    EPUB::OCF::PhysicalContainer.open(file) {|container|
+      @parser = EPUB::Parser::OCF.new(container)
+    }
+    @container_xml = Zip::Archive.open(file) {|archive|
+      archive.fopen('META-INF/container.xml').read
+    }
   end
 
   def test_parsed_container_has_one_rootfile

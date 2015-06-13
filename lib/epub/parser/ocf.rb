@@ -1,5 +1,6 @@
 require 'epub/constants'
 require 'epub/ocf'
+require 'epub/ocf/physical_container'
 require 'zipruby'
 require 'nokogiri'
 
@@ -12,20 +13,20 @@ module EPUB
       EPUB::OCF::MODULES.each {|m| self.const_set "#{m.upcase}_FILE", "#{m}.xml"} # Deprecated
 
       class << self
-        def parse(zip_archive)
-          new(zip_archive).parse
+        def parse(container)
+          new(container).parse
         end
       end
 
-      def initialize(zip_archive)
-        @zip = zip_archive
+      def initialize(container)
+        @container = container
         @ocf = EPUB::OCF.new
       end
 
       def parse
         EPUB::OCF::MODULES.each do |m|
           begin
-            data = @zip.fopen(File.join(DIRECTORY, "#{m}.xml")) {|file| file.read}
+            data = @container.read(File.join(DIRECTORY, "#{m}.xml"))
             @ocf.__send__ "#{m}=", __send__("parse_#{m}", data)
           rescue Zip::Error
           end
