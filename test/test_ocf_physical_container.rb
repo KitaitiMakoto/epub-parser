@@ -64,5 +64,12 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
       @class = EPUB::OCF::PhysicalContainer::File
       @container = @class.new(@container_path)
     end
+
+    def test_adapter_can_changable
+      adapter = EPUB::OCF::PhysicalContainer.adapter
+      EPUB::OCF::PhysicalContainer.adapter = @class
+      assert_equal @content, EPUB::OCF::PhysicalContainer.read(@container_path, @path).force_encoding('UTF-8')
+      EPUB::OCF::PhysicalContainer.adapter = adapter
+    end
   end
 end
