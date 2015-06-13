@@ -20,7 +20,6 @@ module EPUB
             @adapter = adapter.instance_of?(Class) ? adapter : const_get(adapter)
           else
             raise NoMethodError.new("undefined method `#{__method__}' for #{self}")
-
           end
         end
 
