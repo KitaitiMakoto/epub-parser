@@ -110,6 +110,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.0
+
+* Make it possible to parse file system directory an EPUB file
+
 ### 0.1.9
 
 * Introduce [Nokogumbo][] for XHTML Content Documents
