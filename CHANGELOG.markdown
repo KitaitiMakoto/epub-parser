@@ -6,6 +6,7 @@ CHANGELOG
 
 * Introduce abstraction layer for OCF physical container
 * Add `EPUB::OCF::PhysicalContainer::File` and make it possible to parse file system directory an EPUB file
+* Remove `EPUB::Parser::OCF::CONTAINER_FILE` and other constants
 
 0.1.9
 -----
