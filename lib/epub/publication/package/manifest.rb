@@ -105,7 +105,6 @@ module EPUB
           end
 
           def read
-            require 'epub/ocf/physical_container' unless OCF.const_defined? :PhysicalContainer
             raw_content = OCF::PhysicalContainer.read(manifest.package.book.epub_file, entry_name)
 
             unless media_type.start_with?('text/') or
