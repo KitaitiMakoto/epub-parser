@@ -13,13 +13,7 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     assert_equal @content, EPUB::OCF::PhysicalContainer.read(@container_path, @path).force_encoding('UTF-8')
   end
 
-  class TestZipruby < self
-    def setup
-      super
-      @class = EPUB::OCF::PhysicalContainer::Zipruby
-      @container = @class.new(@container_path)
-    end
-
+  module ConcreteContainer
     def test_class_method_open
       @class.open @container_path do |container|
         assert_instance_of @class, container
@@ -46,6 +40,16 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
 
     def test_read
       assert_equal @content, @container.read(@path).force_encoding('UTF-8')
+    end
+  end
+
+  class TestZipruby < self
+    include ConcreteContainer
+
+    def setup
+      super
+      @class = EPUB::OCF::PhysicalContainer::Zipruby
+      @container = @class.new(@container_path)
     end
   end
 end
