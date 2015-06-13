@@ -29,6 +29,9 @@ module EPUB
       #   For details of options, see below.
       # @option options [EPUB] :book instance of class which includes {EPUB} module
       # @option options [Class] :class class which includes {EPUB} module
+      # @option options [EPUB::OCF::PhysicalContainer, Symbol] :container_adapter OCF physical container adapter to use when parsing EPUB container
+      #   When class passed, it is used. When symbol passed, it is considered as subclass name of {EPUB::OCF::PhysicalContainer}.
+      #   If omitted, {EPUB::OCF::PhysicalContainer.adapter} is used.
       # @return [EPUB] object which is an instance of class including {EPUB} module.
       #   When option :book passed, returns the same object whose attributes about EPUB are set.
       #   When option :class passed, returns the instance of the class.
@@ -44,10 +47,14 @@ module EPUB
       @filepath = File.realpath filepath
       @book = create_book options
       @book.epub_file = @filepath
+      if options[:container_adapter]
+        adapter = options[:container_adapter]
+        @book.container_adapter = adapter
+      end
     end
 
     def parse
-      EPUB::OCF::PhysicalContainer.open @filepath do |container|
+      @book.container_adapter.open @filepath do |container|
         @book.ocf = OCF.parse(container)
         @book.package = Publication.parse(container, @book.rootfile_path)
       end

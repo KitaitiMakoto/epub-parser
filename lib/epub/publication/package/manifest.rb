@@ -105,7 +105,7 @@ module EPUB
           end
 
           def read
-            raw_content = OCF::PhysicalContainer.read(manifest.package.book.epub_file, entry_name)
+            raw_content = manifest.package.book.container_adapter.read(manifest.package.book.epub_file, entry_name)
 
             unless media_type.start_with?('text/') or
                 media_type.end_with?('xml') or

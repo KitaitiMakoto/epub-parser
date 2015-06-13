@@ -29,6 +29,14 @@ module EPUB
         end
       end
 
+      def container_adapter
+        @adapter || OCF::PhysicalContainer.adapter
+      end
+
+      def container_adapter=(adapter)
+        @adapter = adapter.instance_of?(Class) ? adapter : OCF::PhysicalContainer.const_get(adapter)
+      end
+
       # @overload each_page_on_spine(&blk)
       #   iterate over items in order of spine when block given
       #   @yieldparam item [Publication::Package::Manifest::Item]
