@@ -69,6 +69,42 @@ If set {EPUB::OCF::PhysicalContainer.adapter}, it is used every time EPUB Parser
     File.ftype './page-blanche' # => "directory"
     unpacked_book = EPUB::Parser.parse('./page-blanche', container_adapter: :File) # => EPUB::Book
 
+Command-line tools
+------------------
+
+Command-line tools `epubinfo` and `epub-open` may also handle with directory as EPUB books.
+
+Executing `epubinfo`:
+
+    $ epubinfo page-blanche
+    Title:              Page Blanche
+    Identifiers:        code.google.com.epub-samples.page-blanche
+    Titles:             Page Blanche
+    Languages:          fr
+    Contributors:       Vincent Gros
+    Coverages:          
+    Creators:           Boulet, Bagieu Pénélope
+    Dates:              2012-01-18
+    Descriptions:       
+    Formats:            
+    Publishers:         éditions Delcourt
+    Relations:          
+    Rights:             This work is shared with the public using the Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license.
+    Sources:            
+    Subjects:           
+    Types:              
+    Unique identifier:  code.google.com.epub-samples.page-blanche
+    Epub version:       3.0
+
+Executing `epub-open`:
+
+    $ epub-open page-blanche
+    Enter "exit" to exit IRB
+    irb: warn: can't alias bindings from irb_workspaces.
+    irb(main):001:0> title
+    => "Page Blanche"
+    irb(main):002:0> exit
+
 Note
 ----
 
