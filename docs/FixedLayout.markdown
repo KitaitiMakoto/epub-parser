@@ -1,4 +1,4 @@
-{file:docs/Home.markdown} > **{file:docs/FixedLayout.markdow}**
+{file:docs/Home.markdown} > **{file:docs/FixedLayout.markdown}**
 
 Fixed-Layout Documents
 ======================
