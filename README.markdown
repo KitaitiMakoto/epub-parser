@@ -139,7 +139,6 @@ See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
 -----
-* Archive library abstraction
 * EPUB 3.0.1
 * Multiple rootfiles
 * Help features for `epub-open` tool
@@ -161,6 +160,7 @@ DONE
 * Content Document(only for Navigation Documents)
 * Fixed Layout
 * Vocabulary Association Mechanisms(only for itemref)
+* Archive library abstraction
 
 LICENSE
 -------
