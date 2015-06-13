@@ -52,4 +52,14 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
       @container = @class.new(@container_path)
     end
   end
+
+  class TestFile < self
+    include ConcreteContainer
+
+    def setup
+      super
+      @class = EPUB::OCF::PhysicalContainer::File
+      @container = @class.new(@container_path)
+    end
+  end
 end
