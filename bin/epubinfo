@@ -30,6 +30,7 @@ unless file
   abort
 end
 
+EPUB::OCF::PhysicalContainer.adapter = :File if File.directory? file
 book = EPUB::Parser.parse(file)
 data = {'Title' => [book.title]}
 data.merge!(book.metadata.to_h)
