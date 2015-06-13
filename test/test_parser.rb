@@ -27,7 +27,6 @@ class TestParser < Test::Unit::TestCase
   end
 
   def test_parse_from_file_system
-    require 'epub/ocf/physical_container/file'
     adapter = EPUB::OCF::PhysicalContainer.adapter
     begin
       EPUB::OCF::PhysicalContainer.adapter = EPUB::OCF::PhysicalContainer::File

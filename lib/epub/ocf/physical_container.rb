@@ -1,4 +1,5 @@
 require 'epub/ocf/physical_container/zipruby'
+require 'epub/ocf/physical_container/file'
 
 module EPUB
   class OCF

@@ -1,8 +1,6 @@
 # coding: utf-8
 require_relative 'helper'
 require 'epub/ocf/physical_container'
-require 'epub/ocf/physical_container/zipruby'
-require 'epub/ocf/physical_container/file'
 
 class TestOCFPhysicalContainer < Test::Unit::TestCase
   def setup
