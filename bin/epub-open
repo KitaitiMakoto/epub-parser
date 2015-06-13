@@ -20,6 +20,8 @@ EOB
 
 $0 = File.basename($PROGRAM_NAME)
 include EPUB::Book::Features
-EPUB::Parser.parse(ARGV.shift, :book => self)
+file = ARGV.shift
+EPUB::OCF::PhysicalContainer.adapter = :File if File.directory? file
+EPUB::Parser.parse(file, :book => self)
 $stderr.puts "Enter \"exit\" to exit #{shell}"
 shell.start
