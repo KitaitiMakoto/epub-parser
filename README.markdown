@@ -112,7 +112,7 @@ RECENT CHANGES
 
 ### 0.2.0
 
-* Make it possible to parse file system directory an EPUB file
+* Make it possible to parse file system directory an EPUB file. See {file:docs/UnpackedArchive.markdown} for details.
 
 ### 0.1.9
 
