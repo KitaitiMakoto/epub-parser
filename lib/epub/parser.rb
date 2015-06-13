@@ -33,12 +33,12 @@ module EPUB
       #   When option :book passed, returns the same object whose attributes about EPUB are set.
       #   When option :class passed, returns the instance of the class.
       #   Otherwise returns {EPUB::Book} object.
-      def parse(filepath, options = {})
+      def parse(filepath, **options)
         new(filepath, options).parse
       end
     end
 
-    def initialize(filepath, options = {})
+    def initialize(filepath, **options)
       raise "File #{filepath} not readable" unless File.readable_real? filepath
 
       @filepath = File.realpath filepath
