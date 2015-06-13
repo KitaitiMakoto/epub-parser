@@ -48,7 +48,7 @@ module EPUB
     def parse
       EPUB::OCF::PhysicalContainer.open @filepath do |container|
         @book.ocf = OCF.parse(container)
-        @book.package = Publication.parse(container, @book.ocf.container.rootfile.full_path.to_s)
+        @book.package = Publication.parse(container, @book.rootfile_path)
       end
 
       @book
