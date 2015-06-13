@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.2.0
+-----
+
+* Introduce abstraction layer for OCF physical container
+
 0.1.9
 -----
 
