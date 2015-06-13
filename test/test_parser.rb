@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path 'helper', File.dirname(__FILE__)
 
 class MyBook
@@ -23,6 +24,19 @@ class TestParser < Test::Unit::TestCase
       EPUB::Parser.parse('test/fixtures/book.epub', class: MyBook)
     end
     assert_kind_of EPUB::Book::Features, EPUB::Parser.parse('test/fixtures/book.epub', class: MyBook)
+  end
+
+  def test_parse_from_file_system
+    require 'epub/ocf/physical_container/file'
+    adapter = EPUB::OCF::PhysicalContainer.adapter
+    begin
+      EPUB::OCF::PhysicalContainer.adapter = EPUB::OCF::PhysicalContainer::File
+      epub = EPUB::Parser.parse('test/fixtures/book')
+      assert_instance_of EPUB::Book, epub
+      assert_equal 'Mon premier guide de cuisson, un Mémoire', epub.main_title
+    ensure
+      EPUB::OCF::PhysicalContainer.adapter = adapter
+    end
   end
 
   class TestBook < TestParser
