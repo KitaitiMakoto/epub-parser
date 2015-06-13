@@ -32,7 +32,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'test-unit-rr'
   s.add_development_dependency 'test-unit-notify'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'thin'
   s.add_development_dependency 'yard'
   s.add_development_dependency 'gem-man'
   s.add_development_dependency 'ronn'
