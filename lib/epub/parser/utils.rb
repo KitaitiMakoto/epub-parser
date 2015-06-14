@@ -7,7 +7,7 @@ module EPUB
       # 
       # @param [Nokogiri::XML::Element] element
       # @param [String] name name of attribute excluding namespace prefix
-      # @param [String, nil] prefix XML namespace prefix in {EPUB::Constants::NAMESPACES} keys
+      # @param [String, nil] prefix XML namespace prefix in {EPUB::NAMESPACES} keys
       # @return [String] value of attribute when the attribute exists
       # @return nil when the attribute doesn't exist
       def extract_attribute(element, name, prefix=nil)
