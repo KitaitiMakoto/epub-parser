@@ -44,8 +44,8 @@ module EPUB
     def initialize(filepath, **options)
       raise "File #{filepath} not readable" unless File.readable_real? filepath
 
-      @filepath = File.realpath filepath
-      @book = create_book options
+      @filepath = File.realpath(filepath)
+      @book = create_book(options)
       @book.epub_file = @filepath
       if options[:container_adapter]
         adapter = options[:container_adapter]
