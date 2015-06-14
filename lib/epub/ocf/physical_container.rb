@@ -8,19 +8,13 @@ module EPUB
 
       class << self
         def adapter
-          if self == PhysicalContainer
-            @adapter
-          else
-            raise NoMethodError.new("undefined method `#{__method__}' for #{self}")
-          end
+          raise NoMethodError.new("undefined method `#{__method__}' for #{self}") unless self == PhysicalContainer
+          @adapter
         end
 
         def adapter=(adapter)
-          if self == PhysicalContainer
-            @adapter = adapter.instance_of?(Class) ? adapter : const_get(adapter)
-          else
-            raise NoMethodError.new("undefined method `#{__method__}' for #{self}")
-          end
+          raise NoMethodError.new("undefined method `#{__method__}' for #{self}") unless self == PhysicalContainer
+          @adapter = adapter.instance_of?(Class) ? adapter : const_get(adapter)
         end
 
         def open(container_path)
