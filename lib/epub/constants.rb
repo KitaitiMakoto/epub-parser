@@ -1,5 +1,4 @@
 module EPUB
-  module Constants
     NAMESPACES = {
       'dc'    => 'http://purl.org/dc/elements/1.1/',
       'ocf'   => 'urn:oasis:names:tc:opendocument:xmlns:container',
@@ -40,7 +39,4 @@ module EPUB
       ]
       CORE = IMAGE + APPLICATION + AUDIO + TEXT
     end
-  end
-
-  include Constants
 end
