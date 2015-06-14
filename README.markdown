@@ -150,6 +150,8 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.1
+
 ### 0.2.0
 
 * Make it possible to parse file system directory as an EPUB file. See {file:docs/UnpackedArchive.markdown} for details.
@@ -163,23 +165,6 @@ RECENT CHANGES
 * Add `EPUB::Publication::Package::Manifest#each_nav`
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
-
-### 0.1.8
-
-* Explicity #close each zip member file that has been opened via #fopen(Thanks [xunker][]!)
-
-[xunker]: https://github.com/xunker
-
-### 0.1.7.1
-
-* Don't set encoding when content is not text
-
-### 0.1.7
-
-* [Experimental]Add `EPUB::Searcher` module. See {file:Searcher.markdown} for details
-* Detect and set character encoding in `EPUB::Publication::Package::Item#read`
-
-See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
 -----
