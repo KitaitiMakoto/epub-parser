@@ -166,6 +166,8 @@ RECENT CHANGES
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
 
+See {file:CHANGELOG.markdown} for older changelogs and details.
+
 TODOS
 -----
 * EPUB 3.0.1
