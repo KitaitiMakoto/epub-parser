@@ -95,7 +95,7 @@ DOCUMENTATION
 
 Documentation is available in [homepage][].
 
-If you installed EPUB Parser via gem command, you can also generate documentaiton by your own([rubygems-yardoc][] gem is needed):
+If you installed EPUB Parser by gem command, you can also generate documentaiton by your own([rubygems-yardoc][] gem is needed):
 
     $ gem install epub-parser
     $ gem yardoc epub-parser
@@ -111,7 +111,7 @@ If you installed EPUB Parser via gem command, you can also generate documentaito
 
 It will show you path to generated documentation(`/path/to/gempath/ruby/2.2.0/doc/epub-parser-0.2.0/yardoc` here) at the end.
 
-Or, generating yardoc command is possible, too:
+Or, generating by yardoc command is possible, too:
 
     $ git clone https://github.com/KitaitiMakoto/epub-parser.git
     $ cd epub-parser
@@ -152,7 +152,7 @@ RECENT CHANGES
 
 ### 0.2.0
 
-* Make it possible to parse file system directory an EPUB file. See {file:docs/UnpackedArchive.markdown} for details.
+* Make it possible to parse file system directory as an EPUB file. See {file:docs/UnpackedArchive.markdown} for details.
 
 ### 0.1.9
 
