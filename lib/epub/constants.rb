@@ -12,8 +12,6 @@ module EPUB
     }
 
     module MediaType
-      # @deprecated Use {UnsupportedMediaType} instead
-      class UnsupportedError < StandardError; end
       class UnsupportedMediaType < StandardError; end
 
       EPUB = 'application/epub+zip'
