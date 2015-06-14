@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.2.1
+-----
+
+* Remove deprecated `EPUB::Constants::MediaType::UnsupportedError`. Use `UnsupportedMediatType` instead.
+
+
 0.2.0
 -----
 

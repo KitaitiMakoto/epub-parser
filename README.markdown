@@ -152,6 +152,8 @@ RECENT CHANGES
 
 ### 0.2.1
 
+* Remove deprecated `EPUB::Constants::MediaType::UnsupportedError`. Use `UnsupportedMediatType` instead.
+
 ### 0.2.0
 
 * Make it possible to parse file system directory as an EPUB file. See {file:docs/UnpackedArchive.markdown} for details.
