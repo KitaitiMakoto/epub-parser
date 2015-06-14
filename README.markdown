@@ -90,6 +90,46 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
 
 See {file:docs/EpubOpen} for more info.
 
+DOCUMENTATION
+-------------
+
+Documentation is available in [homepage][].
+
+If you installed EPUB Parser via gem command, you can also generate documentaiton by your own([rubygems-yardoc][] gem is needed):
+
+    $ gem install epub-parser
+    $ gem yardoc epub-parser
+    ...
+    Files:          33
+    Modules:        20 (   20 undocumented)
+    Classes:        45 (   44 undocumented)
+    Constants:      31 (   31 undocumented)
+    Methods:       292 (   88 undocumented)
+    52.84% documented
+    YARD documentation is generated to:
+    /path/to/gempath/ruby/2.2.0/doc/epub-parser-0.2.0/yardoc
+
+It will show you path to generated documentation(`/path/to/gempath/ruby/2.2.0/doc/epub-parser-0.2.0/yardoc` here) at the end.
+
+Or, generating yardoc command is possible, too:
+
+    $ git clone https://github.com/KitaitiMakoto/epub-parser.git
+    $ cd epub-parser
+    $ bundle install --path=deps
+    $ bundle exec rake doc:yard
+    ...
+    Files:          33
+    Modules:        20 (   20 undocumented)
+    Classes:        45 (   44 undocumented)
+    Constants:      31 (   31 undocumented)
+    Methods:       292 (   88 undocumented)
+    52.84% documented
+
+Then documentation will be available in `doc` directory.
+
+[homepage]: http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown
+[rubygems-yardoc]: https://rubygems.org/gems/rubygems-yardoc
+
 REQUIREMENTS
 ------------
 * Ruby 2.0.0 or later
