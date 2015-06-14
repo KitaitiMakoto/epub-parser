@@ -30,7 +30,7 @@ USAGE
 
 See document's {file:docs/Home.markdown} or [API Documentation][rubydoc] for more info.
 
-[rubydoc]: http://rubydoc.info/gems/epub-parser/frames
+[rubydoc]: http://rubydoc.info/gems/epub-parser
 
 ### `epubinfo` command-line tool
 
