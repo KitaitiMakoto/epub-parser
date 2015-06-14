@@ -6,10 +6,12 @@ module EPUB
       class Zipruby < self
         def open
           Zip::Archive.open @container_path do |archive|
-            @archive = archive
-            result = yield self
-            @archive = nil
-            result
+            begin
+              @archive = archive
+              yield self
+            ensure
+              @archive = nil
+            end
           end
         end
 
@@ -17,9 +19,7 @@ module EPUB
           if @archive
             @archive.fopen(path_name) {|entry| entry.read}
           else
-            Zip::Archive.open(@container_path) {|archive|
-              archive.fopen(path_name) {|entry| entry.read}
-            }
+            open {|container| container.read(path_name)}
           end
         end
       end
