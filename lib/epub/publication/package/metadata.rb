@@ -128,8 +128,8 @@ module EPUB
           attr_reader :refines
 
           def refines=(refinee)
-            @refines = refinee
             refinee.refiners << self
+            @refines = refinee
           end
 
           def refines?
@@ -160,8 +160,8 @@ module EPUB
           attr_reader :refines
 
           def refines=(refinee)
-            @refines = refinee
             refinee.refiners << self
+            @refines = refinee
           end
         end
       end
