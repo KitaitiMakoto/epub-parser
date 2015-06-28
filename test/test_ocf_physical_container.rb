@@ -70,4 +70,15 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
       EPUB::OCF::PhysicalContainer.adapter = adapter
     end
   end
+
+  require 'epub/ocf/physical_container/archive_zip'
+  class TestArchiveZip < self
+    include ConcreteContainer
+
+    def setup
+      super
+      @class = EPUB::OCF::PhysicalContainer::ArchiveZip
+      @container = @class.new(@container_path)
+    end
+  end
 end
