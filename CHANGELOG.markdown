@@ -6,6 +6,7 @@ CHANGELOG
 
 * Remove deprecated `EPUB::Constants::MediaType::UnsupportedError`. Use `UnsupportedMediatType` instead.
 * Make it possible to use [archive-zip][] gem to extract contents from EPUB package
+* Add warning about default physical container adapter change
 
 [archive-zip]: https://github.com/javanthropus/archive-zip
 
