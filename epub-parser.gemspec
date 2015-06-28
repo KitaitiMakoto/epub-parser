@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = 'yard'
 
   s.add_development_dependency 'rake'
+  s.add_development_dependency 'archive-zip'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-doc'
   s.add_development_dependency 'test-unit'
