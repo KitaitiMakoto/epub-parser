@@ -81,4 +81,25 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
       @container = @class.new(@container_path)
     end
   end
+
+  require 'epub/ocf/physical_container/unpacked_uri'
+  class TestUnpackedURI < self
+    def setup
+      super
+      @container_path = 'https://raw.githubusercontent.com/IDPF/epub3-samples/master/30/page-blanche/'
+      @class = EPUB::OCF::PhysicalContainer::UnpackedURI
+      @container = @class.new(@container_path)
+    end
+
+    def test_read
+      path = 'META-INF/container.xml'
+      content = 'content'
+      root_uri = URI(@container_path)
+      container_xml_uri = root_uri + path
+      stub(root_uri).+ {container_xml_uri}
+      stub(container_xml_uri).read {content}
+
+      assert_equal content, @class.new(root_uri).read('META-INF/container.xml')
+    end
+  end
 end
