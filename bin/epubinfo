@@ -31,6 +31,13 @@ unless file
 end
 
 EPUB::OCF::PhysicalContainer.adapter = :File if File.directory? file
+unless File.readable? file
+  uri = URI.parse(file) rescue nil
+  if uri
+    EPUB::OCF::PhysicalContainer.adapter = :UnpackedURI
+    file = uri
+  end
+end
 book = EPUB::Parser.parse(file)
 data = {'Title' => [book.title]}
 data.merge!(book.metadata.to_h)
