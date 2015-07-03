@@ -22,6 +22,13 @@ $0 = File.basename($PROGRAM_NAME)
 include EPUB::Book::Features
 file = ARGV.shift
 EPUB::OCF::PhysicalContainer.adapter = :File if File.directory? file
+unless File.readable? file
+  uri = URI.parse(file) rescue nil
+  if uri
+    EPUB::OCF::PhysicalContainer.adapter = :UnpackedURI
+    file = uri
+  end
+end
 EPUB::Parser.parse(file, :book => self)
 $stderr.puts "Enter \"exit\" to exit #{shell}"
 shell.start
