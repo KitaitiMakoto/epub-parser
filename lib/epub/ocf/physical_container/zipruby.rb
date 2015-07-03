@@ -1,6 +1,7 @@
 require 'zipruby'
 
-warn <<EOW
+if $VERBOSE
+  warn <<EOW
 [WARNING]Default OCF physical container adapter will become ArchiveZip, which uses archive-zip gem to extract contents from EPUB package, instead of current default Zipruby, which uses zipruby gem, in the near future.
 You can try ArchiveZip adapter by:
 
@@ -10,6 +11,7 @@ You can try ArchiveZip adapter by:
 
 If you find problems, please inform me via GitHub issues: https://github.com/KitaitiMakoto/epub-parser/issues
 EOW
+end
 
 module EPUB
   class OCF
