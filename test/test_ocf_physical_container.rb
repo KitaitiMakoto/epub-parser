@@ -82,7 +82,6 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     end
   end
 
-  require 'epub/ocf/physical_container/unpacked_uri'
   class TestUnpackedURI < self
     def setup
       super
