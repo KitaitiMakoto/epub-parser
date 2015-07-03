@@ -63,3 +63,8 @@ The last line of the output is path to directory which contents are downloaded t
     $ epzip /tmp/epub-parser20150703-13148-ghdtfq ./page-blanche.epub
 
 [epzip]: https://github.com/takahashim/epzip
+
+Command-line tools
+------------------
+
+Command-line tools `epubinfo` and `epub-open` may also handle with URI as EPUB books.
