@@ -15,9 +15,6 @@ EPUB Parser can treat the URI as EPUB book file path and parse contents from it 
 
     require 'epub/parser'
     
-    # You need to require it explicitly for now because this feature is still experimental
-    require 'epub/ocf/physical_container/unpacked_uri'
-
     uri = 'https://raw.githubusercontent.com/IDPF/epub3-samples/master/30/page-blanche/'
     epub = EPUB::Parser.parse(uri, container_adapter: :UnpackedURI)
 

@@ -1,7 +1,6 @@
 require 'pathname'
 require 'tmpdir'
 require 'epub/parser'
-require 'epub/ocf/physical_container/unpacked_uri'
 
 EPUB_URI = URI.parse(ARGV.shift)
 DOWNLOAD_DIR = Pathname.new(ARGV.shift || Dir.mktmpdir('epub-parser'))
