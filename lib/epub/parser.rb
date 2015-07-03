@@ -42,9 +42,14 @@ module EPUB
     end
 
     def initialize(filepath, **options)
-      raise "File #{filepath} not readable" unless File.readable_real? filepath
+      path_is_uri = (options[:container_adapter] == EPUB::OCF::PhysicalContainer::UnpackedURI or
+                     options[:container_adapter] == :UnpackedURI or
+                     EPUB::OCF::PhysicalContainer.adapter == EPUB::OCF::PhysicalContainer::UnpackedURI)
 
-      @filepath = File.realpath(filepath)
+      raise "File #{filepath} not readable" if
+        !path_is_uri and !File.readable_real?(filepath)
+
+      @filepath = path_is_uri ? filepath : File.realpath(filepath)
       @book = create_book(options)
       @book.epub_file = @filepath
       if options[:container_adapter]

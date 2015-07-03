@@ -27,7 +27,7 @@ module EPUB
           begin
             data = @container.read(File.join(DIRECTORY, "#{m}.xml"))
             @ocf.__send__ "#{m}=", __send__("parse_#{m}", data)
-          rescue ::Zip::Error, ::Errno::ENOENT
+          rescue ::Zip::Error, ::Errno::ENOENT, OpenURI::HTTPError
           end
         end
 
