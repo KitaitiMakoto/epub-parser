@@ -150,6 +150,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.2
+
+* [BUGFIX]Item#entry_name returns normalized IRI
+
 ### 0.2.1
 
 * Remove deprecated `EPUB::Constants::MediaType::UnsupportedError`. Use `UnsupportedMediatType` instead.

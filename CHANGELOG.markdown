@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.2.2
+-----
+
+* [BUGFIX]Item#entry_name returns normalized IRI
+
 0.2.1
 -----
 
