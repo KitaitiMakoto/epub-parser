@@ -302,6 +302,21 @@ class TestPublication < Test::Unit::TestCase
         item = epub.package.manifest[id]
         assert_equal encoding, item.read.encoding
       end
+
+      def test_entry_name_returns_normalized_iri
+        item = Package::Manifest::Item.new
+        item.href = Addressable::URI.parse('../style.css')
+        obj = Object.new
+        stub(item).manifest {obj}
+        stub(obj).package {obj}
+        stub(obj).book {obj}
+        stub(obj).ocf {obj}
+        stub(obj).container {obj}
+        stub(obj).rootfile {obj}
+        stub(obj).full_path {Addressable::URI.parse('OPS/contents.opf')}
+
+        assert_equal 'style.css', item.entry_name
+      end
     end
   end
 
