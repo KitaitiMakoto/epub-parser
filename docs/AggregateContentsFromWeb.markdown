@@ -1,9 +1,9 @@
-{file:docs/Home.markdown} > **{file:docs/ExtractContentsFromWeb.markdown}**
+{file:docs/Home.markdown} > **{file:docs/AggregateContentsFromWeb.markdown}**
 
-Extract Contents From the Web
+Aggregate Contents From the Web
 =============================
 
-From version 0.2.1, EPUB Parser can parse unpacked(unzipped) EPUB files on the web and extract contents in the books.
+From version 0.2.1, EPUB Parser can parse unpacked(unzipped) EPUB files on the web and aggregate contents in the books.
 
 Let's get contents of pretty cmmic Page Blanche from IDPF's GitHub repository: https://github.com/IDPF/epub3-samples/tree/master/30/page-blanche
 
@@ -21,13 +21,13 @@ EPUB Parser can treat the URI as EPUB book file path and parse contents from it 
 The trick is to set {EPUB::OCF::PhysicalContainer.adapter container adapter} to {EPUB::OCF::PhysicalContainer::UnpackedURI :UnpackedURI}. It makes it possible to parse EPUB book from the web.
 Now we can play with EPUB books as always!
 
-As an example, I will show you a script to download all the files of specified EPUB book to local directory(source code is available in repository's examples/extract-contents-from-web.rb).
+As an example, I will show you a script to download all the files of specified EPUB book to local directory(source code is available in repository's examples/aggregate-contents-from-web.rb).
 
-{include:file:examples/extract-contents-from-web.rb}
+{include:file:examples/aggregate-contents-from-web.rb}
 
 Execution:
 
-    $ ruby examples/extract-contents-from-web.rb https://raw.githubusercontent.com/IDPF/epub3-samples/master/30/page-blanche/
+    $ ruby examples/aggregate-contents-from-web.rb https://raw.githubusercontent.com/IDPF/epub3-samples/master/30/page-blanche/
     Started downloading EPUB contents...
       from: https://raw.githubusercontent.com/IDPF/epub3-samples/master/30/page-blanche/
       to: /tmp/epub-parser20150703-13148-ghdtfq

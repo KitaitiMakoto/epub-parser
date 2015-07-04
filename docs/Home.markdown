@@ -101,7 +101,7 @@ More documentations are avaiable in:
 * {file:docs/Navigation.markdown}
 * {file:docs/Searcher.markdown}
 * {file:docs/UnpackedArchive.markdown}
-* {file:docs/ExtractContentsFromWeb.markdown}
+* {file:docs/AggregateContentsFromWeb.markdown}
 
 If you installed EPUB Parser via gem command, you can also generate documentaiton by your own([rubygems-yardoc][] gem is needed):
 
