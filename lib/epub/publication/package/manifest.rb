@@ -111,11 +111,7 @@ module EPUB
 
           # full path in archive
           def entry_name
-            dummy_root_iri = Addressable::URI.parse('http://example.net/') # FIXME: Use constant
-            rootfile = manifest.package.book.ocf.container.rootfile.full_path
-            en = Addressable::URI.unencode((dummy_root_iri + rootfile + href).normalize.request_uri)
-            en.slice!(0) if en.start_with? '/'
-            en
+            Addressable::URI.unencode(full_path)
           end
 
           def read
