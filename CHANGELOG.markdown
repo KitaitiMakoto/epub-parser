@@ -5,6 +5,7 @@ CHANGELOG
 -----
 
 * Change the name of physical container adapter for file system: :File -> :UnpackedDirectory
+* Add `EPUB::Publication::Package::Manifest::Item#full_path`
 
 0.2.2
 -----
