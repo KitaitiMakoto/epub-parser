@@ -3,6 +3,17 @@ require_relative 'helper'
 require 'epub/searcher'
 
 class TestSearcher < Test::Unit::TestCase
+  class TestBookFeatures < self
+    def setup
+      @epub = EPUB::Parser.parse('test/fixtures/book.epub')
+    end
+
+    def test_search_method
+      pend
+      assert_equal '...', @epub.search('...')
+    end
+  end
+
   class TestPublication < self
     def setup
       super

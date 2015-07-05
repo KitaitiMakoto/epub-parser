@@ -89,6 +89,9 @@ module EPUB
         manifest.cover_image
       end
 
+      def search(search_word)
+        
+      end
     end
   end
 end
