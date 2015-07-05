@@ -70,11 +70,16 @@ module EPUB
         include Hidable
 
         attr_accessor :items, :text,
-                      :content_document, :href, :item
+                      :content_document, :item
+        attr_reader :href
 
         def initialize
           @items = ItemList.new
           @items.parent = self
+        end
+
+        def href=(iri)
+          @href = iri.kind_of?(Addressable::URI) ? iri : Addressable::URI.parse(iri)
         end
 
         def traverse(depth=0, &block)
