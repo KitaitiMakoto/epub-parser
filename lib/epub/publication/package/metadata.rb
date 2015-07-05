@@ -94,12 +94,12 @@ module EPUB
         class Identifier < DCMES
           # @note This is ad-hoc
           # @todo Define and include OPF module for opf:scheme attribute
-          # @todo Define generale way to handle with identifier-type refiners
+          # @todo Define general way to handle with identifier-type refiners
           attr_accessor :scheme
 
           # @note This is ad-hoc
           # @todo Define and include OPF module for opf:scheme attribute
-          # @todo Define generale way to handle with identifier-type refiners
+          # @todo Define general way to handle with identifier-type refiners
           def isbn?
             refiners.any? {|refiner|
               refiner.property == 'identifier-type' and
