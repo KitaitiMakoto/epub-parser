@@ -4,7 +4,6 @@ module EPUB
   module Searcher
     class Publication
       class << self
-        # @todo Use named argument in the future
         def search(package, word, **options)
           new(word).search(package, options)
         end
@@ -14,7 +13,6 @@ module EPUB
         @word = word
       end
 
-      # @todo Use named argument in the future
       def search(package, algorithm: :seamless)
         results = []
 
