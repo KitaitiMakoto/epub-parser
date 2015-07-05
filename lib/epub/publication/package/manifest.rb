@@ -110,6 +110,7 @@ module EPUB
           end
 
           # full path in archive
+          # @return [String]
           def entry_name
             Addressable::URI.unencode(full_path)
           end
