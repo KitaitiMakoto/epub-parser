@@ -280,15 +280,15 @@ class TestPublication < Test::Unit::TestCase
 
       def test_find_item_by_relative_iri_returns_item_which_has_resolved_iri_as_href
         manifest = Package::Manifest.new
-        manifest << xhtml_item = Package::Manifest::Item.new.tap {|item| item.href = Addressable::URI.parse('text/01.xhtml')}
-        manifest << image_item = Package::Manifest::Item.new.tap {|item| item.href = Addressable::URI.parse('image/01.png')}
+        manifest << xhtml_item = Package::Manifest::Item.new.tap {|item| item.href = 'text/01.xhtml'}
+        manifest << image_item = Package::Manifest::Item.new.tap {|item| item.href = 'image/01.png'}
 
         assert_equal image_item, xhtml_item.find_item_by_relative_iri(Addressable::URI.parse('../image/01.png'))
       end
 
       def test_find_item_by_relative_iri_returns_nil_when_no_item_found
         manifest = Package::Manifest.new
-        manifest << xhtml_item = Package::Manifest::Item.new.tap {|item| item.href = Addressable::URI.parse('text/01.xhtml')}
+        manifest << xhtml_item = Package::Manifest::Item.new.tap {|item| item.href = 'text/01.xhtml'}
 
         assert_nil xhtml_item.find_item_by_relative_iri(Addressable::URI.parse('../image/01.png'))
       end
@@ -305,7 +305,7 @@ class TestPublication < Test::Unit::TestCase
 
       def test_entry_name_returns_normalized_iri
         item = Package::Manifest::Item.new
-        item.href = Addressable::URI.parse('../style.css')
+        item.href = '../style.css'
         obj = Object.new
         stub(item).manifest {obj}
         stub(obj).package {obj}

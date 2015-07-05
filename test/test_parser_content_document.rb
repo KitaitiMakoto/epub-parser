@@ -7,7 +7,7 @@ class TestParserContentDocument < Test::Unit::TestCase
     %w[item-1.xhtml item-2.xhtml nav.xhtml].each.with_index do |href, index|
       item = EPUB::Publication::Package::Manifest::Item.new
       item.id = index
-      item.href = Addressable::URI.parse(href)
+      item.href = href
       @manifest << item
     end
 

@@ -65,7 +65,7 @@ class TestContentDocument < Test::Unit::TestCase
       item = EPUB::Publication::Package::Manifest::Item.new
       item.media_type = 'application/xhtml+xml'
       item.properties = %w[nav]
-      item.href = Addressable::URI.parse('nav.xhtml')
+      item.href = 'nav.xhtml'
       stub(item).read {File.read(File.expand_path('../fixtures/book/OPS/nav.xhtml', __FILE__))}
       manifest << item
       nav_doc = EPUB::Parser::ContentDocument.new(item).parse

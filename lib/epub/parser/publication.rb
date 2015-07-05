@@ -60,7 +60,7 @@ module EPUB
         metadata.rights = extract_model(elem, id_map, './dc:rights')
         metadata.metas = extract_refinee(elem, id_map, './opf:meta', :Meta, %w[property id scheme])
         metadata.links = extract_refinee(elem, id_map, './opf:link', :Link, %w[id media-type]) {|link, e|
-          link.href = Addressable::URI.parse(extract_attribute(e, 'href'))
+          link.href = extract_attribute(e, 'href')
           link.rel = Set.new(extract_attribute(e, 'rel').split(nil))
         }
 
@@ -84,7 +84,7 @@ module EPUB
           %w[id media-type media-overlay].each do |attr|
             item.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(e, attr)
           end
-          item.href = Addressable::URI.parse(extract_attribute(e, 'href'))
+          item.href = extract_attribute(e, 'href')
           fallback = extract_attribute(e, 'fallback')
           fallback_map[fallback] = item if fallback
           properties = extract_attribute(e, 'properties')
@@ -126,7 +126,7 @@ module EPUB
           %w[type title].each do |attr|
             reference.__send__ "#{attr}=", extract_attribute(ref, attr)
           end
-          reference.href = Addressable::URI.parse(extract_attribute(ref, 'href'))
+          reference.href = extract_attribute(ref, 'href')
           guide << reference
         end
 
