@@ -150,6 +150,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.3
+
+* Change the name of physical container adapter for file system: :File -> :UnpackedDirectory
+
 ### 0.2.2
 
 * [BUGFIX]Item#entry_name returns normalized IRI

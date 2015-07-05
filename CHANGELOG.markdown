@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.2.3
+-----
+
+* Change the name of physical container adapter for file system: :File -> :UnpackedDirectory
+
 0.2.2
 -----
 
