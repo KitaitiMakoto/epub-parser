@@ -99,6 +99,17 @@ module EPUB
           end
 
           # full path in archive
+          # @return [Addressable::URI]
+          def full_path
+            dummy_root_iri = Addressable::URI.parse('http://example.net/') # FIXME: Use constant
+            rootfile = manifest.package.book.ocf.container.rootfile.full_path
+            path = dummy_root_iri + rootfile + href
+            path.scheme = nil
+            path.host = nil
+            path.path = path.path[1..-1]
+          end
+
+          # full path in archive
           def entry_name
             dummy_root_iri = Addressable::URI.parse('http://example.net/') # FIXME: Use constant
             rootfile = manifest.package.book.ocf.container.rootfile.full_path
