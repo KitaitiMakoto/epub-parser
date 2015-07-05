@@ -85,8 +85,8 @@ module EPUB
           # @!attribute [rw] fallback
           #   @return [Item] Returns the value of attribute fallback
           attr_accessor :manifest,
-                        :id, :href, :media_type, :fallback, :media_overlay
-          attr_reader :properties
+                        :id, :media_type, :fallback, :media_overlay
+          attr_reader :properties, :href
 
           def initialize
             @properties = Set.new
@@ -94,6 +94,10 @@ module EPUB
 
           def properties=(props)
             @properties = props.kind_of?(Set) ? props : Set.new(props)
+          end
+
+          def href=(iri)
+            @href = iri.kind_of?(Addressable::URI) ? iri : Addressable::URI.parse(iri)
           end
 
           # @todo Handle circular fallback chain
