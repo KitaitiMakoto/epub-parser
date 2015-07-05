@@ -21,7 +21,7 @@ EOB
 $0 = File.basename($PROGRAM_NAME)
 include EPUB::Book::Features
 file = ARGV.shift
-EPUB::OCF::PhysicalContainer.adapter = :File if File.directory? file
+EPUB::OCF::PhysicalContainer.adapter = :UnpackedDirectory if File.directory? file
 unless File.readable? file
   uri = URI.parse(file) rescue nil
   if uri

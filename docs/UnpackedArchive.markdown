@@ -45,7 +45,7 @@ To load EPUB books from directory, you need specify file adapter via {EPUB::OCF:
 
     require 'epub/parser'
     
-    EPUB::OCF::PhysicalContainer.adapter = :File
+    EPUB::OCF::PhysicalContainer.adapter = :UnpackedDirectory
 
 And then, directory path as EPUB path:
 
@@ -67,7 +67,7 @@ If set {EPUB::OCF::PhysicalContainer.adapter}, it is used every time EPUB Parser
     archived_book = EPUB::Parser.parse('./page-blanche.epub') # => EPUB::Book
     # From directory
     File.ftype './page-blanche' # => "directory"
-    unpacked_book = EPUB::Parser.parse('./page-blanche', container_adapter: :File) # => EPUB::Book
+    unpacked_book = EPUB::Parser.parse('./page-blanche', container_adapter: :UnpackedDirectory) # => EPUB::Book
 
 Command-line tools
 ------------------

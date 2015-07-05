@@ -30,7 +30,7 @@ unless file
   abort
 end
 
-EPUB::OCF::PhysicalContainer.adapter = :File if File.directory? file
+EPUB::OCF::PhysicalContainer.adapter = :UnpackedDirectory if File.directory? file
 unless File.readable? file
   uri = URI.parse(file) rescue nil
   if uri

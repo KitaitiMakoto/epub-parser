@@ -1,5 +1,5 @@
 require 'epub/ocf/physical_container/zipruby'
-require 'epub/ocf/physical_container/file'
+require 'epub/ocf/physical_container/unpacked_directory'
 require 'epub/ocf/physical_container/unpacked_uri'
 
 module EPUB

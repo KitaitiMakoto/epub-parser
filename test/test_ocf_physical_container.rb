@@ -53,13 +53,13 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     end
   end
 
-  class TestFile < self
+  class TestUnpackedDirectory < self
     include ConcreteContainer
 
     def setup
       super
       @container_path = @container_path[0..-'.epub'.length-1]
-      @class = EPUB::OCF::PhysicalContainer::File
+      @class = EPUB::OCF::PhysicalContainer::UnpackedDirectory
       @container = @class.new(@container_path)
     end
 
