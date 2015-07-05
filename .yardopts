@@ -11,3 +11,4 @@ docs/Navigation.markdown
 docs/Searcher.markdown
 docs/UnpackedArchive.markdown
 docs/AggregateContentsFromWeb.markdown
+examples/aggregate-contents-from-web.rb

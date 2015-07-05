@@ -21,7 +21,7 @@ EPUB Parser can treat the URI as EPUB book file path and parse contents from it 
 The trick is to set {EPUB::OCF::PhysicalContainer.adapter container adapter} to {EPUB::OCF::PhysicalContainer::UnpackedURI :UnpackedURI}. It makes it possible to parse EPUB book from the web.
 Now we can play with EPUB books as always!
 
-As an example, I will show you a script to download all the files of specified EPUB book to local directory(source code is available in repository's examples/aggregate-contents-from-web.rb).
+As an example, I will show you a script to download all the files of specified EPUB book to local directory(source code is available in repository's {file:examples/aggregate-contents-from-web.rb}).
 
 {include:file:examples/aggregate-contents-from-web.rb}
 
