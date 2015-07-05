@@ -1,7 +1,6 @@
 require 'strscan'
 require 'zipruby'
 require 'nokogiri'
-require 'addressable/uri'
 require 'epub/publication'
 require 'epub/constants'
 
