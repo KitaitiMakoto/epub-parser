@@ -21,7 +21,12 @@ module EPUB
         class Reference
           TYPES = %w[cover title-page toc index glossary acknowledgements bibliography colophon copyright-page dedication epigraph foreword loi lot notes preface text]
           attr_accessor :guide,
-                        :type, :title, :href
+                        :type, :title
+          attr_reader :href
+
+          def href=(iri)
+            @href = iri.kind_of?(Addressable::URI) ? iri : Addressable::URI.parse(iri)
+          end
 
           def item
             return @item if @item
