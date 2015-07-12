@@ -96,7 +96,7 @@ DOCUMENTATION
 
 Documentation is available in [homepage][].
 
-If you installed EPUB Parser by gem command, you can also generate documentaiton by your own([rubygems-yardoc][] gem is needed):
+If you installed EPUB Parser by gem command, you can also generate documentaiton yourself([rubygems-yardoc][] gem is needed):
 
     $ gem install epub-parser
     $ gem yardoc epub-parser
