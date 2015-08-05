@@ -194,7 +194,7 @@ module EPUB
           # @note Algorithm stolen form Rack::Utils#clean_path_info
           def find_item_by_relative_iri(iri)
             raise ArgumentError, "Not relative: #{iri.inspect}" unless iri.relative?
-            raise ArgumentError, "Start with slash: #{iri.inspect}" if iri.to_s.start_with? Addressable::URI::SLASH
+            raise ArgumentError, "Start with slash: #{iri.inspect}" if iri.path.start_with? Addressable::URI::SLASH
             target_href = href + iri
             segments = target_href.to_s.split(Addressable::URI::SLASH)
             clean_segments = []
