@@ -293,6 +293,14 @@ class TestPublication < Test::Unit::TestCase
         assert_nil xhtml_item.find_item_by_relative_iri(Addressable::URI.parse('../image/01.png'))
       end
 
+      def test_find_item_by_relative_iri_raises_error_when_iri_starts_with_slash
+        item = Package::Manifest::Item.new
+
+        assert_raise ArgumentError do
+          item.find_item_by_relative_iri Addressable::URI.parse('/starting/with/slash')
+        end
+      end
+
       data('UTF-8'     => [Encoding::UTF_8,     'utf-8-encoded'],
            'EUC-JP'    => [Encoding::EUC_JP,    'euc-jp-encoded'],
            'Shift-JIS' => [Encoding::Shift_JIS, 'shift_jis-encoded'])
