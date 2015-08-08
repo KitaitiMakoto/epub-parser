@@ -27,7 +27,7 @@ namespace :test do
   task :all => [:build, :test, :cucumber]
 
   desc 'Build test fixture EPUB file'
-  task :build => :clean do
+  task :build => [:clean, 'parser:cfi'] do
     input_dir  = 'test/fixtures/book'
     sh "epzip #{input_dir}"
     small_file = File.read("#{input_dir}/OPS/case-sensitive.xhtml")
