@@ -11,6 +11,13 @@ require 'zipruby'
 task :default => :test
 task :test => 'test:default'
 
+namespace :parser do
+  desc 'Generate EPUB CFI parser'
+  task :cfi do
+    sh 'racc lib/epub/parser/cfi.y'
+  end
+end
+
 namespace :test do
   task :default => [:build, :test]
 
