@@ -61,4 +61,5 @@ end
 
 namespace :gem do
   Bundler::GemHelper.install_tasks
+  task :build => 'parser:cfi'
 end
