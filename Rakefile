@@ -8,6 +8,8 @@ require 'cucumber/rake/task'
 require 'epub/parser/version'
 require 'zipruby'
 
+CLEAN.include 'lib/epub/cfi/cfi.tab.rb'
+
 task :default => :test
 task :test => 'test:default'
 
