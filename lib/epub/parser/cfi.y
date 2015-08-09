@@ -118,6 +118,7 @@ rule
           {result = [val[0]]}
 
   value : string_escaped_special_chars
+            {result = EPUB::CFI.unescape(val[0])}
 
   value_no_space: string_escaped_special_chars_excluding_space
 
