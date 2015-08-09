@@ -118,22 +118,22 @@ rule
           {result = [val[0]]}
 
   value : string_escaped_special_chars
-            {result = EPUB::CFI.unescape(val[0])}
+            {result = val[0]}
 
   value_no_space: string_escaped_special_chars_excluding_space
 
   escaped_special_chars : circumflex circumflex
-                            {result = val.join}
+                            {result = val[1]}
                         | circumflex square_brackets
-                            {result = val.join}
+                            {result = val[1]}
                         | circumflex parentheses
-                            {result = val.join}
+                            {result = val[1]}
                         | circumflex comma
-                            {result = val.join}
+                            {result = val[1]}
                         | circumflex semicolon
-                            {result = val.join}
+                            {result = val[1]}
                         | circumflex equal
-                            {result = val.join}
+                            {result = val[1]}
 
   character_escaped_special : character_excluding_special_chars
                             | escaped_special_chars
