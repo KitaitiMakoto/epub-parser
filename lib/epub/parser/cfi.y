@@ -122,13 +122,6 @@ rule
 
   value_no_space: string_escaped_special_chars_excluding_space
 
-  special_chars : circumflex
-                | square_brackets
-                | parentheses
-                | comma
-                | semicolon
-                | equal
-
   escaped_special_chars : circumflex circumflex
                             {result = val.join}
                         | circumflex square_brackets
