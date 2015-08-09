@@ -133,9 +133,6 @@ rule
 
   equal : EQUAL
 
-  character : character_excluding_special_chars
-            | UNICODE_CHARACTER
-
   character_excluding_special_chars : character_excluding_special_chars_and_space
                                     | space
 
