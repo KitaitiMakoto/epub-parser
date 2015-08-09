@@ -69,9 +69,9 @@ rule
                              |
 
   number : digit_non_zero digit_zero_or_more fractional_portion_zero_or_one
-             {result = val.join; p val}
+             {result = val.join}
          | zero fractional_portion_zero_or_one
-             {result = val.join; p val}
+             {result = val.join}
 
   fractional_portion_zero_or_one : fractional_portion
                                  |
