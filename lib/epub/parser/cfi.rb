@@ -1,5 +1,6 @@
 require 'strscan'
 require 'epub/parser/cfi.tab'
+require 'epub/cfi'
 
 EPUB::Parser::CFI = EPUB::CFIParser
 
