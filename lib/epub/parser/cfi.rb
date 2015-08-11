@@ -72,3 +72,7 @@ class EPUB::Parser::CFI
     @q.shift
   end
 end
+
+def EPUB::CFI(string)
+  EPUB::Parser::CFI.parse('epubcfi(' + string + ')')
+end
