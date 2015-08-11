@@ -22,7 +22,7 @@ module EPUB
     class LocalPath < Struct.new(:steps, :redirected_path, :offset)
     end
 
-    class RedirectedPath < Struct.new(:offset, :path)
+    class RedirectedPath < Struct.new(:path, :offset)
     end
 
     class Step < Struct.new(:step, :assertion)

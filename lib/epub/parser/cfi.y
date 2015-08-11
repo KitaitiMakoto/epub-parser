@@ -29,9 +29,9 @@ rule
                         {result = []}
 
   redirected_path : EXCLAMATION_MARK offset
-                      {result = CFI::RedirectedPath.new(val[1], nil)}
-                  | EXCLAMATION_MARK path
                       {result = CFI::RedirectedPath.new(nil, val[1])}
+                  | EXCLAMATION_MARK path
+                      {result = CFI::RedirectedPath.new(val[1], nil)}
 
   step : SOLIDUS integer assertion_part_zero_or_one
            {
