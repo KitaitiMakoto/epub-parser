@@ -66,6 +66,13 @@ module EPUB
     end
 
     class IDAssertion < Struct.new(:id, :parameters)
+      def to_s
+        s = "[#{CFI.escape(id)}"
+        parameters.each_pair do |key, value|
+          s << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
+        end
+        s << ']'
+      end
     end
 
     class TextLocationAssertion < Struct.new(:preceded, :followed, :parameters)
