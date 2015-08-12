@@ -5,7 +5,13 @@ class EPUB::CFIParser
 rule
 
   fragment : 'epubcfi' opening_parenthesis path range_zero_or_one closing_parenthesis
-    {result = CFI.new(val[2], val[3])}
+             {
+               if val[3]
+                 result = CFI::Range.new(val[2], *val[3])
+               else
+                 result = val[2]
+               end
+             }
 
   range_zero_or_one : range
                     |
@@ -14,7 +20,7 @@ rule
            {result = CFI::Path.new(val[0], val[1])}
 
   range : comma local_path comma local_path
-            {result = CFI::Range.new(val[1], val[3])}
+            {result = [val[1], val[3]]}
 
   local_path : step_zero_or_more redirected_path
                  {result = CFI::LocalPath.new(val[0], val[1], nil)}
