@@ -120,7 +120,7 @@ module EPUB
     class SpatialOffset < Struct.new(:x, :y, :temporal, :assertion)
       include Comparable
 
-      def initialize(x, y, temporal, assertion)
+      def initialize(x, y, temporal=nil, assertion=nil)
         [x, y].each do |dimension|
           next unless dimension
           raise RangeError, "dimension must be in 0..100 but passed #{dimension}" unless (0.0..100.0).cover?(dimension)
