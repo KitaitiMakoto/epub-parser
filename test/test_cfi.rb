@@ -20,16 +20,16 @@ class TestCFI < Test::Unit::TestCase
 
   class TestIDAssertion < self
     def test_to_s
-      assert_equal '[id]', EPUB::CFI::IDAssertion.new('id', {}).to_s
+      assert_equal '[id]', EPUB::CFI::IDAssertion.new('id').to_s
       assert_equal '[id;p=a]', EPUB::CFI::IDAssertion.new('id', {'p' => 'a'}).to_s
     end
   end
 
   class TestTextLocationAssertion < self
     def test_to_s
-      assert_equal '[yyy]', EPUB::CFI::TextLocationAssertion.new('yyy', nil, {}).to_s
-      assert_equal '[xx,y]', EPUB::CFI::TextLocationAssertion.new('xx', 'y', {}).to_s
-      assert_equal '[,y]', EPUB::CFI::TextLocationAssertion.new(nil, 'y', {}).to_s
+      assert_equal '[yyy]', EPUB::CFI::TextLocationAssertion.new('yyy').to_s
+      assert_equal '[xx,y]', EPUB::CFI::TextLocationAssertion.new('xx', 'y').to_s
+      assert_equal '[,y]', EPUB::CFI::TextLocationAssertion.new(nil, 'y').to_s
       assert_equal '[;s=b]', EPUB::CFI::TextLocationAssertion.new(nil, nil, {'s' => 'b'}).to_s
       assert_equal '[yyy;s=b]', EPUB::CFI::TextLocationAssertion.new('yyy', nil, {'s' => 'b'}).to_s
     end
@@ -38,7 +38,7 @@ class TestCFI < Test::Unit::TestCase
   class TestCharacterOffset < self
     def test_to_s
       assert_equal ':1', EPUB::CFI::CharacterOffset.new(1).to_s
-      assert_equal ':2[yyy]', EPUB::CFI::CharacterOffset.new(2, EPUB::CFI::TextLocationAssertion.new('yyy', nil, {})).to_s
+      assert_equal ':2[yyy]', EPUB::CFI::CharacterOffset.new(2, EPUB::CFI::TextLocationAssertion.new('yyy')).to_s
     end
   end
 
