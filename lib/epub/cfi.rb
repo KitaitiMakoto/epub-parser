@@ -60,6 +60,10 @@ module EPUB
     class Step < Struct.new(:step, :assertion)
       include Comparable
 
+      def to_s
+        "/#{step}#{assertion}" # need escape?
+      end
+
       def <=>(other)
         step <=> other.step
       end
