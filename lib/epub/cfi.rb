@@ -117,36 +117,34 @@ module EPUB
       end
     end
 
-    class SpatialOffset < Struct.new(:x, :y, :temporal, :assertion)
+    class SpatialOffset
       include Comparable
 
+      attr_accessor :x, :y, :temporal, :assertion
+
       def initialize(x, y, temporal=nil, assertion=nil)
-        [x, y].each do |dimension|
-          next unless dimension
-          raise RangeError, "dimension must be in 0..100 but passed #{dimension}" unless (0.0..100.0).cover?(dimension)
-        end
-
-        warn "Assertion is passed to #{__class__} but cannot know how to handle with it: #{assertion}" if assertion
-
-        super
+        self.x = x
+        self.y = y
+        self.temporal = temporal
+        self.assertion = assertion
       end
 
       def x=(x)
         raise RangeError, "dimension must be in 0..100 but passed #{x}" unless (0.0..100.0).cover?(x)
 
-        super
+        @x = x
       end
 
       def y=(y)
         raise RangeError, "dimension must be in 0..100 but passed #{y}" unless (0.0..100.0).cover?(y)
 
-        super
+        @y = y
       end
 
       def assertion=(assertion)
         warn "Assertion is passed to #{__class__} but cannot know how to handle with it: #{assertion}" if assertion
 
-        super
+        @assertion = assertion
       end
 
       def to_s
