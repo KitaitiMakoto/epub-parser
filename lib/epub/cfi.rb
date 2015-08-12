@@ -149,6 +149,10 @@ module EPUB
         super
       end
 
+      def to_s
+        "@#{x}:#{y}"
+      end
+
       # @note should split the class to spatial offset and temporal-spatial offset?
       def <=>(other)
         return -1 if temporal.nil? and !other.temporal.nil?
