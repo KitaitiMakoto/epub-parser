@@ -23,6 +23,11 @@ class TestCFI < Test::Unit::TestCase
       assert_equal '/6', EPUB::CFI::Step.new(6).to_s
       assert_equal '/4[id]', EPUB::CFI::Step.new(4, EPUB::CFI::IDAssertion.new('id')).to_s
     end
+
+    def test_compare
+      assert_equal EPUB::CFI::Step.new(6), EPUB::CFI::Step.new(6, 'assertion')
+      assert_compare EPUB::CFI::Step.new(6), '<', EPUB::CFI::Step.new(7)
+    end
   end
 
   class TestIDAssertion < self
