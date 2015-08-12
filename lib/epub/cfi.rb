@@ -15,11 +15,6 @@ module EPUB
       end
     end
 
-    # @todo consider range
-    def <=>(other)
-      path <=> other.path
-    end
-
     class Path
       include Comparable
 
