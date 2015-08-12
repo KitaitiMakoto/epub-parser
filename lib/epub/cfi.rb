@@ -65,7 +65,13 @@ module EPUB
       end
     end
 
-    class IDAssertion < Struct.new(:id, :parameters)
+    class IDAssertion
+      attr_accessor :id, :parameters
+
+      def initialize(id, parameters={})
+        @id, @parameters = id, parameters
+      end
+
       def to_s
         s = "[#{CFI.escape(id)}"
         parameters.each_pair do |key, value|
