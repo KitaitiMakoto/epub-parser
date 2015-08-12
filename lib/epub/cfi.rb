@@ -36,6 +36,10 @@ module EPUB
     class LocalPath < Struct.new(:steps, :redirected_path, :offset)
       include Comparable
 
+      def to_s
+        "#{steps}#{redirected_path}#{offset}"
+      end
+
       def <=>(other)
         cmp = steps <=> other.steps
         return cmp unless cmp == 0
