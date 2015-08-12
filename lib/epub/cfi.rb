@@ -58,6 +58,10 @@ module EPUB
         last = @parent + @end
         super(first, last, exclude_end)
       end
+
+      def to_s
+        first.to_fragment + (exclude_end? ? '...' : '..') + last.to_fragment
+      end
     end
 
     class LocalPath
