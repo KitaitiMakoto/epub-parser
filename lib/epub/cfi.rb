@@ -56,6 +56,12 @@ module EPUB
         @path, @offset = path, offset
       end
 
+      def to_s
+        s = '!'
+        s << (path ? path.to_s : offset.to_s)
+        s
+      end
+
       def <=>(other)
         cmp = path <=> other.path
         return cmp unless cmp == 0
