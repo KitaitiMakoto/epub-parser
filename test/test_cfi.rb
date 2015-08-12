@@ -25,6 +25,16 @@ class TestCFI < Test::Unit::TestCase
     end
   end
 
+  class TestTextLocationAssertion < self
+    def test_to_s
+      assert_equal '[yyy]', EPUB::CFI::TextLocationAssertion.new('yyy', nil, {}).to_s
+      assert_equal '[xx,y]', EPUB::CFI::TextLocationAssertion.new('xx', 'y', {}).to_s
+      assert_equal '[,y]', EPUB::CFI::TextLocationAssertion.new(nil, 'y', {}).to_s
+      assert_equal '[;s=b]', EPUB::CFI::TextLocationAssertion.new(nil, nil, {'s' => 'b'}).to_s
+      assert_equal '[yyy;s=b]', EPUB::CFI::TextLocationAssertion.new('yyy', nil, {'s' => 'b'}).to_s
+    end
+  end
+
   private
 
   def epubcfi(string)
