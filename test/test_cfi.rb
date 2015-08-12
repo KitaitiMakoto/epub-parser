@@ -60,6 +60,12 @@ class TestCFI < Test::Unit::TestCase
         assert_equal '~23.5', EPUB::CFI::SpatialOffset.new(nil, nil, 23.5).to_s
       end
     end
+
+    class TestTemporalSpatialOffset < self
+      def test_to_s
+        assert_equal '~23.5@50:30.0', EPUB::CFI::SpatialOffset.new(50, 30.0, 23.5).to_s
+      end
+    end
   end
 
   private
