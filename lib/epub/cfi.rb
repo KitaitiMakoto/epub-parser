@@ -1,7 +1,5 @@
 module EPUB
   module CFI
-    include Comparable
-
     SPECIAL_CHARS = '^[](),;=' # "5E", "5B", "5D", "28", "29", "2C", "3B", "3D"
     RE_ESCAPED_SPECIAL_CHARS = Regexp.escape(SPECIAL_CHARS)
 
