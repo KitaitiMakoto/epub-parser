@@ -16,7 +16,7 @@ module EPUB
     class Path
       include Comparable
 
-      attr_accessor :step, :local_path
+      attr_reader :step, :local_path
 
       def initialize(step, local_path=nil)
         @step, @local_path = step, local_path
@@ -43,7 +43,7 @@ module EPUB
     end
 
     class Range < ::Range
-      attr_accessor :parent, :start, :end
+      attr_reader :parent, :start, :end
 
       def initialize(parent_path, start_subpath, end_subpath, exclude_end=false)
         @parent, @start, @end = parent_path, start_subpath, end_subpath
@@ -64,7 +64,7 @@ module EPUB
     class LocalPath
       include Comparable
 
-      attr_accessor :steps, :redirected_path, :offset
+      attr_reader :steps, :redirected_path, :offset
 
       def initialize(steps=[], redirected_path=nil, offset=nil)
         @steps, @redirected_path, @offset = steps, redirected_path, offset
@@ -88,7 +88,7 @@ module EPUB
     class RedirectedPath
       include Comparable
 
-      attr_accessor :path, :offset
+      attr_reader :path, :offset
 
       def initialize(path, offset=nil)
         @path, @offset = path, offset
@@ -134,7 +134,7 @@ module EPUB
     class Step
       include Comparable
 
-      attr_accessor :step, :assertion
+      attr_reader :step, :assertion
 
       def initialize(step, assertion=nil)
         @step, @assertion = step, assertion
@@ -150,7 +150,7 @@ module EPUB
     end
 
     class IDAssertion
-      attr_accessor :id, :parameters
+      attr_reader :id, :parameters
 
       def initialize(id, parameters={})
         @id, @parameters = id, parameters
@@ -168,7 +168,7 @@ module EPUB
     end
 
     class TextLocationAssertion
-      attr_accessor :preceded, :followed, :parameters
+      attr_reader :preceded, :followed, :parameters
 
       def initialize(preceded=nil, followed=nil, parameters={})
         @preceded, @followed, @parameters = preceded, followed, parameters
@@ -189,7 +189,7 @@ module EPUB
     class CharacterOffset
       include Comparable
 
-      attr_accessor :offset, :assertion
+      attr_reader :offset, :assertion
 
       def initialize(offset, assertion=nil)
         @offset, @assertion = offset, assertion
@@ -207,32 +207,13 @@ module EPUB
     class TemporalSpatialOffset
       include Comparable
 
-      attr_accessor :temporal
-      attr_reader :x, :y, :assertion
+      attr_reader :temporal, :x, :y, :assertion
 
       def initialize(temporal=nil, x=nil, y=nil, assertion=nil)
-        self.temporal = temporal
-        self.x = x
-        self.y = y
-        self.assertion = assertion
-      end
-
-      def x=(x)
         raise RangeError, "dimension must be in 0..100 but passed #{x}" unless (0.0..100.0).cover?(x) if x
-
-        @x = x
-      end
-
-      def y=(y)
         raise RangeError, "dimension must be in 0..100 but passed #{y}" unless (0.0..100.0).cover?(y) if y
-
-        @y = y
-      end
-
-      def assertion=(assertion)
         warn "Assertion is passed to #{__class__} but cannot know how to handle with it: #{assertion}" if assertion
-
-        @assertion = assertion
+        @temporal, @x, @y, @assertion = temporal, x, y, assertion
       end
 
       def to_s
