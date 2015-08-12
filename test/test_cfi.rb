@@ -23,6 +23,18 @@ class TestCFI < Test::Unit::TestCase
       assert_equal '!4', EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)).to_s
       assert_equal '!:5', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(5)).to_s
     end
+
+    def test_compare
+      assert_equal EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4))
+      assert_compare EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), '<', EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(8))
+
+      assert_equal EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)), EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy')))
+      assert_compare EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)), '<', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(7))
+
+      assert_compare EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), '>', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(6))
+      assert_compare EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), '<', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::TemporalSpatialOffset.new(2.32))
+      assert_compare EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)), '<', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::TemporalSpatialOffset.new(nil, 0, 0))
+    end
   end
 
   class TestStep < self
