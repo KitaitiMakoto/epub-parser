@@ -18,7 +18,7 @@ class TestCFI < Test::Unit::TestCase
     assert_compare epubcfi('/6/4!/4@3:7'), '>', epubcfi('/6/4!/4')
   end
 
-  class TestAssertion < self
+  class TestIDAssertion < self
     def test_to_s
       assert_equal '[id]', EPUB::CFI::IDAssertion.new('id', {}).to_s
       assert_equal '[id;p=a]', EPUB::CFI::IDAssertion.new('id', {'p' => 'a'}).to_s
