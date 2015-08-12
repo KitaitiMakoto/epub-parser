@@ -63,9 +63,33 @@ module EPUB
       end
 
       def <=>(other)
-        cmp = path <=> other.path
-        return cmp unless cmp == 0
-        offset <=> other.offset
+        if offset and offset.kind_of? TemporalSpatialOffset
+          if other.offset.kind_of? TemporalSpatialOffset
+            # If other has offset attribute, it doesn't have path attribute
+            # If other.offset is a character offset, always self is greater than other
+            return offset <=> other.offset
+          else
+            return 1
+          end
+        end
+        if path
+          if other.offset.kind_of? TemporalSpatialOffset
+            return -1
+          elsif other.path
+            return path <=> other.path
+          else
+            return 1
+          end
+        end
+        # self.offset is a CharacterOffset
+        if other.offset.kind_of? CharacterOffset
+          return offset <=> other.offset
+        else
+          # redirected path with character offset is lesser than path and other types of offset(character offset)
+          return -1
+        end
+        # no consideration
+        nil
       end
     end
 
