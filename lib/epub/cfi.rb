@@ -140,7 +140,8 @@ module EPUB
 
       def to_s
         s = "[#{CFI.escape(id)}"
-        parameters.each_pair do |key, value|
+        parameters.each_pair do |key, values|
+          value = values.join(',')
           s << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
         s << ']'
@@ -158,7 +159,8 @@ module EPUB
         s = '['
         s << CFI.escape(preceded) if preceded
         s << ',' << CFI.escape(followed) if followed
-        parameters.each_pair do |key, value|
+        parameters.each_pair do |key, values|
+          value = values.join(',')
           s << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
         s << ']'
