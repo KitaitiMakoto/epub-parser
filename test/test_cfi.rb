@@ -19,6 +19,21 @@ class TestCFI < Test::Unit::TestCase
   end
 
   class TestLocalPath < self
+    def setup
+      @complex1 = EPUB::CFI::LocalPath.new(
+        [EPUB::CFI::Step.new(14, EPUB::CFI::IDAssertion.new('chap05ref'))],
+        EPUB::CFI::RedirectedPath.new(
+          EPUB::CFI::Path.new(
+            EPUB::CFI::Step.new(4, EPUB::CFI::IDAssertion.new('body01')))))
+      @complex2 = EPUB::CFI::LocalPath.new(
+        [EPUB::CFI::Step.new(4, EPUB::CFI::IDAssertion.new('body01')),
+         EPUB::CFI::Step.new(10, EPUB::CFI::IDAssertion.new('para05')),
+         EPUB::CFI::Step.new(2),
+         EPUB::CFI::Step.new(1)],
+        nil,
+        EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy')))
+    end
+
     def test_to_s
       assert_equal '', EPUB::CFI::LocalPath.new([], nil, nil).to_s
 
@@ -29,20 +44,8 @@ class TestCFI < Test::Unit::TestCase
 
       assert_equal '~44', EPUB::CFI::LocalPath.new([], nil, EPUB::CFI::TemporalSpatialOffset.new(44)).to_s
 
-      assert_equal '/14[chap05ref]!/4[body01]',
-        EPUB::CFI::LocalPath.new(
-          [EPUB::CFI::Step.new(14, EPUB::CFI::IDAssertion.new('chap05ref'))],
-          EPUB::CFI::RedirectedPath.new(
-            EPUB::CFI::Path.new(
-              EPUB::CFI::Step.new(4), EPUB::CFI::IDAssertion.new('body01')))).to_s
-      assert_equal '/4[body01]/10[para05]/2/1:3[yyy]',
-        EPUB::CFI::LocalPath.new(
-          [EPUB::CFI::Step.new(4, EPUB::CFI::IDAssertion.new('body01')),
-           EPUB::CFI::Step.new(10, EPUB::CFI::IDAssertion.new('para05')),
-           EPUB::CFI::Step.new(2),
-           EPUB::CFI::Step.new(1)],
-          nil,
-          EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy'))).to_s
+      assert_equal '/14[chap05ref]!/4[body01]', @complex1.to_s
+      assert_equal '/4[body01]/10[para05]/2/1:3[yyy]', @complex2.to_s
     end
   end
 
