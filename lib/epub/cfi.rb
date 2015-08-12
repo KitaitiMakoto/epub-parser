@@ -1,5 +1,5 @@
 module EPUB
-  class CFI < Struct.new(:path, :range)
+  module CFI
     include Comparable
 
     SPECIAL_CHARS = '^[](),;=' # "5E", "5B", "5D", "28", "29", "2C", "3B", "3D"
