@@ -49,7 +49,15 @@ module EPUB
       end
     end
 
-    class Range < Struct.new(:start, :end)
+    class Range < ::Range
+      attr_accessor :parent, :start, :end
+
+      def initialize(parent_path, start_subpath, end_subpath, exclude_end=false)
+        @parent, @start, @end = parent_path, start_subpath, end_subpath
+        first = @parent + @start
+        last = @parent + @end
+        super(first, last, exclude_end)
+      end
     end
 
     class LocalPath
