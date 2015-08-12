@@ -64,6 +64,11 @@ class TestCFI < Test::Unit::TestCase
       def test_to_s
         assert_equal '~23.5', EPUB::CFI::TemporalSpatialOffset.new(23.5, nil, nil).to_s
       end
+
+      def test_compare
+        assert_equal EPUB::CFI::TemporalSpatialOffset.new(23.5), EPUB::CFI::TemporalSpatialOffset.new(23.5)
+        assert_compare EPUB::CFI::TemporalSpatialOffset.new(23), '<', EPUB::CFI::TemporalSpatialOffset.new(23.5)
+      end
     end
 
     class TestTemporalSpatialOffset < self
