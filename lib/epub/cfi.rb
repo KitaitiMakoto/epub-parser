@@ -23,6 +23,10 @@ module EPUB
     class Path < Struct.new(:step, :local_path)
       include Comparable
 
+      def to_s
+        "#{step}#{local_path}"
+      end
+
       def <=>(other)
         cmp = step <=> other.step
         return cmp unless cmp == 0
