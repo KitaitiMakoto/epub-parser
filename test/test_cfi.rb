@@ -78,6 +78,10 @@ class TestCFI < Test::Unit::TestCase
       assert_equal first, range.first
       assert_equal last, range.last
     end
+
+    def test_to_s
+      assert_equal 'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1)..epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:4)', epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').to_s
+    end
   end
 
   class TestLocalPath < self
