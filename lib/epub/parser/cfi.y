@@ -48,10 +48,10 @@ rule
                result = CFI::CharacterOffset.new(val[1].to_i, assertion)
              }
          | spatial_offset assertion_part_zero_or_one
-             {result = CFI::SpatialOffset.new(val[0][0].to_f, val[0][1].to_f, nil, val[2])}
+             {result = CFI::TemporalSpatialOffset.new(val[0][0].to_f, val[0][1].to_f, nil, val[2])}
          | TILDE number spatial_offset_zero_or_one assertion_part_zero_or_one
              {
-               result = CFI::SpatialOffset.new(nil, nil, val[1].to_f, val[3])
+               result = CFI::TemporalSpatialOffset.new(nil, nil, val[1].to_f, val[3])
                if val[2]
                  result.x = val[2][0].to_f
                  result.y = val[2][1].to_f

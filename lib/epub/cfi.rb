@@ -117,7 +117,7 @@ module EPUB
       end
     end
 
-    class SpatialOffset
+    class TemporalSpatialOffset
       include Comparable
 
       attr_accessor :temporal
