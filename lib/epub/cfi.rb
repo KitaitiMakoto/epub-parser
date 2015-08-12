@@ -47,8 +47,14 @@ module EPUB
       end
     end
 
-    class RedirectedPath < Struct.new(:path, :offset)
+    class RedirectedPath
       include Comparable
+
+      attr_accessor :path, :offset
+
+      def initialize(path, offset)
+        @path, @offset = path, offset
+      end
 
       def <=>(other)
         cmp = path <=> other.path
