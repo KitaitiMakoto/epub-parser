@@ -81,7 +81,13 @@ module EPUB
       end
     end
 
-    class TextLocationAssertion < Struct.new(:preceded, :followed, :parameters)
+    class TextLocationAssertion
+      attr_accessor :preceded, :followed, :parameters
+
+      def initialize(preceded=nil, followed=nil, parameters={})
+        @preceded, @followed, @parameters = preceded, followed, parameters
+      end
+
       def to_s
         s = '['
         s << CFI.escape(preceded) if preceded
