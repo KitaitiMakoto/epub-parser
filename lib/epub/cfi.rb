@@ -99,8 +99,14 @@ module EPUB
       end
     end
 
-    class CharacterOffset < Struct.new(:offset, :assertion)
+    class CharacterOffset
       include Comparable
+
+      attr_accessor :offset, :assertion
+
+      def initialize(offset, assertion=nil)
+        @offset, @assertion = offset, assertion
+      end
 
       def to_s
         ":#{offset}#{assertion}" # need escape?
