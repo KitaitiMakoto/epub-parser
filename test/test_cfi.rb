@@ -18,6 +18,13 @@ class TestCFI < Test::Unit::TestCase
     assert_compare epubcfi('/6/4!/4@3:7'), '>', epubcfi('/6/4!/4')
   end
 
+  class TestLocalPath < self
+    def test_to_s
+      assert_equal '', EPUB::CFI::LocalPath.new([], nil, nil).to_s
+      assert_equal '/6', EPUB::CFI::LocalPath.new([EPUB::CFI::Step.new(6)], nil, nil).to_s
+    end
+  end
+
   class TestRedirectedPath < self
     def test_to_s
       assert_equal '!4', EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)).to_s
