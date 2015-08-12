@@ -67,6 +67,17 @@ class TestCFI < Test::Unit::TestCase
     def test_to_fragment(cfi)
       assert_equal cfi, EPUB::Parser::CFI.parse(cfi).to_fragment
     end
+
+  class TestRange < self
+    def test_attributes
+      parent = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]')
+      first = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1')
+      last = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3:4')
+      range = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4')
+      assert_equal parent, range.parent
+      assert_equal first, range.first
+      assert_equal last, range.last
+    end
   end
 
   class TestLocalPath < self
