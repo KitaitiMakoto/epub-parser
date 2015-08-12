@@ -37,8 +37,14 @@ module EPUB
     class Range < Struct.new(:start, :end)
     end
 
-    class LocalPath < Struct.new(:steps, :redirected_path, :offset)
+    class LocalPath
       include Comparable
+
+      attr_accessor :steps, :redirected_path, :offset
+
+      def initialize(steps=[], redirected_path=nil, offset=nil)
+        @steps, @redirected_path, @offset = steps, redirected_path, offset
+      end
 
       def to_s
         "#{steps.map(&:to_s).join}#{redirected_path}#{offset}"
