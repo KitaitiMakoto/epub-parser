@@ -57,8 +57,14 @@ module EPUB
       end
     end
 
-    class Step < Struct.new(:step, :assertion)
+    class Step
       include Comparable
+
+      attr_accessor :step, :assertion
+
+      def initialize(step, assertion=nil)
+        @step, @assertion = step, assertion
+      end
 
       def to_s
         "/#{step}#{assertion}" # need escape?
