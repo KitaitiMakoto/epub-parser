@@ -1,3 +1,4 @@
+# coding: utf-8
 require_relative 'helper'
 require 'epub/cfi'
 require 'epub/parser/cfi'
@@ -16,6 +17,32 @@ class TestCFI < Test::Unit::TestCase
     assert_equal epubcfi('/6/4'), epubcfi('/6/4')
     assert_compare epubcfi('/6/4'), '>', epubcfi('/4/6')
     assert_compare epubcfi('/6/4!/4@3:7'), '>', epubcfi('/6/4!/4')
+  end
+
+  class TestPath < self
+    data([
+      '/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]',
+      '/6/4!/4/10/2/1:3[Ф-"spa ce"-99%-aa^[bb^]^^]',
+      '/6/4!/4/10/2/1:3[Ф-"spa%20ce"-99%25-aa^[bb^]^^]',
+      '/6/4!/4/10/2/1:3[%d0%a4-"spa%20ce"-99%25-aa^[bb^]^^]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[,y]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[;s=b]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy;s=b]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/2[;s=b]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/3:10',
+      '/6/4[chap01ref]!/4[body01]/16[svgimg]',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/1:0',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:0',
+      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3',
+    ].reduce({}) {|data, cfi|
+      data[cfi] = cfi
+      data
+    })
+    def test_to_s(cfi)
+      assert_equal cfi, epubcfi(cfi).to_s
+    end
   end
 
   class TestLocalPath < self
