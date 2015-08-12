@@ -32,6 +32,23 @@ class TestCFI < Test::Unit::TestCase
          EPUB::CFI::Step.new(1)],
         nil,
         EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy')))
+      @complex1_without_assertions = EPUB::CFI::LocalPath.new(
+        [EPUB::CFI::Step.new(14)],
+        EPUB::CFI::RedirectedPath.new(
+          EPUB::CFI::Path.new(
+            EPUB::CFI::Step.new(4))))
+      @complex2_without_assertions = EPUB::CFI::LocalPath.new(
+        [EPUB::CFI::Step.new(4),
+         EPUB::CFI::Step.new(10),
+         EPUB::CFI::Step.new(2),
+         EPUB::CFI::Step.new(1)],
+        nil,
+        EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy')))
+      @complex1_without_steps = EPUB::CFI::LocalPath.new(
+        [],
+        EPUB::CFI::RedirectedPath.new(
+          EPUB::CFI::Path.new(
+            EPUB::CFI::Step.new(4, EPUB::CFI::IDAssertion.new('body01')))))
     end
 
     def test_to_s
@@ -46,6 +63,12 @@ class TestCFI < Test::Unit::TestCase
 
       assert_equal '/14[chap05ref]!/4[body01]', @complex1.to_s
       assert_equal '/4[body01]/10[para05]/2/1:3[yyy]', @complex2.to_s
+    end
+
+    def test_compare
+      assert_equal @complex1, @complex1_without_assertions
+      assert_equal @complex2, @complex2_without_assertions
+      assert_compare @complex1, '>', @complex1_without_steps
     end
   end
 
