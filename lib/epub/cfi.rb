@@ -90,6 +90,12 @@ module EPUB
     class CharacterOffset < Struct.new(:offset, :assertion)
       include Comparable
 
+      def to_s
+        s = ":#{offset}" # need escape?
+        s << assertion.to_s if assertion
+        s
+      end
+
       def <=>(other)
         offset <=> other.offset
       end
