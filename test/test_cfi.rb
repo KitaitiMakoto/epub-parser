@@ -46,6 +46,14 @@ class TestCFI < Test::Unit::TestCase
       assert_compare EPUB::CFI::CharacterOffset.new(4), '<', EPUB::CFI::CharacterOffset.new(5)
       assert_compare EPUB::CFI::CharacterOffset.new(4, EPUB::CFI::TextLocationAssertion.new(nil, 'xx')), '>', EPUB::CFI::CharacterOffset.new(2)
     end
+
+    class TestSpatialOffset < self
+      def test_to_s
+        assert_equal '@0.5:30.2', EPUB::CFI::SpatialOffset.new(0.5, 30.2)
+        assert_equal '@0:100', EPUB::CFI::SpatialOffset.new(0, 100)
+        assert_equal '@50:50.0', EPUB::CFI::SpatialOffset.new(50, 50.0)
+      end
+    end
   end
 
   private
