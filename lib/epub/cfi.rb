@@ -33,6 +33,10 @@ module EPUB
         "#{step}#{local_path}"
       end
 
+      def to_fragment
+        "epubcfi(#{self})"
+      end
+
       def <=>(other)
         cmp = step <=> other.step
         return cmp unless cmp == 0
