@@ -62,6 +62,10 @@ module EPUB
       def to_s
         first.to_fragment + (exclude_end? ? '...' : '..') + last.to_fragment
       end
+
+      def to_fragment
+        "epubcfi(#{@parent},#{@start},#{@end})"
+      end
     end
 
     class LocalPath
