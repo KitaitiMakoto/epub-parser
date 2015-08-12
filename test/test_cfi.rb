@@ -43,6 +43,30 @@ class TestCFI < Test::Unit::TestCase
     def test_to_s(cfi)
       assert_equal cfi, epubcfi(cfi).to_s
     end
+
+    data([
+      'epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])',
+      'epubcfi(/6/4!/4/10/2/1:3[Ф-"spa ce"-99%-aa^[bb^]^^])',
+      'epubcfi(/6/4!/4/10/2/1:3[Ф-"spa%20ce"-99%25-aa^[bb^]^^])',
+      'epubcfi(/6/4!/4/10/2/1:3[%d0%a4-"spa%20ce"-99%25-aa^[bb^]^^])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[,y])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[;s=b])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy;s=b])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2[;s=b])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/16[svgimg])',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/1:0)',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:0)',
+      'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3)',
+    ].reduce({}) {|data, cfi|
+      data[cfi] = cfi
+      data
+    })
+    def test_to_fragment(cfi)
+      assert_equal cfi, EPUB::Parser::CFI.parse(cfi).to_fragment
+    end
   end
 
   class TestLocalPath < self
