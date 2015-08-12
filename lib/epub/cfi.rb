@@ -120,7 +120,8 @@ module EPUB
     class SpatialOffset
       include Comparable
 
-      attr_accessor :x, :y, :temporal, :assertion
+      attr_accessor :temporal
+      attr_reader :x, :y, :assertion
 
       def initialize(x, y, temporal=nil, assertion=nil)
         self.x = x
@@ -130,13 +131,13 @@ module EPUB
       end
 
       def x=(x)
-        raise RangeError, "dimension must be in 0..100 but passed #{x}" unless (0.0..100.0).cover?(x)
+        raise RangeError, "dimension must be in 0..100 but passed #{x}" unless (0.0..100.0).cover?(x) if x
 
         @x = x
       end
 
       def y=(y)
-        raise RangeError, "dimension must be in 0..100 but passed #{y}" unless (0.0..100.0).cover?(y)
+        raise RangeError, "dimension must be in 0..100 but passed #{y}" unless (0.0..100.0).cover?(y) if y
 
         @y = y
       end
@@ -148,7 +149,10 @@ module EPUB
       end
 
       def to_s
-        "@#{x}:#{y}"
+        s = ''
+        s << "~#{temporal}" if temporal
+        s << "@#{x}:#{y}" if x or y
+        s
       end
 
       # @note should split the class to spatial offset and temporal-spatial offset?
