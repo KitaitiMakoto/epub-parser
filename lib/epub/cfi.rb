@@ -52,7 +52,7 @@ module EPUB
 
       attr_accessor :path, :offset
 
-      def initialize(path, offset)
+      def initialize(path, offset=nil)
         @path, @offset = path, offset
       end
 
