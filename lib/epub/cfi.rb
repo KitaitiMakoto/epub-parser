@@ -42,6 +42,11 @@ module EPUB
         return cmp unless cmp == 0
         local_path <=> other.local_path
       end
+
+      # @todo FIXME: Don't use #to_s and don't parse it
+      def +(local_path)
+        Parser::CFI.parse('epubcfi(' + to_s + local_path.to_s + ')')
+      end
     end
 
     class Range < Struct.new(:start, :end)
