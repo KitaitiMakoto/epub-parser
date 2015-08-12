@@ -103,9 +103,7 @@ module EPUB
       include Comparable
 
       def to_s
-        s = ":#{offset}" # need escape?
-        s << assertion.to_s if assertion
-        s
+        ":#{offset}#{assertion}" # need escape?
       end
 
       def <=>(other)
