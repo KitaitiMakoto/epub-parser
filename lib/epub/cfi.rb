@@ -123,10 +123,10 @@ module EPUB
       attr_accessor :temporal
       attr_reader :x, :y, :assertion
 
-      def initialize(x, y, temporal=nil, assertion=nil)
+      def initialize(temporal=nil, x=nil, y=nil, assertion=nil)
+        self.temporal = temporal
         self.x = x
         self.y = y
-        self.temporal = temporal
         self.assertion = assertion
       end
 
