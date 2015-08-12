@@ -76,6 +76,15 @@ module EPUB
     end
 
     class TextLocationAssertion < Struct.new(:preceded, :followed, :parameters)
+      def to_s
+        s = '['
+        s << CFI.escape(preceded) if preceded
+        s << ',' << CFI.escape(followed) if followed
+        parameters.each_pair do |key, value|
+          s << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
+        end
+        s << ']'
+      end
     end
 
     class CharacterOffset < Struct.new(:offset, :assertion)
