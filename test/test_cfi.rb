@@ -40,6 +40,12 @@ class TestCFI < Test::Unit::TestCase
       assert_equal ':1', EPUB::CFI::CharacterOffset.new(1).to_s
       assert_equal ':2[yyy]', EPUB::CFI::CharacterOffset.new(2, EPUB::CFI::TextLocationAssertion.new('yyy')).to_s
     end
+
+    def test_compare
+      assert_equal EPUB::CFI::CharacterOffset.new(3), EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy'))
+      assert_compare EPUB::CFI::CharacterOffset.new(4), '<', EPUB::CFI::CharacterOffset.new(5)
+      assert_compare EPUB::CFI::CharacterOffset.new(4, EPUB::CFI::TextLocationAssertion.new(nil, 'xx')), '>', EPUB::CFI::CharacterOffset.new(2)
+    end
   end
 
   private
