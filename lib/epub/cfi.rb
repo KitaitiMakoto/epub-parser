@@ -41,7 +41,7 @@ module EPUB
       include Comparable
 
       def to_s
-        "#{steps}#{redirected_path}#{offset}"
+        "#{steps.map(&:to_s).join}#{redirected_path}#{offset}"
       end
 
       def <=>(other)
