@@ -20,8 +20,14 @@ module EPUB
       path <=> other.path
     end
 
-    class Path < Struct.new(:step, :local_path)
+    class Path
       include Comparable
+
+      attr_accessor :step, :local_path
+
+      def initialize(step, local_path=nil)
+        @step, @local_path = step, local_path
+      end
 
       def to_s
         "#{step}#{local_path}"
