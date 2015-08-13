@@ -99,6 +99,10 @@ class TestCFI < Test::Unit::TestCase
       cfi = '/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4'
       assert_equal 'epubcfi(' + cfi + ')', epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').to_fragment
     end
+
+    def test_cover
+      assert_true epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').cover? epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/2')
+    end
   end
 
   class TestLocalPath < self
