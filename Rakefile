@@ -8,16 +8,15 @@ require 'cucumber/rake/task'
 require 'epub/parser/version'
 require 'zipruby'
 
-CLEAN.include 'lib/epub/cfi/cfi.tab.rb'
+CFI_TAB = 'lib/epub/parser/cfi.tab.rb'
+CFI_Y =  'lib/epub/parser/cfi.y'
+CLEAN.include(CFI_TAB)
 
 task :default => :test
 task :test => 'test:default'
 
-namespace :parser do
-  desc 'Generate EPUB CFI parser'
-  task :cfi do
-    sh 'racc lib/epub/parser/cfi.y'
-  end
+file CFI_TAB do
+  sh "racc #{CFI_Y}"
 end
 
 namespace :test do
@@ -27,7 +26,7 @@ namespace :test do
   task :all => [:build, :test, :cucumber]
 
   desc 'Build test fixture EPUB file'
-  task :build => [:clean, 'parser:cfi'] do
+  task :build => [:clean, CFI_TAB] do
     input_dir  = 'test/fixtures/book'
     sh "epzip #{input_dir}"
     small_file = File.read("#{input_dir}/OPS/case-sensitive.xhtml")
@@ -61,5 +60,5 @@ end
 
 namespace :gem do
   Bundler::GemHelper.install_tasks
-  task :build => 'parser:cfi'
+  task :build => [:clean, CFI_TAB]
 end
