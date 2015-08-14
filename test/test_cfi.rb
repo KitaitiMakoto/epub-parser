@@ -12,13 +12,6 @@ class TestCFI < Test::Unit::TestCase
     assert_equal '^', EPUB::CFI.unescape('^^')
   end
 
-  def test_compare
-    assert_compare epubcfi('/6/4[id]'), '<', epubcfi('/6/5')
-    assert_equal epubcfi('/6/4'), epubcfi('/6/4')
-    assert_compare epubcfi('/6/4'), '>', epubcfi('/4/6')
-    assert_compare epubcfi('/6/4!/4@3:7'), '>', epubcfi('/6/4!/4')
-  end
-
   class TestPath < self
     data([
       '/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]',
@@ -69,6 +62,10 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_compare
+      assert_compare epubcfi('/6/4[id]'), '<', epubcfi('/6/5')
+      assert_equal epubcfi('/6/4'), epubcfi('/6/4')
+      assert_compare epubcfi('/6/4'), '>', epubcfi('/4/6')
+      assert_compare epubcfi('/6/4!/4@3:7'), '>', epubcfi('/6/4!/4')
       assert_compare epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]'),
         '>',
         epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]')
