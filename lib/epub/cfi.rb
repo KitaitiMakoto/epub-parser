@@ -97,6 +97,10 @@ module EPUB
             else
               raise NotImplementedError # invalid rather than not implemented
             end
+          when CharacterOffset
+            raise NotImplementedError
+          when TemporalSpatialOffset
+            raise NotImplementedError
           else
             current = current.elements[s.step/2 - 1]
           end
