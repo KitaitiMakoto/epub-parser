@@ -142,8 +142,8 @@ module EPUB
         return cmp unless cmp == 0
         cmp = redirected_path <=> other.redirected_path
         return cmp unless cmp == 0
-        return -1 if offset.nil? and !other.offset.nil?
-        return 1 if !offset.nil? and other.offset.nil?
+        return -1 if offset.nil? and other.offset
+        return 1 if offset and other.offset.nil?
         offset <=> other.offset
       end
 
@@ -306,16 +306,16 @@ module EPUB
 
       # @note should split the class to spatial offset and temporal-spatial offset?
       def <=>(other)
-        return -1 if temporal.nil? and !other.temporal.nil?
-        return 1 if !temporal.nil? and other.temporal.nil?
+        return -1 if temporal.nil? and other.temporal
+        return 1 if temporal and other.temporal.nil?
         cmp = temporal <=> other.temporal
         return cmp unless cmp == 0
-        return -1 if y.nil? and !other.y.nil?
-        return 1 if !y.nil? and other.y.nil?
+        return -1 if y.nil? and other.y
+        return 1 if y and other.y.nil?
         cmp = y <=> other.y
         return cmp unless cmp == 0
-        return -1 if x.nil? and !other.x.nil?
-        return 1 if !x.nil? and other.x.nil?
+        return -1 if x.nil? and other.x
+        return 1 if x and other.x.nil?
         cmp = x <=> other.x
       end
     end
