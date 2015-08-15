@@ -156,6 +156,10 @@ RECENT CHANGES
 * Change the name of physical container adapter for file system: :File -> :UnpackedDirectory
 * Add `EPUB::Publication::Package::Manifest::Item#full_path`
 * Make #href= acceptable String
+* Implement `EPUB::CFI` and `EPUB::Parser::CFI`
+* Remove [nokogumbo][] from dependencies. It ommits `head` and `body` elements
+
+[nokogumbo]: https://github.com/rubys/nokogumbo/
 
 ### 0.2.2
 
@@ -173,16 +177,6 @@ RECENT CHANGES
 ### 0.2.0
 
 * Make it possible to parse file system directory as an EPUB file. See {file:docs/UnpackedArchive.markdown} for details.
-
-### 0.1.9
-
-* Introduce [Nokogumbo][] for XHTML Content Documents
-* Stop support for Ruby 1.9
-* Remove `EPUB.included` method. Now including `EPUB` module empowers nothing of EPUB features. Include `EPUB::Book::Features` instead.
-* Add `EPUB::Searcher::XHTML::Seamless` and make it default searcher
-* Add `EPUB::Publication::Package::Manifest#each_nav`
-
-[nokogumbo]: https://github.com/rubys/nokogumbo/
 
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
