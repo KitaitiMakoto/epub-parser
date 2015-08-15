@@ -9,6 +9,7 @@ CHANGELOG
 * Make #href= acceptable String
 * Implement `EPUB::CFI` and `EPUB::Parser::CFI`
 * Remove [nokogumbo][] from dependencies. It ommits `head` and `body` elements
+* Remove Cucumber and Cucumber features
 
 0.2.2
 -----

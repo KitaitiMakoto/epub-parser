@@ -3,8 +3,6 @@ require 'rake/clean'
 require 'rake/testtask'
 require 'yard'
 require 'rdoc/task'
-require 'cucumber'
-require 'cucumber/rake/task'
 require 'epub/parser/version'
 require 'zipruby'
 
@@ -23,7 +21,7 @@ namespace :test do
   task :default => [:build, :test]
 
   desc 'Run all tests'
-  task :all => [:build, :test, :cucumber]
+  task :all => [:build, :test]
 
   desc 'Build test fixture EPUB file'
   task :build => [:clean, CFI_TAB] do
@@ -40,8 +38,6 @@ namespace :test do
     task.warning = true
     task.options = '--no-show-detail-immediately --verbose'
   end
-
-  Cucumber::Rake::Task.new
 end
 
 task :doc => 'doc:default'
