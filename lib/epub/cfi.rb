@@ -42,7 +42,7 @@ module EPUB
       end
 
       def each_step_with_instruction
-        yield [step, :path]
+        yield [step, nil]
         local_path.each_step_with_instruction do |s, instruction|
           yield [s, instruction]
         end
@@ -74,10 +74,10 @@ module EPUB
         local_path.redirected_path.path.each_step_with_instruction do |s, instruction|
           raise NotImplementedError unless s.step.even?
           case instruction
-          when :path, :local
-            current = current.elements[s.step/2 - 1]
           when :indirection
             raise NotImplementedError
+          else
+            current = current.elements[s.step/2 - 1]
           end
         end
         current
@@ -128,7 +128,7 @@ module EPUB
 
       def each_step_with_instruction
         steps.each do |step|
-          yield [step, :local]
+          yield [step, nil]
         end
         if redirected_path
           redirected_path.each_step_with_instruction do |step, instruction|
@@ -191,7 +191,7 @@ module EPUB
           if first
             yield [step, :indirection]
           else
-            yield [step, :local]
+            yield [step, nil]
           end
         end
         self
