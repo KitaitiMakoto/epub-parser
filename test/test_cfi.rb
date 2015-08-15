@@ -261,10 +261,13 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_path
-      assert_same @book.package.spine, epubcfi('/6').identify(@book)
-      assert_same @book.package.spine.itemrefs[1], epubcfi('/6/4').identify(@book)
-      assert_equal_node @nav_doc.search('body').first, epubcfi('/6/2!/4').identify(@book)
-      assert_equal_node @nav_doc.xpath('//xhtml:h2/text()', EPUB::NAMESPACES).first, epubcfi('/6/2!/4/2/2/2/2/1').identify(@book)
+      assert_same @book.package.spine, epubcfi('/6').identify(@book)[:node]
+      assert_same @book.package.spine.itemrefs[1], epubcfi('/6/4').identify(@book)[:node]
+      assert_equal_node @nav_doc.search('body').first, epubcfi('/6/2!/4').identify(@book)[:node]
+      assert_equal_node @nav_doc.xpath('//xhtml:h2/text()', EPUB::NAMESPACES).first, epubcfi('/6/2!/4/2/2/2/2/1').identify(@book)[:node]
+      actual = epubcfi('/6/2!/4/2/2/2/2/1:5').identify(@book)
+      assert_equal_node @nav_doc.xpath('//xhtml:h2/text()', EPUB::NAMESPACES).first, actual[:node]
+      assert_equal 5, actual[:offset].offset
     end
   end
 

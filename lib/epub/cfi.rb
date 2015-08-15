@@ -63,11 +63,11 @@ module EPUB
         # TODO: Consider non-epub namespaced elements
         raise NotImplementedError unless step.step == 6
         current = package.spine
-        return current if local_path.steps.empty?
+        return {:node => current} if local_path.steps.empty?
         raise NotImplementedError unless local_path.steps.length == 1 # FIXME: invalid rather than not implemented
         current = current.itemrefs[local_path.steps.first.step/2 - 1]
         raise NotImplementedError if local_path.offset # FIXME: invalid rather than not implemented
-        return current unless local_path.redirected_path
+        return {:node => current} unless local_path.redirected_path
         raise NotImplementedError unless current.item.xhtml? # FIXME: invalid rather than not implemented
         current = current.item.content_document.nokogiri.root
 
@@ -78,7 +78,11 @@ module EPUB
               current.elements[(s.step-1)/2 - 1]
             begin
               return if current.nil? || current.element?
-              return current if current.text?
+              if current.text?
+                result = {:node => current}
+                result[:offset] = instruction if instruction.kind_of? CharacterOffset
+                return result
+              end
             end until current.text? || current.element? || current.nil?
           end
           case instruction
@@ -97,7 +101,7 @@ module EPUB
             current = current.elements[s.step/2 - 1]
           end
         end
-        current
+        {:node => current}
       end
     end
 
