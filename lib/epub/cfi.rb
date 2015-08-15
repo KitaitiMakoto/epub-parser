@@ -41,10 +41,10 @@ module EPUB
         Parser::CFI.parse('epubcfi(' + to_s + local_path.to_s + ')')
       end
 
-      def each_step_with_context
+      def each_step_with_instruction
         yield [step, :path]
-        local_path.each_step_with_context do |s, context|
-          yield [s, context]
+        local_path.each_step_with_instruction do |s, instruction|
+          yield [s, instruction]
         end
         self
       end
@@ -71,9 +71,9 @@ module EPUB
         raise NotImplementedError unless current.item.xhtml? # FIXME: invalid rather than not implemented
         current = current.item.content_document.nokogiri.root
 
-        local_path.redirected_path.path.each_step_with_context do |s, context|
+        local_path.redirected_path.path.each_step_with_instruction do |s, instruction|
           raise NotImplementedError unless s.step.even?
-          case context
+          case instruction
           when :path, :local
             current = current.elements[s.step/2 - 1]
           when :indirection
@@ -126,13 +126,13 @@ module EPUB
         offset <=> other.offset
       end
 
-      def each_step_with_context
+      def each_step_with_instruction
         steps.each do |step|
           yield [step, :local]
         end
         if redirected_path
-          redirected_path.each_step_with_context do |step, context|
-            yield [step, context]
+          redirected_path.each_step_with_instruction do |step, instruction|
+            yield [step, instruction]
           end
         end
         self
@@ -184,10 +184,10 @@ module EPUB
         nil
       end
 
-      def each_step_with_context
+      def each_step_with_instruction
         return [self, :indirection] unless path
         first = true
-        path.each_step_with_context do |step, context|
+        path.each_step_with_instruction do |step, instruction|
           if first
             yield [step, :indirection]
           else
