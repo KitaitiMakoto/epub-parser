@@ -69,9 +69,7 @@ class TestCFI < Test::Unit::TestCase
       assert_compare epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]'),
         '>',
         epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]')
-      pend "Don't know whether true or false below assertions are"
-      assert_compare epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3:10'),
-        '<',
+      assert_nil epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3:10') <=>
         epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3!:10')
       assert_compare epubcfi('/6/4'), '>', epubcfi('/6')
     end
