@@ -63,16 +63,16 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_compare
-      assert_compare epubcfi('/6/4[id]'), '<', epubcfi('/6/5')
-      assert_equal epubcfi('/6/4'), epubcfi('/6/4')
-      assert_compare epubcfi('/6/4'), '>', epubcfi('/4/6')
-      assert_compare epubcfi('/6/4!/4@3:7'), '>', epubcfi('/6/4!/4')
-      assert_compare epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]'),
-        '>',
+      assert_equal -1, epubcfi('/6/4[id]') <=> epubcfi('/6/5')
+      assert_equal 0, epubcfi('/6/4') <=> epubcfi('/6/4')
+      assert_equal 1, epubcfi('/6/4') <=> epubcfi('/4/6')
+      assert_equal 1, epubcfi('/6/4!/4@3:7') <=> epubcfi('/6/4!/4')
+      assert_equal 1,
+        epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]') <=>
         epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]')
       assert_nil epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3:10') <=>
         epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3!:10')
-      assert_compare epubcfi('/6/4'), '>', epubcfi('/6')
+      assert_equal 1, epubcfi('/6/4') <=> epubcfi('/6')
     end
   end
 
@@ -82,9 +82,9 @@ class TestCFI < Test::Unit::TestCase
       first = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1')
       last = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3:4')
       range = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4')
-      assert_equal parent, range.parent
-      assert_equal first, range.first
-      assert_equal last, range.last
+      assert_equal 0, parent <=> range.parent
+      assert_equal 0, first <=> range.first
+      assert_equal 0, last <=> range.last
     end
 
     def test_to_s
@@ -149,9 +149,9 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_compare
-      assert_equal @complex1, @complex1_without_assertions
-      assert_equal @complex2, @complex2_without_assertions
-      assert_compare @complex1, '>', @complex1_without_steps
+      assert_equal 0, @complex1 <=> @complex1_without_assertions
+      assert_equal 0, @complex2 <=> @complex2_without_assertions
+      assert_equal 1, @complex1 <=> @complex1_without_steps
     end
   end
 
@@ -162,15 +162,29 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_compare
-      assert_equal EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4))
-      assert_compare EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), '<', EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(8))
+      assert_equal 0,
+        EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)) <=>
+        EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4))
+      assert_equal -1,
+        EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)) <=>
+        EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(8))
 
-      assert_equal EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)), EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy')))
-      assert_compare EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)), '<', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(7))
+      assert_equal 0,
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)) <=>
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy')))
+      assert_equal -1,
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)) <=>
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(7))
 
-      assert_compare EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), '>', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(6))
-      assert_compare EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)), '<', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::TemporalSpatialOffset.new(2.32))
-      assert_compare EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)), '<', EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::TemporalSpatialOffset.new(nil, 0, 0))
+      assert_equal 1,
+        EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)) <=>
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(6))
+      assert_equal -1,
+        EPUB::CFI::RedirectedPath.new(EPUB::CFI::Path.new(4)) <=>
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::TemporalSpatialOffset.new(2.32))
+      assert_equal -1,
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::CharacterOffset.new(3)) <=>
+        EPUB::CFI::RedirectedPath.new(nil, EPUB::CFI::TemporalSpatialOffset.new(nil, 0, 0))
     end
   end
 
@@ -181,8 +195,8 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_compare
-      assert_equal EPUB::CFI::Step.new(6), EPUB::CFI::Step.new(6, 'assertion')
-      assert_compare EPUB::CFI::Step.new(6), '<', EPUB::CFI::Step.new(7)
+      assert_equal 0, EPUB::CFI::Step.new(6) <=> EPUB::CFI::Step.new(6, 'assertion')
+      assert_equal -1, EPUB::CFI::Step.new(6) <=> EPUB::CFI::Step.new(7)
     end
   end
 
@@ -210,9 +224,15 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_compare
-      assert_equal EPUB::CFI::CharacterOffset.new(3), EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy'))
-      assert_compare EPUB::CFI::CharacterOffset.new(4), '<', EPUB::CFI::CharacterOffset.new(5)
-      assert_compare EPUB::CFI::CharacterOffset.new(4, EPUB::CFI::TextLocationAssertion.new(nil, 'xx')), '>', EPUB::CFI::CharacterOffset.new(2)
+      assert_equal 0,
+        EPUB::CFI::CharacterOffset.new(3) <=>
+        EPUB::CFI::CharacterOffset.new(3, EPUB::CFI::TextLocationAssertion.new('yyy'))
+      assert_equal -1,
+        EPUB::CFI::CharacterOffset.new(4) <=>
+        EPUB::CFI::CharacterOffset.new(5)
+      assert_equal 1,
+        EPUB::CFI::CharacterOffset.new(4, EPUB::CFI::TextLocationAssertion.new(nil, 'xx')) <=>
+        EPUB::CFI::CharacterOffset.new(2)
     end
 
     class TestSpatialOffset < self
@@ -223,8 +243,12 @@ class TestCFI < Test::Unit::TestCase
       end
 
       def test_compare
-        assert_equal EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40), EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40)
-        assert_compare EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40), '>', EPUB::CFI::TemporalSpatialOffset.new(nil, 40, 30)
+        assert_equal 0,
+          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40)
+        assert_equal 1,
+          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(nil, 40, 30)
       end
     end
 
@@ -234,8 +258,12 @@ class TestCFI < Test::Unit::TestCase
       end
 
       def test_compare
-        assert_equal EPUB::CFI::TemporalSpatialOffset.new(23.5), EPUB::CFI::TemporalSpatialOffset.new(23.5)
-        assert_compare EPUB::CFI::TemporalSpatialOffset.new(23), '<', EPUB::CFI::TemporalSpatialOffset.new(23.5)
+        assert_equal 0,
+          EPUB::CFI::TemporalSpatialOffset.new(23.5) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(23.5)
+        assert_equal -1,
+          EPUB::CFI::TemporalSpatialOffset.new(23) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(23.5)
       end
     end
 
@@ -245,11 +273,21 @@ class TestCFI < Test::Unit::TestCase
       end
 
       def test_compare
-        assert_equal EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40), EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40.0)
-        assert_compare EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40), '>', EPUB::CFI::TemporalSpatialOffset.new(23.5)
-        assert_compare EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40), '<', EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40)
-        assert_compare EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40), '<', EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 50)
-        assert_compare EPUB::CFI::TemporalSpatialOffset.new(24, 30, 40), '>', EPUB::CFI::TemporalSpatialOffset.new(23.5, 100, 100)
+        assert_equal 0,
+          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40.0)
+        assert_equal 1,
+          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(23.5)
+        assert_equal -1,
+          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40)
+        assert_equal -1,
+          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 50)
+        assert_equal 1,
+          EPUB::CFI::TemporalSpatialOffset.new(24, 30, 40) <=>
+          EPUB::CFI::TemporalSpatialOffset.new(23.5, 100, 100)
       end
     end
   end

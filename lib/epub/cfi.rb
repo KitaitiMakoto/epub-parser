@@ -14,8 +14,6 @@ module EPUB
     end
 
     class Path
-      include Comparable
-
       attr_reader :step, :local_path
 
       def initialize(step, local_path=nil)
@@ -129,8 +127,6 @@ module EPUB
     end
 
     class LocalPath
-      include Comparable
-
       attr_reader :steps, :redirected_path, :offset
 
       def initialize(steps=[], redirected_path=nil, offset=nil)
@@ -166,8 +162,6 @@ module EPUB
     end
 
     class RedirectedPath
-      include Comparable
-
       attr_reader :path, :offset
 
       def initialize(path, offset=nil)
@@ -225,8 +219,6 @@ module EPUB
     end
 
     class Step
-      include Comparable
-
       attr_reader :step, :assertion
 
       def initialize(step, assertion=nil)
@@ -280,8 +272,6 @@ module EPUB
     end
 
     class CharacterOffset
-      include Comparable
-
       attr_reader :offset, :assertion
 
       def initialize(offset, assertion=nil)
@@ -298,8 +288,6 @@ module EPUB
     end
 
     class TemporalSpatialOffset
-      include Comparable
-
       attr_reader :temporal, :x, :y, :assertion
 
       def initialize(temporal=nil, x=nil, y=nil, assertion=nil)
