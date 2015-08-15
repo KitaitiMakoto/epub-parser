@@ -18,14 +18,15 @@ module EPUB
 
       def initialize(step, local_path=nil)
         @step, @local_path = step, local_path
+        @string_cache = @fragment_cache = nil
       end
 
       def to_s
-        "#{step}#{local_path}"
+        @string_cache ||= "#{step}#{local_path}".freeze
       end
 
       def to_fragment
-        "epubcfi(#{self})"
+        @fragment_cache ||= "epubcfi(#{self})".freeze
       end
 
       def <=>(other)
@@ -114,15 +115,16 @@ module EPUB
         @parent, @start, @end = parent_path, start_subpath, end_subpath
         first = @parent + @start
         last = @parent + @end
+        @string_cache = @fragment_cache = nil
         super(first, last, exclude_end)
       end
 
       def to_s
-        first.to_fragment + (exclude_end? ? '...' : '..') + last.to_fragment
+        @string_cache ||= (first.to_fragment + (exclude_end? ? '...' : '..') + last.to_fragment).freeze
       end
 
       def to_fragment
-        "epubcfi(#{@parent},#{@start},#{@end})"
+        @fragment_cache ||= "epubcfi(#{@parent},#{@start},#{@end})".freeze
       end
     end
 
@@ -131,10 +133,11 @@ module EPUB
 
       def initialize(steps=[], redirected_path=nil, offset=nil)
         @steps, @redirected_path, @offset = steps, redirected_path, offset
+        @string_cache = nil
       end
 
       def to_s
-        "#{steps.map(&:to_s).join}#{redirected_path}#{offset}"
+        @string_cache ||= "#{steps.map(&:to_s).join}#{redirected_path}#{offset}".freeze
       end
 
       def <=>(other)
@@ -166,12 +169,14 @@ module EPUB
 
       def initialize(path, offset=nil)
         @path, @offset = path, offset
+        @string_cache = nil
       end
 
       def to_s
-        s = '!'
-        s << (path ? path.to_s : offset.to_s)
-        s
+        return @string_cache if @string_cache
+        @string_cache = '!'
+        @string_cache << (path ? path.to_s : offset.to_s)
+        @string_cache.freeze
       end
 
       def <=>(other)
@@ -223,10 +228,11 @@ module EPUB
 
       def initialize(step, assertion=nil)
         @step, @assertion = step, assertion
+        @string_cache = nil
       end
 
       def to_s
-        "/#{step}#{assertion}" # need escape?
+        @string_cache ||= "/#{step}#{assertion}".freeze # need escape?
       end
 
       def <=>(other)
@@ -239,16 +245,19 @@ module EPUB
 
       def initialize(id, parameters={})
         @id, @parameters = id, parameters
+        @string_cache = nil
       end
 
       def to_s
-        s = '['
-        s << CFI.escape(id) if id
+        return @string_cache if @string_cache
+        @string_cache = '['
+        @string_cache << CFI.escape(id) if id
         parameters.each_pair do |key, values|
           value = values.join(',')
-          s << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
+          @string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
-        s << ']'
+        @string_cache << ']'
+        @string_cache.freeze
       end
     end
 
@@ -257,17 +266,20 @@ module EPUB
 
       def initialize(preceded=nil, followed=nil, parameters={})
         @preceded, @followed, @parameters = preceded, followed, parameters
+        @string_cache = nil
       end
 
       def to_s
-        s = '['
-        s << CFI.escape(preceded) if preceded
-        s << ',' << CFI.escape(followed) if followed
+        return @string_cache if @string_cache
+        @string_cache = '['
+        @string_cache << CFI.escape(preceded) if preceded
+        @string_cache << ',' << CFI.escape(followed) if followed
         parameters.each_pair do |key, values|
           value = values.join(',')
-          s << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
+          @string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
-        s << ']'
+        @string_cache << ']'
+        @string_cache.freeze
       end
     end
 
@@ -276,10 +288,11 @@ module EPUB
 
       def initialize(offset, assertion=nil)
         @offset, @assertion = offset, assertion
+        @string_cache = nil
       end
 
       def to_s
-        ":#{offset}#{assertion}" # need escape?
+        @string_cache ||= ":#{offset}#{assertion}".freeze # need escape?
       end
 
       def <=>(other)
@@ -295,13 +308,15 @@ module EPUB
         raise RangeError, "dimension must be in 0..100 but passed #{y}" unless (0.0..100.0).cover?(y) if y
         warn "Assertion is passed to #{__class__} but cannot know how to handle with it: #{assertion}" if assertion
         @temporal, @x, @y, @assertion = temporal, x, y, assertion
+        @string_cache
       end
 
       def to_s
-        s = ''
-        s << "~#{temporal}" if temporal
-        s << "@#{x}:#{y}" if x or y
-        s
+        return @string_cache if @string_cache
+        @string_cache = ''
+        @string_cache << "~#{temporal}" if temporal
+        @string_cache << "@#{x}:#{y}" if x or y
+        @string_cache.freeze
       end
 
       # @note should split the class to spatial offset and temporal-spatial offset?
