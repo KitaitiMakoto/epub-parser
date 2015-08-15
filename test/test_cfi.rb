@@ -264,6 +264,7 @@ class TestCFI < Test::Unit::TestCase
       assert_same @book.package.spine, epubcfi('/6').identify(@book)
       assert_same @book.package.spine.itemrefs[1], epubcfi('/6/4').identify(@book)
       assert_equal_node @nav_doc.search('body').first, epubcfi('/6/2!/4').identify(@book)
+      assert_equal_node @nav_doc.xpath('//xhtml:h2/text()', EPUB::NAMESPACES).first, epubcfi('/6/2!/4/2/2/2/2/1').identify(@book)
     end
   end
 
