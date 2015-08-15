@@ -83,7 +83,16 @@ module EPUB
           end
           case instruction
           when :indirection
-            raise NotImplementedError
+            case current.name
+            when 'iframe', 'embed'
+              raise NotImplementedError
+            when 'object'
+              raise NotImplementedError
+            when 'image', 'use'
+              raise NotImplementedError
+            else
+              raise NotImplementedError # invalid rather than not implemented
+            end
           else
             current = current.elements[s.step/2 - 1]
           end
