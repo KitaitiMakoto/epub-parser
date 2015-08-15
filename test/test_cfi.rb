@@ -255,6 +255,17 @@ class TestCFI < Test::Unit::TestCase
     end
   end
 
+  class TestIdentify < self
+    def setup
+      @package_document = Nokogiri.XML(open('test/fixtures/book/OPS/ルートファイル.opf'))
+    end
+
+    def test_package_document
+      assert_same @package_document.search('spine').first, epubcfi('/6').identify(@package_document)
+      assert_same @package_document.search('itemref')[1], epubcfi('/6/4').identify(@package_document)
+    end
+  end
+
   private
 
   def epubcfi(string)
