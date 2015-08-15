@@ -34,8 +34,7 @@ module EPUB
 
       # @return [Nokogiri::XML::Document] content as Nokogiri::XML::Document object
       def nokogiri
-        require 'nokogumbo' unless Nokogiri.respond_to? :HTML5
-        @nokogiri ||= Nokogiri.HTML5(raw_document)
+        @nokogiri ||= Nokogiri.XML(raw_document)
       end
     end
   end
