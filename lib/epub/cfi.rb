@@ -202,7 +202,7 @@ module EPUB
       end
 
       def each_step_with_instruction
-        return [self, :indirection] unless path
+        return self unless path
         first = true
         path.each_step_with_instruction do |step, instruction|
           if first
