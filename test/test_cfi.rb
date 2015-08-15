@@ -255,12 +255,14 @@ class TestCFI < Test::Unit::TestCase
 
   class TestIdentify < self
     def setup
-      @package_document = Nokogiri.XML(open('test/fixtures/book/OPS/ルートファイル.opf'))
+      @book = EPUB::Parser.parse('test/fixtures/book.epub')
+      @nav_doc = Nokogiri.XML(open('test/fixtures/book/OPS/nav.xhtml'))
     end
 
     def test_package_document
-      assert_same @package_document.search('spine').first, epubcfi('/6').identify(@package_document)
-      assert_same @package_document.search('itemref')[1], epubcfi('/6/4').identify(@package_document)
+      assert_same @book.package.spine, epubcfi('/6').identify(@book)
+      assert_same @book.package.spine.itemrefs[1], epubcfi('/6/4').identify(@book)
+      assert_equal @nav_doc.search('body').first.to_s, epubcfi('/6/2!/4').identify(@book).to_s
     end
   end
 

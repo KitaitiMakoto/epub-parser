@@ -41,10 +41,10 @@ module EPUB
         Parser::CFI.parse('epubcfi(' + to_s + local_path.to_s + ')')
       end
 
-      def each_step
-        yield step
-        local_path.each_step do |s|
-          yield s
+      def each_step_with_context
+        yield [step, :path]
+        local_path.each_step_with_context do |s, context|
+          yield [s, context]
         end
         self
       end
@@ -52,11 +52,33 @@ module EPUB
       # @param package [EPUB::Book, EPUB::Publication::Package, EPUB::Book::Features]
       # @todo Consider the case itemref has child elements other than itemref.
       def identify(package)
-        package = package.package if package.kind_of? EPUB::Book::Features
-        current = package.root
-        each_step do |s|
+        if package.kind_of? EPUB::Book::Features
+          book = package
+          package = book.package
+        else
+          book = package.book
+        end
+
+        # FIXME: Too dirty
+        # TODO: Consider non-epub namespaced elements
+        raise NotImplementedError unless step.step == 6
+        current = package.spine
+        return current if local_path.steps.empty?
+        raise NotImplementedError unless local_path.steps.length == 1 # FIXME: invalid rather than not implemented
+        current = current.itemrefs[local_path.steps.first.step/2 - 1]
+        raise NotImplementedError if local_path.offset # FIXME: invalid rather than not implemented
+        return current unless local_path.redirected_path
+        raise NotImplementedError unless current.item.xhtml? # FIXME: invalid rather than not implemented
+        current = current.item.content_document.nokogiri.root
+
+        local_path.redirected_path.path.each_step_with_context do |s, context|
           raise NotImplementedError unless s.step.even?
-          current = current.elements[s.step/2 - 1]
+          case context
+          when :path, :local
+            current = current.elements[s.step/2 - 1]
+          when :indirection
+            raise NotImplementedError
+          end
         end
         current
       end
@@ -104,13 +126,13 @@ module EPUB
         offset <=> other.offset
       end
 
-      def each_step
+      def each_step_with_context
         steps.each do |step|
-          yield step
+          yield [step, :local]
         end
         if redirected_path
-          redirected_path.each_step do |step|
-            yield step
+          redirected_path.each_step_with_context do |step, context|
+            yield [step, context]
           end
         end
         self
@@ -162,10 +184,15 @@ module EPUB
         nil
       end
 
-      def each_step
-        return self unless path
-        path.each_step do |step|
-          yield step
+      def each_step_with_context
+        return [self, :indirection] unless path
+        first = true
+        path.each_step_with_context do |step, context|
+          if first
+            yield [step, :indirection]
+          else
+            yield [step, :local]
+          end
         end
         self
       end
