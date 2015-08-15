@@ -145,7 +145,8 @@ module EPUB
 
       def each_step_with_instruction
         steps.each do |step|
-          yield [step, nil]
+          instruction = (offset && step == steps.last) ? offset : nil
+          yield [step, instruction]
         end
         if redirected_path
           redirected_path.each_step_with_instruction do |step, instruction|
