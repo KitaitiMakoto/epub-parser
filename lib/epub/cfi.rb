@@ -50,6 +50,7 @@ module EPUB
       end
 
       # @param package [EPUB::Book, EPUB::Publication::Package, EPUB::Book::Features]
+      # @todo Consider the case itemref has child elements other than itemref.
       def identify(package)
         package = package.package if package.kind_of? EPUB::Book::Features
         current = package.root
