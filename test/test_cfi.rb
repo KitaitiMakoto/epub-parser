@@ -2,6 +2,7 @@
 require_relative 'helper'
 require 'epub/cfi'
 require 'epub/parser/cfi'
+require 'nokogiri/diff'
 
 class TestCFI < Test::Unit::TestCase
   def test_escape
@@ -270,5 +271,17 @@ class TestCFI < Test::Unit::TestCase
 
   def epubcfi(string)
     EPUB::Parser::CFI.new.parse('epubcfi(' + string + ')')
+  end
+
+  def assert_equal_node(expected, actual, message='')
+    diff = AssertionMessage.delayed_diff(expected.to_s, actual.to_s)
+    message = build_message(message, <<EOT, expected, actual, diff)
+<?>
+expected but was
+<?>.?
+EOT
+    assert_block message do
+      expected.tdiff_equal actual
+    end
   end
 end
