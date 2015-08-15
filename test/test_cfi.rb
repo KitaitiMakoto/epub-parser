@@ -97,7 +97,7 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_cover
-      assert_true epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').cover? epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/2')
+      assert_true epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').cover? epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/2/4')
     end
   end
 
