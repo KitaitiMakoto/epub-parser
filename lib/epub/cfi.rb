@@ -40,6 +40,25 @@ module EPUB
       def +(local_path)
         Parser::CFI.parse('epubcfi(' + to_s + local_path.to_s + ')')
       end
+
+      def each_step
+        yield step
+        local_path.each_step do |s|
+          yield s
+        end
+        self
+      end
+
+      # @param package [EPUB::Book, EPUB::Publication::Package, EPUB::Book::Features]
+      def identify(package)
+        package = package.package if package.kind_of? EPUB::Book::Features
+        current = package.root
+        each_step do |s|
+          raise NotImplementedError unless s.step.even?
+          current = current.elements[s.step/2 - 1]
+        end
+        current
+      end
     end
 
     class Range < ::Range
@@ -82,6 +101,18 @@ module EPUB
         return -1 if offset.nil? and !other.offset.nil?
         return 1 if !offset.nil? and other.offset.nil?
         offset <=> other.offset
+      end
+
+      def each_step
+        steps.each do |step|
+          yield step
+        end
+        if redirected_path
+          redirected_path.each_step do |step|
+            yield step
+          end
+        end
+        self
       end
     end
 
@@ -128,6 +159,14 @@ module EPUB
         end
         # no consideration
         nil
+      end
+
+      def each_step
+        return self unless path
+        path.each_step do |step|
+          yield step
+        end
+        self
       end
     end
 
