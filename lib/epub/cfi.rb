@@ -72,7 +72,15 @@ module EPUB
         current = current.item.content_document.nokogiri.root
 
         local_path.redirected_path.path.each_step_with_instruction do |s, instruction|
-          raise NotImplementedError unless s.step.even?
+          if s.step.odd?
+            current = s.step == 1 ?
+              current.children[0] :
+              current.elements[(s.step-1)/2 - 1]
+            begin
+              return if current.element?
+              return current
+            end until current.text? || current.element? || current.nil?
+          end
           case instruction
           when :indirection
             raise NotImplementedError
