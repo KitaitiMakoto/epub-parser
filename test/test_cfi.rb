@@ -260,7 +260,7 @@ class TestCFI < Test::Unit::TestCase
       @nav_doc = Nokogiri.XML(open('test/fixtures/book/OPS/nav.xhtml'))
     end
 
-    def test_identify
+    def test_path
       assert_same @book.package.spine, epubcfi('/6').identify(@book)
       assert_same @book.package.spine.itemrefs[1], epubcfi('/6/4').identify(@book)
       assert_equal_node @nav_doc.search('body').first, epubcfi('/6/2!/4').identify(@book)
