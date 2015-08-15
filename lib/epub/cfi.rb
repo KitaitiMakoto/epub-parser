@@ -77,7 +77,7 @@ module EPUB
               current.children[0] :
               current.elements[(s.step-1)/2 - 1]
             begin
-              return if current.element?
+              return if current.nil? || current.element?
               return current
             end until current.text? || current.element? || current.nil?
           end
