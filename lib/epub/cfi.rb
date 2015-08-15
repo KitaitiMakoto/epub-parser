@@ -78,7 +78,7 @@ module EPUB
               current.elements[(s.step-1)/2 - 1]
             begin
               return if current.nil? || current.element?
-              return current
+              return current if current.text?
             end until current.text? || current.element? || current.nil?
           end
           case instruction
