@@ -150,6 +150,15 @@ module EPUB
         offset <=> other.offset
       end
 
+      def +(local_path)
+        raise NotImplementedError if offset
+        if redirected_path
+          LocalPath.new(steps, redirected_path + local_path)
+        else
+          LocalPath.new(steps + local_path.steps, local_path.redirected_path, local_path.offset)
+        end
+      end
+
       def each_step_with_instruction
         steps.each do |step|
           instruction = (offset && step == steps.last) ? offset : nil
@@ -220,6 +229,11 @@ module EPUB
           end
         end
         self
+      end
+
+      def +(local_path)
+        raise NotImplementedError if offset
+        RedirectedPath.new(path + local_path)
       end
     end
 
