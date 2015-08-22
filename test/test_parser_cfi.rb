@@ -25,7 +25,7 @@ class TestParserCFI < Test::Unit::TestCase
     'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:0)',
     'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3)',
     'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4)',
-    'epubcfi(/6:1,,:3)'
+    'epubcfi(/6,:1,:3)'
   ].reduce({}) {|data, cfi|
     data[cfi] = cfi
     data
