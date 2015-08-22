@@ -75,10 +75,27 @@ class TestCFI < Test::Unit::TestCase
       assert_equal 1, epubcfi('/6/4') <=> epubcfi('/6')
     end
 
-    def test_plus
-      first_node = EPUB::CFI::Path.new(EPUB::CFI::Step.new(6))
+    def test_plus_local_path
+      first_node = EPUB::CFI::Path.new(EPUB::CFI::Step.new(6), EPUB::CFI::LocalPath.new)
       second_node = EPUB::CFI::LocalPath.new([EPUB::CFI::Step.new(4)])
       assert_equal '/6/4', (first_node + second_node).to_s
+    end
+
+    def test_plus_local_path_with_character_offset
+      parent_node = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]')
+      # /2/1:1
+      start_node = EPUB::CFI::LocalPath.new(
+        [EPUB::CFI::Step.new(2), EPUB::CFI::Step.new(1)],
+        nil,
+        EPUB::CFI::CharacterOffset.new(1)
+      )
+      assert_equal '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1', (parent_node + start_node).to_s
+    end
+
+    def test_plus_character_offset
+      parent_node = epubcfi('/6')
+      start_node = EPUB::CFI::LocalPath.new([], nil, EPUB::CFI::CharacterOffset.new(3))
+      assert_equal '/6:3', (parent_node + start_node).to_s
     end
   end
 
