@@ -350,6 +350,12 @@ class TestCFI < Test::Unit::TestCase
       cfi, type = *data
       assert_equal type, epubcfi(cfi).type
     end
+
+    def test_range_raises_error_when_types_of_start_and_end_subpaths_differ
+      assert_raise ArgumentError do
+        epubcfi('/6/4!/5,~23.5,~23.5@100:100')
+      end
+    end
   end
 
   private
