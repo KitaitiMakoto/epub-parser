@@ -11,9 +11,14 @@ class EPUB::Parser::CFI
   UNICODE_CHARACTER_PATTERN = Regexp.union(UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK_PATTERN, Regexp.new(Regexp.escape(EPUB::CFI::SPECIAL_CHARS), / \.:~@!/))
 
   class << self
-    def parse(string)
-      new.parse(string)
+    def parse(string, debug: false)
+      new(debug: debug).parse(string)
     end
+  end
+
+  def initialize(debug: false)
+    @yydebug = debug
+    super()
   end
 
   def parse(string)
