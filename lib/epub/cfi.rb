@@ -48,6 +48,11 @@ module EPUB
         self
       end
 
+      # @note method name may change in the future
+      def type
+        local_path ? local_path.type : :element
+      end
+
       # @param package [EPUB::Book, EPUB::Publication::Package, EPUB::Book::Features]
       # @todo Consider the case itemref has child elements other than itemref.
       def identify(package)
@@ -126,6 +131,11 @@ module EPUB
       def to_fragment
         @fragment_cache ||= "epubcfi(#{@parent},#{@start},#{@end})".freeze
       end
+
+      # @note method name may change in the future
+      def type
+        self.begin.type
+      end
     end
 
     class LocalPath
@@ -156,6 +166,17 @@ module EPUB
           LocalPath.new(steps, redirected_path + local_path)
         else
           LocalPath.new(steps + local_path.steps, local_path.redirected_path, local_path.offset)
+        end
+      end
+
+      # @note method name may change in the future
+      def type
+        if offset
+          offset.type
+        elsif redirected_path
+          redirected_path.type
+        else
+          :element
         end
       end
 
@@ -216,6 +237,10 @@ module EPUB
         end
         # no consideration
         nil
+      end
+
+      def type
+        (offset || path).type
       end
 
       def each_step_with_instruction
@@ -312,6 +337,10 @@ module EPUB
       def <=>(other)
         offset <=> other.offset
       end
+
+      def type
+        :character_offset
+      end
     end
 
     class TemporalSpatialOffset
@@ -346,6 +375,16 @@ module EPUB
         return -1 if x.nil? and other.x
         return 1 if x and other.x.nil?
         cmp = x <=> other.x
+      end
+
+      def type
+        if temporal and x
+          :temporal_spatial_offset
+        elsif temporal
+          :temporal_offset
+        else
+          :spatial_offset
+        end
       end
     end
   end
