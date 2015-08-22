@@ -4,7 +4,7 @@ require 'epub/parser/cfi'
 
 class TestParserCFI < Test::Unit::TestCase
   def setup
-    @parser = EPUB::Parser::CFI.new
+    @parser = EPUB::Parser::CFI.new(debug: true)
   end
 
   # from http://www.idpf.org/epub/linking/cfi/epub-cfi.html
