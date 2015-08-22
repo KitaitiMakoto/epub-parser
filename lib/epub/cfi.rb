@@ -16,7 +16,7 @@ module EPUB
     class Path
       attr_reader :step, :local_path
 
-      def initialize(step, local_path)
+      def initialize(step, local_path=LocalPath.new)
         @step, @local_path = step, local_path
         @string_cache = @fragment_cache = nil
       end
