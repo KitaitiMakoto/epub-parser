@@ -120,6 +120,7 @@ module EPUB
         @parent, @start, @end = parent_path, start_subpath, end_subpath
         first = @parent + @start
         last = @parent + @end
+        raise ArgumentError, "Types of first and end path differ: #{first.type}, #{last.type}" unless first.type === last.type
         @string_cache = @fragment_cache = nil
         super(first, last, exclude_end)
       end
