@@ -57,11 +57,9 @@ rule
          {result = CFI::TemporalSpatialOffset.new(nil, val[0][0].to_f, val[0][1].to_f, val[2])}
          | TILDE number spatial_offset_zero_or_one assertion_part_zero_or_one
              {
-               result = CFI::TemporalSpatialOffset.new(val[1].to_f, nil, nil, val[3])
-               if val[2]
-                 result.x = val[2][0].to_f
-                 result.y = val[2][1].to_f
-               end
+               x = val[2] ? val[2][0].to_f : nil
+               y = val[2] ? val[2][1].to_f : nil
+               result = CFI::TemporalSpatialOffset.new(val[1].to_f, x, y, val[3])
              }
 
   spatial_offset_zero_or_one : spatial_offset
