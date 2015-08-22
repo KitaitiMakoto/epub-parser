@@ -37,10 +37,7 @@ module EPUB
 
       # @todo FIXME: Don't use #to_s and don't parse it
       def +(additional_local_path)
-        if local_path
-        else
-          Path.new(step, additional_local_path)
-        end
+        Path.new(step, local_path + additional_local_path)
       end
 
       def each_step_with_instruction
