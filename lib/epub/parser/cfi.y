@@ -4,7 +4,7 @@
 class EPUB::CFIParser
 rule
 
-  fragment : 'epubcfi' opening_parenthesis path range_zero_or_one closing_parenthesis
+  fragment : 'epubcfi' OPENING_PARENTHESIS path range_zero_or_one CLOSING_PARENTHESIS
              {
                if val[3]
                  result = CFI::Range.new(val[2], *val[3])
@@ -19,7 +19,7 @@ rule
   path : step local_path
            {result = CFI::Path.new(val[0], val[1])}
 
-  range : comma local_path comma local_path
+  range : COMMA local_path COMMA local_path
             {result = [val[1], val[3]]}
 
   local_path : step_zero_or_more redirected_path
@@ -72,21 +72,21 @@ rule
                                  {result = val[1]}
                              |
 
-  number : digit_non_zero digit_zero_or_more fractional_portion_zero_or_one
+  number : DIGIT_NON_ZERO digit_zero_or_more fractional_portion_zero_or_one
              {result = val.join}
-         | zero fractional_portion_zero_or_one
+         | ZERO fractional_portion_zero_or_one
              {result = val.join}
 
   fractional_portion_zero_or_one : fractional_portion
                                  |
 
-  fractional_portion : DOT digit_zero_or_more digit_non_zero
+  fractional_portion : DOT digit_zero_or_more DIGIT_NON_ZERO
                          {result = val.join}
-                     | DOT digit_non_zero
+                     | DOT DIGIT_NON_ZERO
                          {result = val.join}
 
-  integer : zero
-          | digit_non_zero digit_zero_or_more
+  integer : ZERO
+          | DIGIT_NON_ZERO digit_zero_or_more
               {result = val.join}
 
   digit_zero_or_more : digit_zero_or_more digit
@@ -96,12 +96,12 @@ rule
 
   assertion : value_csv_one_or_two parameter_zero_or_more
                 {result = [val[0][0], val[0][1], val[1]]} # Cannot see id assertion or text location assertion when val[0]'s length is 1. It can be done by context.
-            | comma value parameter_zero_or_more
+            | COMMA value parameter_zero_or_more
                 {result = [nil, val[1], val[2]]}
             | parameter parameter_zero_or_more
                 {result = [nil, nil, val[0].merge(val[1])]} # Cannot see id assertion or text location assertion when val[0]'s length is 1. It can be done by context. In EPUBCFI 3.0.1 spec, only side-bias parameter is defined and we can say it's text location assertion of the assertion has parameters. But when the spec is extended and other parameter definitions added, we might become not able to say so.
 
-  value_csv_one_or_two : value comma value
+  value_csv_one_or_two : value COMMA value
                            {result = [val[0], val[2]]}
                        | value
                            {result = [val[0]]}
@@ -113,10 +113,10 @@ rule
                          |
                              {result = {}}
 
-  parameter : semicolon value_no_space equal csv
+  parameter : SEMICOLON value_no_space EQUAL csv
                 {result = {val[1] => val[3]}}
 
-  csv : csv comma value
+  csv : csv COMMA value
           {result = val[0] + [val[2]]}
       | value
           {result = [val[0]]}
@@ -126,17 +126,17 @@ rule
 
   value_no_space: string_escaped_special_chars_excluding_space
 
-  escaped_special_chars : circumflex circumflex
+  escaped_special_chars : CIRCUMFLEX CIRCUMFLEX
                             {result = val[1]}
-                        | circumflex square_brackets
+                        | CIRCUMFLEX square_brackets
                             {result = val[1]}
-                        | circumflex parentheses
+                        | CIRCUMFLEX parentheses
                             {result = val[1]}
-                        | circumflex comma
+                        | CIRCUMFLEX COMMA
                             {result = val[1]}
-                        | circumflex semicolon
+                        | CIRCUMFLEX SEMICOLON
                             {result = val[1]}
-                        | circumflex equal
+                        | CIRCUMFLEX EQUAL
                             {result = val[1]}
 
   character_escaped_special : character_excluding_special_chars
@@ -154,15 +154,7 @@ rule
                                             | escaped_special_chars
 
   digit : ZERO
-        | digit_non_zero
-
-  digit_non_zero : DIGIT_NON_ZERO
-
-  zero : ZERO
-
-  space : SPACE
-
-  circumflex : CIRCUMFLEX
+        | DIGIT_NON_ZERO
 
   square_brackets : opening_square_bracket
                   | closing_square_bracket
@@ -171,21 +163,11 @@ rule
 
   closing_square_bracket : CLOSING_SQUARE_BRACKET
 
-  parentheses : opening_parenthesis
-              | closing_parenthesis
-
-  opening_parenthesis : OPENING_PARENTHESIS
-
-  closing_parenthesis : CLOSING_PARENTHESIS
-
-  comma : COMMA
-
-  semicolon : SEMICOLON
-
-  equal : EQUAL
+  parentheses : OPENING_PARENTHESIS
+              | CLOSING_PARENTHESIS
 
   character_excluding_special_chars : character_excluding_special_chars_and_space
-                                    | space
+                                    | SPACE
 
   character_excluding_special_chars_and_space : character_excluding_special_chars_and_space_and_dot_and_colon_and_tilde_and_atmark_and_solidus_and_exclamation_mark
                                               | DOT
