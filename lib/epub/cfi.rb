@@ -37,7 +37,10 @@ module EPUB
 
       # @todo FIXME: Don't use #to_s and don't parse it
       def +(additional_local_path)
-        Parser::CFI.parse('epubcfi(' + to_s + local_path.to_s + ')')
+        if local_path
+        else
+          Path.new(step, additional_local_path)
+        end
       end
 
       def each_step_with_instruction
