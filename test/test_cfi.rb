@@ -74,6 +74,12 @@ class TestCFI < Test::Unit::TestCase
         epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3!:10')
       assert_equal 1, epubcfi('/6/4') <=> epubcfi('/6')
     end
+
+    def test_plus
+      first_node = EPUB::CFI::Path.new(EPUB::CFI::Step.new(6))
+      second_node = EPUB::CFI::LocalPath.new([EPUB::CFI::Step.new(4)])
+      assert_equal '/6/4', (first_node + second_node).to_s
+    end
   end
 
   class TestRange < self
