@@ -205,14 +205,16 @@ module EPUB
 
           first_paths = parent_path.collect(&:dup)
           if start_subpath
-            offset_of_first = start_subpath.last.offset.dup
+            offset_of_first = start_subpath.last.offset
+            offset_of_first = offset_of_first.dup if offset_of_first
             last_of_first_paths = first_paths.pop
             first_paths << last_of_first_paths
             last_of_first_paths.steps.concat start_subpath.shift.steps
             first_paths.concat start_subpath
             first_paths.last.instance_variable_set :@offset, offset_of_first
           end
-          offset_of_last = end_subpath.last.offset.dup
+          offset_of_last = end_subpath.last.offset
+          offset_of_last = offset_of_last.dup if offset_of_last
           last_paths = parent_path.collect(&:dup)
           last_of_last_paths = last_paths.pop
           last_paths << last_of_last_paths
