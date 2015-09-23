@@ -35,7 +35,6 @@ module EPUB
         local_path <=> other.local_path
       end
 
-      # @todo FIXME: Don't use #to_s and don't parse it
       def +(additional_local_path)
         Path.new(step, local_path + additional_local_path)
       end
