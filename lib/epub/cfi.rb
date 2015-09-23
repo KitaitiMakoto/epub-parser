@@ -13,16 +13,79 @@ module EPUB
       end
     end
 
-    class Path
-      attr_reader :step, :local_path
+    class Location
+      attr_reader :paths
 
-      def initialize(step, local_path=LocalPath.new)
-        @step, @local_path = step, local_path
-        @string_cache = @fragment_cache = nil
+      def initialize(paths=[])
+        @paths = paths
+      end
+
+      def initialize_copy(original)
+        @paths = original.paths.collect(&:dup)
+      end
+
+      def type
+        @paths.last.type
+      end
+
+      def <=>(other)
+        index = 0
+        other_paths = other.paths
+        cmp = nil
+        paths.each do |path|
+          other_path = other_paths[index]
+          return 1 unless other_path
+          cmp = path <=> other_path
+          break unless cmp == 0
+          index += 1
+        end
+
+        unless cmp == 0
+          if cmp == 1 and other_paths[index + 1]
+            return nil
+          else
+            return cmp
+          end
+        end
+
+        return nil if paths.last.offset && other_paths[index]
+
+        return -1 if other_paths[index]
+
+        0
       end
 
       def to_s
-        @string_cache ||= "#{step}#{local_path}".freeze
+        paths.join('!')
+      end
+
+      def to_fragment
+       "epubcfi(#{self})"
+      end
+
+      def join(*other_paths)
+        new_paths = paths.dup
+        other_paths.each do |path|
+          new_paths << path
+        end
+        self.class.new(new_paths)
+      end
+    end
+
+    class Path
+      attr_reader :steps, :offset
+
+      def initialize(steps=[], offset=nil)
+        @steps, @offset = steps, offset
+      end
+
+      def initialize_copy(original)
+        @steps = original.steps.collect(&:dup)
+        @offset = original.offset.dup if original.offset
+      end
+
+      def to_s
+        @string_cache ||= (steps.join + offset.to_s).freeze
       end
 
       def to_fragment
@@ -30,13 +93,32 @@ module EPUB
       end
 
       def <=>(other)
-        cmp = step <=> other.step
-        return cmp unless cmp == 0
-        local_path <=> other.local_path
-      end
+        other_steps = other.steps
+        index = 0
+        steps.each do |step|
+          other_step = other_steps[index]
+          return 1 unless other_step
+          cmp = step <=> other_step
+          return cmp unless cmp == 0
+          index += 1
+        end
 
-      def +(additional_local_path)
-        Path.new(step, local_path + additional_local_path)
+        return -1 if other_steps[index]
+
+        other_offset = other.offset
+        if offset
+          if other_offset
+            offset <=> other_offset
+          else
+            1
+          end
+        else
+          if other_offset
+            -1
+          else
+            0
+          end
+        end
       end
 
       def each_step_with_instruction
@@ -49,7 +131,7 @@ module EPUB
 
       # @note method name may change in the future
       def type
-        local_path ? local_path.type : :element
+        offset ? offset.type : :element
       end
 
       # @param package [EPUB::Book, EPUB::Publication::Package, EPUB::Book::Features]
@@ -113,15 +195,42 @@ module EPUB
     end
 
     class Range < ::Range
-      attr_reader :parent, :start, :end
+      attr_accessor :parent, :start, :end
 
-      def initialize(parent_path, start_subpath, end_subpath, exclude_end=false)
-        @parent, @start, @end = parent_path, start_subpath, end_subpath
-        first = @parent + @start
-        last = @parent + @end
-        raise ArgumentError, "Types of first and end path differ: #{first.type}, #{last.type}" unless first.type === last.type
-        @string_cache = @fragment_cache = nil
-        super(first, last, exclude_end)
+      # @todo FIXME: too dirty
+      class << self
+        def from_parent_and_start_and_end(parent_path, start_subpath, end_subpath)
+          start_str = start_subpath.join
+          end_str = end_subpath.join
+
+          first_paths = parent_path.collect(&:dup)
+          if start_subpath
+            offset_of_first = start_subpath.last.offset.dup
+            last_of_first_paths = first_paths.pop
+            first_paths << last_of_first_paths
+            last_of_first_paths.steps.concat start_subpath.shift.steps
+            first_paths.concat start_subpath
+            first_paths.last.instance_variable_set :@offset, offset_of_first
+          end
+          offset_of_last = end_subpath.last.offset.dup
+          last_paths = parent_path.collect(&:dup)
+          last_of_last_paths = last_paths.pop
+          last_paths << last_of_last_paths
+          last_of_last_paths.steps.concat end_subpath.shift.steps
+          last_paths.concat end_subpath
+          last_paths.last.instance_variable_set :@offset, offset_of_last
+
+          first = CFI::Location.new(first_paths)
+          last = CFI::Location.new(last_paths)
+
+          new_range = new(first, last)
+
+          new_range.parent = Location.new(parent_path)
+          new_range.start = start_str
+          new_range.end = end_str
+
+          new_range
+        end
       end
 
       def to_s
@@ -138,136 +247,17 @@ module EPUB
       end
     end
 
-    class LocalPath
-      attr_reader :steps, :redirected_path, :offset
-
-      def initialize(steps=[], redirected_path=nil, offset=nil)
-        @steps, @redirected_path, @offset = steps, redirected_path, offset
-        @string_cache = nil
-      end
-
-      def to_s
-        @string_cache ||= "#{steps.map(&:to_s).join}#{redirected_path}#{offset}".freeze
-      end
-
-      def <=>(other)
-        cmp = steps <=> other.steps
-        return cmp unless cmp == 0
-        cmp = redirected_path <=> other.redirected_path
-        return cmp unless cmp == 0
-        return -1 if offset.nil? and other.offset
-        return 1 if offset and other.offset.nil?
-        offset <=> other.offset
-      end
-
-      def +(local_path)
-        raise NotImplementedError if offset
-        if redirected_path
-          LocalPath.new(steps, redirected_path + local_path)
-        else
-          LocalPath.new(steps + local_path.steps, local_path.redirected_path, local_path.offset)
-        end
-      end
-
-      # @note method name may change in the future
-      def type
-        if offset
-          offset.type
-        elsif redirected_path
-          redirected_path.type
-        else
-          :element
-        end
-      end
-
-      def each_step_with_instruction
-        steps.each do |step|
-          instruction = (offset && step == steps.last) ? offset : nil
-          yield [step, instruction]
-        end
-        if redirected_path
-          redirected_path.each_step_with_instruction do |step, instruction|
-            yield [step, instruction]
-          end
-        end
-        self
-      end
-    end
-
-    class RedirectedPath
-      attr_reader :path, :offset
-
-      def initialize(path, offset=nil)
-        @path, @offset = path, offset
-        @string_cache = nil
-      end
-
-      def to_s
-        return @string_cache if @string_cache
-        @string_cache = '!'
-        @string_cache << (path ? path.to_s : offset.to_s)
-        @string_cache.freeze
-      end
-
-      def <=>(other)
-        if offset and offset.kind_of? TemporalSpatialOffset
-          if other.offset.kind_of? TemporalSpatialOffset
-            # If other has offset attribute, it doesn't have path attribute
-            # If other.offset is a character offset, always self is greater than other
-            return offset <=> other.offset
-          else
-            return 1
-          end
-        end
-        if path
-          if other.offset.kind_of? TemporalSpatialOffset
-            return -1
-          elsif other.path
-            return path <=> other.path
-          else
-            return 1
-          end
-        end
-        # self.offset is a CharacterOffset
-        if other.offset.kind_of? CharacterOffset
-          return offset <=> other.offset
-        else
-          # redirected path with character offset is lesser than path and other types of offset(character offset)
-          return -1
-        end
-        # no consideration
-        nil
-      end
-
-      def type
-        (offset || path).type
-      end
-
-      def each_step_with_instruction
-        return self unless path
-        first = true
-        path.each_step_with_instruction do |step, instruction|
-          if first
-            yield [step, :indirection]
-          else
-            yield [step, nil]
-          end
-        end
-        self
-      end
-
-      def +(local_path)
-        raise NotImplementedError if offset
-        RedirectedPath.new(path + local_path)
-      end
-    end
-
     class Step
       attr_reader :step, :assertion
 
       def initialize(step, assertion=nil)
         @step, @assertion = step, assertion
         @string_cache = nil
+      end
+
+      def initialize_copy(original)
+        @step = original.step
+        @assertion = original.assertion.dup if original.assertion
       end
 
       def to_s

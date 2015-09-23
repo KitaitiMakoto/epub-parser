@@ -7,9 +7,9 @@ rule
   fragment : path range_zero_or_one
              {
                if val[1]
-                 result = CFI::Range.new(val[0], *val[1])
+                 result = CFI::Range.from_parent_and_start_and_end(val[0], *val[1])
                else
-                 result = val[0]
+                 result = CFI::Location.new(val[0])
                end
              }
 
@@ -17,15 +17,19 @@ rule
                     |
 
   path : step local_path
-           {result = CFI::Path.new(val[0], val[1])}
+           {
+             path, redirected_path = *val[1]
+             path.steps.unshift val[0]
+             result = val[1]
+           }
 
   range : COMMA local_path COMMA local_path
             {result = [val[1], val[3]]}
 
   local_path : step_zero_or_more redirected_path
-                 {result = CFI::LocalPath.new(val[0], val[1], nil)}
+                 {result = [CFI::Path.new(val[0])] + val[1]}
              | step_zero_or_more offset_zero_or_one
-                 {result = CFI::LocalPath.new(val[0], nil, val[1])}
+                 {result = [CFI::Path.new(val[0], val[1])]}
 
   step_zero_or_more : step_zero_or_more step
                         {result = val[0] + [val[1]]}
@@ -35,9 +39,9 @@ rule
                         {result = []}
 
   redirected_path : EXCLAMATION_MARK offset
-                      {result = CFI::RedirectedPath.new(nil, val[1])}
+                      {result = [CFI::Path.new([], val[1])]}
                   | EXCLAMATION_MARK path
-                      {result = CFI::RedirectedPath.new(val[1])}
+                      {result = val[1]}
 
   step : SOLIDUS integer assertion_part_zero_or_one
            {
