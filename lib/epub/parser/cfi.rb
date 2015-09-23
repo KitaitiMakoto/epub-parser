@@ -22,12 +22,13 @@ class EPUB::Parser::CFI
   end
 
   def parse(string)
+    if string.start_with? 'epubcfi('
+      string = string['epubcfi('.length .. -2]
+    end
     @scanner = StringScanner.new(string, true)
     @q = []
     until @scanner.eos?
       case
-      when @scanner.scan(/epubcfi/)
-        @q << ['epubcfi', @scanner[0]]
       when @scanner.scan(/[1-9]/)
         @q << [:DIGIT_NON_ZERO, @scanner[0]]
       when @scanner.scan(/0/)

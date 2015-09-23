@@ -4,12 +4,12 @@
 class EPUB::CFIParser
 rule
 
-  fragment : 'epubcfi' OPENING_PARENTHESIS path range_zero_or_one CLOSING_PARENTHESIS
+  fragment : path range_zero_or_one
              {
-               if val[3]
-                 result = CFI::Range.new(val[2], *val[3])
+               if val[1]
+                 result = CFI::Range.new(val[0], *val[1])
                else
-                 result = val[2]
+                 result = val[0]
                end
              }
 
