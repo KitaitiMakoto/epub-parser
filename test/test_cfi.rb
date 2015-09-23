@@ -361,7 +361,7 @@ class TestCFI < Test::Unit::TestCase
   private
 
   def epubcfi(string)
-    EPUB::Parser::CFI.new.parse('epubcfi(' + string + ')')
+    EPUB::Parser::CFI.new.parse(string)
   end
 
   def assert_equal_node(expected, actual, message='')
