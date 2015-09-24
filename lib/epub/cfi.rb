@@ -138,6 +138,7 @@ module EPUB
     class Range < ::Range
       attr_accessor :parent, :start, :end
 
+      # @todo consider the case subpaths are redirected path
       # @todo FIXME: too dirty
       class << self
         def from_parent_and_start_and_end(parent_path, start_subpath, end_subpath)
