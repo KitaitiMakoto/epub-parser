@@ -128,11 +128,6 @@ module EPUB
         end
         self
       end
-
-      # @note method name may change in the future
-      def type
-        offset ? offset.type : :element
-      end
     end
 
     class Range < ::Range
@@ -183,11 +178,6 @@ module EPUB
 
       def to_fragment
         @fragment_cache ||= "epubcfi(#{@parent},#{@start},#{@end})".freeze
-      end
-
-      # @note method name may change in the future
-      def type
-        self.begin.type
       end
     end
 
@@ -271,10 +261,6 @@ module EPUB
       def <=>(other)
         offset <=> other.offset
       end
-
-      def type
-        :character_offset
-      end
     end
 
     class TemporalSpatialOffset
@@ -309,16 +295,6 @@ module EPUB
         return -1 if x.nil? and other.x
         return 1 if x and other.x.nil?
         cmp = x <=> other.x
-      end
-
-      def type
-        if temporal and x
-          :temporal_spatial_offset
-        elsif temporal
-          :temporal_offset
-        else
-          :spatial_offset
-        end
       end
     end
   end

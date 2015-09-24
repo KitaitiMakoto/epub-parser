@@ -206,32 +206,6 @@ class TestCFI < Test::Unit::TestCase
     end
   end
 
-  class TestType < self
-    data({
-      'simple path' => ['/6/4', :element],
-      'redirected path' => ['/6/4!/3', :element],
-      'character offset' => ['/6/4!/3:4', :character_offset],
-      'temporal offset' => ['/6/4!/3~23.5', :temporal_offset],
-      'spatial offset' => ['/6/4!/3@0:0', :spatial_offset],
-      'temporal spatial offset' => ['/6/4!/3~23.5@0:0', :temporal_spatial_offset],
-      'range of simple paths' => ['/6/4!/3,/5,/8', :element],
-      'range of character offsets' => ['/6/4!/3,:4,:6', :character_offset],
-      'range of temporal offsets' => ['/6/4!/3,~23.5,~24', :temporal_offset],
-      'range of spatial offsets' => ['/6/4!/3,@0:0,@100:100', :spatial_offset],
-      'range of temporal spatial offset' => ['/6/4!/3,~23.5@0:0,~24@100:100', :temporal_spatial_offset]
-    })
-    def test_type(data)
-      cfi, type = *data
-      assert_equal type, epubcfi(cfi).type
-    end
-
-    def test_range_raises_error_when_types_of_start_and_end_subpaths_differ
-      # assert_raise ArgumentError do
-        epubcfi('/6/4!/5,~23.5,~23.5@100:100')
-      # end
-    end
-  end
-
   private
 
   def epubcfi(string)
