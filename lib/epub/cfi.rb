@@ -133,65 +133,6 @@ module EPUB
       def type
         offset ? offset.type : :element
       end
-
-      # @param package [EPUB::Book, EPUB::Publication::Package, EPUB::Book::Features]
-      # @todo Consider the case itemref has child elements other than itemref.
-      def identify(package)
-        if package.kind_of? EPUB::Book::Features
-          book = package
-          package = book.package
-        else
-          book = package.book
-        end
-
-        # FIXME: Too dirty
-        # TODO: Consider non-epub namespaced elements
-        raise NotImplementedError unless step.step == 6
-        current = package.spine
-        return {:node => current} if local_path.steps.empty?
-        raise NotImplementedError unless local_path.steps.length == 1 # FIXME: invalid rather than not implemented
-        current = current.itemrefs[local_path.steps.first.step/2 - 1]
-        raise NotImplementedError if local_path.offset # FIXME: invalid rather than not implemented
-        return {:node => current} unless local_path.redirected_path
-        raise NotImplementedError unless current.item.xhtml? # FIXME: invalid rather than not implemented
-        current = current.item.content_document.nokogiri.root
-
-        local_path.redirected_path.path.each_step_with_instruction do |s, instruction|
-          if s.step.odd?
-            current = s.step == 1 ?
-              current.children[0] :
-              current.elements[(s.step-1)/2 - 1]
-            begin
-              return if current.nil? || current.element?
-              if current.text?
-                result = {:node => current}
-                result[:offset] = instruction if instruction.kind_of? CharacterOffset
-                return result
-              end
-            end until current.text? || current.element? || current.nil?
-          end
-          case instruction
-          when :indirection
-            case current.name
-            when 'iframe', 'embed'
-              raise NotImplementedError
-            when 'object'
-              raise NotImplementedError
-            when 'image', 'use'
-              raise NotImplementedError
-            else
-              raise NotImplementedError # invalid rather than not implemented
-            end
-          when CharacterOffset
-            raise NotImplementedError
-          when TemporalSpatialOffset
-            raise NotImplementedError
-          else
-            current = current.elements[s.step/2 - 1]
-          end
-        end
-        {:node => current}
-      end
     end
 
     class Range < ::Range
