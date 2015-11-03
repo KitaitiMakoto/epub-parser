@@ -151,60 +151,60 @@ class TestCFI < Test::Unit::TestCase
     end
   end
 
-    class TestSpatialOffset < self
-      def test_to_s
-        assert_equal '@0.5:30.2', EPUB::CFI::TemporalSpatialOffset.new(nil, 0.5, 30.2).to_s
-        assert_equal '@0:100', EPUB::CFI::TemporalSpatialOffset.new(nil, 0, 100).to_s
-        assert_equal '@50:50.0', EPUB::CFI::TemporalSpatialOffset.new(nil, 50, 50.0).to_s
-      end
-
-      def test_compare
-        assert_equal 0,
-          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40)
-        assert_equal 1,
-          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(nil, 40, 30)
-      end
+  class TestSpatialOffset < self
+    def test_to_s
+      assert_equal '@0.5:30.2', EPUB::CFI::TemporalSpatialOffset.new(nil, 0.5, 30.2).to_s
+      assert_equal '@0:100', EPUB::CFI::TemporalSpatialOffset.new(nil, 0, 100).to_s
+      assert_equal '@50:50.0', EPUB::CFI::TemporalSpatialOffset.new(nil, 50, 50.0).to_s
     end
 
-    class TestTemporalOffset < self
-      def test_to_s
-        assert_equal '~23.5', EPUB::CFI::TemporalSpatialOffset.new(23.5).to_s
-      end
+    def test_compare
+      assert_equal 0,
+        EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40)
+      assert_equal 1,
+        EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(nil, 40, 30)
+    end
+  end
 
-      def test_compare
-        assert_equal 0,
-          EPUB::CFI::TemporalSpatialOffset.new(23.5) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(23.5)
-        assert_equal -1,
-          EPUB::CFI::TemporalSpatialOffset.new(23) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(23.5)
-      end
+  class TestTemporalOffset < self
+    def test_to_s
+      assert_equal '~23.5', EPUB::CFI::TemporalSpatialOffset.new(23.5).to_s
     end
 
-    class TestTemporalSpatialOffset < self
-      def test_to_s
-        assert_equal '~23.5@50:30.0', EPUB::CFI::TemporalSpatialOffset.new(23.5, 50, 30.0).to_s
-      end
+    def test_compare
+      assert_equal 0,
+        EPUB::CFI::TemporalSpatialOffset.new(23.5) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(23.5)
+      assert_equal -1,
+        EPUB::CFI::TemporalSpatialOffset.new(23) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(23.5)
+    end
+  end
 
-      def test_compare
-        assert_equal 0,
-          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40.0)
-        assert_equal 1,
-          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(23.5)
-        assert_equal -1,
-          EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40)
-        assert_equal -1,
-          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 50)
-        assert_equal 1,
-          EPUB::CFI::TemporalSpatialOffset.new(24, 30, 40) <=>
-          EPUB::CFI::TemporalSpatialOffset.new(23.5, 100, 100)
-      end
+  class TestTemporalSpatialOffset < self
+    def test_to_s
+      assert_equal '~23.5@50:30.0', EPUB::CFI::TemporalSpatialOffset.new(23.5, 50, 30.0).to_s
+    end
+
+    def test_compare
+      assert_equal 0,
+        EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40.0)
+      assert_equal 1,
+        EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(23.5)
+      assert_equal -1,
+        EPUB::CFI::TemporalSpatialOffset.new(nil, 30, 40) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40)
+      assert_equal -1,
+        EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 40) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(23.5, 30, 50)
+      assert_equal 1,
+        EPUB::CFI::TemporalSpatialOffset.new(24, 30, 40) <=>
+        EPUB::CFI::TemporalSpatialOffset.new(23.5, 100, 100)
+    end
   end
 
   private
