@@ -31,8 +31,8 @@ class TestParserCFI < Test::Unit::TestCase
     data
   })
   def test_raise_no_error_on_parsing_valid_cfi(cfi)
-    # assert_nothing_raised do
+    assert_nothing_raised do
       @parser.parse(cfi)
-    # end
+    end
   end
 end
