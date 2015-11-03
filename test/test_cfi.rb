@@ -149,6 +149,7 @@ class TestCFI < Test::Unit::TestCase
         EPUB::CFI::CharacterOffset.new(4, EPUB::CFI::TextLocationAssertion.new(nil, 'xx')) <=>
         EPUB::CFI::CharacterOffset.new(2)
     end
+  end
 
     class TestSpatialOffset < self
       def test_to_s
@@ -204,7 +205,6 @@ class TestCFI < Test::Unit::TestCase
           EPUB::CFI::TemporalSpatialOffset.new(24, 30, 40) <=>
           EPUB::CFI::TemporalSpatialOffset.new(23.5, 100, 100)
       end
-    end
   end
 
   private
