@@ -52,6 +52,10 @@ module EPUB
           languages.first
         end
 
+        def modified
+          metas.find {|meta| meta.property == 'dcterms:modified'}
+        end
+
         def to_h
           DC_ELEMS.inject({}) do |hsh, elem|
             hsh[elem] = __send__(elem)
