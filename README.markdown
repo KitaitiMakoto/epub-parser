@@ -159,6 +159,8 @@ RECENT CHANGES
 * Implement `EPUB::CFI` and `EPUB::Parser::CFI`
 * Remove [nokogumbo][] from dependencies. It ommits `head` and `body` elements
 * Remove Cucumber and Cucumber features
+* Add `EPUB::Publication::Package::Metadata#modified` and `EPUB::Book::Features#modified`
+* Add `EPUB::Book::Features#release_identifier`
 
 [nokogumbo]: https://github.com/rubys/nokogumbo/
 
