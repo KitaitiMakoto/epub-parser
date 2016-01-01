@@ -177,10 +177,6 @@ RECENT CHANGES
 
 [archive-zip]: https://github.com/javanthropus/archive-zip
 
-### 0.2.0
-
-* Make it possible to parse file system directory as an EPUB file. See {file:docs/UnpackedArchive.markdown} for details.
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
