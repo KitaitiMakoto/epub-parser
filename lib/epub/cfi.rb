@@ -201,6 +201,14 @@ module EPUB
       def <=>(other)
         step <=> other.step
       end
+
+      def element?
+        step.even?
+      end
+
+      def character_data?
+        step.odd?
+      end
     end
 
     class IDAssertion
