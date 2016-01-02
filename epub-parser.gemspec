@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
   s.has_rdoc = 'yard'
 
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'archive-zip'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-doc'
   s.add_development_dependency 'test-unit'
@@ -41,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'racc'
   s.add_development_dependency 'nokogiri-diff'
 
+  s.add_runtime_dependency 'archive-zip'
   s.add_runtime_dependency 'zipruby'
   s.add_runtime_dependency 'nokogiri', '~> 1.6'
   s.add_runtime_dependency 'addressable', '>= 2.3.5'
