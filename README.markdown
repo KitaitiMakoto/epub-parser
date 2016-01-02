@@ -155,6 +155,7 @@ RECENT CHANGES
 
 * Bug fix for `EPUB::CFI::Location#<=>`
 * Change default physical container adapter from `EPUB::OCF::PhysicalContainer::ZipRuby` to `EPUB::OCF::PhysicalContainer::ArchiveZip`
+* Change attribute name: `EPUB::CFI::Step#step` -> `EPUB::CFI::Step#value`, `EPUB::CFI::CharacterOffset#offset` -> `EPUB::CFI::CharacterOffset#value`
 * Show modified on `epubinfo` command
 
 ### 0.2.3
