@@ -41,7 +41,7 @@ module EPUB
         end
 
         unless cmp == 0
-          if cmp == 1 and other_paths[index + 1]
+          if cmp == 1 and paths[index].offset and other_paths[index + 1]
             return nil
           else
             return cmp
