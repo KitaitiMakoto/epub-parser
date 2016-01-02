@@ -182,32 +182,33 @@ module EPUB
     end
 
     class Step
-      attr_reader :step, :assertion
+      attr_reader :value, :assertion
+      alias step value
 
-      def initialize(step, assertion=nil)
-        @step, @assertion = step, assertion
+      def initialize(value, assertion=nil)
+        @value, @assertion = value, assertion
         @string_cache = nil
       end
 
       def initialize_copy(original)
-        @step = original.step
+        @value = original.value
         @assertion = original.assertion.dup if original.assertion
       end
 
       def to_s
-        @string_cache ||= "/#{step}#{assertion}".freeze # need escape?
+        @string_cache ||= "/#{value}#{assertion}".freeze # need escape?
       end
 
       def <=>(other)
-        step <=> other.step
+        value <=> other.value
       end
 
       def element?
-        step.even?
+        value.even?
       end
 
       def character_data?
-        step.odd?
+        value.odd?
       end
     end
 
