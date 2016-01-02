@@ -44,7 +44,7 @@ class TestParser < Test::Unit::TestCase
     assert_equal 'Mon premier guide de cuisson, un Mémoire', epub.main_title
     assert_equal File.read('test/fixtures/book/OPS/nav.xhtml'), epub.nav.read
     assert_equal EPUB::OCF::PhysicalContainer::UnpackedDirectory, epub.container_adapter
-    assert_equal EPUB::OCF::PhysicalContainer::Zipruby, EPUB::OCF::PhysicalContainer.adapter
+    assert_equal EPUB::OCF::PhysicalContainer::ArchiveZip, EPUB::OCF::PhysicalContainer.adapter
   end
 
   class TestBook < TestParser

@@ -43,6 +43,7 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     end
   end
 
+  require 'epub/ocf/physical_container/zipruby'
   class TestZipruby < self
     include ConcreteContainer
 
@@ -71,7 +72,6 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     end
   end
 
-  require 'epub/ocf/physical_container/archive_zip'
   class TestArchiveZip < self
     include ConcreteContainer
 
