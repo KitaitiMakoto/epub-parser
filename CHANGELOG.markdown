@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.2.4
+-----
+
+* Change default physical container adapter from `EPUB::OCF::PhysicalContainer::ZipRuby` to `EPUB::OCF::PhysicalContainer::ArchiveZip`
+
 0.2.3
 -----
 
