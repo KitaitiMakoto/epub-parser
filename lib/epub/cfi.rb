@@ -256,19 +256,20 @@ module EPUB
     end
 
     class CharacterOffset
-      attr_reader :offset, :assertion
+      attr_reader :value, :assertion
+      alias offset value
 
-      def initialize(offset, assertion=nil)
-        @offset, @assertion = offset, assertion
+      def initialize(value, assertion=nil)
+        @value, @assertion = value, assertion
         @string_cache = nil
       end
 
       def to_s
-        @string_cache ||= ":#{offset}#{assertion}".freeze # need escape?
+        @string_cache ||= ":#{value}#{assertion}".freeze # need escape?
       end
 
       def <=>(other)
-        offset <=> other.offset
+        value <=> other.value
       end
     end
 
