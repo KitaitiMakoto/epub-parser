@@ -153,6 +153,7 @@ RECENT CHANGES
 
 ### 0.2.4
 
+* Bug fix for `EPUB::CFI::Location#<=>`
 * Change default physical container adapter from `EPUB::OCF::PhysicalContainer::ZipRuby` to `EPUB::OCF::PhysicalContainer::ArchiveZip`
 * Show modified on `epubinfo` command
 
