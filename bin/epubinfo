@@ -41,6 +41,7 @@ end
 book = EPUB::Parser.parse(file)
 data = {'Title' => [book.title]}
 data.merge!(book.metadata.to_h)
+data['modified'] = [book.modified]
 data['Unique identifier'] = [book.metadata.unique_identifier]
 data['EPUB Version'] = [book.package.version]
 counts = {:chars => 0, :words => 0}
