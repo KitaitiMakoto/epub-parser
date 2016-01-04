@@ -17,7 +17,8 @@ module EPUB
           @items = {}
         end
 
-        # @return self
+        # @param item [Item]
+        # @return [Manifest] self
         def <<(item)
           item.manifest = self
           @items[item.id] = item
@@ -34,18 +35,26 @@ module EPUB
           end
         end
 
+        # @return [Array<Item>] item which includes "nav" as one of +properties+. It represents this item is a navigation of book.
         def navs
           items.select(&:nav?)
         end
 
+        # @return [Item, nil] the first item of #navs
         def nav
           navs.first
         end
 
+        # @return [Item, nil] item which includes "cover-image" as one of +properties+. It represents this item is cover image.
         def cover_image
           items.find(&:cover_image?)
         end
 
+        # @overload each_item
+        #   @yield [item]
+        #   @yieldparam [Item]
+        # @overload each_item
+        #   @return [Enumerator]
         def each_item
           if block_given?
             @items.each_value do |item|
@@ -60,6 +69,8 @@ module EPUB
           @items.values
         end
 
+        # @param item_id [String]
+        # @return [Item, nil]
         def [](item_id)
           @items[item_id]
         end
