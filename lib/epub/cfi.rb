@@ -85,11 +85,11 @@ module EPUB
       end
 
       def to_s
-        @string_cache ||= (steps.join + offset.to_s).freeze
+        @string_cache ||= (steps.join + offset.to_s)
       end
 
       def to_fragment
-        @fragment_cache ||= "epubcfi(#{self})".freeze
+        @fragment_cache ||= "epubcfi(#{self})"
       end
 
       def <=>(other)
@@ -173,11 +173,11 @@ module EPUB
       end
 
       def to_s
-        @string_cache ||= (first.to_fragment + (exclude_end? ? '...' : '..') + last.to_fragment).freeze
+        @string_cache ||= (first.to_fragment + (exclude_end? ? '...' : '..') + last.to_fragment)
       end
 
       def to_fragment
-        @fragment_cache ||= "epubcfi(#{@parent},#{@start},#{@end})".freeze
+        @fragment_cache ||= "epubcfi(#{@parent},#{@start},#{@end})"
       end
     end
 
@@ -196,7 +196,7 @@ module EPUB
       end
 
       def to_s
-        @string_cache ||= "/#{value}#{assertion}".freeze # need escape?
+        @string_cache ||= "/#{value}#{assertion}" # need escape?
       end
 
       def <=>(other)
@@ -229,7 +229,7 @@ module EPUB
           @string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
         @string_cache << ']'
-        @string_cache.freeze
+        @string_cache
       end
     end
 
@@ -251,7 +251,7 @@ module EPUB
           @string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
         @string_cache << ']'
-        @string_cache.freeze
+        @string_cache
       end
     end
 
@@ -265,7 +265,7 @@ module EPUB
       end
 
       def to_s
-        @string_cache ||= ":#{value}#{assertion}".freeze # need escape?
+        @string_cache ||= ":#{value}#{assertion}" # need escape?
       end
 
       def <=>(other)
@@ -289,7 +289,7 @@ module EPUB
         @string_cache = ''
         @string_cache << "~#{temporal}" if temporal
         @string_cache << "@#{x}:#{y}" if x or y
-        @string_cache.freeze
+        @string_cache
       end
 
       # @note should split the class to spatial offset and temporal-spatial offset?
