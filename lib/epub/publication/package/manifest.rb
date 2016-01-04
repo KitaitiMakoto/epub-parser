@@ -43,7 +43,7 @@ module EPUB
         end
 
         def cover_image
-          items.select(&:cover_image?).first
+          items.find(&:cover_image?)
         end
 
         def each_item
