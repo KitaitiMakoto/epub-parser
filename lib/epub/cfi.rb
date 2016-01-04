@@ -222,14 +222,14 @@ module EPUB
 
       def to_s
         return @string_cache if @string_cache
-        @string_cache = '['
-        @string_cache << CFI.escape(id) if id
+        string_cache = '['
+        string_cache << CFI.escape(id) if id
         parameters.each_pair do |key, values|
           value = values.join(',')
-          @string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
+          string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
-        @string_cache << ']'
-        @string_cache
+        string_cache << ']'
+        @string_cache = string_cache
       end
     end
 
@@ -243,15 +243,15 @@ module EPUB
 
       def to_s
         return @string_cache if @string_cache
-        @string_cache = '['
-        @string_cache << CFI.escape(preceded) if preceded
-        @string_cache << ',' << CFI.escape(followed) if followed
+        string_cache = '['
+        string_cache << CFI.escape(preceded) if preceded
+        string_cache << ',' << CFI.escape(followed) if followed
         parameters.each_pair do |key, values|
           value = values.join(',')
-          @string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
+          string_cache << ";#{CFI.escape(key)}=#{CFI.escape(value)}"
         end
-        @string_cache << ']'
-        @string_cache
+        string_cache << ']'
+        @string_cache = string_cache
       end
     end
 
@@ -286,10 +286,10 @@ module EPUB
 
       def to_s
         return @string_cache if @string_cache
-        @string_cache = ''
-        @string_cache << "~#{temporal}" if temporal
-        @string_cache << "@#{x}:#{y}" if x or y
-        @string_cache
+        string_cache = ''
+        string_cache << "~#{temporal}" if temporal
+        string_cache << "@#{x}:#{y}" if x or y
+        @string_cache = string_cache
       end
 
       # @note should split the class to spatial offset and temporal-spatial offset?
