@@ -281,7 +281,7 @@ module EPUB
         raise RangeError, "dimension must be in 0..100 but passed #{y}" unless (0.0..100.0).cover?(y) if y
         warn "Assertion is passed to #{__class__} but cannot know how to handle with it: #{assertion}" if assertion
         @temporal, @x, @y, @assertion = temporal, x, y, assertion
-        @string_cache
+        @string_cache = nil
       end
 
       def to_s
