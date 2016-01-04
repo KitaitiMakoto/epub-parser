@@ -34,6 +34,24 @@ You can access them by:
 Manifest
 --------
 
+{EPUB::Publication::Package::Manifest Manifest} lists all the files in the package with some basic information such as filepath, media type and so on. Those files is represented as {EPUB::Publication::Package::Manifest::Item Item}s and see {file:docs/Item.markdown} for details.
+
+You can access manifest by:
+
+    manifest = book.package.manifest # => EPUB::Publication::Package::Manifest
+
+And can access items it manages via some methods:
+
+    manifest.items # => an array of Items
+    manifest.cover_image # => Item which represents cover images, which includes the string "cover-image" in its property attribute.
+    manifest.each_item do |item|
+      # do something with item
+    end
+    manifest.navs # => an array of Items which include the string "nav" in its property attribute.
+    manifest.nav # => The first Item in manifest.navs.
+
+For complete list of methods, see API reference: {EPUB::Publication::Package::Manifest}
+
 Spine
 -----
 
