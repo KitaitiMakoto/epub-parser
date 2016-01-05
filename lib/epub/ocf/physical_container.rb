@@ -6,6 +6,8 @@ module EPUB
   class OCF
     # @todo: Make thread save
     class PhysicalContainer
+      class NoEntry < StandardError; end
+
       @adapter = ArchiveZip
 
       class << self

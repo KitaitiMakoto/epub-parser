@@ -41,6 +41,8 @@ module EPUB
                 return entry.file_data.read
               end
             end
+
+            raise NoEntry
           else
             open {|container| container.read(path_name)}
           end
