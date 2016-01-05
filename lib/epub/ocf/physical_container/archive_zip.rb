@@ -22,8 +22,8 @@ module EPUB
         end
 
         def read(path_name)
-          target_index = @entries[path_name]
           if @archive
+            target_index = @entries[path_name]
             @archive.each.with_index do |entry, index|
               if target_index
                 if target_index == index
