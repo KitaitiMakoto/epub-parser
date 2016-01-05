@@ -1,7 +1,6 @@
 require 'epub/constants'
 require 'epub/ocf'
 require 'epub/ocf/physical_container'
-require 'zipruby'
 require 'nokogiri'
 
 module EPUB
@@ -27,7 +26,9 @@ module EPUB
           begin
             data = @container.read(File.join(DIRECTORY, "#{m}.xml"))
             @ocf.__send__ "#{m}=", __send__("parse_#{m}", data)
-          rescue ::Zip::Error, ::Errno::ENOENT, OpenURI::HTTPError
+          rescue ::Errno::ENOENT, OpenURI::HTTPError
+          rescue => error
+            raise error unless (Object.const_defined? :Zip and ::Zip.const_defined? :Error and error.kind_of? ::Zip::Error)
           end
         end
 
