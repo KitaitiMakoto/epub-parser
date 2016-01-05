@@ -4,7 +4,7 @@ CHANGELOG
 0.2.5
 -----
 
-* [BUG FIX]RaiseDon't load Zip/Ruby if unneccessary
+* [BUG FIX]Don't load Zip/Ruby if unneccessary
 * Raise error when PhysicalContainer::ArchiveZip fails find entry
 * Remove unused files in schemas directory
 

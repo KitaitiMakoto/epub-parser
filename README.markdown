@@ -153,7 +153,7 @@ RECENT CHANGES
 
 ### 0.2.5
 
-* [BUG FIX]RaiseDon't load Zip/Ruby if unneccessary
+* [BUG FIX]Don't load Zip/Ruby if unneccessary
 
 ### 0.2.4
 
