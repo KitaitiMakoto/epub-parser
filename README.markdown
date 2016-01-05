@@ -151,6 +151,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.5
+
+* [BUG FIX]RaiseDon't load Zip/Ruby if unneccessary
+
 ### 0.2.4
 
 * Bug fix for `EPUB::CFI::Location#<=>`
