@@ -12,11 +12,13 @@ module EPUB
 
         def open
           Archive::Zip.open @container_path do |archive|
-            @archive = archive
-            begin
-              yield self
-            ensure
-              @archive = nil
+            @monitor.synchronize do
+              @archive = archive
+              begin
+                yield self
+              ensure
+                @archive = nil
+              end
             end
           end
         end

@@ -1,3 +1,4 @@
+require 'monitor'
 require 'epub/ocf/physical_container/archive_zip'
 require 'epub/ocf/physical_container/unpacked_directory'
 require 'epub/ocf/physical_container/unpacked_uri'
@@ -43,6 +44,7 @@ module EPUB
 
       def initialize(container_path)
         @container_path = container_path
+        @monitor = Monitor.new
       end
     end
   end

@@ -6,11 +6,13 @@ module EPUB
       class Zipruby < self
         def open
           Zip::Archive.open @container_path do |archive|
-            begin
-              @archive = archive
-              yield self
-            ensure
-              @archive = nil
+            @monitor.synchronize do
+              begin
+                @archive = archive
+                yield self
+              ensure
+                @archive = nil
+              end
             end
           end
         end
