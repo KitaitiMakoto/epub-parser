@@ -16,7 +16,7 @@ module EPUB
 
       def_delegators :package, *Publication::Package::CONTENT_MODELS
       def_delegators :metadata, :title, :main_title, :subtitle, :short_title, :collection_title, :edition_title, :extended_title, :description, :date, :unique_identifier, :modified
-      def_delegators :manifest, :nav
+      def_delegators :manifest, :nav, :cover_image
 
       def release_identifier
         "#{unique_identifier}@#{modified}"
@@ -75,11 +75,6 @@ module EPUB
       # Syntax sugar
       def rootfile_path
         ocf.container.rootfile.full_path.to_s
-      end
-
-      # Syntax sugar
-      def cover_image
-        manifest.cover_image
       end
     end
   end
