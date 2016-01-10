@@ -16,12 +16,7 @@ module EPUB
 
       def_delegators :package, *Publication::Package::CONTENT_MODELS
       def_delegators :metadata, :title, :main_title, :subtitle, :short_title, :collection_title, :edition_title, :extended_title, :description, :date, :unique_identifier, :modified
-
-      %w[nav].each do |met|
-        define_method met do
-          manifest.__send__(met)
-        end
-      end
+      def_delegators :manifest, :nav
 
       def release_identifier
         "#{unique_identifier}@#{modified}"
