@@ -15,12 +15,7 @@ module EPUB
       end
 
       def_delegators :package, *Publication::Package::CONTENT_MODELS
-
-      %w[title main_title subtitle short_title collection_title edition_title extended_title description date unique_identifier modified].each do |met|
-        define_method met do
-          metadata.__send__(met)
-        end
-      end
+      def_delegators :metadata, :title, :main_title, :subtitle, :short_title, :collection_title, :edition_title, :extended_title, :description, :date, :unique_identifier, :modified
 
       %w[nav].each do |met|
         define_method met do
