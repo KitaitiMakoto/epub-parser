@@ -2,6 +2,12 @@ require 'forwardable'
 
 module EPUB
   class Book
+    # @!attribute ocf
+    #   When writing, sets +ocf.book+ to self.
+    #   @return [OCF]
+    # @!attribute package
+    #   When writing, sets +ocf.book+ to self.
+    #   @return [Publication::Package]
     module Features
       extend Forwardable
       modules = [:ocf, :package]
