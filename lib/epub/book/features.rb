@@ -81,7 +81,6 @@ module EPUB
       def cover_image
         manifest.cover_image
       end
-
     end
   end
 end
