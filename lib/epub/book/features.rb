@@ -20,6 +20,7 @@ module EPUB
         end
       end
 
+      # @!parse def_delegators :package, :metadata, :manifest, :spine, :guide, :bindings
       def_delegators :package, *Publication::Package::CONTENT_MODELS
       def_delegators :metadata, :title, :main_title, :subtitle, :short_title, :collection_title, :edition_title, :extended_title, :description, :date, :unique_identifier, :modified
       def_delegators :manifest, :nav, :cover_image
