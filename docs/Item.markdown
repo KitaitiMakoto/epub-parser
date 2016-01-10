@@ -4,7 +4,7 @@ Overview
 ========
 
 When manipulating resources (XHTML, images, audio...) in EPUB, {EPUB::Publication::Package::Manifest::Item} object will be used.
-And objects which {EPUB#each_page_on_spine} yields are also instances of this class.
+And objects which {EPUB::Book::Features#each_page_on_spine} yields are also instances of this class.
 
 Here's the tutorial of this class.
 
