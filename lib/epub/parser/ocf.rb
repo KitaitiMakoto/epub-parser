@@ -27,8 +27,6 @@ module EPUB
             data = @container.read(File.join(DIRECTORY, "#{m}.xml"))
             @ocf.__send__ "#{m}=", __send__("parse_#{m}", data)
           rescue EPUB::OCF::PhysicalContainer::NoEntry, ::Errno::ENOENT, OpenURI::HTTPError
-          rescue => error
-            raise error unless (Object.const_defined? :Zip and ::Zip.const_defined? :Error and error.kind_of? ::Zip::Error)
           end
         end
 

@@ -10,6 +10,10 @@ module EPUB
               begin
                 @archive = archive
                 yield self
+              rescue ::Zip::Error => error
+                no_entry = NoEntry.new(error.message)
+                no_entry.set_backtrace error.backtrace
+                raise no_entry
               ensure
                 @archive = nil
               end
