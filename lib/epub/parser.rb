@@ -46,11 +46,14 @@ module EPUB
                      options[:container_adapter] == :UnpackedURI or
                      EPUB::OCF::PhysicalContainer.adapter == EPUB::OCF::PhysicalContainer::UnpackedURI)
 
-      raise "File #{filepath} not readable" if
-        !path_is_uri and !File.readable_real?(filepath)
+      raise "File #{filepath} not found" if
+        !path_is_uri and !File.exist?(filepath)
 
       @filepath = path_is_uri ? filepath : File.realpath(filepath)
       @book = create_book(options)
+      if File.directory? @filepath
+        @book.container_adapter = :UnpackedDirectory
+      end
       @book.epub_file = @filepath
       if options[:container_adapter]
         adapter = options[:container_adapter]
