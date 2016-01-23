@@ -34,8 +34,7 @@ module EPUB
       end
 
       def container_adapter=(adapter)
-        @adapter = adapter.instance_of?(Class) ? adapter : OCF::PhysicalContainer.const_get(adapter)
-        adapter
+        @adapter = OCF::PhysicalContainer.find_adapter(adapter)
       end
 
       # @overload each_page_on_spine(&blk)
