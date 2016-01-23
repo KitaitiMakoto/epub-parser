@@ -1,6 +1,6 @@
-require 'bundler/gem_helper'
 require 'rake/clean'
 require 'rake/testtask'
+require 'rubygems/tasks'
 require 'yard'
 require 'rdoc/task'
 require 'epub/parser/version'
@@ -54,10 +54,10 @@ namespace :doc do
   end
 end
 
-namespace :gem do
-  Bundler::GemHelper.install_tasks
-  task :build => [:clean, CFI_TAB]
+Gem::Tasks.new do |tasks|
+  tasks.console.command = 'pry'
 end
+task :build => [:clean, CFI_TAB]
 
 class ForwardableDefDelegatorsHandler < YARD::Handlers::Ruby::Base
   handles method_call(:def_delegators)
