@@ -7,6 +7,7 @@ CHANGELOG
 * [BUG FIX]Don't load Zip/Ruby if unneccessary
 * Raise error when PhysicalContainer::ArchiveZip fails find entry
 * Remove unused files in schemas directory
+* Add `EPUB::CFI::PhysicalContainer.find_adapter`
 
 0.2.4
 -----

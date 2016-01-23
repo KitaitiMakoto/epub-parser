@@ -154,6 +154,7 @@ RECENT CHANGES
 ### 0.2.5
 
 * [BUG FIX]Don't load Zip/Ruby if unneccessary
+* Add `EPUB::CFI::PhysicalContainer.find_adapter`
 
 ### 0.2.4
 
