@@ -12,6 +12,14 @@ module EPUB
       @adapter = ArchiveZip
 
       class << self
+        def find_adapter(adapter)
+          return adapter if adapter.instance_of? Class
+          if adapter == :Zipruby && ! const_defined?(adapter)
+            require 'epub/ocf/physical_container/zipruby'
+          end
+          const_get adapter
+        end
+
         def adapter
           raise NoMethodError, "undefined method `#{__method__}' for #{self}" unless self == PhysicalContainer
           @adapter
