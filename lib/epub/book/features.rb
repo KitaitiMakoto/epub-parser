@@ -79,6 +79,7 @@ module EPUB
       end
 
       # Syntax sugar
+      # @return String
       def rootfile_path
         ocf.container.rootfile.full_path.to_s
       end
