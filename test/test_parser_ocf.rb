@@ -35,4 +35,3 @@ class TestParserOCF < Test::Unit::TestCase
     end
   end
 end
-
