@@ -135,7 +135,7 @@ REQUIREMENTS
 ------------
 * Ruby 2.1.0 or later
 * `patch` command to install Nokogiri
-* C compiler to compile Zip/Ruby and Nokogiri
+* C compiler to compile Nokogiri
 
 Related Gems
 ------------
