@@ -15,7 +15,7 @@ Methods for {EPUB::Publication::Package}
 
 It is `true` when `package@prefix` attribute has `rendition` property.
 
-    parser = EPUB::Parser::Publication.new(<<OPF, 'dummy/rootfile.opf')
+    parser = EPUB::Parser::Publication.new(<<OPF)
     <package version="3.0"
              unique-identifier="pub-id"
              xmlns="http://www.idpf.org/2007/opf"

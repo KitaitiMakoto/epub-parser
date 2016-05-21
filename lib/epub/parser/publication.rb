@@ -16,9 +16,9 @@ module EPUB
         end
       end
 
-      def initialize(opf, rootfile)
+      def initialize(opf, rootfile=nil)
+        warn "Second argument for #{self.class}.new is deprecated" if rootfile
         @package = EPUB::Publication::Package.new
-        @rootfile = Addressable::URI.parse(rootfile)
         @doc = Nokogiri.XML(opf)
       end
 

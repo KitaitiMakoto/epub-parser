@@ -7,7 +7,7 @@ class TestParserPublication < Test::Unit::TestCase
     rootfile = 'OPS/ルートファイル.opf'
     @zip = Zip::Archive.open(file)
     opf = @zip.fopen(rootfile).read
-    @parser = EPUB::Parser::Publication.new(opf, rootfile)
+    @parser = EPUB::Parser::Publication.new(opf)
     @package = @parser.parse_package
   end
 
@@ -32,7 +32,7 @@ class TestParserPublication < Test::Unit::TestCase
   end
 
   def test_has_empty_hash_as_prefix_when_no_prefix_attribute
-    parser = EPUB::Parser::Publication.new('<package></package>', '')
+    parser = EPUB::Parser::Publication.new('<package></package>')
     package = parser.parse_package
     assert_empty package.prefix
   end
