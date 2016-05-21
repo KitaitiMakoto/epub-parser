@@ -23,7 +23,8 @@ module EPUB
       end
 
       def parse
-        ([:package] + EPUB::Publication::Package::CONTENT_MODELS).each do |model|
+        parse_package
+        EPUB::Publication::Package::CONTENT_MODELS.each do |model|
           __send__ "parse_#{model}"
         end
 
