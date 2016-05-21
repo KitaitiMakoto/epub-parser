@@ -7,8 +7,9 @@ class TestParserPublication < Test::Unit::TestCase
     rootfile = 'OPS/ルートファイル.opf'
     @zip = Zip::Archive.open(file)
     opf = @zip.fopen(rootfile).read
+    @opf = Nokogiri.XML(opf)
     @parser = EPUB::Parser::Publication.new(opf)
-    @package = @parser.parse_package
+    @package = @parser.parse_package(@opf)
   end
 
   def teardown
@@ -20,7 +21,7 @@ class TestParserPublication < Test::Unit::TestCase
   end
 
   def test_has_unique_identifier
-    @package.metadata = @parser.parse_metadata
+    @package.metadata = @parser.parse_metadata(@opf)
     assert_equal 'pub-id', @package.unique_identifier.id
     assert_equal 'da265185-8da8-462d-a146-17dd388f61fc', @package.unique_identifier.to_s
   end
@@ -32,15 +33,16 @@ class TestParserPublication < Test::Unit::TestCase
   end
 
   def test_has_empty_hash_as_prefix_when_no_prefix_attribute
-    parser = EPUB::Parser::Publication.new('<package></package>')
-    package = parser.parse_package
+    opf = '<package></package>'
+    parser = EPUB::Parser::Publication.new(opf)
+    package = parser.parse_package(Nokogiri.XML(opf))
     assert_empty package.prefix
   end
 
   class TestParseMetadata < TestParserPublication
     def setup
       super
-      @metadata = @parser.parse_metadata
+      @metadata = @parser.parse_metadata(@opf)
     end
 
     def test_has_identifier
@@ -78,7 +80,7 @@ class TestParserPublication < Test::Unit::TestCase
   class TestParseManifest < TestParserPublication
     def setup
       super
-      @package.manifest = @manifest = @parser.parse_manifest
+      @package.manifest = @manifest = @parser.parse_manifest(@opf)
     end
 
     def test_manifest_has_19_items
@@ -164,7 +166,7 @@ class TestParserPublication < Test::Unit::TestCase
   class TestParseSpine < TestParserPublication
     def setup
       super
-      @spine = @parser.parse_spine
+      @spine = @parser.parse_spine(@opf)
     end
 
     def atest_each_itemref_yields_itemref_in_order_on_spine_element
@@ -184,7 +186,7 @@ class TestParserPublication < Test::Unit::TestCase
   class TestParseGuide < TestParserPublication
     def setup
       super
-      @package.guide = @guide = @parser.parse_guide
+      @package.guide = @guide = @parser.parse_guide(@opf)
     end
 
     def test_guide_has_one_reference
@@ -197,7 +199,7 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_reference_refers_item
-      @package.manifest = @parser.parse_manifest
+      @package.manifest = @parser.parse_manifest(@opf)
 
       assert_instance_of EPUB::Publication::Package::Manifest::Item, @guide.cover.item
     end
@@ -206,8 +208,8 @@ class TestParserPublication < Test::Unit::TestCase
   class TestParseBindings < TestParserPublication
     def setup
       super
-      @package.manifest = @parser.parse_manifest
-      @package.bindings = @bindings = @parser.parse_bindings(@package.manifest)
+      @package.manifest = @parser.parse_manifest(@opf)
+      @package.bindings = @bindings = @parser.parse_bindings(@opf, @package.manifest)
     end
 
     def test_has_one_bindings
