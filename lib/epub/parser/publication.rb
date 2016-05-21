@@ -22,13 +22,13 @@ module EPUB
       end
 
       def parse
-        @package = parse_package
+        package = parse_package
         (EPUB::Publication::Package::CONTENT_MODELS - [:bindings]).each do |model|
-          @package.__send__ "#{model}=",  __send__("parse_#{model}")
+          package.__send__ "#{model}=",  __send__("parse_#{model}")
         end
-        @package.bindings = parse_bindings(@package.manifest)
+        package.bindings = parse_bindings(package.manifest)
 
-        @package
+        package
       end
 
       def parse_package
