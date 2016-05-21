@@ -37,7 +37,6 @@ module EPUB
         %w[version xml:lang dir id].each do |attr|
           package.__send__ "#{attr.gsub(/\:/, '_')}=", extract_attribute(elem, attr)
         end
-        @unique_identifier_id = elem['unique-identifier']
         package.prefix = parse_prefix(extract_attribute(elem, 'prefix'))
         EPUB::Publication.__send__ :include, EPUB::Publication::FixedLayout if package.prefix.key? EPUB::Publication::FixedLayout::PREFIX_KEY
 
@@ -46,12 +45,13 @@ module EPUB
 
       def parse_metadata(doc)
         metadata = EPUB::Publication::Package::Metadata.new
+        unique_identifier_id = doc.root['unique-identifier']
         elem = doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
         id_map = {}
 
         metadata.identifiers = extract_model(elem, id_map, './dc:identifier', :Identifier, ['id']) {|identifier, e|
           identifier.scheme = extract_attribute(e, 'scheme', 'opf')
-          metadata.unique_identifier = identifier if identifier.id == @unique_identifier_id
+          metadata.unique_identifier = identifier if identifier.id == unique_identifier_id
         }
         metadata.titles = extract_model(elem, id_map, './dc:title', :Title)
         metadata.languages = extract_model(elem, id_map, './dc:language', :DCMES, %w[id])
