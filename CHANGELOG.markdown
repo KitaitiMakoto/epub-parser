@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.2.6
+-----
+
+* Add `EPUB::Publication::Package::Metadata#package_identifier` as alias of `#release_identifier`, which is defined in EPUB Publication 3.0 spec
+* [BUG FIX]Metadata#modified returns modified with no refiners
+
 0.2.5
 -----
 

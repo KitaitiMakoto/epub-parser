@@ -151,6 +151,11 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.6
+
+* Add `EPUB::Publication::Package::Metadata#package_identifier` as alias of `#release_identifier`
+* [BUG FIX]Metadata#modified returns modified with no refiners
+
 ### 0.2.5
 
 * [BUG FIX]Don't load Zip/Ruby if unneccessary
