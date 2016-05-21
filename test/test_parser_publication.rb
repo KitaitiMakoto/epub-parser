@@ -207,7 +207,7 @@ class TestParserPublication < Test::Unit::TestCase
     def setup
       super
       @package.manifest = @parser.parse_manifest
-      @package.bindings = @bindings = @parser.parse_bindings
+      @package.bindings = @bindings = @parser.parse_bindings(@package.manifest)
     end
 
     def test_has_one_bindings

@@ -18,20 +18,21 @@ module EPUB
 
       def initialize(opf, rootfile=nil)
         warn "Second argument for #{self.class}.new is deprecated" if rootfile
-        @package = EPUB::Publication::Package.new
         @doc = Nokogiri.XML(opf)
       end
 
       def parse
-        parse_package
-        EPUB::Publication::Package::CONTENT_MODELS.each do |model|
+        @package = parse_package
+        (EPUB::Publication::Package::CONTENT_MODELS - [:bindings]).each do |model|
           @package.__send__ "#{model}=",  __send__("parse_#{model}")
         end
+        @package.bindings = parse_bindings(@package.manifest)
 
         @package
       end
 
       def parse_package
+        @package = EPUB::Publication::Package.new
         elem = @doc.root
         %w[version xml:lang dir id].each do |attr|
           @package.__send__ "#{attr.gsub(/\:/, '_')}=", extract_attribute(elem, attr)
@@ -133,12 +134,12 @@ module EPUB
         guide
       end
 
-      def parse_bindings
+      def parse_bindings(handler_map)
         bindings = EPUB::Publication::Package::Bindings.new
         @doc.xpath('/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES).each do |elem|
           media_type = EPUB::Publication::Package::Bindings::MediaType.new
           media_type.media_type = extract_attribute(elem, 'media-type')
-          media_type.handler = @package.manifest[extract_attribute(elem, 'handler')]
+          media_type.handler = handler_map[extract_attribute(elem, 'handler')]
           bindings << media_type
         end
 
