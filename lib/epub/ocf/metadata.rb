@@ -1,6 +1,7 @@
 module EPUB
   class OCF
-    class Metadata
+    class UnknownFormatMetadata
+      attr_accessor :content
     end
   end
 end

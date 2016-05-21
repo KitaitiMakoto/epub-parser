@@ -1,12 +1,14 @@
 require 'epub/constants'
 require 'epub/ocf'
 require 'epub/ocf/physical_container'
+require 'epub/parser/metadata'
 require 'nokogiri'
 
 module EPUB
   class Parser
     class OCF
       include Utils
+      include Metadata
 
       DIRECTORY = 'META-INF'
 
@@ -57,7 +59,14 @@ module EPUB
       end
 
       def parse_metadata(content)
-        warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
+        doc = Nokogiri.XML(content)
+        unless multiple_rendition_metadata?(doc)
+          warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
+          metadata = EPUB::OCF::UnknownFormatMetadata.new
+          metadata.content = content
+          return metadata
+        end
+        super(doc.root, doc.root['unique-identifier'], 'metadata')
       end
 
       def parse_rights(content)
@@ -66,6 +75,14 @@ module EPUB
 
       def parse_signatures(content)
         warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
+      end
+
+      private
+
+      def multiple_rendition_metadata?(doc)
+        doc.root &&
+          doc.root.name == 'metadata' &&
+          doc.namespaces['xmlns'] == EPUB::NAMESPACES['metadata']
       end
     end
   end

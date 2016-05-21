@@ -1,7 +1,7 @@
 module EPUB
   class Parser
     module Metadata
-      def parse_metadata(elem, unique_identifier_id)
+      def parse_metadata(elem, unique_identifier_id, default_namespace)
         metadata = EPUB::Publication::Package::Metadata.new
         id_map = {}
 
@@ -15,7 +15,7 @@ module EPUB
           metadata.__send__ "#{dcmes}s=", extract_model(elem, id_map, "./dc:#{dcmes}")
         end
         metadata.rights = extract_model(elem, id_map, './dc:rights')
-        metadata.metas = extract_refinee(elem, id_map, './opf:meta', :Meta, %w[property id scheme])
+        metadata.metas = extract_refinee(elem, id_map, "./#{default_namespace}:meta", :Meta, %w[property id scheme])
         metadata.links = extract_refinee(elem, id_map, './opf:link', :Link, %w[id media-type]) {|link, e|
           link.href = extract_attribute(e, 'href')
           link.rel = Set.new(extract_attribute(e, 'rel').split(nil))

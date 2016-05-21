@@ -22,13 +22,8 @@ module EPUB
 
       # @!parse def_delegators :package, :metadata, :manifest, :spine, :guide, :bindings
       def_delegators :package, *Publication::Package::CONTENT_MODELS
-      def_delegators :metadata, :title, :main_title, :subtitle, :short_title, :collection_title, :edition_title, :extended_title, :description, :date, :unique_identifier, :modified
+      def_delegators :metadata, :title, :main_title, :subtitle, :short_title, :collection_title, :edition_title, :extended_title, :description, :date, :unique_identifier, :modified, :release_identifier, :package_identifier
       def_delegators :manifest, :nav, :cover_image
-
-      def release_identifier
-        "#{unique_identifier}@#{modified}"
-      end
-      alias package_identifier release_identifier
 
       def container_adapter
         @adapter || OCF::PhysicalContainer.adapter

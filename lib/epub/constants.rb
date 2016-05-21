@@ -7,7 +7,8 @@ module EPUB
     'epub'  => 'http://www.idpf.org/2007/ops',
     'm'     => 'http://www.w3.org/1998/Math/MathML',
     'svg'   => 'http://www.w3.org/2000/svg',
-    'smil'  => 'http://www.w3.org/ns/SMIL'
+    'smil'  => 'http://www.w3.org/ns/SMIL',
+    'metadata' => 'http://www.idpf.org/2013/metadata'
   }
 
   module MediaType

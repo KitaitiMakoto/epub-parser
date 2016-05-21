@@ -25,7 +25,6 @@ module EPUB
     end
 
     module PublicationModel
-      TEMPLATE = "#<%{class}:%{object_id} @package=%{package} %{attributes}>"
       class << self
         def included(mod)
           mod.__send__ :include, Inspector
@@ -33,12 +32,18 @@ module EPUB
       end
 
       def inspect
-        TEMPLATE % {
+        template % {
           :class      => self.class,
-          :package    => package.inspect_simply,
+          :package    => (package && package.inspect_simply),
           :object_id  => inspect_object_id,
           :attributes => inspect_instance_variables(exclude: [:@package])
         }
+      end
+
+      def template
+        t = "#<%{class}:%{object_id}"
+        t << " @package=%{package}" if package
+        t << " %{attributes}>"
       end
     end
   end

@@ -20,6 +20,11 @@ module EPUB
       end
     end
 
+    def release_identifier
+      "#{unique_identifier}@#{modified}"
+    end
+    alias package_identifier release_identifier
+
     def title
       return extended_title unless extended_title.empty?
       compositted = titles.select {|title| title.display_seq}.sort.join("\n")
