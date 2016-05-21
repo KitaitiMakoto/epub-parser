@@ -156,6 +156,9 @@ RECENT CHANGES
 * Add `EPUB::Publication::Package::Metadata#package_identifier` as alias of `#release_identifier`
 * [BUG FIX]Metadata#modified returns modified with no refiners
 * Make second argument for `EPUB::Parser::Publication.new` deprecated
+* Add META-INF/metadata.xml support defined in [EPUB Multiple-Rendition Publications 1.0][multi-rendition]
+
+[multi-rendition]: http://www.idpf.org/epub/renditions/multiple/
 
 ### 0.2.5
 
