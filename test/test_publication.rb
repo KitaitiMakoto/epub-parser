@@ -19,6 +19,10 @@ class TestPublication < Test::Unit::TestCase
   end
 
   class TestMetadata < TestPublication
+    def setup
+      @metadata = Package::Metadata.new
+    end
+
     def test_meta_refines_setter_connect_refinee_to_the_meta
       refiner = Package::Metadata::Meta.new
       refinee = Package::Metadata::Meta.new
@@ -133,6 +137,38 @@ class TestPublication < Test::Unit::TestCase
       meta.refines = title
 
       assert_true meta.subexpression?
+    end
+
+    def test_modified_returns_meta_with_modified_property
+      modified = Package::Metadata::Meta.new
+      modified.property = 'dcterms:modified'
+
+      @metadata.metas << modified
+
+      assert_equal modified, @metadata.modified
+    end
+
+    def test_modified_doesnt_return_meta_with_modified_property_refined
+      modified = Package::Metadata::Meta.new
+      modified.property = 'dcterms:modified'
+      refiner = Package::Metadata::Meta.new
+      refiner.refines = modified
+      @metadata.metas << modified << refiner
+
+      assert_nil @metadata.modified
+    end
+
+    def test_modified_returns_meta_with_modified_property_not_refined
+      modified1 = Package::Metadata::Meta.new
+      modified1.property = 'dcterms:modified'
+      refiner = Package::Metadata::Meta.new
+      refiner.refines = modified1
+      modified2 = Package::Metadata::Meta.new
+      modified2.property = 'dcterms:modified'
+
+      @metadata.metas << modified1 << refiner << modified2
+
+      assert_equal modified2, @metadata.modified
     end
 
     class TestIdentifier < self
