@@ -2,32 +2,36 @@ require 'forwardable'
 
 module EPUB
   class Book
-    # @!attribute ocf
-    #   When writing, sets +ocf.book+ to self.
-    #   @return [OCF]
-    # @!attribute package
-    #   When writing, sets +ocf.book+ to self.
-    #   @return [Publication::Package]
     module Features
       extend Forwardable
       attr_reader :ocf
       attr_writer :package
       attr_accessor :epub_file
 
+      # When writing, sets +ocf.book+ to self.
+      # @param [OCF]
       def ocf=(mod)
         @ocf = mod
         mod.book = self
+        mod
       end
 
+      # @return [Array<Publication::Package>]
       def packages
         @packages ||= []
       end
       alias renditions packages
 
+      # Syntax sugar.
+      # Returns package set by +package=+.
+      # Returns default rendition if any package has not been set ever.
+      # @return [Publication::Package]
       def package
         @package || default_rendition
       end
 
+      # First +package+ in +packages+
+      # @return [Package|nil]
       def default_rendition
         packages ? packages.first : nil
       end
