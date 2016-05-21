@@ -1,10 +1,8 @@
 module EPUB
   class Parser
     module Metadata
-      def parse_metadata(doc)
+      def parse_metadata(elem, unique_identifier_id)
         metadata = EPUB::Publication::Package::Metadata.new
-        unique_identifier_id = doc.root['unique-identifier']
-        elem = doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
         id_map = {}
 
         metadata.identifiers = extract_model(elem, id_map, './dc:identifier', :Identifier, ['id']) {|identifier, e|

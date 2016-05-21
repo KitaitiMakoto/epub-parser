@@ -45,6 +45,10 @@ module EPUB
         package
       end
 
+      def parse_metadata(doc)
+        super(doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first, doc.root['unique-identifier'])
+      end
+
       def parse_manifest(doc)
         manifest = EPUB::Publication::Package::Manifest.new
         elem = doc.xpath('/opf:package/opf:manifest', EPUB::NAMESPACES).first
