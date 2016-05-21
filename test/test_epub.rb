@@ -17,5 +17,9 @@ class TestEUPB < Test::Unit::TestCase
       assert_kind_of EPUB::Publication::Package::Manifest::Item, entry
     end
   end
-end
 
+  def test_book_has_multiple_packages
+    book = EPUB::Parser.parse(@file)
+    assert_instance_of Array, book.packages
+  end
+end

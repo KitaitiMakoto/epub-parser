@@ -10,14 +10,26 @@ module EPUB
     #   @return [Publication::Package]
     module Features
       extend Forwardable
-      modules = [:ocf, :package]
-      attr_reader *modules
+      attr_reader :ocf
+      attr_writer :package
       attr_accessor :epub_file
-      modules.each do |mod|
-        define_method "#{mod}=" do |obj|
-          instance_variable_set "@#{mod}", obj
-          obj.book = self
-        end
+
+      def ocf=(mod)
+        @ocf = mod
+        mod.book = self
+      end
+
+      def packages
+        @packages ||= []
+      end
+      alias renditions packages
+
+      def package
+        @package || default_rendition
+      end
+
+      def default_rendition
+        packages ? packages.first : nil
       end
 
       # @!parse def_delegators :package, :metadata, :manifest, :spine, :guide, :bindings
