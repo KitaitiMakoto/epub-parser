@@ -169,32 +169,6 @@ RECENT CHANGES
 * Change attribute name: `EPUB::CFI::Step#step` -> `EPUB::CFI::Step#value`, `EPUB::CFI::CharacterOffset#offset` -> `EPUB::CFI::CharacterOffset#value`
 * Show modified on `epubinfo` command
 
-### 0.2.3
-
-* Change the name of physical container adapter for file system: :File -> :UnpackedDirectory
-* Add `EPUB::Publication::Package::Manifest::Item#full_path`
-* Make #href= acceptable String
-* Implement `EPUB::CFI` and `EPUB::Parser::CFI`
-* Remove [nokogumbo][] from dependencies. It ommits `head` and `body` elements
-* Remove Cucumber and Cucumber features
-* Add `EPUB::Publication::Package::Metadata#modified` and `EPUB::Book::Features#modified`
-* Add `EPUB::Book::Features#release_identifier`
-
-[nokogumbo]: https://github.com/rubys/nokogumbo/
-
-### 0.2.2
-
-* [BUGFIX]Item#entry_name returns normalized IRI
-
-### 0.2.1
-
-* Remove deprecated `EPUB::Constants::MediaType::UnsupportedError`. Use `UnsupportedMediatType` instead.
-* Make it possible to use [archive-zip][] gem to extract contents from EPUB package
-* Add warning about default physical container adapter change
-* Make it possible to extract contents from the web via `EPUB::OCF::PhysicalContainer::UnpackedURI` See {file:ExtractContentsFromWeb.markdown} for details.
-
-[archive-zip]: https://github.com/javanthropus/archive-zip
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
