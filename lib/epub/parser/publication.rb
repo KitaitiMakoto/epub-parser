@@ -32,16 +32,16 @@ module EPUB
       end
 
       def parse_package
-        @package = EPUB::Publication::Package.new
+        package = EPUB::Publication::Package.new
         elem = @doc.root
         %w[version xml:lang dir id].each do |attr|
-          @package.__send__ "#{attr.gsub(/\:/, '_')}=", extract_attribute(elem, attr)
+          package.__send__ "#{attr.gsub(/\:/, '_')}=", extract_attribute(elem, attr)
         end
         @unique_identifier_id = elem['unique-identifier']
-        @package.prefix = parse_prefix(extract_attribute(elem, 'prefix'))
-        EPUB::Publication.__send__ :include, EPUB::Publication::FixedLayout if @package.prefix.key? EPUB::Publication::FixedLayout::PREFIX_KEY
+        package.prefix = parse_prefix(extract_attribute(elem, 'prefix'))
+        EPUB::Publication.__send__ :include, EPUB::Publication::FixedLayout if package.prefix.key? EPUB::Publication::FixedLayout::PREFIX_KEY
 
-        @package
+        package
       end
 
       def parse_metadata
