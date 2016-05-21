@@ -25,7 +25,7 @@ module EPUB
       def parse
         parse_package
         EPUB::Publication::Package::CONTENT_MODELS.each do |model|
-          __send__ "parse_#{model}"
+          @package.__send__ "#{model}=",  __send__("parse_#{model}")
         end
 
         @package
@@ -44,7 +44,7 @@ module EPUB
       end
 
       def parse_metadata
-        metadata = @package.metadata = EPUB::Publication::Package::Metadata.new
+        metadata = EPUB::Publication::Package::Metadata.new
         elem = @doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first
         id_map = {}
 
@@ -74,7 +74,7 @@ module EPUB
       end
 
       def parse_manifest
-        manifest = @package.manifest = EPUB::Publication::Package::Manifest.new
+        manifest = EPUB::Publication::Package::Manifest.new
         elem = @doc.xpath('/opf:package/opf:manifest', EPUB::NAMESPACES).first
         manifest.id = extract_attribute(elem, 'id')
 
@@ -99,7 +99,7 @@ module EPUB
       end
 
       def parse_spine
-        spine = @package.spine = EPUB::Publication::Package::Spine.new
+        spine = EPUB::Publication::Package::Spine.new
         elem = @doc.xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
         %w[id toc page-progression-direction].each do |attr|
           spine.__send__ "#{attr.gsub(/-/, '_')}=", extract_attribute(elem, attr)
@@ -120,7 +120,7 @@ module EPUB
       end
 
       def parse_guide
-        guide = @package.guide = EPUB::Publication::Package::Guide.new
+        guide = EPUB::Publication::Package::Guide.new
         @doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
           reference = EPUB::Publication::Package::Guide::Reference.new
           %w[type title].each do |attr|
@@ -134,7 +134,7 @@ module EPUB
       end
 
       def parse_bindings
-        bindings = @package.bindings = EPUB::Publication::Package::Bindings.new
+        bindings = EPUB::Publication::Package::Bindings.new
         @doc.xpath('/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES).each do |elem|
           media_type = EPUB::Publication::Package::Bindings::MediaType.new
           media_type.media_type = extract_attribute(elem, 'media-type')

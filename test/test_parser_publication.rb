@@ -78,7 +78,7 @@ class TestParserPublication < Test::Unit::TestCase
   class TestParseManifest < TestParserPublication
     def setup
       super
-      @manifest = @parser.parse_manifest
+      @package.manifest = @manifest = @parser.parse_manifest
     end
 
     def test_manifest_has_19_items
@@ -184,7 +184,7 @@ class TestParserPublication < Test::Unit::TestCase
   class TestParseGuide < TestParserPublication
     def setup
       super
-      @guide = @parser.parse_guide
+      @package.guide = @guide = @parser.parse_guide
     end
 
     def test_guide_has_one_reference
@@ -197,7 +197,7 @@ class TestParserPublication < Test::Unit::TestCase
     end
 
     def test_reference_refers_item
-      @parser.parse_manifest
+      @package.manifest = @parser.parse_manifest
 
       assert_instance_of EPUB::Publication::Package::Manifest::Item, @guide.cover.item
     end
@@ -207,8 +207,7 @@ class TestParserPublication < Test::Unit::TestCase
     def setup
       super
       @package.manifest = @parser.parse_manifest
-      @bindings = @parser.parse_bindings
-      @bindings.package = @package
+      @package.bindings = @bindings = @parser.parse_bindings
     end
 
     def test_has_one_bindings
