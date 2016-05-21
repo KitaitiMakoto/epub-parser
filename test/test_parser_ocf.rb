@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require File.expand_path 'helper', File.dirname(__FILE__)
+require 'zipruby'
 
 class TestParserOCF < Test::Unit::TestCase
   def setup
