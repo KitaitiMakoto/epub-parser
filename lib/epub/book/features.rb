@@ -28,6 +28,7 @@ module EPUB
       def release_identifier
         "#{unique_identifier}@#{modified}"
       end
+      alias package_identifier release_identifier
 
       def container_adapter
         @adapter || OCF::PhysicalContainer.adapter
