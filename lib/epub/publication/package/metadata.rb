@@ -53,7 +53,10 @@ module EPUB
         end
 
         def modified
-          metas.find {|meta| meta.property == 'dcterms:modified'}
+          metas.find {|meta|
+            meta.property == 'dcterms:modified' &&
+              meta.refiners.empty?
+          }
         end
 
         def to_h
