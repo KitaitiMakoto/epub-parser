@@ -179,7 +179,6 @@ See {file:CHANGELOG.markdown} for older changelogs and details.
 TODOS
 -----
 * EPUB 3.0.1
-* Multiple rootfiles
 * Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
@@ -200,6 +199,7 @@ DONE
 * Vocabulary Association Mechanisms(only for itemref)
 * Archive library abstraction
 * Extracting and organizing common behavior from some classes to modules
+* Multiple rootfiles
 
 LICENSE
 -------
