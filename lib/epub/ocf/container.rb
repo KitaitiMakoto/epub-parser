@@ -15,7 +15,8 @@ module EPUB
       end
 
       class Rootfile
-        attr_accessor :full_path, :media_type
+        attr_accessor :full_path, :media_type,
+                      :package
 
         # @param full_path [Addressable::URI|nil]
         # @param media_type [String]
