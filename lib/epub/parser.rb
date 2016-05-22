@@ -66,6 +66,7 @@ module EPUB
         @book.ocf = OCF.parse(container)
         @book.ocf.container.rootfiles.each {|rootfile|
           package = Publication.parse(container, rootfile.full_path.to_s)
+          rootfile.package = package
           @book.packages << package
           package.book = @book
         }
