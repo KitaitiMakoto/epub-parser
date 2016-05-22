@@ -16,6 +16,11 @@ module EPUB
         mod
       end
 
+      # @return [Array<OCF::Container::Rootfile>]
+      def rootfiles
+        ocf.container.rootfiles
+      end
+
       # @return [Array<Publication::Package>]
       def packages
         @packages ||= []
