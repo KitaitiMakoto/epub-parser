@@ -16,7 +16,7 @@ module EPUB
         end
         metadata.rights = extract_model(elem, id_map, './dc:rights')
         metadata.metas = extract_refinee(elem, id_map, "./#{default_namespace}:meta", :Meta, %w[property id scheme])
-        metadata.links = extract_refinee(elem, id_map, './opf:link', :Link, %w[id media-type]) {|link, e|
+        metadata.links = extract_refinee(elem, id_map, "./#{default_namespace}:link", :Link, %w[id media-type]) {|link, e|
           link.href = extract_attribute(e, 'href')
           link.rel = Set.new(extract_attribute(e, 'rel').split(nil))
         }
