@@ -23,7 +23,7 @@ module EPUB
 
       # @return [Array<Publication::Package>]
       def packages
-        @packages ||= []
+        rootfiles.map(&:package)
       end
       alias renditions packages
 
