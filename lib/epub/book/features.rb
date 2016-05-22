@@ -33,7 +33,7 @@ module EPUB
       # First +package+ in +packages+
       # @return [Package|nil]
       def default_rendition
-        packages ? packages.first : nil
+        packages.first
       end
 
       # @!parse def_delegators :package, :metadata, :manifest, :spine, :guide, :bindings
