@@ -14,7 +14,7 @@ module EPUB
         def parse(container, file)
           opf = container.read(Addressable::URI.unencode(file))
 
-          new(opf, file).parse
+          new(opf).parse
         end
       end
 
