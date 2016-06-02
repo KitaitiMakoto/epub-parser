@@ -56,8 +56,7 @@ module EPUB
       end
       @book.epub_file = @filepath
       if options[:container_adapter]
-        adapter = options[:container_adapter]
-        @book.container_adapter = adapter
+        @book.container_adapter = options[:container_adapter]
       end
     end
 
