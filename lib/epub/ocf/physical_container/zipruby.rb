@@ -27,6 +27,12 @@ module EPUB
           else
             open {|container| container.read(path_name)}
           end
+        rescue ::Zip::Error => error
+          no_entry = NoEntry.new(error.message)
+          no_entry.set_backtrace error.backtrace
+          raise no_entry
+        ensure
+          @archive = nil
         end
       end
     end
