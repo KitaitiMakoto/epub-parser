@@ -158,6 +158,7 @@ RECENT CHANGES
 * Make second argument for `EPUB::Parser::Publication.new` deprecated
 * Add META-INF/metadata.xml support defined in [EPUB Multiple-Rendition Publications 1.0][multi-rendition]
 * Add `EPUB::Book::Features#packages` and `#default_rendition`
+* [BUG FIX]Don't raise error when using `Zipruby` container adapter
 
 [multi-rendition]: http://www.idpf.org/epub/renditions/multiple/
 
