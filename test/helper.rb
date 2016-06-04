@@ -8,4 +8,7 @@ require 'test/unit'
 require 'test/unit/rr'
 require 'test/unit/notify'
 require 'pry'
+require 'pretty_backtrace'
+PrettyBacktrace.enable
+
 require 'epub/parser'
