@@ -177,5 +177,13 @@ module EPUB
         @refines = refinee
       end
     end
+
+    class UnsupportedModel
+      attr_accessor :raw_element
+
+      def initialize(raw_element)
+        @raw_element = raw_element
+      end
+    end
   end
 end
