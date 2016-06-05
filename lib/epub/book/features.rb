@@ -5,7 +5,6 @@ module EPUB
     module Features
       extend Forwardable
       attr_reader :ocf
-      attr_writer :package
       attr_accessor :epub_file
 
       # When writing, sets +ocf.book+ to self.
@@ -27,19 +26,12 @@ module EPUB
       end
       alias renditions packages
 
-      # Syntax sugar.
-      # Returns package set by +package=+.
-      # Returns default rendition if any package has not been set ever.
-      # @return [Publication::Package]
-      def package
-        @package || default_rendition
-      end
-
       # First +package+ in +packages+
       # @return [Package|nil]
       def default_rendition
         packages.first
       end
+      alias package default_rendition
 
       # @!parse def_delegators :package, :metadata, :manifest, :spine, :guide, :bindings
       def_delegators :package, *Publication::Package::CONTENT_MODELS
