@@ -102,6 +102,7 @@ More documentations are avaiable in:
 * {file:docs/Searcher.markdown}
 * {file:docs/UnpackedArchive.markdown}
 * {file:docs/AggregateContentsFromWeb.markdown}
+* {file:docs/MultipleRenditions.markdown}
 
 If you installed EPUB Parser via gem command, you can also generate documentaiton by your own([rubygems-yardoc][] gem is needed):
 
@@ -157,11 +158,13 @@ Currently implemented:
 * [EPUB Publications 3.0][]
 * EPUB Navigation Documents of [EPUB Content Documents 3.0][]
 * [EPUB 3 Fixed-Layout Documents][]
+* metadata.xml of [EPUB Multiple-Rendition Publications][]
 
 [EPUB Open Container Format (OCF) 3.0]:http://idpf.org/epub/30/spec/epub30-ocf.html#sec-container-metainf-container.xml
 [EPUB Publications 3.0]:http://idpf.org/epub/30/spec/epub30-publications.html
 [EPUB Content Documents 3.0]:http://www.idpf.org/epub/30/spec/epub30-contentdocs.html
 [EPUB 3 Fixed-Layout Documents]:http://www.idpf.org/epub/fxl/
+[EPUB Multiple-Rendition Publications]: http://www.idpf.org/epub/renditions/multiple/
 
 License
 -------
