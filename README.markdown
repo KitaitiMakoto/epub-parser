@@ -151,6 +151,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.7
+
+* Add `EPUB::Metadata#children`
+
 ### 0.2.6
 
 * Add `EPUB::Publication::Package::Metadata#package_identifier` as alias of `#release_identifier`

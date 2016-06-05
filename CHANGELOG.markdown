@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.2.7
+-----
+
+* Add `EPUB::Metadata#children` to keep all child emements to count on CFI search
+
 0.2.6
 -----
 
