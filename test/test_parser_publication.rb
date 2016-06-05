@@ -75,6 +75,14 @@ class TestParserPublication < Test::Unit::TestCase
       assert titles[2] < titles[3]
       assert titles[3] > titles[4]
     end
+
+    def test_children_keeps_order_in_xml
+      expected = @metadata.links.find {|link|
+        link.rel.include?('foaf:homepage') &&
+          link.href.to_s == 'http://example.org/book-info/12389347'
+      }
+      assert_equal expected, @metadata.children[27]
+    end
   end
 
   class TestParseManifest < TestParserPublication
