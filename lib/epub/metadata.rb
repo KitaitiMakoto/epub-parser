@@ -7,6 +7,8 @@ module EPUB
     DC_ELEMS = [:identifiers, :titles, :languages] +
                [:contributors, :coverages, :creators, :dates, :descriptions, :formats, :publishers,
                 :relations, :rights, :sources, :subjects, :types]
+    # Used for CFI
+    attr_reader :children
     attr_accessor :package, :unique_identifier, :metas, :links,
                   *(DC_ELEMS.collect {|elem| "dc_#{elem}"})
     DC_ELEMS.each do |elem|
@@ -18,6 +20,7 @@ module EPUB
       (DC_ELEMS + [:metas, :links]).each do |elem|
         __send__ "#{elem}=", []
       end
+      @children = []
     end
 
     def release_identifier
