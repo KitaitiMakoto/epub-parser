@@ -1,0 +1,54 @@
+require "optparse"
+require "epub/query"
+
+def main(argv)
+  available_types = {
+    "css" => "CSS selector"
+  }
+  options = {
+    "type" => "css"
+  }
+  opt = OptionParser.new do |opt|
+    opt.banner = <<EOB
+Find parts specified by query from EPUB package
+
+Usage: #{opt.program_name} [options] QUERY EPUBFILE
+
+EOB
+    opt.on "-t", "--query-type=TYPE", available_types, "query type(#{available_types.keys.join(', ')}), defaults to #{options['type']}" do |type|
+      options["type"] = type
+    end
+    opt.separator ""
+    opt.separator "Available query types:"
+    available_types.each do |(name, desc)|
+      opt.separator "    #{name}  #{desc}"
+    end
+  end
+  opt.parse!(argv)
+
+  query_string = argv.shift
+  epub_path = argv.shift
+  unless query_string
+    $stderr.puts "No query specified"
+    $stderr.puts
+    abort opt.help
+  end
+  unless epub_path
+    $stderr.puts "No EPUB file specified"
+    $stderr.puts
+    abort opt.help
+  end
+
+  epub = EPUB::Parser.parse(epub_path)
+  epub.query(query_string, type: options["type"]).each do |result|
+    puts
+    puts result["cfi"].to_fragment
+    puts result["part"]
+  end
+rescue OptionParser::ParseError => error
+  $stderr.puts error
+  $stderr.puts
+  abort opt.help
+end
+
+main ARGV
