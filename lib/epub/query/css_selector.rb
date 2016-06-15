@@ -21,7 +21,7 @@ module EPUB
             warn "Can't load document for item: #{item.href}"
             next
           end
-          document.nokogiri.search(@query).each do |elem|
+          document.nokogiri.css(@query).each do |elem|
             path = find_path(elem)
             location = CFI::Location.new([path_to_itemref, path])
             result = {"cfi" => location, "part" => elem}
