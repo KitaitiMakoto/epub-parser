@@ -22,7 +22,7 @@ module EPUB
       # @example
       #   book = EPUB::Parser.parse('path/to/book.epub', :class => MyBook) # => #<MyBook:0x000000019b0568 @epub_file=...>
       #   book.instance_of? MyBook # => true
-      #
+      # 
       # @param [String] filepath
       # @param [Hash] options the type of return is specified by this argument.
       #   If no options, returns {EPUB::Book} object.
