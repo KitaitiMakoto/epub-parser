@@ -7,10 +7,10 @@ module EPUB
   class Parser
     class << self
       # Parse an EPUB file
-      #
+      # 
       # @example
       #   EPUB::Parser.parse('path/to/book.epub') # => EPUB::Book object
-      #
+      # 
       # @example
       #   class MyBook
       #     include EPUB
@@ -18,7 +18,7 @@ module EPUB
       #   book = MyBook.new
       #   parsed_book = EPUB::Parser.parse('path/to/book.epub', :book => book) # => #<MyBook:0x000000019760e8 @epub_file=..>
       #   parsed_book.equal? book # => true
-      #
+      # 
       # @example
       #   book = EPUB::Parser.parse('path/to/book.epub', :class => MyBook) # => #<MyBook:0x000000019b0568 @epub_file=...>
       #   book.instance_of? MyBook # => true
