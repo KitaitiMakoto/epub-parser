@@ -5,6 +5,9 @@ CHANGELOG
 -----
 
 * Add `EPUB::Metadata#children` to keep all child emements to count them on CFI search
+* Allow class including `EPUB` to intialize with extra arguments(Thanks, [skukx][]!)
+
+[skukx]: https://github.com/skukx
 
 0.2.6
 -----

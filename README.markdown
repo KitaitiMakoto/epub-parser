@@ -154,6 +154,9 @@ RECENT CHANGES
 ### 0.2.7
 
 * Add `EPUB::Metadata#children`
+* Allow class including `EPUB` to intialize with extra arguments(Thanks, [skukx][]!)
+
+[skukx]: https://github.com/skukx
 
 ### 0.2.6
 
