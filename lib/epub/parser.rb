@@ -81,7 +81,11 @@ module EPUB
       when params[:book]
         params[:book]
       when params[:class]
-        params[:class].new
+        if params[:initialize_with]
+          params[:class].new params[:initialize_with]
+        else
+          params[:class].new
+        end
       else
         Book.new
       end
