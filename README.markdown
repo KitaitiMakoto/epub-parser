@@ -174,14 +174,6 @@ RECENT CHANGES
 * [BUG FIX]Don't load Zip/Ruby if unneccessary
 * Add `EPUB::CFI::PhysicalContainer.find_adapter`
 
-### 0.2.4
-
-* Bug fix for `EPUB::CFI::Location#<=>`
-* Change default physical container adapter from `EPUB::OCF::PhysicalContainer::ZipRuby` to `EPUB::OCF::PhysicalContainer::ArchiveZip`
-* Add `EPUB::CFI::Step#element?` and `#character_data?`
-* Change attribute name: `EPUB::CFI::Step#step` -> `EPUB::CFI::Step#value`, `EPUB::CFI::CharacterOffset#offset` -> `EPUB::CFI::CharacterOffset#value`
-* Show modified on `epubinfo` command
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
