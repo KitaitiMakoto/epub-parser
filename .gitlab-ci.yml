@@ -1,5 +1,5 @@
 before_script:
-  - apt-get update -qq && apt-get install zip
+  - apt-get update -qq && apt-get install -y zip
   - ruby -v
   - which ruby
   - gem install bundler --no-document
