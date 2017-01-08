@@ -20,9 +20,7 @@ module EPUB
         def read(path_name)
           (@container_path + path_name).read
         rescue ::OpenURI::HTTPError => error
-          no_entry = NoEntry.new(error.message)
-          no_entry.set_backtrace error.backtrace
-          raise no_entry
+          raise NoEntry.from_error(error)
         end
       end
     end

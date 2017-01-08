@@ -11,9 +11,7 @@ module EPUB
                 @archive = archive
                 yield self
               rescue ::Zip::Error => error
-                no_entry = NoEntry.new(error.message)
-                no_entry.set_backtrace error.backtrace
-                raise no_entry
+                raise NoEntry.from_error(error)
               ensure
                 @archive = nil
               end
@@ -28,9 +26,7 @@ module EPUB
             open {|container| container.read(path_name)}
           end
         rescue ::Zip::Error => error
-          no_entry = NoEntry.new(error.message)
-          no_entry.set_backtrace error.backtrace
-          raise no_entry
+          raise NoEntry.from_error(error)
         ensure
           @archive = nil
         end
