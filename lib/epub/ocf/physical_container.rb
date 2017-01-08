@@ -7,7 +7,15 @@ module EPUB
   class OCF
     # @todo: Make thread save
     class PhysicalContainer
-      class NoEntry < StandardError; end
+      class NoEntry < StandardError
+        class << self
+          def from_error(error)
+            no_entry = new(error.message)
+            no_entry.set_backtrace error.backtrace
+            no_entry
+          end
+        end
+      end
 
       @adapter = ArchiveZip
 
