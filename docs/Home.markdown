@@ -122,7 +122,7 @@ It will show you path to generated documentation(`/path/to/gempath/ruby/2.2.0/do
 
 Or, generating yardoc command is possible, too:
 
-    $ git clone https://github.com/KitaitiMakoto/epub-parser.git
+    $ git clone https://gitlab.com/KitaitiMakoto/epub-parser.git
     $ cd epub-parser
     $ bundle install --path=deps
     $ bundle exec rake doc:yard
