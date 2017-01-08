@@ -1,0 +1,10 @@
+before_script:
+  - apt-get update --qq
+  - ruby -v
+  - which ruby
+  - gem install bundler --no-document
+  - bundle install --jobs=$(nproc) "${FLAGS[@]}"
+
+test:
+  script:
+    - bundle exec rake test
