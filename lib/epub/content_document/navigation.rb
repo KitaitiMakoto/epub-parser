@@ -5,6 +5,8 @@ module EPUB
 
       def initialize
         @navigations = []
+        @hidden = false
+        @parent = nil
         super
       end
 

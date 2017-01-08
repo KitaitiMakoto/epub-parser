@@ -101,6 +101,7 @@ module EPUB
 
           def initialize
             @properties = Set.new
+            @full_path = nil
           end
 
           def properties=(props)
