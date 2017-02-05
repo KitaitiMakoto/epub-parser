@@ -9,7 +9,7 @@ module EPUB
         #   # Note that c here is not included in the first element of returned value.
         # @param steps1 [Array<Step>, Array<Array>]
         # @param steps2 [Array<Step>, Array<Array>]
-        # @return [Array<Array<Array>>] Thee arrays:
+        # @return [Array<Array<Array>>] Three arrays:
         #   1. "intersection" of +steps1+ and +steps2+. "intersection" here is not the term of mathmatics
         #   2. remaining steps of +steps1+
         #   3. remaining steps of +steps2+
