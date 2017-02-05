@@ -41,21 +41,6 @@ module EPUB
         @parent_steps, @start_steps, @end_steps = parent_steps, start_steps, end_steps
       end
 
-      def to_xpath_and_offset(with_xmlns=false)
-        xpath = (@parent_steps + @start_steps).reduce('.') {|path, step|
-          case step.type
-          when :element
-            path + '/%s*[%d]' % [with_xmlns ? 'xhtml:' : nil, step.index + 1]
-          when :text
-            path + '/text()[%s]' % [step.index + 1]
-          else
-            path
-          end
-        }
-
-        [xpath, @start_steps.last.index]
-      end
-
       def to_cfi_s
         [@parent_steps, @start_steps, @end_steps].collect {|steps|
           steps ? steps.collect(&:to_cfi_s).join : nil
