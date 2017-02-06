@@ -10,8 +10,8 @@ module EPUB
         # @param element [Nokogiri::XML::Element, Nokogiri::XML::Document]
         # @param word [String]
         # @return [Array<Result>]
-        def search(element, word)
-          new(element.respond_to?(:root) ? element.root : element).search(word)
+        def search_text(element, word)
+          new(element.respond_to?(:root) ? element.root : element).search_text(word)
         end
       end
 
@@ -23,7 +23,7 @@ module EPUB
       class Restricted < self
         # @param element [Nokogiri::XML::Element]
         # @return [Array<Result>]
-        def search(word, element=nil)
+        def search_text(word, element=nil)
           results = []
 
           elem_index = 0
@@ -35,7 +35,7 @@ module EPUB
                   results << Result.new([child_step], nil, nil)
                 end
               else
-                search(word, child).each do |sub_result|
+                search_text(word, child).each do |sub_result|
                   results << Result.new([child_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
                 end
               end
@@ -62,7 +62,7 @@ module EPUB
           @indices = nil
         end
 
-        def search(word)
+        def search_text(word)
           unless @indices
             @indices, @content = build_indices(@element)
           end

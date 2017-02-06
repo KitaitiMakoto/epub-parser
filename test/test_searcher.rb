@@ -18,7 +18,7 @@ class TestSearcher < Test::Unit::TestCase
     end
 
     def test_no_result
-      assert_empty EPUB::Searcher::Publication.search(@package, 'no result')
+      assert_empty EPUB::Searcher::Publication.search_text(@package, 'no result')
     end
 
     def test_simple
@@ -27,13 +27,13 @@ class TestSearcher < Test::Unit::TestCase
           [[[:element, 2, {:name => 'spine', :id => nil}], [:itemref, 0, {:id => nil}], [:element, 0, {:name => 'head', :id => nil}], [:element, 0, {:name => 'title', :id => nil}], [:text, 0]], [[:character, 9]], [[:character, 16]]],
           [[[:element, 2, {:name => 'spine', :id => nil}], [:itemref, 0, {:id => nil}], [:element, 1, {:name => 'body', :id => nil}], [:element, 0, {:name => 'div', :id => nil}], [:element, 0, {:name => 'nav', :id => 'idid'}], [:element, 0, {:name => 'hgroup', :id => nil}], [:element, 1, {:name => 'h1', :id => nil}], [:text, 0]], [[:character, 9]], [[:character, 16]]]
         ]),
-        EPUB::Searcher::Publication.search(@package, 'Content')
+        EPUB::Searcher::Publication.search_text(@package, 'Content')
       )
     end
 
     class TesetResult < self
       def test_to_cfi
-        assert_equal 'epubcfi(/6/2!/4/2/2[idid]/2/4/1,:9,:16)', EPUB::Searcher::Publication.search(@package, 'Content').last.to_cfi.to_fragment
+        assert_equal 'epubcfi(/6/2!/4/2/2[idid]/2/4/1,:9,:16)', EPUB::Searcher::Publication.search_text(@package, 'Content').last.to_cfi.to_fragment
       end
     end
   end
@@ -49,35 +49,35 @@ class TestSearcher < Test::Unit::TestCase
 
     module TestSearch
       def test_no_result
-        assert_empty @searcher.search(@h1, 'no result')
+        assert_empty @searcher.search_text(@h1, 'no result')
       end
 
       def test_simple
-        assert_equal results([[[[:text, 0]], [[:character, 9]], [[:character, 16]]]]), @searcher.search(@h1, 'Content')
+        assert_equal results([[[[:text, 0]], [[:character, 9]], [[:character, 16]]]]), @searcher.search_text(@h1, 'Content')
       end
 
       def test_multiple_text_result
-        assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]], [[[:text, 0]], [[:character, 10]], [[:character, 11]]]]), @searcher.search(@h1, 'o')
+        assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]], [[[:text, 0]], [[:character, 10]], [[:character, 11]]]]), @searcher.search_text(@h1, 'o')
       end
 
       def test_text_after_element
         elem = Nokogiri.XML('<root><elem>inner</elem>after</root>')
 
-        assert_equal results([[[[:text, 1]], [[:character, 0]], [[:character, 5]]]]), @searcher.search(elem, 'after')
+        assert_equal results([[[[:text, 1]], [[:character, 0]], [[:character, 5]]]]), @searcher.search_text(elem, 'after')
       end
 
       def test_entity_reference
         elem = Nokogiri.XML('<root>before&lt;after</root>')
 
-        assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]]]), @searcher.search(elem, '<')
+        assert_equal results([[[[:text, 0]], [[:character, 6]], [[:character, 7]]]]), @searcher.search_text(elem, '<')
       end
 
       def test_nested_result
-        assert_equal results([[[[:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 0, {:name => 'a', :id => nil}], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), @searcher.search(@nav, '第二節')
+        assert_equal results([[[[:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 0, {:name => 'a', :id => nil}], [:text, 0]], [[:character, 0]], [[:character, 3]]]]), @searcher.search_text(@nav, '第二節')
       end
 
       def test_img
-        assert_equal [result([[[:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 1, {:name => 'ol', :id => nil}], [:element, 2, {:name => 'li', :id => nil}], [:element, 0, {:name => 'a', :id => nil}], [:element, 0, {:name => 'img', :id => nil}]], nil, nil])], @searcher.search(@nav, '第三節')
+        assert_equal [result([[[:element, 1, {:name => 'ol', :id => nil}], [:element, 1, {:name => 'li', :id => nil}], [:element, 1, {:name => 'ol', :id => nil}], [:element, 2, {:name => 'li', :id => nil}], [:element, 0, {:name => 'a', :id => nil}], [:element, 0, {:name => 'img', :id => nil}]], nil, nil])], @searcher.search_text(@nav, '第三節')
       end
     end
 
@@ -100,14 +100,14 @@ class TestSearcher < Test::Unit::TestCase
 
       def test_seamless
         elem = Nokogiri.XML('<root>This <em>includes</em> a child element.</root>')
-        assert_equal results([[[], [[:text, 0], [:character, 0]], [[:text, 1], [:character, 17]]]]), @searcher.search(elem, 'This includes a child element.')
+        assert_equal results([[[], [[:text, 0], [:character, 0]], [[:text, 1], [:character, 17]]]]), @searcher.search_text(elem, 'This includes a child element.')
       end
     end
 
     class TestResult < self
       def setup
         super
-        @result = EPUB::Searcher::XHTML::Restricted.search(@doc, '第二節').first
+        @result = EPUB::Searcher::XHTML::Restricted.search_text(@doc, '第二節').first
       end
 
       def test_to_cfi
@@ -115,7 +115,7 @@ class TestSearcher < Test::Unit::TestCase
       end
 
       def test_to_cfi_img
-        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/6/2/2)', EPUB::Searcher::XHTML::Restricted.search(@doc, '第三節').first.to_cfi.to_fragment
+        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/6/2/2)', EPUB::Searcher::XHTML::Restricted.search_text(@doc, '第三節').first.to_cfi.to_fragment
       end
     end
   end
