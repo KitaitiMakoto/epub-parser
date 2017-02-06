@@ -31,6 +31,46 @@ class TestSearcher < Test::Unit::TestCase
       )
     end
 
+    def test_search_element_xpath_without_namespaces
+      assert_equal(
+        [
+          "epubcfi(/4/2!/4/2/2[idid]/4/2/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/2/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/4/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/6/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/8/2)"
+        ],
+        EPUB::Searcher::Publication.search_element(@package, xpath: './/xhtml:a').map(&:to_fragment)
+      )
+    end
+
+    def test_search_element_xpath_with_namespaces
+      assert_equal(
+        [
+          "epubcfi(/4/2!/4/2/2[idid]/4/2/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/2/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/4/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/6/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/8/2)"
+        ],
+        EPUB::Searcher::Publication.search_element(@package, xpath: './/customnamespace:a', namespaces: {'customnamespace' => 'http://www.w3.org/1999/xhtml'}).map(&:to_fragment)
+      )
+    end
+
+    def test_search_element_css_selector
+      assert_equal(
+        [
+          "epubcfi(/4/2!/4/2/2[idid]/4/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/2)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/4)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/6)",
+          "epubcfi(/4/2!/4/2/2[idid]/4/4/4/8)"
+        ],
+        EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').map(&:to_fragment)
+      )
+    end
+
     class TesetResult < self
       def test_to_cfi
         assert_equal 'epubcfi(/6/2!/4/2/2[idid]/2/4/1,:9,:16)', EPUB::Searcher::Publication.search_text(@package, 'Content').last.to_cfi.to_fragment
