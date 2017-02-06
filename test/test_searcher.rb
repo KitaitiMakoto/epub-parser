@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require_relative 'helper'
 require 'epub/searcher'
+require 'epub/parser/cfi'
 
 class TestSearcher < Test::Unit::TestCase
   class TestPublication < self
@@ -31,8 +32,8 @@ class TestSearcher < Test::Unit::TestCase
     end
 
     class TesetResult < self
-      def test_to_cfi_s
-        assert_equal '/6/2!/4/2/2[idid]/2/4/1,:9,:16', EPUB::Searcher::Publication.search(@package, 'Content').last.to_cfi_s
+      def test_to_cfi
+        assert_equal 'epubcfi(/6/2!/4/2/2[idid]/2/4/1,:9,:16)', EPUB::Searcher::Publication.search(@package, 'Content').last.to_cfi.to_fragment
       end
     end
   end
@@ -109,12 +110,12 @@ class TestSearcher < Test::Unit::TestCase
         @result = EPUB::Searcher::XHTML::Restricted.search(@doc, '第二節').first
       end
 
-      def test_to_cfi_s
-        assert_equal '/4/2/2[idid]/4/4/4/4/2/1,:0,:3', @result.to_cfi_s
+      def test_to_cfi
+        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/4/2/1,:0,:3)', @result.to_cfi.to_fragment
       end
 
-      def test_to_cfi_s_img
-        assert_equal '/4/2/2[idid]/4/4/4/6/2/2', EPUB::Searcher::XHTML::Restricted.search(@doc, '第三節').first.to_cfi_s
+      def test_to_cfi_img
+        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/6/2/2)', EPUB::Searcher::XHTML::Restricted.search(@doc, '第三節').first.to_cfi.to_fragment
       end
     end
   end

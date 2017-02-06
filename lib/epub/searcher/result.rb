@@ -1,3 +1,5 @@
+require 'epub/cfi'
+
 module EPUB
   module Searcher
     class Result
@@ -41,10 +43,11 @@ module EPUB
         @parent_steps, @start_steps, @end_steps = parent_steps, start_steps, end_steps
       end
 
-      def to_cfi_s
-        [@parent_steps, @start_steps, @end_steps].collect {|steps|
-          steps ? steps.collect(&:to_cfi_s).join : nil
+      def to_cfi
+        str = [@parent_steps, @start_steps, @end_steps].collect {|steps|
+          steps ? steps.collect(&:to_cfi).join : nil
         }.compact.join(',')
+        EPUB::CFI(str)
       end
 
       def ==(other)
@@ -65,7 +68,7 @@ module EPUB
             self.info == other.info
         end
 
-        def to_cfi_s
+        def to_cfi
           case type
           when :element
             '/%d%s' % [(index + 1) * 2, id_assertion]
