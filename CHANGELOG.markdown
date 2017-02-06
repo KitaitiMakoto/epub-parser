@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.2.8
+-----
+
+* Change Searcher API: #search -> #search_text
+* Add Searcher.search_element
+
 0.2.7
 -----
 

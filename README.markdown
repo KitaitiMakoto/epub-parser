@@ -152,6 +152,11 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.8
+
+* Change Searcher API: #search -> #search_text
+* Add Searcher.search_element
+
 ### 0.2.7
 
 * Add `EPUB::Metadata#children`
