@@ -5,8 +5,12 @@ require 'epub/searcher/xhtml'
 module EPUB
   module Searcher
     class << self
-      def search(epub, word, **options)
-        Publication.search(epub.package, word, options)
+      def search_text(epub, word, **options)
+        Publication.search_text(epub.package, word, options)
+      end
+
+      def search_element(epub, css: nil, xpath: nil, namespaces: {})
+        Publication.search_element(epub.package, css: css, xpath: xpath, namespaces: namespaces)
       end
     end
   end
