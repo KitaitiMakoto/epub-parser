@@ -8,37 +8,37 @@ Searcher
 Example
 -------
 
-    epub = EPUB::Parser.parse('childrens-literature-20130206.epub')
+    epub = EPUB::Parser.parse('childrens-literature.epub')
     search_word = 'INTRODUCTORY'
-    results = EPUB::Searcher.search(epub, search_word)
-    # => [#<EPUB::Searcher::Result:0x007f938ed517a8
-    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f938ed51a50 @index=12, @info={}, @type=:character>],
+    results = EPUB::Searcher.search_text(epub, search_word)
+    # => [#<EPUB::Searcher::Result:0x007f80ccde9528
+    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f80ccde9730 @index=12, @info={}, @type=:character>],
     #   @parent_steps=
-    #    [#<EPUB::Searcher::Result::Step:0x007f938f1c1e78 @index=2, @info={:name=>"spine", :id=>nil}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938f1caa78 @index=1, @info={:id=>nil}, @type=:itemref>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed521d0 @index=1, @info={:name=>"body", :id=>nil}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed52158 @index=0, @info={:name=>"nav", :id=>"toc"}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed52108 @index=1, @info={:name=>"ol", :id=>"tocList"}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed52090 @index=0, @info={:name=>"li", :id=>"np-313"}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed52040 @index=1, @info={:name=>"ol", :id=>nil}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed51ff0 @index=1, @info={:name=>"li", :id=>"np-317"}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed51f78 @index=0, @info={:name=>"a", :id=>nil}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed51f28 @index=0, @info={}, @type=:text>],
-    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f938ed51e88 @index=0, @info={}, @type=:character>]>,
-    #  #<EPUB::Searcher::Result:0x007f938ef8f5d8
-    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f938ef8f808 @index=12, @info={}, @type=:character>],
+    #    [#<EPUB::Searcher::Result::Step:0x007f80ccf571d0 @index=2, @info={:name=>"spine", :id=>nil}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccf3d3e8 @index=1, @info={:id=>nil}, @type=:itemref>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9e88 @index=1, @info={:name=>"body", :id=>nil}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9e38 @index=0, @info={:name=>"nav", :id=>"toc"}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9de8 @index=1, @info={:name=>"ol", :id=>"tocList"}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9d98 @index=0, @info={:name=>"li", :id=>"np-313"}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9d48 @index=1, @info={:name=>"ol", :id=>nil}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9ca8 @index=1, @info={:name=>"li", :id=>"np-317"}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9c08 @index=0, @info={:name=>"a", :id=>nil}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde9bb8 @index=0, @info={}, @type=:text>],
+    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f80ccde9af0 @index=0, @info={}, @type=:character>]>,
+    #  #<EPUB::Searcher::Result:0x007f80ccebcb30
+    #   @end_steps=[#<EPUB::Searcher::Result::Step:0x007f80ccebcdb0 @index=12, @info={}, @type=:character>],
     #   @parent_steps=
-    #    [#<EPUB::Searcher::Result::Step:0x007f938f1c1e78 @index=2, @info={:name=>"spine", :id=>nil}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ed51730 @index=2, @info={:id=>nil}, @type=:itemref>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fce0 @index=1, @info={:name=>"body", :id=>nil}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fc90 @index=0, @info={:name=>"section", :id=>"pgepubid00492"}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fc40 @index=3, @info={:name=>"section", :id=>"pgepubid00498"}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fbf0 @index=1, @info={:name=>"h3", :id=>nil}, @type=:element>,
-    #     #<EPUB::Searcher::Result::Step:0x007f938ef8fb28 @index=0, @info={}, @type=:text>],
-    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f938ef8fa88 @index=0, @info={}, @type=:character>]>]
-    puts results.collect(&:to_cfi_s)
-    # /6/4!/4/2[toc]/4[tocList]/2[np-313]/4/4[np-317]/2/1,:0,:12
-    # /6/6!/4/2[pgepubid00492]/8[pgepubid00498]/4/1,:0,:12
+    #    [#<EPUB::Searcher::Result::Step:0x007f80ccf571d0 @index=2, @info={:name=>"spine", :id=>nil}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccde94b0 @index=2, @info={:id=>nil}, @type=:itemref>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccebd328 @index=1, @info={:name=>"body", :id=>nil}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccebd2d8 @index=0, @info={:name=>"section", :id=>"pgepubid00492"}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccebd260 @index=3, @info={:name=>"section", :id=>"pgepubid00498"}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccebd210 @index=1, @info={:name=>"h3", :id=>nil}, @type=:element>,
+    #     ##<EPUB::Searcher::Result::Step:0x007f80ccebd198 @index=0, @info={}, @type=:text>],
+    #   @start_steps=[#<EPUB::Searcher::Result::Step:0x007f80ccebd0d0 @index=0, @info={}, @type=:character>]>]
+    puts results.collect(&:to_cfi).collect(&:to_fragment)
+    # epubcfi(/6/4!/4/2[toc]/4[tocList]/2[np-313]/4/4[np-317]/2/1,:0,:12)
+    # epubcfi(/6/6!/4/2[pgepubid00492]/8[pgepubid00498]/4/1,:0,:12)
     # => nil
 
 Search result
@@ -91,4 +91,19 @@ because the words 'search' and 'word' are not in the same element.
 
 To use restricted searcher, specify `algorithm` option for `search` method:
 
-    results = EPUB::Searcher.search(epub, search_word, algorithm: :restricted)
+    results = EPUB::Searcher.search_text(epub, search_word, algorithm: :restricted)
+
+Element Searcher
+----------------
+
+You can search XHTML elements by CSS selector or XPath.
+
+    EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').map(&:to_fragment)
+    # => ["epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313])",
+    #  "epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313]/4/2[np-315])",
+    #  "epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313]/4/4[np-317])",
+    #  "epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313]/4/6)",
+    #  "epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313]/4/6/4/2[np-319])",
+    #  "epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313]/4/6/4/2[np-319]/4/2)",
+    #    :
+    #    :
