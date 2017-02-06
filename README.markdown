@@ -32,7 +32,7 @@ USAGE
 
 See document's {file:docs/Home.markdown} or [API Documentation][rubydoc] for more info.
 
-[rubydoc]: http://rubydoc.info/gems/epub-parser
+[rubydoc]: http://www.rubydoc.info/gems/epub-parser
 
 ### `epubinfo` command-line tool
 
