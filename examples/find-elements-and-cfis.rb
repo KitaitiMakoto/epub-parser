@@ -23,10 +23,6 @@ def main(argv)
 
   epub = EPUB::Parser.parse(epub_path)
   epub.package.spine.each_itemref.with_index do |itemref, i|
-    itemref_step = {
-      :step => (i + 1) * 2,
-      :id => itemref.id
-    }
     assertion = itemref.id ? EPUB::CFI::IDAssertion.new(itemref.id) : nil
     itemref_step = EPUB::CFI::Step.new((i + 1) * 2, assertion)
     path_to_itemref = EPUB::CFI::Path.new([spine_step, itemref_step])
