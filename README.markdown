@@ -175,11 +175,6 @@ RECENT CHANGES
 
 [multi-rendition]: http://www.idpf.org/epub/renditions/multiple/
 
-### 0.2.5
-
-* [BUG FIX]Don't load Zip/Ruby if unneccessary
-* Add `EPUB::CFI::PhysicalContainer.find_adapter`
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
