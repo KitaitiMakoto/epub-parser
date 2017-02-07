@@ -98,7 +98,7 @@ Element Searcher
 
 You can search XHTML elements by CSS selector or XPath.
 
-    EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').map(&:to_fragment)
+    EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').collect {|result| result[:location]}.map(&:to_fragment)
     # => ["epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313])",
     #  "epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313]/4/2[np-315])",
     #  "epubcfi(/4/4!/4/2[toc]/4[tocList]/2[np-313]/4/4[np-317])",
