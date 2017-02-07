@@ -54,7 +54,11 @@ module EPUB
                   end
           elems.each do |elem|
             path = find_path(elem)
-            results << EPUB::CFI::Location.new([path_to_itemref, path])
+            results << {
+              location: EPUB::CFI::Location.new([path_to_itemref, path]),
+              package: @package,
+              element: elem
+            }
           end
         end
 

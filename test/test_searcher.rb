@@ -40,7 +40,7 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/4/2!/4/2/2[idid]/4/4/4/6/2)",
           "epubcfi(/4/2!/4/2/2[idid]/4/4/4/8/2)"
         ],
-        EPUB::Searcher::Publication.search_element(@package, xpath: './/xhtml:a').map(&:to_fragment)
+        EPUB::Searcher::Publication.search_element(@package, xpath: './/xhtml:a').collect {|result| result[:location]}.map(&:to_fragment)
       )
     end
 
@@ -53,7 +53,7 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/4/2!/4/2/2[idid]/4/4/4/6/2)",
           "epubcfi(/4/2!/4/2/2[idid]/4/4/4/8/2)"
         ],
-        EPUB::Searcher::Publication.search_element(@package, xpath: './/customnamespace:a', namespaces: {'customnamespace' => 'http://www.w3.org/1999/xhtml'}).map(&:to_fragment)
+        EPUB::Searcher::Publication.search_element(@package, xpath: './/customnamespace:a', namespaces: {'customnamespace' => 'http://www.w3.org/1999/xhtml'}).collect {|result| result[:location]}.map(&:to_fragment)
       )
     end
 
@@ -67,7 +67,7 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/4/2!/4/2/2[idid]/4/4/4/6)",
           "epubcfi(/4/2!/4/2/2[idid]/4/4/4/8)"
         ],
-        EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').map(&:to_fragment)
+        EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').collect {|result| result[:location]}.map(&:to_fragment)
       )
     end
 
