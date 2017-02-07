@@ -33,7 +33,6 @@ module EPUB
       end
 
       # @todo: Refactoring
-      # @todo: Accepst namespaces for XPath
       def search_element(css: nil, xpath: nil, namespaces: {})
         raise ArgumentError, 'Both css and xpath are nil' if css.nil? && xpath.nil?
 
