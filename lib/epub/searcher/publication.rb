@@ -39,7 +39,7 @@ module EPUB
         namespaces = EPUB::NAMESPACES.merge(namespaces)
         results = []
 
-        spine_step = EPUB::CFI::Step.new(EPUB::Publication::Package::CONTENT_MODELS.index(:spine) * 2)
+        spine_step = EPUB::CFI::Step.new((EPUB::Publication::Package::CONTENT_MODELS.index(:spine) + 1) * 2)
         @package.spine.each_itemref.with_index do |itemref, index|
           assertion = itemref.id ? EPUB::CFI::IDAssertion.new(itemref.id) : nil
           itemref_step = EPUB::CFI::Step.new((index + 1) * 2, assertion)
