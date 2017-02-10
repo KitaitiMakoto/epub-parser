@@ -11,6 +11,10 @@ module EPUB
         def search_element(package, css: nil, xpath: nil, namespaces: {})
           new(package).search_element(css: css, xpath: xpath, namespaces: namespaces)
         end
+
+        def search_by_cfi(package, cfi)
+          new(package).search_by_cfi(cfi)
+        end
       end
 
       def initialize(package)
@@ -67,6 +71,47 @@ module EPUB
         end
 
         results
+      end
+
+      # @note Currenty can handle only location CFI without offset
+      # @todo Use XHTML module
+      # @todo Handle CFI with offset
+      # @todo Handle range CFI
+      # @param [EPUB::CFI] cfi
+      # @return [Array] Path in EPUB Rendition
+      def search_by_cfi(cfi)
+        # steal from pirka's find_item_and_element
+        path_in_package = cfi.paths.first
+        spine = @package.spine
+        model = [@package.metadata, @package.manifest, spine, @package.guide, @package.bindings].compact[path_in_package.steps.first.value / 2 - 1]
+        raise NotImplementedError, "Currently, #{__method__} supports spine only(#{cfi})" unless model == spine
+        raise ArgumentError, "Cannot identify <itemref>'s child" if path_in_package.steps.length > 2
+
+        step_to_itemref = path_in_package.steps[1]
+        itemref = spine.itemrefs[step_to_itemref.value / 2 - 1]
+
+        doc = itemref.item.content_document.nokogiri
+        path_in_doc = cfi.paths[1]
+        current_node = doc.root
+        path_in_doc.steps.each do |step|
+          if step.element?
+            current_node = current_node.element_children[step.value / 2 - 1]
+          else
+            element_index = (step.value - 1) / 2 - 1
+            if element_index == -1
+              current_node = current_node.children.first
+            else
+              prev = current_node.element_children[element_index]
+              break unless prev
+              current_node = prev.next_sibling
+              break unless current_node
+            end
+          end
+        end
+
+        raise NotImplementedError, "Currently, #{__method__} doesn't support deeper DOM tree such as including <iframe>" if cfi.paths[2]
+
+        [itemref, current_node]
       end
 
       private

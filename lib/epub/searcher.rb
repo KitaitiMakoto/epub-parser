@@ -12,6 +12,10 @@ module EPUB
       def search_element(epub, css: nil, xpath: nil, namespaces: {})
         Publication.search_element(epub.package, css: css, xpath: xpath, namespaces: namespaces)
       end
+
+      def search_by_cfi(epub, cfi)
+        Publication.search_by_cfi(epub.package, cfi)
+      end
     end
   end
 end
