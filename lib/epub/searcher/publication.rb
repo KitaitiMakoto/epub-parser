@@ -33,6 +33,10 @@ module EPUB
       end
 
       # @todo: Refactoring
+      # @return [Array<Hash>] An array of rearch results. Each result is composed of:
+      #   :element: [Nokogiri::XML::ELement] Found element
+      #   :location: [EPUB::CFI::Location] CFI that indicates the element
+      #   :package: [EPUB::Publication::Package] Package that the element belongs to
       def search_element(css: nil, xpath: nil, namespaces: {})
         raise ArgumentError, 'Both css and xpath are nil' if css.nil? && xpath.nil?
 
