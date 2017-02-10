@@ -152,6 +152,11 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.2.9
+
+* Fix a bug that `Searcher.search_element` returns wrong CFI
+* Add `Searcher.search_by_cfi`
+
 ### 0.2.8
 
 * Change Searcher API: #search -> #search_text

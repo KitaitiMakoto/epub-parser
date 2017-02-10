@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.2.9
+-----
+
+* Fix a bug that `Searcher.search_element` returns wrong CFI
+* Add `Searcher.search_by_cfi`
+
 0.2.8
 -----
 
