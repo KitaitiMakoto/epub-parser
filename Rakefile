@@ -17,6 +17,8 @@ file CFI_TAB do
   sh "racc #{CFI_Y}"
 end
 
+task :build => CFI_TAB
+
 namespace :test do
   task :default => [:build, :test]
 
