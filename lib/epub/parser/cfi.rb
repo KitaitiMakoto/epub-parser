@@ -1,4 +1,5 @@
 require 'strscan'
+require 'epub/parser'
 require 'epub/parser/cfi.tab'
 require 'epub/cfi'
 
