@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'racc'
   s.add_development_dependency 'nokogiri-diff'
   s.add_development_dependency 'pretty_backtrace'
+  s.add_development_dependency 'epub-maker'
 
   s.add_runtime_dependency 'archive-zip'
   s.add_runtime_dependency 'nokogiri', '~> 1.6'
