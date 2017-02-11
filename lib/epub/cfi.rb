@@ -14,6 +14,8 @@ module EPUB
     end
 
     class Location
+      include Comparable
+
       attr_reader :paths
 
       def initialize(paths=[])
