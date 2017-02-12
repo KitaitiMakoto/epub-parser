@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+0.3.1
+-----
+
+* Load epub/parser.rb in epub/parser/cfi.rb to allow to use Parser::CFI independently
+* Make `CFI` comparable. Now can call `CFI#==`
+* Include `Publication::Package::Spine::Itemref` in `Searcher.search_element`'s result
+
+0.3.0
+-----
+
+* Wrong release. I'm sorry.
+
 0.2.9
 -----
 

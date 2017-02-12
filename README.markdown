@@ -152,6 +152,15 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.3.1
+
+* Make `CFI` comparable. Now can call `CFI#==`
+* Include `Publication::Package::Spine::Itemref` in `Searcher.search_element`'s result
+
+### 0.3.0
+
+* Wrong release. I'm sorry.
+
 ### 0.2.9
 
 * Fix a bug that `Searcher.search_element` returns wrong CFI
