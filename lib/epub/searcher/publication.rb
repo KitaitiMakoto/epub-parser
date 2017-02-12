@@ -39,6 +39,7 @@ module EPUB
       # @todo: Refactoring
       # @return [Array<Hash>] An array of rearch results. Each result is composed of:
       #   :element: [Nokogiri::XML::ELement] Found element
+      #   :itemref: [EPUB::Publication::Package::Spine::Itemref] Itemref that element's document belongs to
       #   :location: [EPUB::CFI::Location] CFI that indicates the element
       #   :package: [EPUB::Publication::Package] Package that the element belongs to
       def search_element(css: nil, xpath: nil, namespaces: {})
@@ -65,6 +66,7 @@ module EPUB
             results << {
               location: EPUB::CFI::Location.new([path_to_itemref, path]),
               package: @package,
+              itemref: itemref,
               element: elem
             }
           end
