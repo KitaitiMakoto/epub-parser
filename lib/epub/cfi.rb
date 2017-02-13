@@ -1,3 +1,5 @@
+require 'epub/inspector'
+
 module EPUB
   module CFI
     SPECIAL_CHARS = '^[](),;=' # "5E", "5B", "5D", "28", "29", "2C", "3B", "3D"
@@ -15,6 +17,7 @@ module EPUB
 
     class Location
       include Comparable
+      include Inspector::CFI
 
       attr_reader :paths
 
@@ -75,6 +78,8 @@ module EPUB
     end
 
     class Path
+      include Inspector::CFI
+
       attr_reader :steps, :offset
 
       def initialize(steps=[], offset=nil)
@@ -184,6 +189,8 @@ module EPUB
     end
 
     class Step
+      include Inspector::CFI
+
       attr_reader :value, :assertion
       alias step value
 
