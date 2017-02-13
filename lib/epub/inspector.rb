@@ -46,5 +46,23 @@ module EPUB
         t << " %{attributes}>"
       end
     end
+
+    module CFI
+      INSPECT_TEMPLATE = "#<%{class}:%{expression}>"
+
+      class << self
+        def included(mod)
+          mod.__send__ :include, Inspector
+        end
+      end
+
+      def inspect
+        INSPECT_TEMPLATE % {
+          :class => self.class,
+          :object_id => inspect_object_id,
+          :expression => to_s
+        }
+      end
+    end
   end
 end
