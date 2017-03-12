@@ -30,7 +30,7 @@
 #   Accessibility is a difficult concept to define.
 
 require 'epub/parser'
-require 'epub/parser/cfi'
+require 'epub/cfi'
 require 'nokogiri' # Do gem install nokogiri
 require 'nokogiri/xml/range' # Do gem install nokogiri-xml-range
 

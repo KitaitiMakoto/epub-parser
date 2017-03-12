@@ -1,6 +1,6 @@
 require 'English'
 require 'epub/parser'
-require 'epub/parser/cfi'
+require 'epub/cfi'
 require 'nokogiri'
 
 def usage
