@@ -1,5 +1,4 @@
 require 'epub/cfi'
-require 'epub/parser/cfi'
 
 module EPUB
   module Searcher

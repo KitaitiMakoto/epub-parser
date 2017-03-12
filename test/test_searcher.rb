@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require_relative 'helper'
 require 'epub/searcher'
-require 'epub/parser/cfi'
+require 'epub/cfi'
 
 class TestSearcher < Test::Unit::TestCase
   class TestPublication < self
@@ -40,7 +40,7 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/6/2)",
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/8/2)"
         ],
-        EPUB::Searcher::Publication.search_element(@package, xpath: './/xhtml:a').collect {|result| result[:location]}.map(&:to_fragment)
+        EPUB::Searcher::Publication.search_element(@package, xpath: './/xhtml:a').collect {|result| result[:location]}.map(&:to_s)
       )
     end
 
@@ -53,7 +53,7 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/6/2)",
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/8/2)"
         ],
-        EPUB::Searcher::Publication.search_element(@package, xpath: './/customnamespace:a', namespaces: {'customnamespace' => 'http://www.w3.org/1999/xhtml'}).collect {|result| result[:location]}.map(&:to_fragment)
+        EPUB::Searcher::Publication.search_element(@package, xpath: './/customnamespace:a', namespaces: {'customnamespace' => 'http://www.w3.org/1999/xhtml'}).collect {|result| result[:location]}.map(&:to_s)
       )
     end
 
@@ -67,13 +67,13 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/6)",
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/8)"
         ],
-        EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').collect {|result| result[:location]}.map(&:to_fragment)
+        EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').collect {|result| result[:location]}.map(&:to_s)
       )
     end
 
     class TesetResult < self
       def test_to_cfi
-        assert_equal 'epubcfi(/6/2!/4/2/2[idid]/2/4/1,:9,:16)', EPUB::Searcher::Publication.search_text(@package, 'Content').last.to_cfi.to_fragment
+        assert_equal 'epubcfi(/6/2!/4/2/2[idid]/2/4/1,:9,:16)', EPUB::Searcher::Publication.search_text(@package, 'Content').last.to_cfi.to_s
       end
     end
   end
@@ -151,11 +151,11 @@ class TestSearcher < Test::Unit::TestCase
       end
 
       def test_to_cfi
-        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/4/2/1,:0,:3)', @result.to_cfi.to_fragment
+        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/4/2/1,:0,:3)', @result.to_cfi.to_s
       end
 
       def test_to_cfi_img
-        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/6/2/2)', EPUB::Searcher::XHTML::Restricted.search_text(@doc, '第三節').first.to_cfi.to_fragment
+        assert_equal 'epubcfi(/4/2/2[idid]/4/4/4/6/2/2)', EPUB::Searcher::XHTML::Restricted.search_text(@doc, '第三節').first.to_cfi.to_s
       end
     end
   end
