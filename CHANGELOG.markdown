@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.3.2
+-----
+
+* Use epub-cfi gem for EPUB CFI
+
 0.3.1
 -----
 

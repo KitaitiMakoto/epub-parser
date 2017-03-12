@@ -152,6 +152,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.3.2
+
+* Use epub-cfi gem for EPUB CFI
+
 ### 0.3.1
 
 * Make `CFI` comparable. Now can call `CFI#==`
