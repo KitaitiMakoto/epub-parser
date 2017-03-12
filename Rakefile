@@ -6,16 +6,8 @@ require 'rdoc/task'
 require 'epub/parser/version'
 require 'zipruby'
 
-CFI_TAB = 'lib/epub/parser/cfi.tab.rb'
-CFI_Y =  'lib/epub/parser/cfi.y'
-CLEAN.include(CFI_TAB)
-
 task :default => :test
 task :test => 'test:default'
-
-file CFI_TAB do
-  sh "racc #{CFI_Y}"
-end
 
 namespace :test do
   task :default => [:build, :test]
@@ -24,7 +16,7 @@ namespace :test do
   task :all => [:build, :test]
 
   desc 'Build test fixture EPUB file'
-  task :build => [:clean, CFI_TAB] do
+  task :build => :clean do
     input_dir  = 'test/fixtures/book'
     sh "epzip #{input_dir}"
     small_file = File.read("#{input_dir}/OPS/case-sensitive.xhtml")
@@ -57,7 +49,7 @@ end
 Gem::Tasks.new do |tasks|
   tasks.console.command = 'pry'
 end
-task :build => [:clean, CFI_TAB]
+task :build => :clean
 
 class ForwardableDefDelegatorsHandler < YARD::Handlers::Ruby::Base
   handles method_call(:def_delegators)

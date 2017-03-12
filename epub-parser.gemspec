@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '> 2'
 
   s.files         = `git ls-files`.split("\n")
-                    .push('lib/epub/parser/cfi.tab.rb')
                     .push('test/fixtures/book/OPS/ルートファイル.opf')
                     .push('test/fixtures/book/OPS/日本語.xhtml')
                     .push(Dir['docs/*.md'])
