@@ -145,7 +145,7 @@ Similar Efforts
 * [ReVIEW](https://github.com/kmuto/review) - ReVIEW is a easy-to-use digital publishing system for books and ebooks.
 * [epzip](https://github.com/takahashim/epzip) - epzip is EPUB packing tool. It's just only doing 'zip.' :)
 * [eeepub](https://github.com/jugyo/eeepub) - EeePub is a Ruby ePub generator
-* [epub-maker](https://github.com/KitaitiMakoto/epub-maker) - This library supports making and editing EPUB books based on this EPUB Parser library
+* [epub-maker](https://gitlab.com/KitaitiMakoto/epub-maker) - This library supports making and editing EPUB books based on this EPUB Parser library
 * [epub-cfi](https://gitlab.com/KitaitiMakoto/epub-cfi) - EPUB CFI library extracted this EPUB Parser library.
 
 If you find other gems, please tell me or request a pull request.
