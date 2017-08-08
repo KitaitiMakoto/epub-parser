@@ -170,29 +170,6 @@ RECENT CHANGES
 * Fix a bug that `Searcher.search_element` returns wrong CFI
 * Add `Searcher.search_by_cfi`
 
-### 0.2.8
-
-* Change Searcher API: #search -> #search_text
-* Add Searcher.search_element
-
-### 0.2.7
-
-* Add `EPUB::Metadata#children`
-* Allow class including `EPUB` to intialize with extra arguments(Thanks, [skukx][]!)
-
-[skukx]: https://github.com/skukx
-
-### 0.2.6
-
-* Add `EPUB::Publication::Package::Metadata#package_identifier` as alias of `#release_identifier`
-* [BUG FIX]Metadata#modified returns modified with no refiners
-* Make second argument for `EPUB::Parser::Publication.new` deprecated
-* Add META-INF/metadata.xml support defined in [EPUB Multiple-Rendition Publications 1.0][multi-rendition]
-* Add `EPUB::Book::Features#packages` and `#default_rendition`
-* [BUG FIX]Don't raise error when using `Zipruby` container adapter
-
-[multi-rendition]: http://www.idpf.org/epub/renditions/multiple/
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
