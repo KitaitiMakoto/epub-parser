@@ -37,7 +37,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'gem-man'
   s.add_development_dependency 'ronn'
   s.add_development_dependency 'epzip'
-  s.add_development_dependency 'racc'
   s.add_development_dependency 'nokogiri-diff'
   s.add_development_dependency 'pretty_backtrace'
 
