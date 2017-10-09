@@ -5,6 +5,7 @@ require 'yard'
 require 'rdoc/task'
 require 'epub/parser/version'
 require 'zipruby'
+require 'epub/maker'
 
 task :default => :test
 task :test => 'test:default'
@@ -18,7 +19,7 @@ namespace :test do
   desc 'Build test fixture EPUB file'
   task :build => :clean do
     input_dir  = 'test/fixtures/book'
-    sh "epzip #{input_dir}"
+    EPUB::Maker.archive input_dir
     small_file = File.read("#{input_dir}/OPS/case-sensitive.xhtml")
     Zip::Archive.open "#{input_dir}.epub" do |archive|
       archive.add_buffer 'OPS/CASE-SENSITIVE.xhtml', small_file.sub('small file name', 'LARGE FILE NAME')
