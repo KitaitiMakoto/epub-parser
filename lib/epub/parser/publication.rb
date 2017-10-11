@@ -18,8 +18,7 @@ module EPUB
         end
       end
 
-      def initialize(opf, rootfile=nil)
-        warn "Second argument for #{self.class}.new is deprecated" if rootfile
+      def initialize(opf)
         @doc = Nokogiri.XML(opf)
       end
 
