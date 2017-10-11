@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{EPUB 3 Parser}
   s.description = %q{Parse EPUB 3 book loosely}
   s.license     = 'MIT'
-  s.required_ruby_version = '> 2'
+  s.required_ruby_version = '>= 2.2'
 
   s.files         = `git ls-files`.split("\n")
                     .push('test/fixtures/book/OPS/ルートファイル.opf')
