@@ -5,6 +5,7 @@ CHANGELOG
 -----
 
 * [BUG FIX]Use UnpackedURI adapter for URI
+* [BREAKING CHANGE]Remove secornd argument from `EPUB::Parser::Publication#initialize`
 
 0.3.2
 -----
