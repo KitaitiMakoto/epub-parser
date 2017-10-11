@@ -5,7 +5,6 @@ require 'epub/ocf/physical_container/unpacked_uri'
 
 module EPUB
   class OCF
-    # @todo: Make thread save
     class PhysicalContainer
       class NoEntry < StandardError
         class << self
