@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.3.3
+-----
+
+* [BUG FIX]Use UnpackedURI adapter for URI
+
 0.3.2
 -----
 
