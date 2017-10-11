@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'epub-maker'
 
   s.add_runtime_dependency 'archive-zip'
-  s.add_runtime_dependency 'nokogiri', '~> 1.6'
+  s.add_runtime_dependency 'nokogiri', '>= 1.6.0', '< 1.9'
   s.add_runtime_dependency 'addressable', '>= 2.3.5'
   s.add_runtime_dependency 'rchardet', '>= 1.6.1'
   s.add_runtime_dependency 'epub-cfi'
