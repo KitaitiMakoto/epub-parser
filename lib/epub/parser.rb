@@ -51,7 +51,9 @@ module EPUB
 
       @filepath = path_is_uri ? filepath : File.realpath(filepath)
       @book = create_book(options)
-      if File.directory? @filepath
+      if path_is_uri
+        @book.container_adapter = :UnpackedURI
+      elsif File.directory? @filepath
         @book.container_adapter = :UnpackedDirectory
       end
       @book.epub_file = @filepath
