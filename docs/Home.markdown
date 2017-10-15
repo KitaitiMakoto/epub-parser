@@ -90,6 +90,23 @@ You are also able to find YourBook object for the first:
     ret == book # => true; this API is not good I feel... Welcome suggestion!
     # do something with your book
 
+#### Switching ZIP library
+
+EPUB Parser uses [Archive::Zip][], a pure Ruby ZIP library, by default. You can use [Zip/Ruby][], a Ruby bindings for [libzip][] if you have already installed Zip/Ruby gem by RubyGems or Bundler.
+
+Globally:
+
+    EPUB::OCF::PhysicalContainer.adapter = :Zipruby
+    book = EPUB::Parser.parse("path/to/book.epub")
+
+For each EPUB book:
+
+    book = EPUB::Parser.parse("path/to/book.epub", container_adapter: :Zipruby)
+
+[Archive::Zip]: https://github.com/javanthropus/archive-zip
+[Zip/Ruby]: https://bitbucket.org/winebarrel/zip-ruby/wiki/Home
+[libzip]: https://nih.at/libzip/
+
 Documentation
 -------------
 
