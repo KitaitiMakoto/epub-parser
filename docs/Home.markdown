@@ -163,6 +163,11 @@ Requirements
 * `patch` command to install Nokogiri
 * C compiler to compile Zip/Ruby and Nokogiri
 
+History
+-------
+
+See {file:CHANGELOG.markdown}.
+
 Note
 ----
 
