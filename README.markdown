@@ -156,7 +156,7 @@ RECENT CHANGES
 ### 0.3.3
 
 * [BUG FIX]Use UnpackedURI adapter for URI
-* [BREAKING CHANGE]Remove second argument from `EPUB::Parser::Publication#initialize`
+* [BREAKING CHANGE]Remove deprecated second argument from `EPUB::Parser::Publication#initialize`
 
 ### 0.3.2
 
