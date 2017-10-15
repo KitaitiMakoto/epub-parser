@@ -3,6 +3,7 @@ EPUB Parser
 [![build status](https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/build.svg)](https://gitlab.com/KitaitiMakoto/epub-parser/commits/master)
 [![Dependency Status](https://gemnasium.com/KitaitiMakoto/epub-parser.png)](https://gemnasium.com/KitaitiMakoto/epub-parser)
 [![Gem Version](https://badge.fury.io/rb/epub-parser.svg)](http://badge.fury.io/rb/epub-parser)
+[![coverage report](https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/coverage.svg)](https://gitlab.com/KitaitiMakoto/epub-parser/commits/master)
 
 INSTALLATION
 -------
