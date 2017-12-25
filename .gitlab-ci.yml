@@ -4,11 +4,6 @@ before_script:
   - gem install bundler --no-document
   - bundle install --jobs=$(nproc) "${FLAGS[@]}"
 
-test:2.2:
-  image: ruby:2.2
-  script:
-    - bundle exec rake test
-
 test:2.3:
   image: ruby:2.3
   script: bundle exec rake test
