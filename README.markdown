@@ -138,7 +138,7 @@ REQUIREMENTS
 * `patch` command to install Nokogiri
 * C compiler to compile Nokogiri
 
-Similar Efforts
+SIMILAR EFFORTS
 ---------------
 * [gepub](https://github.com/skoji/gepub) - a generic EPUB library for Ruby
 * [epubinfo](https://github.com/chdorner/epubinfo) - Extracts metadata information from EPUB files. Supports EPUB2 and EPUB3 formats.
