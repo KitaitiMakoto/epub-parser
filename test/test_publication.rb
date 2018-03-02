@@ -337,6 +337,12 @@ class TestPublication < Test::Unit::TestCase
         end
       end
 
+      def test_read_without_detect_encoding_resturns_utf_8_string
+        epub = EPUB::Parser.parse("test/fixtures/book.epub")
+        item = epub.package.manifest["utf-8-encoded"]
+        assert_equal Encoding::UTF_8, item.read(detect_encoding: false).encoding
+      end
+
       data('UTF-8'     => [Encoding::UTF_8,     'utf-8-encoded'],
            'EUC-JP'    => [Encoding::EUC_JP,    'euc-jp-encoded'],
            'Shift-JIS' => [Encoding::Shift_JIS, 'shift_jis-encoded'])
