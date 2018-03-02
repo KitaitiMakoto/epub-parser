@@ -5,6 +5,12 @@ EPUB Parser
 [![Gem Version](https://badge.fury.io/rb/epub-parser.svg)](http://badge.fury.io/rb/epub-parser)
 [![coverage report](https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/coverage.svg)](https://gitlab.com/KitaitiMakoto/epub-parser/commits/master)
 
+* [Homepage][homepage]
+* [Documentation][rubydoc]
+* [Source Code][]
+
+[Source Code]: https://gitlab.com/KitaitiMakoto/epub-parser
+
 INSTALLATION
 -------
 
