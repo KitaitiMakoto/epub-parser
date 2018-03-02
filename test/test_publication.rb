@@ -340,11 +340,11 @@ class TestPublication < Test::Unit::TestCase
       data('UTF-8'     => [Encoding::UTF_8,     'utf-8-encoded'],
            'EUC-JP'    => [Encoding::EUC_JP,    'euc-jp-encoded'],
            'Shift-JIS' => [Encoding::Shift_JIS, 'shift_jis-encoded'])
-      def test_read_detects_encoding_automatically(data)
+      def test_read_with_detect_encoding_detects_encoding(data)
         encoding, id = data
         epub = EPUB::Parser.parse('test/fixtures/book.epub')
         item = epub.package.manifest[id]
-        assert_equal encoding, item.read.encoding
+        assert_equal encoding, item.read(detect_encoding: true).encoding
       end
 
       def test_entry_name_returns_normalized_iri
