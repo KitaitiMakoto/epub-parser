@@ -157,6 +157,7 @@ RECENT CHANGES
 
 * [BUG FIX]Use UnpackedURI adapter for URI
 * [BREAKING CHANGE]Remove deprecated second argument from `EPUB::Parser::Publication#initialize`
+* Add `detect_encoding` keyword argument to `Publication::Package::Manifest::Item#read` and `ContentDocument::XHTML#read`
 
 ### 0.3.2
 
