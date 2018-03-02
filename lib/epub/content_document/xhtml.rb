@@ -3,9 +3,10 @@ module EPUB
     class XHTML
       attr_accessor :item
 
+      # @param [Boolean] detect_encoding See {Publication::Package::Manifest::Item#read}
       # @return [String] Returns the content string.
-      def read
-        item.read
+      def read(detect_encoding: true)
+        item.read(detect_encoding: detect_encoding)
       end
       alias raw_document read
 
