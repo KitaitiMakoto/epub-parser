@@ -135,7 +135,9 @@ module EPUB
             Addressable::URI.unencode(full_path)
           end
 
-          def read
+          def read(detect_encoding: true)
+            warn "[#{self.class}##{__method__}]Autodetection of character encoding is deprecated. Pass keyword argument detect_encoding with true explicitly." if detect_encoding
+
             raw_content = manifest.package.book.container_adapter.read(manifest.package.book.epub_file, entry_name)
 
             unless media_type.start_with?('text/') or
