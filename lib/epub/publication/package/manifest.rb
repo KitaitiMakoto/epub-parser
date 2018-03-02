@@ -143,17 +143,21 @@ module EPUB
                 ['application/json', 'application/javascript', 'application/ecmascript', 'application/xml-dtd'].include?(media_type)
               return raw_content
             end
-            # CharDet.detect doesn't raise Encoding::CompatibilityError
-            # that is caused when trying compare CharDet's internal
-            # ASCII-8BIT RegExp with a String with other encoding
-            # because Zip::File#read returns a String with encoding ASCII-8BIT.
-            # So, no need to rescue the error here.
-            encoding = CharDet.detect(raw_content)['encoding']
-            if encoding
-              raw_content.force_encoding(encoding)
+            if detect_encoding
+              # CharDet.detect doesn't raise Encoding::CompatibilityError
+              # that is caused when trying compare CharDet's internal
+              # ASCII-8BIT RegExp with a String with other encoding
+              # because Zip::File#read returns a String with encoding ASCII-8BIT.
+              # So, no need to rescue the error here.
+              encoding = CharDet.detect(raw_content)['encoding']
+              if encoding
+                raw_content.force_encoding(encoding)
+              else
+                warn "No encoding detected for #{entry_name}. Set to ASCII-8BIT" if $DEBUG || $VERBOSE
+                raw_content
+              end
             else
-              warn "No encoding detected for #{entry_name}. Set to ASCII-8BIT" if $DEBUG || $VERBOSE
-              raw_content
+              raw_content.force_encoding("UTF-8");
             end
           end
 
