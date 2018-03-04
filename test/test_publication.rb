@@ -1,3 +1,4 @@
+# coding: utf-8
 require_relative 'helper'
 require 'epub/publication'
 
@@ -301,8 +302,10 @@ class TestPublication < Test::Unit::TestCase
         item = EPUB::Publication::Package::Manifest::Item.new
         item.media_type = 'application/xhtml+xml'
         item.properties = %w[nav]
+        item.href = "nav.xhtml"
         stub(item).read {File.read(File.expand_path('../fixtures/book/OPS/nav.xhtml', __FILE__))}
-        stub(item).manifest.stub!.items {[]}
+        stub(item.manifest).items {[]}
+        stub(item.manifest).package.stub!.full_path {Addressable::URI.parse("OPS/ルートファイル.opf")}
 
         assert_instance_of EPUB::ContentDocument::Navigation, item.content_document
       end
