@@ -24,6 +24,9 @@ class TestPublication < Test::Unit::TestCase
     ocf.container = EPUB::OCF::Container.new
     rootfile = EPUB::OCF::Container::Rootfile.new(full_path)
     rootfile.package = @package
+    another_rootfile = Object.new
+    stub(another_rootfile).package
+    ocf.container.rootfiles << another_rootfile
     ocf.container.rootfiles << rootfile
     book = Object.new
     stub(book).ocf {ocf}
