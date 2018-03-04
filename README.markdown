@@ -179,6 +179,7 @@ See {file:CHANGELOG.markdown} for older changelogs and details.
 TODOS
 -----
 * EPUB 3.0.1
+* EPUB 3.1
 * Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
