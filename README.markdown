@@ -176,11 +176,6 @@ RECENT CHANGES
 
 * Use epub-cfi gem for EPUB CFI
 
-### 0.3.1
-
-* Make `CFI` comparable. Now can call `CFI#==`
-* Include `Publication::Package::Spine::Itemref` in `Searcher.search_element`'s result
-
 See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
