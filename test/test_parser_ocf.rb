@@ -17,7 +17,7 @@ class TestParserOCF < Test::Unit::TestCase
   end
 
   def test_parsed_container_has_two_rootfiles
-    assert_equal 2, @parser.parse_container(@container_xml).rootfiles.length
+    assert_equal 3, @parser.parse_container(@container_xml).rootfiles.length
   end
 
   def test_parse_container_can_find_primary_rootfile
