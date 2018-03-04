@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:media="http://www.idpf.org/epub/vocab/overlays/#" version="3.0" unique-identifier="BookId" xml:lang="en" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:identifier id="BookId">af6e04ec-ca74-4951-a5cd-f0572885a7f9</dc:identifier>
+    <meta refines="#BookId" property="identifier-type" scheme="onix:codelist5">22</meta>
+    <meta property="dcterms:identifier" id="meta-identifier">BookId</meta>
+    <dc:title>Test</dc:title>
+    <meta property="dcterms:title" id="meta-title">Test</meta>
+    <dc:language>en</dc:language>
+    <meta property="dcterms:language" id="meta-language">en</meta>
+    <meta property="dcterms:modified">2017-12-05T20:55:41Z</meta>
+    <dc:creator id="creator">anonymous</dc:creator>
+    <meta refines="#creator" property="file-as">anonymous</meta>
+    <meta property="dcterms:publisher">anonymous</meta>
+    <dc:publisher>anonymous</dc:publisher>
+    <meta property="dcterms:date">2017-12-5</meta>
+    <dc:date>2017-12-5</dc:date>
+    <meta property="dcterms:rights">see MIT-LICENSE</meta>
+    <dc:rights>see MIT-LICENSE</dc:rights>
+    <meta name="cover" content="image_cover"/>
+  </metadata>
+  <manifest>
+    <item id="toc" href="../OEBPS/toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="content_2_chapter-1" href="../OEBPS/2_chapter-1.xhtml" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="toc"/>
+    <itemref idref="content_2_chapter-1"/>
+  </spine>
+</package>
