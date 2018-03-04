@@ -18,6 +18,20 @@ class TestPublication < Test::Unit::TestCase
     assert_nil metadata.package
   end
 
+  def test_full_path_equals_to_corresponding_rootfiles_one
+    full_path = Addressable::URI.parse("OPS/content.opf")
+    ocf = EPUB::OCF.new
+    ocf.container = EPUB::OCF::Container.new
+    rootfile = EPUB::OCF::Container::Rootfile.new(full_path)
+    rootfile.package = @package
+    ocf.container.rootfiles << rootfile
+    book = Object.new
+    stub(book).ocf {ocf}
+    @package.book = book
+
+    assert_equal full_path, @package.full_path
+  end
+
   class TestMetadata < TestPublication
     def setup
       @metadata = Package::Metadata.new
