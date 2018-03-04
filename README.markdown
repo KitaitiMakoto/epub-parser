@@ -159,6 +159,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.3.4
+
+* Add {EPUB::Publication::Package#full_path} and {EPUB::Publication::Package#rootfile}
+
 ### 0.3.3
 
 * [BUG FIX]Use UnpackedURI adapter for URI

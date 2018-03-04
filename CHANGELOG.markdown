@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.3.4
+-----
+
+* Add {EPUB::Publication::Package#full_path} and {EPUB::Publication::Package#rootfile}
+
 0.3.3
 -----
 
