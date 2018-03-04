@@ -159,6 +159,10 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.3.5
+
+* [BUG FIX]Fix a bug that {EPUB::ContentDocument::Navigation::Item#item} is `nil` when `href` includes double dots(`..`)(Thanks [aelkiss][]!)
+
 ### 0.3.4
 
 * Add {EPUB::Publication::Package#full_path} and {EPUB::Publication::Package#rootfile}

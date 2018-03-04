@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+0.3.5
+-----
+* [BUG FIX]Fix a bug that {EPUB::ContentDocument::Navigation::Item#item} is `nil` when `href` includes double dots(`..`)(Thanks [aelkiss][]!)
+
 0.3.4
 -----
 
