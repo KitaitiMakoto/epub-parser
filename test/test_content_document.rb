@@ -112,6 +112,13 @@ class TestContentDocument < Test::Unit::TestCase
       end
     end
 
+    def test_rexml_returns_rexml_document
+      content_doc = XHTML.new
+      stub(content_doc).raw_document {File.read(File.join(File.dirname(__FILE__), 'fixtures', 'book', 'OPS', '日本語.xhtml'))}
+      doc = content_doc.rexml
+      assert_instance_of REXML::Document, doc
+    end
+
     def test_navigation_item
       book = EPUB::Parser.parse("test/fixtures/book.epub")
       package = book.packages[1]
