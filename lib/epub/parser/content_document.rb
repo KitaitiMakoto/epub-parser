@@ -82,7 +82,9 @@ module EPUB
             item.text = extract_attribute(a_or_span, 'title').to_s if item.text.nil? || item.text.empty?
           end
           item.href = extract_attribute(a_or_span, 'href')
-          item.item = @item.manifest.items.find {|it| it.href.request_uri == item.href.request_uri}
+          item.item = @item.manifest.items.find {|it|
+            it.full_path == @item.full_path + item.href.request_uri
+          }
         end
         item.items = element.xpath('./xhtml:ol[1]/xhtml:li', EPUB::NAMESPACES).map {|li| parse_navigation_item(li)}
 
