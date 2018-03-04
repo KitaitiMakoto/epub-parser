@@ -109,5 +109,12 @@ class TestContentDocument < Test::Unit::TestCase
         end
       end
     end
+
+    def test_navigation_item
+      book = EPUB::Parser.parse("test/fixtures/book.epub")
+      package = book.packages[1]
+
+      assert_equal "nested/dir/text/2_chapter-1.xhtml", package.manifest.nav.content_document.navigation.items.first.item.full_path.path
+    end
   end
 end
