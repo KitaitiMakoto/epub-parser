@@ -43,6 +43,18 @@ module EPUB
         @metadata.unique_identifier
       end
 
+      # Corresponding {Rootfile}
+      # @return [OCF::Container::Rootfile]
+      def rootfile
+        @book.ocf.container.rootfiles.find {|rf| rf.package == self}
+      end
+
+      # Full path in EPUB archive
+      # @return [Addressable::URI]
+      def full_path
+        rootfile.full_path if rootfile
+      end
+
       def inspect
         "#<%{class}:%{object_id} %{attributes} %{models}>" % {
           :class      => self.class,
