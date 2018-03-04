@@ -62,6 +62,8 @@ class TestContentDocument < Test::Unit::TestCase
 
     def test_contents_returns_items_of_toc
       manifest = EPUB::Publication::Package::Manifest.new
+      manifest.package = Object.new
+      stub(manifest.package).full_path {Addressable::URI.parse("")}
       item = EPUB::Publication::Package::Manifest::Item.new
       item.media_type = 'application/xhtml+xml'
       item.properties = %w[nav]

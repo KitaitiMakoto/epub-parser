@@ -10,6 +10,8 @@ class TestParserContentDocument < Test::Unit::TestCase
       item.href = href
       @manifest << item
     end
+    @manifest.package = Object.new
+    stub(@manifest.package).full_path {"OPS/ルートファイル.opf"}
 
     @dir = 'test/fixtures/book'
     @parser = EPUB::Parser::ContentDocument.new(@manifest.items.last)

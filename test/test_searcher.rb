@@ -15,6 +15,7 @@ class TestSearcher < Test::Unit::TestCase
           itemref.idref == 'nav' ? File.read(nav_path) : '<html></html>'
         }
       end
+      stub(@package).full_path {"OPS/ルートファイル.opf"}
     end
 
     def test_no_result
