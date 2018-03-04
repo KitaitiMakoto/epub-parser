@@ -125,5 +125,12 @@ class TestContentDocument < Test::Unit::TestCase
 
       assert_equal "nested/dir/text/2_chapter-1.xhtml", package.manifest.nav.content_document.navigation.items.first.item.full_path.path
     end
+
+    def test_navigation_with_double_dots
+      book = EPUB::Parser.parse("test/fixtures/book.epub")
+      package = book.packages[2]
+
+      assert_equal "OEBPS/2_chapter-1.xhtml", package.manifest.nav.content_document.navigation.items.first.item.full_path.to_s
+    end
   end
 end
