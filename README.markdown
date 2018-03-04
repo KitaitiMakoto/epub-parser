@@ -162,7 +162,9 @@ RECENT CHANGES
 ### 0.3.4
 
 * Add {EPUB::Publication::Package#full_path} and {EPUB::Publication::Package#rootfile}
-* [BUG FIX]Fix a bug that {EPUB::ContentDocument::Navigation::Item#item} doesn't return correct {EPUB::Publication::Package::Manifest::Item Item}
+* [BUG FIX]Fix a bug that {EPUB::ContentDocument::Navigation::Item#item} doesn't return correct {EPUB::Publication::Package::Manifest::Item Item}(Thanks [aelkiss][]!)
+
+[aelkiss]: https://gitlab.com/aelkiss
 
 ### 0.3.3
 
