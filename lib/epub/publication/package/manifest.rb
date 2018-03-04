@@ -121,7 +121,7 @@ module EPUB
           # @return [Addressable::URI]
           def full_path
             return @full_path if @full_path
-            rootfile = manifest.package.book.ocf.container.rootfile.full_path
+            rootfile = manifest.package.full_path
             path = DUMMY_ROOT_IRI + rootfile + href
             path.scheme = nil
             path.host = nil
