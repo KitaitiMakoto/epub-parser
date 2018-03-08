@@ -184,6 +184,7 @@ See {file:CHANGELOG.markdown} for older changelogs and details.
 
 TODOS
 -----
+* Consider to implement IRI feature instead of to use Addressable
 * EPUB 3.0.1
 * EPUB 3.1
 * Help features for `epub-open` tool
