@@ -1,8 +1,3 @@
-job:
-  script: bundle exec rake test
-  except:
-    - tags
-
 before_script:
   - ruby -v
   - which ruby
@@ -11,6 +6,9 @@ before_script:
 
 test:2.3:
   image: ruby:2.3
+  script: bundle exec rake test
+  except:
+    - tags
   cache:
     key: ruby:2.3
     paths:
@@ -18,6 +16,9 @@ test:2.3:
 
 test:2.4:
   image: ruby:2.4
+  script: bundle exec rake test
+  except:
+    - tags
   cache:
     key: ruby:2.4
     paths:
@@ -25,6 +26,9 @@ test:2.4:
 
 test:2.5:
   image: ruby:2.5
+  script: bundle exec rake test
+  except:
+    - tags
   cache:
     key: ruby:2.5
     paths:
