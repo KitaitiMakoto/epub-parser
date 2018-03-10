@@ -39,11 +39,16 @@ unless File.readable? file
   end
 end
 book = EPUB::Parser.parse(file)
-data = {'Title' => [book.title]}
+data = {'title' => book.title}
 data.merge!(book.metadata.to_h)
-data['modified'] = [book.modified]
-data['Unique identifier'] = [book.metadata.unique_identifier]
-data['EPUB Version'] = [book.package.version]
+data['modified'] = book.modified
+data['unique identifier'] = book.metadata.unique_identifier
+data['epub version'] = book.package.version
+
+data.each_pair do |(key, value)|
+  data[key] = value.respond_to?(:join) ? value.join(", ") : value.to_s
+end
+
 counts = {:chars => 0, :words => 0}
 if options[:words] or options[:chars]
   book.resources.select(&:xhtml?).each do |xhtml|
@@ -60,12 +65,12 @@ if options[:words] or options[:chars]
     end
   end
 end
-data['Words'] = [counts[:words]] if options[:words]
-data['Characters'] = [counts[:chars]] if options[:chars]
+data['words'] = counts[:words] if options[:words]
+data['characters'] = counts[:chars] if options[:chars]
 if options[:format] == :line
   key_width = data.keys.map {|k| k.length}.max + 3
   data.each_pair do |k, v|
-    puts (k.to_s.capitalize + ':').ljust(key_width) + v.join(', ')
+    puts (k.to_s.capitalize + ':').ljust(key_width) + v.to_s
   end
 else
   require options[:format].to_s
