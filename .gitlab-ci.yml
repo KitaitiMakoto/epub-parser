@@ -2,16 +2,28 @@ before_script:
   - ruby -v
   - which ruby
   - gem install bundler --no-document
-  - bundle install --jobs=$(nproc) "${FLAGS[@]}"
+  - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
 
 test:2.3:
   image: ruby:2.3
   script: bundle exec rake test
+  cache:
+    key: ruby:2.3
+    paths:
+      - deps
 
 test:2.4:
   image: ruby:2.4
   script: bundle exec rake test
+  cache:
+    key: ruby:2.4
+    paths:
+      - deps
 
 test:2.5:
   image: ruby:2.5
   script: bundle exec rake test
+  cache:
+    key: ruby:2.5
+    paths:
+      - deps
