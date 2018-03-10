@@ -227,6 +227,7 @@ module EPUB
               segment == '..' ? clean_segments.pop : clean_segments << segment
             end
             target_iri = Addressable::URI.parse(clean_segments.join(Addressable::URI::SLASH))
+            target_iri.fragment = nil
             manifest.items.find { |item| item.href == target_iri}
           end
 
