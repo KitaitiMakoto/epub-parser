@@ -1,3 +1,7 @@
+job:
+  except:
+    - tags
+
 before_script:
   - ruby -v
   - which ruby
