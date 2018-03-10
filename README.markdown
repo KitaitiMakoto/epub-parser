@@ -159,6 +159,14 @@ If you find other gems, please tell me or request a pull request.
 RECENT CHANGES
 --------------
 
+### 0.3.6
+
+* [BUG FIX]Ignore fragment when find item by relative IRI
+* Disable [PrettyBacktrace][] by default
+
+[PrettyBacktrace]: https://github.com/ko1/pretty_backtrace
+
+
 ### 0.3.5
 
 * [BUG FIX]Fix a bug that {EPUB::ContentDocument::Navigation::Item#item} is `nil` when `href` includes double dots(`..`)(Thanks [aelkiss][]!)

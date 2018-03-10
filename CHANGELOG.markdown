@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+0.3.6
+-----
+* [BUG FIX]Ignore fragment when find item by relative IRI
+* Enable [PrettyBacktrace][] only when specified by env var for testing performance
+
+[PrettyBacktrace]: https://github.com/ko1/pretty_backtrace
+
 0.3.5
 -----
 * [BUG FIX]Fix a bug that {EPUB::ContentDocument::Navigation::Item#item} is `nil` when `href` includes double dots(`..`)(Thanks [aelkiss][]!)
