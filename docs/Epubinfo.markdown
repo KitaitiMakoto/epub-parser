@@ -1,4 +1,4 @@
-{file:docs/Home} > **{file:docs/Epubinfo}**
+{file:docs/Home} > **{file:docs/Epubinfo.markdown}**
 
 `epubinfo` command-line tool
 ============================

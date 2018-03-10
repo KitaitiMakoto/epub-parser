@@ -64,7 +64,7 @@ See document's {file:docs/Home.markdown} or [API Documentation][rubydoc] for mor
     Unique identifier:  978-1-934356-91-3
     Epub version:       2.0
 
-See {file:docs/Epubinfo} for more info.
+See {file:docs/Epubinfo.markdown} for more info.
 
 ### `epub-open` command-line tool
 
@@ -96,7 +96,7 @@ IRB starts. `self` becomes the EPUB book and can access to methods of `EPUB`.
     => nil
     exit # Enter "exit" when exit the session
 
-See {file:docs/EpubOpen} for more info.
+See {file:docs/EpubOpen.markdown} for more info.
 
 DOCUMENTATION
 -------------

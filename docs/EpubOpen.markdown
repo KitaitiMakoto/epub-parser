@@ -1,4 +1,4 @@
-{file:docs/Home} > **{file:docs/EpubOpen}**
+{file:docs/Home} > **{file:docs/EpubOpen.markdown}**
 
 `epub-open` command-line tool
 =============================

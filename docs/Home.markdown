@@ -17,13 +17,13 @@ Usage
 
 `epubinfo` tool extracts and shows the metadata of specified EPUB book.
 
-See {file:docs/Epubinfo}.
+See {file:docs/Epubinfo.markdown}.
 
 #### epub-open
 
 `epub-open` tool provides interactive shell(IRB) which helps you research about EPUB book.
 
-See {file:docs/EpubOpen}.
+See {file:docs/EpubOpen.markdown}.
 
 ### As a library
 
