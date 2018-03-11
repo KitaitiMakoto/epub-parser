@@ -44,6 +44,7 @@ namespace :doc do
     rdoc.rdoc_files.include 'README.adoc'
     rdoc.rdoc_files.include 'CHANGELOG.adoc'
     rdoc.rdoc_files.include 'MIT-LICENSE'
+    rdoc.rdoc_files.include 'docs/**/*.adoc'
     rdoc.rdoc_files.include 'docs/**/*.md'
   end
 end
