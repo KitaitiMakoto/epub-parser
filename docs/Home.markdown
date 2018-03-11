@@ -166,7 +166,7 @@ Requirements
 History
 -------
 
-See {file:CHANGELOG.markdown}.
+See {file:CHANGELOG.adoc}.
 
 Note
 ----

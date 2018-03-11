@@ -184,7 +184,7 @@ RECENT CHANGES
 * [BREAKING CHANGE]Remove deprecated second argument from `EPUB::Parser::Publication#initialize`
 * Add `detect_encoding` keyword argument to `Publication::Package::Manifest::Item#read` and `ContentDocument::XHTML#read`
 
-See {file:CHANGELOG.markdown} for older changelogs and details.
+See {file:CHANGELOG.adoc} for older changelogs and details.
 
 TODOS
 -----

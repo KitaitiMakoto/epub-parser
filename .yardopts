@@ -1,6 +1,6 @@
 --load docs/yard-forwardable_def_delegators_handler.rb
 -
-CHANGELOG.markdown
+CHANGELOG.adoc
 MIT-LICENSE
 docs/Home.markdown
 docs/Publication.markdown
