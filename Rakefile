@@ -42,6 +42,7 @@ namespace :doc do
   Rake::RDocTask.new do |rdoc|
     rdoc.rdoc_files = FileList['lib/**/*.rb']
     rdoc.rdoc_files.include 'README.adoc'
+    rdoc.rdoc_files.include 'CHANGELOG.adoc'
     rdoc.rdoc_files.include 'MIT-LICENSE'
     rdoc.rdoc_files.include 'docs/**/*.md'
   end
