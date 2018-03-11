@@ -214,4 +214,4 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 == LICENSE
 
 This library is distribuetd under the term of the MIT License.
-See MIT-LICENSE file for more info.
+See {file:MIT-LICENSE} file for more info.
