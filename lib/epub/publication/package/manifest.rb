@@ -220,6 +220,7 @@ module EPUB
             raise ArgumentError, "Not relative: #{iri.inspect}" unless iri.relative?
             raise ArgumentError, "Start with slash: #{iri.inspect}" if iri.path.start_with? Addressable::URI::SLASH
             target_href = href + iri
+            target_href.fragment = nil
             segments = target_href.to_s.split(Addressable::URI::SLASH)
             clean_segments = []
             segments.each do |segment|
@@ -227,7 +228,6 @@ module EPUB
               segment == '..' ? clean_segments.pop : clean_segments << segment
             end
             target_iri = Addressable::URI.parse(clean_segments.join(Addressable::URI::SLASH))
-            target_iri.fragment = nil
             manifest.items.find { |item| item.href == target_iri}
           end
 
