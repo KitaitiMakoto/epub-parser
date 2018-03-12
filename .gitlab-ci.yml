@@ -3,6 +3,7 @@ before_script:
   - which ruby
   - gem install bundler --no-document
   - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
+  - bundle clean
 
 test:2.3:
   image: ruby:2.3
