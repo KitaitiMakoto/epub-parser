@@ -89,6 +89,7 @@ module EPUB
           model.__send__ "#{attr.gsub('-', '_')}=", extract_attribute(elem, attr)
         end
         model.content = elem.content unless klass == :Link
+        model.content.strip! if klass == :Identifier
         model
       end
 
