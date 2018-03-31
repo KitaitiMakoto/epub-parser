@@ -162,6 +162,10 @@ If you find other gems, please tell me or request a pull request.
 
 == RECENT CHANGES
 
+=== 0.3.7
+
+* Strip leading and trailing white spaces from identifiers
+
 === 0.3.6
 
 * [BUG FIX]Ignore fragment when find item by relative IRI
