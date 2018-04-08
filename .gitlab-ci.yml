@@ -34,3 +34,13 @@ test:2.5:
     key: ruby:2.5
     paths:
       - deps
+
+test:2.6:
+  image: ruby:2.6-rc
+  script: bundle exec rake test
+  except:
+    - tags
+  cache:
+    key: ruby:2.6
+    paths:
+      - deps
