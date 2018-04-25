@@ -1,7 +1,7 @@
 Encoding.default_external = 'UTF-8'
 require 'simplecov'
 SimpleCov.start do
-  add_filter '/test|deps/'
+  add_filter /test|deps/
 end
 
 require 'pp'
