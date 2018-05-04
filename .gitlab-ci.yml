@@ -30,6 +30,9 @@ test:2.5:
   script: bundle exec rake test
   except:
     - tags
+  artifacts:
+    paths:
+      - coverage
   cache:
     key: ruby:2.5
     paths:
@@ -58,3 +61,7 @@ pages:
       - public
   only:
     - master
+  cache:
+    key: ruby:2.5
+    paths:
+      - deps
