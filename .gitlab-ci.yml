@@ -44,3 +44,17 @@ test:2.6:
     key: ruby:2.6
     paths:
       - deps
+
+pages:
+  stage: deploy
+  dependencies:
+    - test:2.5
+  script:
+    - rake doc:yard
+    - mv doc public
+    - coverage public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
