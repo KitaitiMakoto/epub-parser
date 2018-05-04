@@ -3,10 +3,10 @@
 image:https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/build.svg[link="https://gitlab.com/KitaitiMakoto/epub-parser/commits/master", title="pipeline status"]
 image:https://gemnasium.com/KitaitiMakoto/epub-parser.png[link="https://gitlab.com/KitaitiMakoto/epub-parser/commits/master",title="Dependency Status"]
 image:https://badge.fury.io/rb/epub-parser.svg[link="https://gemnasium.com/KitaitiMakoto/epub-parser",title="Gem Version"]
-image:https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/coverage.svg[link="https://gitlab.com/KitaitiMakoto/epub-parser/commits/master",title="coverage report"]
+image:https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/coverage.svg[link="https://kitaitimakoto.gitlab.io/epub-parser/coverage/",title="coverage report"]
 
-* http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown[Homepage]
-* http://www.rubydoc.info/gems/epub-parser[Documentation]
+* https://kitaitimakoto.gitlab.io/epub-parser/file.Home.html[Homepage]
+* https://kitaitimakoto.gitlab.io/epub-parser/[Documentation]
 * https://gitlab.com/KitaitiMakoto/epub-parser[Source Code]
 
 == INSTALLATION
@@ -36,7 +36,7 @@ book.each_page_on_spine do |page|
 end
 ----
 
-See document's {file:docs/Home.markdown} or http://www.rubydoc.info/gems/epub-parser[API Documentation] for more info.
+See document's {file:docs/Home.markdown} or https://kitaitimakoto.gitlab.io/epub-parser/[API Documentation] for more info.
 
 === `epubinfo` command-line tool
 
@@ -104,7 +104,7 @@ See {file:docs/EpubOpen.markdown} for more info.
 
 == DOCUMENTATION
 
-Documentation is available in http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown[homepage].
+Documentation is available in https://kitaitimakoto.gitlab.io/epub-parser/file.Home.html[homepage].
 
 If you installed EPUB Parser by gem command, you can also generate documentaiton yourself(https://rubygems.org/gems/rubygems-yardoc[rubygems-yardoc] gem is needed):
 

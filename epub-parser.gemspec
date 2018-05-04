@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = EPUB::Parser::VERSION
   s.authors     = ["KITAITI Makoto"]
   s.email       = ["KitaitiMakoto@gmail.com"]
-  s.homepage    = "http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown"
+  s.homepage    = "https://kitaitimakoto.gitlab.io/epub-parser/file.Home.html"
   s.summary     = %q{EPUB 3 Parser}
   s.description = %q{Parse EPUB 3 book loosely}
   s.license     = 'MIT'

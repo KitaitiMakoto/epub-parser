@@ -153,7 +153,7 @@ Or, generating yardoc command is possible, too:
 
 Then documentation will be available in `doc` directory.
 
-[homepage]: http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown
+[homepage]: https://kitaitimakoto.gitlab.io/epub-parser/file.Home.html
 [rubygems-yardoc]: https://rubygems.org/gems/rubygems-yardoc
 
 Requirements

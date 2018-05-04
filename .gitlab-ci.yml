@@ -52,7 +52,7 @@ pages:
   script:
     - rake doc:yard
     - mv doc public
-    - coverage public/
+    - mv coverage public/
   artifacts:
     paths:
       - public
