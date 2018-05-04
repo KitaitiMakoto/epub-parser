@@ -128,6 +128,12 @@ For each EPUB book:
 book = EPUB::Parser.parse("path/to/book.epub", container_adapter: :Zipruby)
 ----
 
+== {file:Examples}
+
+* {file:examples/aggregate-contents-from-web.rb} ... Aggregate EPUB contents from the web
+* {file:examples/exctract-content-using-cfi.rb} ... Extract contents from EPUB files using EPUB CFI(identifier for EPUB)
+* {file:examples/find-elements-and-cfis.rb} ... Find elements and CFIs
+
 == Documentation
 
 More documentations are avaiable in:
