@@ -5,5 +5,5 @@
 There are examples helping you find how to use EPUB parser gem.
 
 * {file:examples/aggregate-contents-from-web.rb} ... Aggregate EPUB contents from the web
-* {file:examples/exctract-content-using-cfi.rb}: desc ... Extract contents from EPUB files using EPUB CFI(identifier for EPUB)
-* {file:examples/find-elements-and-cfis.rb}: desc ... Find elements and CFIs
+* {file:examples/exctract-content-using-cfi.rb} ... Extract contents from EPUB files using EPUB CFI(identifier for EPUB)
+* {file:examples/find-elements-and-cfis.rb} ... Find elements and CFIs
