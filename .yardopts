@@ -13,6 +13,7 @@ docs/Searcher.markdown
 docs/UnpackedArchive.markdown
 docs/AggregateContentsFromWeb.markdown
 docs/MultipleRenditions.markdown
+docs/Examples.adoc
 examples/aggregate-contents-from-web.rb
 examples/exctract-content-using-cfi.rb
 examples/find-elements-and-cfis.rb
