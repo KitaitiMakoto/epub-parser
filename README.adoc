@@ -165,6 +165,7 @@ If you find other gems, please tell me or request a pull request.
 === 0.3.7
 
 * Strip leading and trailing white spaces from identifiers
+* Change home page and documentation from rubydoc.info to GitLab Pages
 
 === 0.3.6
 
