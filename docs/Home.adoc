@@ -131,7 +131,7 @@ More documentations are avaiable in:
 * {file:docs/AggregateContentsFromWeb.markdown}
 * {file:docs/MultipleRenditions.markdown}
 
-If you installed EPUB Parser via gem command, you can also generate documentaiton by your own(https://rubygems.org/gems/rubygems-yardoc[rubygems-yardoc] gem is needed):
+If you installed EPUB Parser via gem command, you can also generate documentaiton by your own(https://gitlab.com/KitaitiMakoto/rubygems-yardoc[rubygems-yardoc] gem is needed):
 
 ----
 $ gem install epub-parser
