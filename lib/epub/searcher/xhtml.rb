@@ -87,6 +87,7 @@ module EPUB
                 # TODO: Consider block level elements
                 content_length = content.length
                 sub_indices, sub_content = build_indices(child)
+                # TODO: Pass content_length and child_step to build_indices and remove this block
                 sub_indices.each_pair do |sub_pos, child_steps|
                   indices[content_length + sub_pos] = [child_step] + child_steps
                 end
