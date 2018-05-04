@@ -2,7 +2,7 @@
 -
 CHANGELOG.adoc
 MIT-LICENSE
-docs/Home.markdown
+docs/Home.adoc
 docs/Publication.markdown
 docs/Item.markdown
 docs/FixedLayout.markdown
