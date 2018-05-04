@@ -103,7 +103,7 @@ ret == book # => true; this API is not good I feel... Welcome suggestion!
 
 ==== Switching ZIP library
 
-EPUB Parser uses https://github.com/javanthropus/archive-zip[Archive::Zip], a pure Ruby ZIP library, by default. You can use https://bitbucket.org/winebarrel/zip-ruby/wiki/Home[Zip/Ruby], a Ruby bindings for https://nih.at/libzip/[libzip] if you have already installed Zip/Ruby gem by RubyGems or Bundler.
+EPUB Parser uses https://github.com/javanthropus/archive-zip[Archive::Zip], a pure Ruby ZIP library, by default. You can use https://bitbucket.org/winebarrel/zip-ruby/wiki/Home[Zip/Ruby], a Ruby bindings for https://libzip.org/[libzip] if you have already installed Zip/Ruby gem by RubyGems or Bundler.
 
 Globally:
 
