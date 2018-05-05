@@ -9,7 +9,7 @@ docs/FixedLayout.markdown
 docs/Epubinfo.markdown
 docs/EpubOpen.markdown
 docs/Navigation.markdown
-docs/Searcher.markdown
+docs/Searcher.adoc
 docs/UnpackedArchive.markdown
 docs/AggregateContentsFromWeb.markdown
 docs/MultipleRenditions.markdown
