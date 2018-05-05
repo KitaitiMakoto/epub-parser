@@ -1,5 +1,7 @@
 = EPUB Parser
 
+= {doctitle}
+
 image:https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/build.svg[link="https://gitlab.com/KitaitiMakoto/epub-parser/commits/master", title="pipeline status"]
 image:https://gemnasium.com/KitaitiMakoto/epub-parser.png[link="https://gitlab.com/KitaitiMakoto/epub-parser/commits/master",title="Dependency Status"]
 image:https://badge.fury.io/rb/epub-parser.svg[link="https://gemnasium.com/KitaitiMakoto/epub-parser",title="Gem Version"]
