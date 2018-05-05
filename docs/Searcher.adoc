@@ -111,3 +111,22 @@ EPUB::Searcher::Publication.search_element(@package, css: 'ol > li').collect {|r
 #    :
 #    :
 ----
+
+== Search by EPUB CFI
+
+You can fetch XML node from EPUB document by EPUB CFI.
+
+----
+require "epub/parser"
+require "epub/searcher"
+
+epub = EPUB::Parser.parse("childrens-literature.epub")
+cfi = EPUB::CFI("/6/4!/4/2[toc]/4[tocList]/2[np-313]/4/4[np-317]")
+itemref, node = EPUB::Searcher.search_by_cfi(epub, cfi)
+puts itemref.item.full_path
+puts node
+# EPUB/nav.xhtml
+# <li id="np-317" class="front">
+#                                                         <a href="s04.xhtml#pgepubid00498">INTRODUCTORY</a>
+#                                                 </li>
+----
