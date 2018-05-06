@@ -36,7 +36,7 @@ module EPUB
       # @!parse def_delegators :package, :metadata, :manifest, :spine, :guide, :bindings
       def_delegators :package, *Publication::Package::CONTENT_MODELS
       def_delegators :metadata, :title, :main_title, :subtitle, :short_title, :collection_title, :edition_title, :extended_title, :description, :date, :unique_identifier, :modified, :release_identifier, :package_identifier
-      def_delegators :manifest, :nav, :cover_image
+      def_delegators :manifest, :nav
 
       def container_adapter
         @adapter || OCF::PhysicalContainer.adapter
@@ -44,6 +44,12 @@ module EPUB
 
       def container_adapter=(adapter)
         @adapter = OCF::PhysicalContainer.find_adapter(adapter)
+      end
+
+      # Cover image defined in EPUB 3 or used in EPUB 2
+      # @return [EPUB::Publication::Package::Manifest::Item]
+      def cover_image
+        manifest.cover_image || metadata.cover_image
       end
 
       # @overload each_page_on_spine(&blk)
