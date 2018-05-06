@@ -7,6 +7,7 @@
 * Parse `package/metadata/meta@name` and `@content` to allow EPUB 2 meta info
 * Add {EPUB::Metadata#cover_image Metadata#cover_image}
 * Make {EPUB::Book::Features#cover_image Book::Features#cover_image} return EPUB 2 cover image if EPUB 3's not available
+* Add `epub-cover` command-line tool. See {file:docs/EpubCover.adoc} for details.
 
 == 0.3.6
 
