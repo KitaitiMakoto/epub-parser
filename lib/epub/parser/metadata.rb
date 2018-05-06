@@ -38,7 +38,7 @@ module EPUB
             when default_namespace_uri
               case elem_name
               when 'meta'
-                meta = build_model(child, :Meta, %w[property id scheme])
+                meta = build_model(child, :Meta, %w[property id scheme content name])
                 metadata.metas << meta
                 meta
               when 'link'
@@ -86,7 +86,8 @@ module EPUB
       def build_model(elem, klass=:DCMES, attributes=%w[id lang dir])
         model = EPUB::Metadata.const_get(klass).new
         attributes.each do |attr|
-          model.__send__ "#{attr.gsub('-', '_')}=", extract_attribute(elem, attr)
+          writer_name = (attr == "content") ? "meta_content=" : "#{attr.gsub('-', '_')}="
+          model.__send__ writer_name, extract_attribute(elem, attr)
         end
         model.content = elem.content unless klass == :Link
         model.content.strip! if klass == :Identifier
