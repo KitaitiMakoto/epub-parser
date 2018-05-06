@@ -106,6 +106,17 @@ exit # Enter "exit" when exit the session
 
 See {file:docs/EpubOpen.markdown} for more info.
 
+=== `epub-cover` command-line tool
+
+`epub-cover` tool extract cover image from EPUB book.
+
+----
+% epub-cover childrens-literature.epub
+Cover image output to cover.png
+----
+
+See {file:docs/EpubCover.adoc} for details.
+
 == DOCUMENTATION
 
 Documentation is available in https://kitaitimakoto.gitlab.io/epub-parser/file.Home.html[homepage].
