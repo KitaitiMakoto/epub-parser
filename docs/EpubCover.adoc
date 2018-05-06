@@ -7,7 +7,7 @@
 == Usage
 
 ----
-%epub-cover --help
+% epub-cover --help
 Extract cover image.
 Image is put to current directory with the same name in EPUB.
 It is put to specified directory when `--output' option is given.
