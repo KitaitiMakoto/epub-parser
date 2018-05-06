@@ -1,0 +1,46 @@
+{file:docs/Home} > *{file:docs/EpubCover.adoc}*
+
+= `epub-cover` command-line tool
+
+`epub-cover` tool extract cover image from EPUB book.
+
+== Usage
+
+----
+%epub-cover --help
+Extract cover image.
+Image is put to current directory with the same name in EPUB.
+It is put to specified directory when `--output' option is given.
+
+Usage: epub-cover [options] EPUBFILE
+
+Options:
+    -o, --output=DIR                 Directory to put image file
+----
+
+Example:
+
+----
+% epub-cover childrens-literature.epub
+Cover image output to cover.png
+----
+
+As output indicates, cover image file is output to current directory. The file name is the same to one in EPUB file.
+
+=== Output directory
+
+You can specify a directory to output the cover file by `--output` option.
+
+----
+% epub-cover --output=/tmp childrens-literature.epub
+Cover image output to /tmp/cover.png
+----
+
+=== Extract from the web
+
+`epub-open` accepts URI instead of file path.
+
+----
+% epub-cover https://raw.githubusercontent.com/IDPF/epub3-samples/master/30/page-blanche/
+Cover image output to cover.jpg
+----
