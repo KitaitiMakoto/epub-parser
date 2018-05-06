@@ -34,6 +34,12 @@ See {file:docs/Epubinfo.markdown}.
 
 See {file:docs/EpubOpen.markdown}.
 
+==== epub-cover
+
+`epub-cover` tool extract cover image from EPUB book.
+
+See {file:docs/EpubCover.adoc}.
+
 === As a library
 
 Use `EPUB::Parser.parse` at first:
