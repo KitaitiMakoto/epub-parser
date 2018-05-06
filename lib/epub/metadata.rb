@@ -65,6 +65,14 @@ module EPUB
       }
     end
 
+    # Cover image used in EPUB 2
+    # @return [EPUB::Publication::Package::Manifest::Item]
+    def cover_image
+      cover_image_meta = metas.find {|meta| meta.name == "cover"}
+      return unless cover_image_meta
+      package.manifest[cover_image_meta.meta_content]
+    end
+
     def to_h
       DC_ELEMS.inject({}) do |hsh, elem|
         hsh[elem] = __send__(elem)
