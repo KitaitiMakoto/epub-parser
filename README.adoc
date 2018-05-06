@@ -37,6 +37,7 @@ book.each_page_on_spine do |page|
   # do something more
   #    :
 end
+book.cover_image # => EPUB::Publication::Package::Manifest::Item which represents cover image file
 ----
 
 See document's {file:docs/Home.markdown} or https://kitaitimakoto.gitlab.io/epub-parser/[API Documentation] for more info.
