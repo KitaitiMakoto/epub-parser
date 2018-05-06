@@ -1,0 +1,51 @@
+require "optparse"
+require "uri"
+require "epub/parser"
+
+def main(argv)
+  option_parser = OptionParser.new {|opt|
+    opt.banner = <<EOB
+Extract cover image.
+Image is put to current directory with the same name in EPUB.
+It is put to specified directory when `--output' option is given.
+
+Usage: #{opt.program_name} [options] EPUBFILE
+
+EOB
+    opt.separator "Options:"
+    opt.on "-o", "--output=DIR", "Directory to put image file"
+  }
+  options = option_parser.getopts(argv)
+  path = argv.shift
+  error "EPUBFILE not given" unless path
+  unless File.file? path
+    if File.directory? path
+      EPUB::OCF::PhysicalContainer.adapter = :UnpackedDirectory
+    else
+      path = URI.parse(path) rescue nil
+      if path
+        EPUB::OCF::PhysicalContainer.adapter = :UnpackedURI
+      else
+        error "EPUBFILE not a file"
+      end
+    end
+  end
+  error "output not a directory" if options["output"] && !File.directory?(options["output"])
+  cover_image = EPUB::Parser.parse(path).cover_image
+  error "cover image not found" unless cover_image
+  path = File.basename(cover_image.href.to_s)
+  path = File.join(options["output"], path) if options["output"]
+  File.write path, cover_image.read
+  $stderr.print "Cover image output to "
+  print path
+  $stderr.puts ""
+end
+
+def error(message)
+  $stderr.puts "Error: #{message}"
+  $stderr.puts ""
+  $stderr.puts option_parser.help
+  abort
+end
+
+main(ARGV)
