@@ -43,15 +43,19 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     end
   end
 
-  require 'epub/ocf/physical_container/zipruby'
-  class TestZipruby < self
-    include ConcreteContainer
+  begin
+    require 'epub/ocf/physical_container/zipruby'
+    class TestZipruby < self
+      include ConcreteContainer
 
-    def setup
-      super
-      @class = EPUB::OCF::PhysicalContainer::Zipruby
-      @container = @class.new(@container_path)
+      def setup
+        super
+        @class = EPUB::OCF::PhysicalContainer::Zipruby
+        @container = @class.new(@container_path)
+      end
     end
+  rescue LoadError
+    warn "Skip TestOPFPhysicalContainer::TestZipRuby"
   end
 
   class TestUnpackedDirectory < self
