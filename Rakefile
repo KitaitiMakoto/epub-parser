@@ -19,7 +19,6 @@ namespace :test do
 
   desc 'Build test fixture EPUB file'
   task :build => :clean do
-    Encoding.default_external = "UTF-8"
     input_dir  = 'test/fixtures/book'
     EPUB::Maker.archive input_dir
     small_file = File.read("#{input_dir}/OPS/case-sensitive.xhtml")
