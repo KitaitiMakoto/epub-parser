@@ -4,7 +4,6 @@ require 'rubygems/tasks'
 require 'yard'
 require 'rdoc/task'
 require 'epub/parser/version'
-require 'zipruby'
 require 'epub/maker'
 
 task :default => :test
@@ -21,9 +20,7 @@ namespace :test do
     input_dir  = 'test/fixtures/book'
     EPUB::Maker.archive input_dir
     small_file = File.read("#{input_dir}/OPS/case-sensitive.xhtml")
-    Zip::Archive.open "#{input_dir}.epub" do |archive|
-      archive.add_buffer 'OPS/CASE-SENSITIVE.xhtml', small_file.sub('small file name', 'LARGE FILE NAME')
-    end
+    EPUB::OCF::PhysicalContainer.write "#{input_dir}.epub", 'OPS/CASE-SENSITIVE.xhtml', small_file.sub('small file name', 'LARGE FILE NAME')
   end
 
   Rake::TestTask.new do |task|
