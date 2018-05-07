@@ -1,5 +1,9 @@
 = CHANGELOG
 
+== 0.3.8
+
+* Start CI on https://www.appveyor.com/[AppVeyor]
+
 == 0.3.7
 
 * Strip leading and trailing white spaces from identifiers. See http://www.idpf.org/epub/31/spec/epub-packages.html#sec-opf-dcidentifier for details.
