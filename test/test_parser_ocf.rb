@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 require File.expand_path 'helper', File.dirname(__FILE__)
-require 'zipruby'
 
 class TestParserOCF < Test::Unit::TestCase
   def setup
@@ -8,12 +7,8 @@ class TestParserOCF < Test::Unit::TestCase
     EPUB::OCF::PhysicalContainer.open(file) {|container|
       @parser = EPUB::Parser::OCF.new(container)
     }
-    @container_xml = Zip::Archive.open(file) {|archive|
-      archive.fopen('META-INF/container.xml').read
-    }
-    @metadata_xml = Zip::Archive.open(file) {|archive|
-      archive.fopen('META-INF/metadata.xml').read
-    }
+    @container_xml = File.read("test/fixtures/book/META-INF/container.xml")
+    @metadata_xml = File.read("test/fixtures/book/META-INF/metadata.xml")
   end
 
   def test_parsed_container_has_two_rootfiles
