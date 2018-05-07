@@ -8,8 +8,7 @@ environment:
 
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
-  - gem fetch zipruby --platform mswin32
-  - gem install ./zipruby-0.3.6-x86-mswin32.gem
+  - gem install zipruby --platform mswin32
   - bundle install --system
 
 build: off
