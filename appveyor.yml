@@ -8,8 +8,9 @@ environment:
 
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
-  - gem install zipruby --platform mswin32
-  - bundle install --system
+  - ruby -v
+  - bundle config --local path vendor/bundle
+  - bundle install
 
 build: off
 
