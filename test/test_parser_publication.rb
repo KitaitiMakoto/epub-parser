@@ -1,20 +1,12 @@
 # -*- coding: utf-8 -*-
 require File.expand_path 'helper', File.dirname(__FILE__)
-require 'zipruby'
 
 class TestParserPublication < Test::Unit::TestCase
   def setup
-    file = 'test/fixtures/book.epub'
-    rootfile = 'OPS/ルートファイル.opf'
-    @zip = Zip::Archive.open(file)
-    opf = @zip.fopen(rootfile).read
+    opf = File.read("test/fixtures/book/OPS/ルートファイル.opf")
     @opf = Nokogiri.XML(opf)
     @parser = EPUB::Parser::Publication.new(opf)
     @package = @parser.parse_package(@opf)
-  end
-
-  def teardown
-    @zip.close
   end
 
   def test_parse_package
