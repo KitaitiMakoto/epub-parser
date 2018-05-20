@@ -1,12 +1,11 @@
-before_script:
-  - ruby -v
-  - which ruby
-  - gem install bundler --no-document
-  - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
-  - bundle clean
-
 test:2.3:
   image: ruby:2.3
+  before_script:
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-document
+    - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
+    - bundle clean
   script: bundle exec rake test
   except:
     - tags
@@ -17,6 +16,12 @@ test:2.3:
 
 test:2.4:
   image: ruby:2.4
+  before_script:
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-document
+    - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
+    - bundle clean
   script: bundle exec rake test
   except:
     - tags
@@ -27,6 +32,12 @@ test:2.4:
 
 test:2.5:
   image: ruby:2.5
+  before_script:
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-document
+    - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
+    - bundle clean
   script: bundle exec rake test
   except:
     - tags
@@ -40,6 +51,12 @@ test:2.5:
 
 test:2.6:
   image: ruby:2.6-rc
+  before_script:
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-document
+    - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
+    - bundle clean
   script: bundle exec rake test
   except:
     - tags
@@ -52,6 +69,12 @@ pages:
   stage: deploy
   dependencies:
     - test:2.5
+  before_script:
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-document
+    - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
+    - bundle clean
   script:
     - rake doc:yard
     - mv doc public
