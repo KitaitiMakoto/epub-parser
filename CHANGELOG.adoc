@@ -3,6 +3,7 @@
 == 0.3.8
 
 * Start CI on https://www.appveyor.com/[AppVeyor]
+* [REFACTORING]Add {EPUB::Parser::NokogiriAttributeWithPrefix} and use `Nokogiri::XML::Node#attribute_with_prefix` instead of `EPUB::Parser::Utils#extract_attribute`
 
 == 0.3.7
 
