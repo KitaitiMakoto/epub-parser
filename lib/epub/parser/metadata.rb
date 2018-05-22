@@ -1,6 +1,8 @@
 module EPUB
   class Parser
     module Metadata
+      using NokogiriAttributeWithPrefix
+
       def parse_metadata(elem, unique_identifier_id, default_namespace)
         metadata = EPUB::Publication::Package::Metadata.new
         id_map = {}
@@ -17,7 +19,7 @@ module EPUB
               when 'identifier'
                 identifier = build_model(child, :Identifier, ['id'])
                 metadata.identifiers << identifier
-                identifier.scheme = extract_attribute(child, 'scheme', 'opf')
+                identifier.scheme = child.attribute_with_prefix('scheme', 'opf')
                 identifier
               when 'title'
                 title = build_model(child, :Title)
@@ -44,8 +46,8 @@ module EPUB
               when 'link'
                 link = build_model(child, :Link, %w[id media-type])
                 metadata.links << link
-                link.href = extract_attribute(child, 'href')
-                link.rel = Set.new(extract_attribute(child, 'rel').split(/\s+/))
+                link.href = child.attribute_with_prefix('href')
+                link.rel = Set.new(child.attribute_with_prefix('rel').split(/\s+/))
                 link
               else
                 build_unsupported_model(child)
@@ -65,7 +67,7 @@ module EPUB
             id_map[model.id] = {refinee: model}
           end
 
-          refines = extract_attribute(child, 'refines')
+          refines = child.attribute_with_prefix('refines')
           if refines && refines.start_with?('#')
             id = refines[1..-1]
             id_map[id] ||= {}
@@ -87,7 +89,7 @@ module EPUB
         model = EPUB::Metadata.const_get(klass).new
         attributes.each do |attr|
           writer_name = (attr == "content") ? "meta_content=" : "#{attr.gsub('-', '_')}="
-          model.__send__ writer_name, extract_attribute(elem, attr)
+          model.__send__ writer_name, elem.attribute_with_prefix(attr)
         end
         model.content = elem.content unless klass == :Link
         model.content.strip! if klass == :Identifier

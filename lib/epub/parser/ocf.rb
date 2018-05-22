@@ -7,7 +7,7 @@ require 'nokogiri'
 module EPUB
   class Parser
     class OCF
-      include Utils
+      using NokogiriAttributeWithPrefix
       include Metadata
 
       DIRECTORY = 'META-INF'
@@ -40,8 +40,8 @@ module EPUB
         doc = Nokogiri.XML(xml)
         doc.xpath('/ocf:container/ocf:rootfiles/ocf:rootfile', EPUB::NAMESPACES).each do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
-          rootfile.full_path = Addressable::URI.parse(extract_attribute(elem, 'full-path'))
-          rootfile.media_type = extract_attribute(elem, 'media-type')
+          rootfile.full_path = Addressable::URI.parse(elem.attribute_with_prefix('full-path'))
+          rootfile.media_type = elem.attribute_with_prefix('media-type')
           container.rootfiles << rootfile
         end
 

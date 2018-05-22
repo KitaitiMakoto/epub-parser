@@ -6,7 +6,7 @@ require 'nokogiri'
 module EPUB
   class Parser
     class ContentDocument
-      include Utils
+      using Parser::NokogiriAttributeWithPrefix
 
       # @param [EPUB::Publication::Package::Manifest::Item] item
       def initialize(item)
@@ -47,9 +47,9 @@ module EPUB
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Navigation.new
         nav.text = find_heading(element)
-        hidden = extract_attribute(element, 'hidden')
+        hidden = element.attribute_with_prefix('hidden')
         nav.hidden = hidden.nil? ? nil : true
-        nav.type = extract_attribute(element, 'type', 'epub')
+        nav.type = element.attribute_with_prefix('type', 'epub')
         element.xpath('./xhtml:ol/xhtml:li', EPUB::NAMESPACES).map do |elem|
           nav.items << parse_navigation_item(elem)
         end
@@ -70,18 +70,18 @@ module EPUB
             unless embedded_content.nil?
               case embedded_content.name
               when 'audio', 'canvas', 'embed', 'iframe'
-                item.text = extract_attribute(embedded_content, 'name') || extract_attribute(embedded_content, 'srcdoc')
+                item.text = embedded_content.attribute_with_prefix('name') || embedded_content.attribute_with_prefix('srcdoc')
               when 'img'
-                item.text = extract_attribute(embedded_content, 'alt')
+                item.text = embedded_content.attribute_with_prefix('alt')
               when 'math', 'object'
-                item.text = extract_attribute(embedded_content, 'name')
+                item.text = embedded_content.attribute_with_prefix('name')
               when 'svg', 'video'
               else
               end
             end
-            item.text = extract_attribute(a_or_span, 'title').to_s if item.text.nil? || item.text.empty?
+            item.text = a_or_span.attribute_with_prefix('title').to_s if item.text.nil? || item.text.empty?
           end
-          item.href = extract_attribute(a_or_span, 'href')
+          item.href = a_or_span.attribute_with_prefix('href')
           item.item = @item.find_item_by_relative_iri(item.href)
         end
         item.items = element.xpath('./xhtml:ol[1]/xhtml:li', EPUB::NAMESPACES).map {|li| parse_navigation_item(li)}

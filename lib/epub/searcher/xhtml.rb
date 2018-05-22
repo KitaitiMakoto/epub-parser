@@ -4,6 +4,8 @@ require 'epub/parser/utils'
 module EPUB
   module Searcher
     class XHTML
+      using Parser::NokogiriAttributeWithPrefix
+
       ALGORITHMS = {}
 
       class << self
@@ -29,9 +31,9 @@ module EPUB
           elem_index = 0
           (element || @element).children.each do |child|
             if child.element?
-              child_step = Result::Step.new(:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')})
+              child_step = Result::Step.new(:element, elem_index, {:name => child.name, :id => child.attribute_with_prefix('id')})
               if child.name == 'img'
-                if Parser::Utils.extract_attribute(child, 'alt').index(word)
+                if child.attribute_with_prefix('alt').index(word)
                   results << Result.new([child_step], nil, nil)
                 end
               else
@@ -76,10 +78,10 @@ module EPUB
           elem_index = 0
           element.children.each do |child|
             if child.element?
-              child_step = [:element, elem_index, {:name => child.name, :id => Parser::Utils.extract_attribute(child, 'id')}]
+              child_step = [:element, elem_index, {:name => child.name, :id => child.attribute_with_prefix('id')}]
               elem_index += 1
               if child.name == 'img'
-                alt = Parser::Utils.extract_attribute(child, 'alt')
+                alt = child.attribute_with_prefix('alt')
                 next if alt.nil? || alt.empty?
                 indices[content.length] = [child_step]
                 content << alt
