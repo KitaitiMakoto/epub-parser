@@ -39,6 +39,7 @@ module EPUB
         @prefix = {}
       end
 
+      # @return [EPUB::Metadata::Identifier] Unique Identifier
       def unique_identifier
         @metadata.unique_identifier
       end
