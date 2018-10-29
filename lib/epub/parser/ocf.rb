@@ -83,7 +83,7 @@ module EPUB
       def multiple_rendition_metadata?(doc)
         doc.root &&
           doc.root.name == 'metadata' &&
-          doc.namespaces['xmlns'] == EPUB::NAMESPACES['metadata']
+          doc.root.namespaces['xmlns'] == EPUB::NAMESPACES['metadata']
       end
     end
   end
