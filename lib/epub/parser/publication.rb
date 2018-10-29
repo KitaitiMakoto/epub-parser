@@ -44,7 +44,7 @@ module EPUB
       end
 
       def parse_metadata(doc)
-        super(doc.each_element_by_xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first, doc.root['unique-identifier'], 'opf')
+        super(doc.each_element_by_xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first, doc.root.attribute_with_prefix('unique-identifier'), 'opf')
       end
 
       def parse_manifest(doc)

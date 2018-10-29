@@ -66,7 +66,7 @@ module EPUB
           metadata.content = content
           return metadata
         end
-        super(doc.root, doc.root['unique-identifier'], 'metadata')
+        super(doc.root, doc.root.attribute_with_prefix('unique-identifier'), 'metadata')
       end
 
       def parse_rights(content)
