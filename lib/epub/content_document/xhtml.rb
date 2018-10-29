@@ -29,7 +29,6 @@ module EPUB
 
       # @return [REXML::Document] content as REXML::Document object
       def rexml
-        require 'rexml/document'
         @rexml ||= REXML::Document.new(raw_document)
       end
 
