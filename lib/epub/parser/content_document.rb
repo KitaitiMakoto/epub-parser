@@ -1,7 +1,6 @@
 require 'epub/content_document'
 require 'epub/constants'
 require 'epub/parser/xml_document'
-require 'nokogiri'
 
 module EPUB
   class Parser
