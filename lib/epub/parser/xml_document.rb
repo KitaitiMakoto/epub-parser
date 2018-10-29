@@ -1,12 +1,23 @@
 require "rexml/document"
-require "nokogiri"
+begin
+  require "nokogiri"
+rescue LoadError
+end
 
 module EPUB
   class Parser
     class XMLDocument
+      @backend = :rexml
+
       class << self
+        attr_accessor :backend
+
         def new(xml)
-          REXML::Document.new(xml)
+          if backend == :nokogiri
+            Nokogiri.XML(xml)
+          else
+            REXML::Document.new(xml)
+          end
         end
       end
 
@@ -41,21 +52,23 @@ module EPUB
           alias content value
         end
 
-        refine Nokogiri::XML::Node do
-          def each_element_by_xpath(xpath, namespaces = nil, &block)
-            xpath(xpath, namespaces).each &block
-          end
+        if const_defined? :Nokogiri
+          refine Nokogiri::XML::Node do
+            def each_element_by_xpath(xpath, namespaces = nil, &block)
+              xpath(xpath, namespaces).each &block
+            end
 
-          def attribute_with_prefix(name, prefix = nil)
-            attribute_with_ns(name, EPUB::NAMESPACES[prefix])&.value
-          end
+            def attribute_with_prefix(name, prefix = nil)
+              attribute_with_ns(name, EPUB::NAMESPACES[prefix])&.value
+            end
 
-          def each_element(xpath = nil, &block)
-            element_children.each(&block)
-          end
+            def each_element(xpath = nil, &block)
+              element_children.each(&block)
+            end
 
-          def namespace_uri
-            namespace.href
+            def namespace_uri
+              namespace.href
+            end
           end
         end
       end
