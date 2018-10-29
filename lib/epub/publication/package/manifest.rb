@@ -136,14 +136,12 @@ module EPUB
 
           # Read content from EPUB archive
           #
-          # @param detect_encoding [Boolean] Whether #read tries auto-detection of character encoding. The default value will become +false+ in the near future.
+          # @param detect_encoding [Boolean] Whether #read tries auto-detection of character encoding. The default value is +false+.
           # @return [String] Content with encoding:
           #   US-ASCII when the content is not in text format such images.
           #   UTF-8 when the content is in text format and +detect_encoding+ is +false+.
           #   auto-detected encoding when the content is in text format and +detect_encoding+ is +true+.
-          def read(detect_encoding: true)
-            warn "[#{self.class}##{__method__}]Autodetection of character encoding is deprecated. Pass keyword argument detect_encoding with true explicitly." if detect_encoding
-
+          def read(detect_encoding: false)
             raw_content = manifest.package.book.container_adapter.read(manifest.package.book.epub_file, entry_name)
 
             unless media_type.start_with?('text/') or
