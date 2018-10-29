@@ -20,7 +20,7 @@ module EPUB
       def title
         title_elem = nokogiri.search('title').first
         if title_elem
-          title_elem.text
+          title_elem.content
         else
           warn 'title element not found'
           ''
