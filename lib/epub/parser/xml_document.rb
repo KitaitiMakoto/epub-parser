@@ -21,6 +21,10 @@ module EPUB
           end
 
           alias namespace_uri namespace
+
+          def content
+            texts.join
+          end
         end
 
         refine Nokogiri::XML::Node do
