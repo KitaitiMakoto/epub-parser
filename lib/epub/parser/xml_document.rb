@@ -25,6 +25,10 @@ module EPUB
           def attribute_with_prefix(name, prefix = nil)
             attribute_with_ns(name, EPUB::NAMESPACES[prefix])&.value
           end
+
+          def each_element(xpath = nil, &block)
+            element_children.each(&block)
+          end
         end
       end
     end
