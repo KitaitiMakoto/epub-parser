@@ -179,6 +179,7 @@ If you find other gems, please tell me or request a pull request.
 === 0.3.8
 
 * [REFACTORING]Add {EPUB::Parser::NokogiriAttributeWithPrefix} and use `Nokogiri::XML::Node#attribute_with_prefix` instead of `EPUB::Parser::Utils#extract_attribute`
+* Set default value for detect_encoding argument for {EPUB::Publication::Package::Manifest::Item#read} to false
 
 === 0.3.7
 
