@@ -179,6 +179,8 @@ If you find other gems, please tell me or request a pull request.
 === 0.3.8
 
 * [REFACTORING]Add {EPUB::Parser::NokogiriAttributeWithPrefix} and use `Nokogiri::XML::Node#attribute_with_prefix` instead of `EPUB::Parser::Utils#extract_attribute`
+* Make XML library switchable between REXML and Nokogiri
+* Make REXML a default XML backend
 
 === 0.3.7
 
