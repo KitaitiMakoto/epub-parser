@@ -7,8 +7,6 @@ end
 module EPUB
   class Parser
     class XMLDocument
-      @backend = :REXML
-
       class << self
         attr_accessor :backend
 
