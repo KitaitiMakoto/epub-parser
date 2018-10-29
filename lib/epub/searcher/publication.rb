@@ -71,6 +71,8 @@ module EPUB
               element: elem
             }
           end
+        rescue LoadError
+          raise "#{self.class}##{__method__} requires Nokogiri gem for now. Install Nokogiri and then try again."
         end
 
         results
