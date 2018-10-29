@@ -64,6 +64,8 @@ module EPUB
               element_children.each(&block)
             end
 
+            alias elements element_children
+
             def namespace_uri
               namespace.href
             end
