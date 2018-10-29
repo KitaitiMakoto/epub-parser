@@ -19,7 +19,7 @@ module EPUB
       end
 
       def initialize(opf)
-        @doc = Nokogiri.XML(opf)
+        @doc = XMLDocument.new(opf)
       end
 
       def parse
