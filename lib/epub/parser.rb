@@ -96,7 +96,7 @@ module EPUB
 end
 
 require 'epub/parser/version'
-require 'epub/parser/utils'
+require 'epub/parser/xml_document'
 require 'epub/parser/ocf'
 require 'epub/parser/publication'
 require 'epub/parser/content_document'

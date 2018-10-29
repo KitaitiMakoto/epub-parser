@@ -1,5 +1,5 @@
 require 'epub'
-require 'epub/parser/utils'
+require 'epub/parser/xml_document'
 
 module EPUB
   module Searcher
