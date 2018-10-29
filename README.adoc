@@ -205,8 +205,6 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 * Media Overlays
 * Content Document
 * Digital Signature
-* Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
-  * in `Searcher`
 * Handle with encodings other than UTF-8
 
 == DONE
@@ -221,7 +219,6 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 * Extracting and organizing common behavior from some classes to modules
 * Multiple rootfiles
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
-  * excluding in `Searcher`
 
 == LICENSE
 
