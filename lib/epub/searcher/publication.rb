@@ -56,7 +56,11 @@ module EPUB
           path_to_itemref = EPUB::CFI::Path.new([spine_step, itemref_step])
           content_document = itemref.item.content_document
           next unless content_document
-          doc = content_document.nokogiri
+          begin
+            doc = content_document.nokogiri
+          rescue LoadError
+            raise "#{self.class}##{__method__} requires Nokogiri gem for now. Install Nokogiri and then try again."
+          end
           elems = if xpath
                     doc.xpath(xpath, namespaces)
                   else
@@ -71,8 +75,6 @@ module EPUB
               element: elem
             }
           end
-        rescue LoadError
-          raise "#{self.class}##{__method__} requires Nokogiri gem for now. Install Nokogiri and then try again."
         end
 
         results
