@@ -19,6 +19,8 @@ module EPUB
           def attribute_with_prefix(name, prefix = nil)
             attribute(name, EPUB::NAMESPACES[prefix])&.value
           end
+
+          alias namespace_uri namespace
         end
 
         refine Nokogiri::XML::Node do
@@ -28,6 +30,10 @@ module EPUB
 
           def each_element(xpath = nil, &block)
             element_children.each(&block)
+          end
+
+          def namespace_uri
+            namespace.href
           end
         end
       end
