@@ -203,6 +203,7 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 == TODOS
 
 * Consider to implement IRI feature instead of to use Addressable
+* EPUB 3.2
 * Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
