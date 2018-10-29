@@ -39,7 +39,7 @@ module EPUB
 
       # @todo: Refactoring
       # @return [Array<Hash>] An array of rearch results. Each result is composed of:
-      #   :element: [Nokogiri::XML::ELement] Found element
+      #   :element: [REXML::Element, Nokogiri::XML::ELement] Found element
       #   :itemref: [EPUB::Publication::Package::Spine::Itemref] Itemref that element's document belongs to
       #   :location: [EPUB::CFI::Location] CFI that indicates the element
       #   :package: [EPUB::Publication::Package] Package that the element belongs to
