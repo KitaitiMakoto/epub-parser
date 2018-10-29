@@ -117,6 +117,14 @@ ret == book # => true; this API is not good I feel... Welcome suggestion!
 # do something with your book
 ----
 
+==== Switching XML Library
+
+EPUB Parser uses https://ruby-doc.org/stdlib-2.5.3/libdoc/rexml/rdoc/index.html[REXML], a standard-bundled library, by default. You can use https://www.nokogiri.org/[Nokogiri], a Ruby bindings for http://xmlsoft.org/[Libxml2] and http://xmlsoft.org/XSLT/[Libxslt] and more if you have already installed Nokogiri gem by RubyGems or Bundler.
+
+----
+EPUB::Parser::XMLDocument.backend = :Nokogiri
+----
+
 ==== Switching ZIP library
 
 EPUB Parser uses https://github.com/javanthropus/archive-zip[Archive::Zip], a pure Ruby ZIP library, by default. You can use https://bitbucket.org/winebarrel/zip-ruby/wiki/Home[Zip/Ruby], a Ruby bindings for https://libzip.org/[libzip] if you have already installed Zip/Ruby gem by RubyGems or Bundler.
@@ -197,8 +205,6 @@ Then documentation will be available in `doc` directory.
 == Requirements
 
 * Ruby 2.2.0 or later
-* `patch` command to install Nokogiri
-* C compiler to compile Zip/Ruby and Nokogiri
 
 == History
 

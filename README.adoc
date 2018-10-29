@@ -159,8 +159,6 @@ Then documentation will be available in `doc` directory.
 == REQUIREMENTS
 
 * Ruby 2.3.0 or later
-* `patch` command to install Nokogiri
-* C compiler to compile Nokogiri
 
 == SIMILAR EFFORTS
 
@@ -180,6 +178,8 @@ If you find other gems, please tell me or request a pull request.
 
 * [REFACTORING]Add {EPUB::Parser::NokogiriAttributeWithPrefix} and use `Nokogiri::XML::Node#attribute_with_prefix` instead of `EPUB::Parser::Utils#extract_attribute`
 * Set default value for detect_encoding argument for {EPUB::Publication::Package::Manifest::Item#read} to false
+* Make XML library switchable between REXML and Nokogiri
+* Make REXML a default XML backend
 
 === 0.3.7
 
@@ -193,25 +193,20 @@ If you find other gems, please tell me or request a pull request.
 * [BUG FIX]Ignore fragment when find item by relative IRI
 * Disable https://github.com/ko1/pretty_backtrace[PrettyBacktrace] by default
 
-=== 0.3.5
-
-* [BUG FIX]Fix a bug that {EPUB::ContentDocument::Navigation::Item#item} is `nil` when `href` includes double dots(`..`)(Thanks https://gitlab.com/aelkiss[aelkiss]!)
-
 See {file:CHANGELOG.adoc} for older changelogs and details.
 
 == TODOS
 
 * Consider to implement IRI feature instead of to use Addressable
-* EPUB 3.0.1
-* EPUB 3.1
+* EPUB 3.2
 * Help features for `epub-open` tool
 * Vocabulary Association Mechanisms
 * Implementing navigation document and so on
 * Media Overlays
 * Content Document
 * Digital Signature
-* Using SAX on parsing
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
+  * in `Searcher`
 * Handle with encodings other than UTF-8
 
 == DONE
@@ -225,6 +220,8 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 * Archive library abstraction
 * Extracting and organizing common behavior from some classes to modules
 * Multiple rootfiles
+* Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
+  * excluding in `Searcher`
 
 == LICENSE
 

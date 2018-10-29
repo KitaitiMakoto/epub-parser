@@ -9,7 +9,7 @@ class TestSearcher < Test::Unit::TestCase
       super
       opf_path = File.expand_path('../fixtures/book/OPS/ルートファイル.opf', __FILE__)
       nav_path = File.expand_path('../fixtures/book/OPS/nav.xhtml', __FILE__)
-      @package = EPUB::Parser::Publication.new(open(opf_path)).parse
+      @package = EPUB::Parser::Publication.new(File.read(opf_path)).parse
       @package.spine.each_itemref do |itemref|
         stub(itemref.item).read {
           itemref.idref == 'nav' ? File.read(nav_path) : '<html></html>'

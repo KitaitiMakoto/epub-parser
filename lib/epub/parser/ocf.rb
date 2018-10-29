@@ -2,12 +2,12 @@ require 'epub/constants'
 require 'epub/ocf'
 require 'epub/ocf/physical_container'
 require 'epub/parser/metadata'
-require 'nokogiri'
+require "epub/parser/xml_document"
 
 module EPUB
   class Parser
     class OCF
-      using NokogiriAttributeWithPrefix
+      using XMLDocument::Refinements
       include Metadata
 
       DIRECTORY = 'META-INF'
@@ -37,8 +37,8 @@ module EPUB
 
       def parse_container(xml)
         container = EPUB::OCF::Container.new
-        doc = Nokogiri.XML(xml)
-        doc.xpath('/ocf:container/ocf:rootfiles/ocf:rootfile', EPUB::NAMESPACES).each do |elem|
+        doc = XMLDocument.new(xml)
+        doc.each_element_by_xpath "/ocf:container/ocf:rootfiles/ocf:rootfile", EPUB::NAMESPACES do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
           rootfile.full_path = Addressable::URI.parse(elem.attribute_with_prefix('full-path'))
           rootfile.media_type = elem.attribute_with_prefix('media-type')
@@ -59,7 +59,7 @@ module EPUB
       end
 
       def parse_metadata(content)
-        doc = Nokogiri.XML(content)
+        doc = XMLDocument.new(content)
         unless multiple_rendition_metadata?(doc)
           warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
           metadata = EPUB::OCF::UnknownFormatMetadata.new
@@ -82,7 +82,7 @@ module EPUB
       def multiple_rendition_metadata?(doc)
         doc.root &&
           doc.root.name == 'metadata' &&
-          doc.namespaces['xmlns'] == EPUB::NAMESPACES['metadata']
+          doc.root.namespaces['xmlns'] == EPUB::NAMESPACES['metadata']
       end
     end
   end

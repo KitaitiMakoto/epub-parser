@@ -1,15 +1,15 @@
 require 'epub'
-require 'epub/parser/utils'
+require 'epub/parser/xml_document'
 
 module EPUB
   module Searcher
     class XHTML
-      using Parser::NokogiriAttributeWithPrefix
+      using Parser::XMLDocument::Refinements
 
       ALGORITHMS = {}
 
       class << self
-        # @param element [Nokogiri::XML::Element, Nokogiri::XML::Document]
+        # @param element [REXML::Element, REXML::Document, Nokogiri::XML::Element, Nokogiri::XML::Document]
         # @param word [String]
         # @return [Array<Result>]
         def search_text(element, word)
@@ -23,7 +23,7 @@ module EPUB
       end
 
       class Restricted < self
-        # @param element [Nokogiri::XML::Element]
+        # @param element [REXML::Element, Nokogiri::XML::Element]
         # @return [Array<Result>]
         def search_text(word, element=nil)
           results = []

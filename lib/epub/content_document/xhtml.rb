@@ -18,7 +18,7 @@ module EPUB
       # @return [String] Returns the value of title element.
       #                  If none, returns empty string
       def title
-        title_elem = nokogiri.search('title').first
+        title_elem = rexml.get_elements('.//title').first
         if title_elem
           title_elem.text
         else
@@ -29,12 +29,12 @@ module EPUB
 
       # @return [REXML::Document] content as REXML::Document object
       def rexml
-        require 'rexml/document'
         @rexml ||= REXML::Document.new(raw_document)
       end
 
       # @return [Nokogiri::XML::Document] content as Nokogiri::XML::Document object
       def nokogiri
+        require 'nokogiri'
         @nokogiri ||= Nokogiri.XML(raw_document)
       end
     end

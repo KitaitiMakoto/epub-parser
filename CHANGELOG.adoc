@@ -4,6 +4,8 @@
 
 * [REFACTORING]Add {EPUB::Parser::NokogiriAttributeWithPrefix} and use `Nokogiri::XML::Node#attribute_with_prefix` instead of `EPUB::Parser::Utils#extract_attribute`
 * Set default value for detect_encoding argument for {EPUB::Publication::Package::Manifest::Item#read} to false
+* Make XML library switchable between REXML and Nokogiri
+* Make REXML a default XML backend
 
 == 0.3.7
 

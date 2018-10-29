@@ -1,5 +1,4 @@
 require 'strscan'
-require 'nokogiri'
 require 'epub/publication'
 require 'epub/constants'
 require 'epub/parser/metadata'
@@ -7,7 +6,7 @@ require 'epub/parser/metadata'
 module EPUB
   class Parser
     class Publication
-      using NokogiriAttributeWithPrefix
+      using XMLDocument::Refinements
       include Metadata
 
       class << self
@@ -19,7 +18,7 @@ module EPUB
       end
 
       def initialize(opf)
-        @doc = Nokogiri.XML(opf)
+        @doc = XMLDocument.new(opf)
       end
 
       def parse
@@ -45,16 +44,16 @@ module EPUB
       end
 
       def parse_metadata(doc)
-        super(doc.xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first, doc.root['unique-identifier'], 'opf')
+        super(doc.each_element_by_xpath('/opf:package/opf:metadata', EPUB::NAMESPACES).first, doc.root['unique-identifier'], 'opf')
       end
 
       def parse_manifest(doc)
         manifest = EPUB::Publication::Package::Manifest.new
-        elem = doc.xpath('/opf:package/opf:manifest', EPUB::NAMESPACES).first
+        elem = doc.each_element_by_xpath('/opf:package/opf:manifest', EPUB::NAMESPACES).first
         manifest.id = elem.attribute_with_prefix('id')
 
         fallback_map = {}
-        elem.xpath('./opf:item', EPUB::NAMESPACES).each do |e|
+        elem.each_element_by_xpath('./opf:item', EPUB::NAMESPACES).each do |e|
           item = EPUB::Publication::Package::Manifest::Item.new
           %w[id media-type media-overlay].each do |attr|
             item.__send__ "#{attr.gsub(/-/, '_')}=", e.attribute_with_prefix(attr)
@@ -75,12 +74,12 @@ module EPUB
 
       def parse_spine(doc)
         spine = EPUB::Publication::Package::Spine.new
-        elem = doc.xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
+        elem = doc.each_element_by_xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
         %w[id toc page-progression-direction].each do |attr|
           spine.__send__ "#{attr.gsub(/-/, '_')}=", elem.attribute_with_prefix(attr)
         end
 
-        elem.xpath('./opf:itemref', EPUB::NAMESPACES).each do |e|
+        elem.each_element_by_xpath('./opf:itemref', EPUB::NAMESPACES).each do |e|
           itemref = EPUB::Publication::Package::Spine::Itemref.new
           %w[idref id].each do |attr|
             itemref.__send__ "#{attr}=", e.attribute_with_prefix(attr)
@@ -96,7 +95,7 @@ module EPUB
 
       def parse_guide(doc)
         guide = EPUB::Publication::Package::Guide.new
-        doc.xpath('/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES).each do |ref|
+        doc.each_element_by_xpath '/opf:package/opf:guide/opf:reference', EPUB::NAMESPACES do |ref|
           reference = EPUB::Publication::Package::Guide::Reference.new
           %w[type title].each do |attr|
             reference.__send__ "#{attr}=", ref.attribute_with_prefix(attr)
@@ -110,7 +109,7 @@ module EPUB
 
       def parse_bindings(doc, handler_map)
         bindings = EPUB::Publication::Package::Bindings.new
-        doc.xpath('/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES).each do |elem|
+        doc.each_element_by_xpath '/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES do |elem|
           media_type = EPUB::Publication::Package::Bindings::MediaType.new
           media_type.media_type = elem.attribute_with_prefix('media-type')
           media_type.handler = handler_map[elem.attribute_with_prefix('handler')]

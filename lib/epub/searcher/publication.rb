@@ -1,4 +1,5 @@
 require 'epub/publication'
+require "epub/parser/xml_document"
 
 module EPUB
   module Searcher
@@ -28,7 +29,7 @@ module EPUB
         spine_step = Result::Step.new(:element, 2, {:name => 'spine', :id => spine.id})
         spine.each_itemref.with_index do |itemref, index|
           itemref_step = Result::Step.new(:itemref, index, {:id => itemref.id})
-          XHTML::ALGORITHMS[algorithm].search_text(Nokogiri.XML(itemref.item.read), word).each do |sub_result|
+          XHTML::ALGORITHMS[algorithm].search_text(Parser::XMLDocument.new(itemref.item.read), word).each do |sub_result|
             results << Result.new([spine_step, itemref_step] + sub_result.parent_steps, sub_result.start_steps, sub_result.end_steps)
           end
         end
@@ -38,7 +39,7 @@ module EPUB
 
       # @todo: Refactoring
       # @return [Array<Hash>] An array of rearch results. Each result is composed of:
-      #   :element: [Nokogiri::XML::ELement] Found element
+      #   :element: [REXML::Element, Nokogiri::XML::ELement] Found element
       #   :itemref: [EPUB::Publication::Package::Spine::Itemref] Itemref that element's document belongs to
       #   :location: [EPUB::CFI::Location] CFI that indicates the element
       #   :package: [EPUB::Publication::Package] Package that the element belongs to
@@ -70,6 +71,8 @@ module EPUB
               element: elem
             }
           end
+        rescue LoadError
+          raise "#{self.class}##{__method__} requires Nokogiri gem for now. Install Nokogiri and then try again."
         end
 
         results

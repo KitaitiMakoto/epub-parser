@@ -1,19 +1,18 @@
 module EPUB
   class Parser
     module Metadata
-      using NokogiriAttributeWithPrefix
+      using XMLDocument::Refinements
 
       def parse_metadata(elem, unique_identifier_id, default_namespace)
         metadata = EPUB::Publication::Package::Metadata.new
         id_map = {}
 
         default_namespace_uri = EPUB::NAMESPACES[default_namespace]
-        elem.element_children.each do |child|
-          namespace_uri = child.namespace && child.namespace.href
+        elem.each_element do |child|
           elem_name = child.name
 
           model =
-            case namespace_uri
+            case child.namespace_uri
             when EPUB::NAMESPACES['dc']
               case elem_name
               when 'identifier'
