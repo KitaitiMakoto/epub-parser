@@ -3,10 +3,12 @@ require 'epub/ocf'
 require 'epub/ocf/physical_container'
 require 'epub/parser/metadata'
 require 'nokogiri'
+require "rexml/document"
 
 module EPUB
   class Parser
     class OCF
+      using REXMLRefinements
       using NokogiriAttributeWithPrefix
       include Metadata
 
@@ -37,8 +39,8 @@ module EPUB
 
       def parse_container(xml)
         container = EPUB::OCF::Container.new
-        doc = Nokogiri.XML(xml)
-        doc.xpath('/ocf:container/ocf:rootfiles/ocf:rootfile', EPUB::NAMESPACES).each do |elem|
+        doc = REXML::Document.new(xml)
+        doc.each_element_by_xpath "/ocf:container/ocf:rootfiles/ocf:rootfile", EPUB::NAMESPACES do |elem|
           rootfile = EPUB::OCF::Container::Rootfile.new
           rootfile.full_path = Addressable::URI.parse(elem.attribute_with_prefix('full-path'))
           rootfile.media_type = elem.attribute_with_prefix('media-type')
