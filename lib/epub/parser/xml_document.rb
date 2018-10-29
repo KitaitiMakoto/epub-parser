@@ -27,6 +27,10 @@ module EPUB
           end
         end
 
+        refine REXML::Text do
+          alias content value
+        end
+
         refine Nokogiri::XML::Node do
           def each_element_by_xpath(xpath, namespaces = nil, &block)
             xpath(xpath, namespaces).each &block
