@@ -2,7 +2,6 @@ require 'epub/constants'
 require 'epub/ocf'
 require 'epub/ocf/physical_container'
 require 'epub/parser/metadata'
-require 'nokogiri'
 require "epub/parser/xml_document"
 
 module EPUB
