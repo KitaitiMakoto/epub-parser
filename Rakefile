@@ -40,12 +40,18 @@ namespace :test do
   end
 
   # TODO: Test with both REXML and Nokogiri in testing framework
-  %i[rexml nokogiri].each do |xml_backend|
-    Rake::TestTask.new "test_with_#{xml_backend}" do |task|
+  %w[REXML Nokogiri].each do |xml_backend|
+    task "set_xml_backend_#{xml_backend.downcase}" do
+      ENV["EPUB_PARSER_XML_BACKEND"] = xml_backend
+    end
+
+    Rake::TestTask.new "test_with_#{xml_backend.downcase}" do |task|
       task.test_files = FileList['test/**/test_*.rb']
       task.warning = true
       task.options = '--no-show-detail-immediately --verbose'
+      EPUB::Parser::XMLDocument.backend = xml_backend
     end
+    task "test_with_#{xml_backend.downcase}" => "set_xml_backend_#{xml_backend.downcase}"
   end
   task :test => [:test_with_rexml, :test_with_nokogiri]
 end
