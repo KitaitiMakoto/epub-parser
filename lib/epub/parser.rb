@@ -1,7 +1,6 @@
 require 'epub'
 require 'epub/constants'
 require 'epub/book'
-require 'nokogiri'
 
 module EPUB
   class Parser
