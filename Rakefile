@@ -39,11 +39,15 @@ namespace :test do
     File.rename "#{input_dir}.epub.tmp", "#{input_dir}.epub"
   end
 
-  Rake::TestTask.new do |task|
-    task.test_files = FileList['test/**/test_*.rb']
-    task.warning = true
-    task.options = '--no-show-detail-immediately --verbose'
+  # TODO: Test with both REXML and Nokogiri in testing framework
+  %i[rexml nokogiri].each do |xml_backend|
+    Rake::TestTask.new "test_with_#{xml_backend}" do |task|
+      task.test_files = FileList['test/**/test_*.rb']
+      task.warning = true
+      task.options = '--no-show-detail-immediately --verbose'
+    end
   end
+  task :test => [:test_with_rexml, :test_with_nokogiri]
 end
 
 task :doc => 'doc:default'
