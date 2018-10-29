@@ -8,6 +8,10 @@ module EPUB
         def each_element_by_xpath(xpath, namespaces = nil, &block)
           REXML::XPath.each self, xpath, namespaces, &block
         end
+
+        def attribute_with_prefix(name, prefix = nil)
+          attribute(name, EPUB::NAMESPACES[prefix])&.value
+        end
       end
     end
 
