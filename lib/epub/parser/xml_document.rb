@@ -20,13 +20,15 @@ module EPUB
       end
 
       module Refinements
-        refine REXML::Node do
-          def element?
-            node_type == :element
-          end
+        [REXML::Element, REXML::Text].each do |klass|
+          refine klass do
+            def element?
+              node_type == :element
+            end
 
-          def text?
-            node_type == :text
+            def text?
+              node_type == :text
+            end
           end
         end
 
