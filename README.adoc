@@ -213,6 +213,7 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 * Digital Signature
 * Using SAX on parsing
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
+  * in `Searcher`
 * Handle with encodings other than UTF-8
 
 == DONE
@@ -226,6 +227,8 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 * Archive library abstraction
 * Extracting and organizing common behavior from some classes to modules
 * Multiple rootfiles
+* Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
+  * excluding in `Searcher`
 
 == LICENSE
 
