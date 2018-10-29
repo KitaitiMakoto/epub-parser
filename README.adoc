@@ -211,7 +211,6 @@ See {file:CHANGELOG.adoc} for older changelogs and details.
 * Media Overlays
 * Content Document
 * Digital Signature
-* Using SAX on parsing
 * Abstraction of XML parser(making it possible to use REXML, standard bundled XML library of Ruby)
   * in `Searcher`
 * Handle with encodings other than UTF-8
