@@ -22,16 +22,10 @@ module EPUB
       module Refinements
         [REXML::Element, REXML::Text].each do |klass|
           refine klass do
-            def document?
-              node_type == :document
-            end
-
-            def element?
-              node_type == :element
-            end
-
-            def text?
-              node_type == :text
+            %i[document element text].each do |type|
+              define_method "#{type}?" do
+                node_type == type
+              end
             end
           end
         end
