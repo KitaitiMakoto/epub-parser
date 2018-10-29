@@ -1,5 +1,4 @@
 require 'strscan'
-require 'nokogiri'
 require 'epub/publication'
 require 'epub/constants'
 require 'epub/parser/metadata'
