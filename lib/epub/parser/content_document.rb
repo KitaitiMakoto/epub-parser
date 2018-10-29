@@ -99,7 +99,12 @@ module EPUB
         return nil if heading.nil?
         return heading.content unless heading.name == 'hgroup'
 
-        (heading/'h1' || heading/'h2' || heading/'h3' || heading/'h4' || heading/'h5' || heading/'h6').first.content
+        (heading.each_element_by_xpath(".//xhtml:h1", EPUB::NAMESPACES) ||
+         heading.each_element_by_xpath(".//xhtml:h2", EPUB::NAMESPACES) ||
+         heading.each_element_by_xpath(".//xhtml:h3", EPUB::NAMESPACES) ||
+         heading.each_element_by_xpath(".//xhtml:h4", EPUB::NAMESPACES) ||
+         heading.each_element_by_xpath(".//xhtml:h5", EPUB::NAMESPACES) ||
+         heading.each_element_by_xpath(".//xhtml:h6", EPUB::NAMESPACES)).first.content
       end
     end
   end
