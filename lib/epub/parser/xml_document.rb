@@ -7,13 +7,13 @@ end
 module EPUB
   class Parser
     class XMLDocument
-      @backend = :rexml
+      @backend = :REXML
 
       class << self
         attr_accessor :backend
 
         def new(xml)
-          if backend == :nokogiri
+          if backend == :Nokogiri
             Nokogiri.XML(xml)
           else
             REXML::Document.new(xml)
