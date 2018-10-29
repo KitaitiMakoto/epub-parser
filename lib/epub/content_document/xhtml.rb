@@ -18,9 +18,9 @@ module EPUB
       # @return [String] Returns the value of title element.
       #                  If none, returns empty string
       def title
-        title_elem = nokogiri.search('title').first
+        title_elem = rexml.get_elements('.//title').first
         if title_elem
-          title_elem.content
+          title_elem.text
         else
           warn 'title element not found'
           ''
