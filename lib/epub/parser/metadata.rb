@@ -8,7 +8,7 @@ module EPUB
         id_map = {}
 
         default_namespace_uri = EPUB::NAMESPACES[default_namespace]
-        elem.element_children.each do |child|
+        elem.each_element do |child|
           namespace_uri = child.namespace && child.namespace.href
           elem_name = child.name
 
