@@ -60,7 +60,7 @@ module EPUB
       end
 
       def parse_metadata(content)
-        doc = Nokogiri.XML(content)
+        doc = XMLDocument.new(content)
         unless multiple_rendition_metadata?(doc)
           warn "Not implemented: #{self.class}##{__method__}" if $VERBOSE
           metadata = EPUB::OCF::UnknownFormatMetadata.new
