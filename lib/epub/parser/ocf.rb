@@ -8,8 +8,7 @@ require "epub/parser/xml_document"
 module EPUB
   class Parser
     class OCF
-      using REXMLRefinements
-      using NokogiriAttributeWithPrefix
+      using XMLDocument::Refinements
       include Metadata
 
       DIRECTORY = 'META-INF'

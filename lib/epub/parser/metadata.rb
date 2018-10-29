@@ -1,7 +1,7 @@
 module EPUB
   class Parser
     module Metadata
-      using NokogiriAttributeWithPrefix
+      using XMLDocument::Refinements
 
       def parse_metadata(elem, unique_identifier_id, default_namespace)
         metadata = EPUB::Publication::Package::Metadata.new

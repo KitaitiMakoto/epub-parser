@@ -7,7 +7,7 @@ require 'epub/parser/metadata'
 module EPUB
   class Parser
     class Publication
-      using NokogiriAttributeWithPrefix
+      using XMLDocument::Refinements
       include Metadata
 
       class << self

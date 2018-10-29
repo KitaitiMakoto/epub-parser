@@ -6,7 +6,7 @@ require 'nokogiri'
 module EPUB
   class Parser
     class ContentDocument
-      using Parser::NokogiriAttributeWithPrefix
+      using XMLDocument::Refinements
 
       # @param [EPUB::Publication::Package::Manifest::Item] item
       def initialize(item)

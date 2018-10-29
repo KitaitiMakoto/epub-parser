@@ -4,7 +4,7 @@ require 'epub/parser/xml_document'
 module EPUB
   module Searcher
     class XHTML
-      using Parser::NokogiriAttributeWithPrefix
+      using Parser::XMLDocument::Refinements
 
       ALGORITHMS = {}
 
