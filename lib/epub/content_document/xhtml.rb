@@ -34,6 +34,7 @@ module EPUB
 
       # @return [Nokogiri::XML::Document] content as Nokogiri::XML::Document object
       def nokogiri
+        require 'nokogiri'
         @nokogiri ||= Nokogiri.XML(raw_document)
       end
     end
