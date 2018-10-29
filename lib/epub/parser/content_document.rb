@@ -28,7 +28,7 @@ module EPUB
                            end
         return content_document if content_document.nil?
         content_document.item = @item
-        document = Nokogiri.XML(@item.read)
+        document = XMLDocument.new(@item.read)
         # parse_content_document(document)
         if @item.nav?
           content_document.navigations = parse_navigations(document)
