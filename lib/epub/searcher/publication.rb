@@ -4,6 +4,8 @@ require "epub/parser/xml_document"
 module EPUB
   module Searcher
     class Publication
+      using Parser::XMLDocument::Refinements
+
       class << self
         def search_text(package, word, **options)
           new(package).search_text(word, options)
@@ -56,14 +58,15 @@ module EPUB
           path_to_itemref = EPUB::CFI::Path.new([spine_step, itemref_step])
           content_document = itemref.item.content_document
           next unless content_document
-          begin
-            doc = content_document.nokogiri
-          rescue LoadError
-            raise "#{self.class}##{__method__} requires Nokogiri gem for now. Install Nokogiri and then try again."
-          end
           elems = if xpath
-                    doc.xpath(xpath, namespaces)
+                    doc = Parser::XMLDocument.new(content_document.read)
+                    doc.each_element_by_xpath(xpath, namespaces)
                   else
+                    begin
+                      doc = content_document.nokogiri
+                    rescue LoadError
+                      raise "#{self.class}##{__method__} with `css` argument requires Nokogiri gem for now. Install Nokogiri and then try again."
+                    end
                     doc.css(css)
                   end
           elems.each do |elem|
@@ -101,13 +104,13 @@ module EPUB
         current_node = doc.root
         path_in_doc.steps.each do |step|
           if step.element?
-            current_node = current_node.element_children[step.value / 2 - 1]
+            current_node = current_node.elements.to_a[step.value / 2 - 1]
           else
             element_index = (step.value - 1) / 2 - 1
             if element_index == -1
               current_node = current_node.children.first
             else
-              prev = current_node.element_children[element_index]
+              prev = current_node.elements.to_a[element_index]
               break unless prev
               current_node = prev.next_sibling
               break unless current_node
@@ -125,8 +128,9 @@ module EPUB
       def find_path(elem)
         steps = []
         until elem.parent.document?
-          index = elem.parent.element_children.index(elem)
-          assertion = elem["id"] ? EPUB::CFI::IDAssertion.new(elem["id"]) : nil
+          index = elem.parent.elements.to_a.index(elem)
+          id_attr = elem.attribute_with_prefix("id")
+          assertion = id_attr ? EPUB::CFI::IDAssertion.new(id_attr) : nil
           steps.unshift EPUB::CFI::Step.new((index + 1) * 2, assertion)
           elem = elem.parent
         end
