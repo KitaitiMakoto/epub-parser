@@ -9,11 +9,10 @@ module EPUB
 
         default_namespace_uri = EPUB::NAMESPACES[default_namespace]
         elem.each_element do |child|
-          namespace_uri = child.namespace && child.namespace.href
           elem_name = child.name
 
           model =
-            case namespace_uri
+            case child.namespace_uri
             when EPUB::NAMESPACES['dc']
               case elem_name
               when 'identifier'
