@@ -88,7 +88,8 @@ module EPUB
         model = EPUB::Metadata.const_get(klass).new
         attributes.each do |attr|
           writer_name = (attr == "content") ? "meta_content=" : "#{attr.gsub('-', '_')}="
-          model.__send__ writer_name, elem.attribute_with_prefix(attr)
+          namespace = (attr == "lang") ? "xml" : nil
+          model.__send__ writer_name, elem.attribute_with_prefix(attr, namespace)
         end
         model.content = elem.content unless klass == :Link
         model.content.strip! if klass == :Identifier
