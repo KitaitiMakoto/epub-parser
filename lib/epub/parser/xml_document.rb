@@ -1,8 +1,4 @@
 require "rexml/document"
-begin
-  require "nokogiri"
-rescue LoadError
-end
 
 module EPUB
   class Parser
@@ -17,6 +13,13 @@ module EPUB
             REXML::Document.new(xml)
           end
         end
+      end
+
+      begin
+        require "nokogiri"
+        @backend = :Nokogiri
+      rescue LoadError
+        @backend = :REXML
       end
 
       module Refinements
