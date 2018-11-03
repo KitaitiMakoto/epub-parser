@@ -177,6 +177,7 @@ If you find other gems, please tell me or request a pull request.
 === 0.3.9
 
 * [BUG FIX]Set {EPUB::Metadata::DCMES#lang} properly from xml:lang attribute
+* Change default XML backend from REXML to Nokogiri
 
 === 0.3.8
 
