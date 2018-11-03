@@ -1,5 +1,6 @@
 module EPUB
   NAMESPACES = {
+    'xml'   => 'http://www.w3.org/XML/1998/namespace',
     'dc'    => 'http://purl.org/dc/elements/1.1/',
     'ocf'   => 'urn:oasis:names:tc:opendocument:xmlns:container',
     'opf'   => 'http://www.idpf.org/2007/opf',
