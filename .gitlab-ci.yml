@@ -39,7 +39,7 @@ test:2.5:
       - deps
 
 test:2.6:
-  image: ruby:2.6-rc
+  image: ruby:2.6
   script: bundle exec rake test
   except:
     - tags
@@ -51,7 +51,7 @@ test:2.6:
 pages:
   stage: deploy
   dependencies:
-    - test:2.5
+    - test:2.6
   script:
     - bundle exec rake doc:yard
     - mv doc public
@@ -62,6 +62,6 @@ pages:
   only:
     - master
   cache:
-    key: ruby:2.5
+    key: ruby:2.6
     paths:
       - deps
