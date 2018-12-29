@@ -53,7 +53,7 @@ pages:
   dependencies:
     - test:2.6
   script:
-    - bundle exec rake doc:yard
+    - bundle exec rake test doc:yard
     - mv doc public
     - mv coverage public/
   artifacts:
