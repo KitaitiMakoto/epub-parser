@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.test_files    = s.files & Dir['{test,spec,features}/**/*.{rb,feature}']
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+  s.metadata["yard.run"] = "yard"
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rubygems-tasks'
