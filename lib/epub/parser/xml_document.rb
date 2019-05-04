@@ -12,13 +12,6 @@ module EPUB
           end
         end
       end
-
-      begin
-        require "nokogiri"
-        @backend = :Nokogiri
-      rescue LoadError
-        @backend = :REXML
-      end
     end
   end
 end

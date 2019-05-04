@@ -1,13 +1,7 @@
 require "epub/parser/xml_document/refinements/rexml"
-
-module EPUB
-  class Parser
-    class XMLDocument
-      module Refinements
-        if const_defined? :Nokogiri
-          require "epub/parser/xml_document/refinements/nokogiri"
-        end
-      end
-    end
-  end
+begin
+  require "epub/parser/xml_document/refinements/nokogiri"
+  EPUB::Parser::XMLDocument.backend = :Nokogiri
+rescue LoadError
+  EPUB::Parser::XMLDocument.backend = :REXML
 end
