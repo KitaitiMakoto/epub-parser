@@ -35,6 +35,8 @@ module EPUB
             alias content value
           end
         end
+
+        include REXML
       end
     end
   end
