@@ -1,38 +1,10 @@
-require "rexml/document"
+require "epub/parser/xml_document/refinements/rexml"
 
 module EPUB
   class Parser
     class XMLDocument
       module Refinements
-        [REXML::Element, REXML::Text].each do |klass|
-          refine klass do
-            %i[document element text].each do |type|
-              define_method "#{type}?" do
-                node_type == type
-              end
-            end
-          end
-        end
-
-        refine REXML::Element do
-          def each_element_by_xpath(xpath, namespaces = nil, &block)
-            REXML::XPath.each self, xpath, namespaces, &block
-          end
-
-          def attribute_with_prefix(name, prefix = nil)
-            attribute(name, EPUB::NAMESPACES[prefix])&.value
-          end
-
-          alias namespace_uri namespace
-
-          def content
-            texts.join
-          end
-        end
-
-        refine REXML::Text do
-          alias content value
-        end
+        include REXML
 
         if const_defined? :Nokogiri
           refine Nokogiri::XML::Node do
