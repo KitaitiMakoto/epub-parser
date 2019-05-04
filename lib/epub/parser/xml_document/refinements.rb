@@ -6,7 +6,6 @@ module EPUB
       module Refinements
         if const_defined? :Nokogiri
           require "epub/parser/xml_document/refinements/nokogiri"
-          include Nokogiri
         end
       end
     end

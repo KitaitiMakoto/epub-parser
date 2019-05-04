@@ -23,6 +23,8 @@ module EPUB
             end
           end
         end
+
+        include Nokogiri
       end
     end
   end
