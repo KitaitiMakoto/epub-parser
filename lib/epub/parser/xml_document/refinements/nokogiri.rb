@@ -1,3 +1,5 @@
+require "nokogiri"
+
 module EPUB
   class Parser
     class XMLDocument
