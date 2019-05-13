@@ -48,7 +48,7 @@ module EPUB
         nav.text = find_heading(element)
         hidden = element.attribute_with_prefix('hidden')
         nav.hidden = hidden.nil? ? nil : true
-        nav.type = element.attribute_with_prefix('type', 'epub')
+        nav.types = element.attribute_with_prefix('type', 'epub')&.split(/\s+/)
         element.each_element_by_xpath('./xhtml:ol/xhtml:li', EPUB::NAMESPACES).map do |elem|
           nav.items << parse_navigation_item(elem)
         end

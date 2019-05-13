@@ -1,3 +1,5 @@
+require "set"
+
 module EPUB
   module ContentDocument
     class Navigation < XHTML
@@ -99,11 +101,32 @@ module EPUB
           LANDMARKS = 'landmarks'
         end
 
-        attr_accessor :type
+        attr_reader :types
         alias navigations items
         alias navigations= items=
         alias heading text
         alias heading= text=
+
+        def initialize
+          super
+          @types = Set.new
+        end
+
+        def types=(ts)
+          @types = ts.kind_of?(Set) ? ts : Set.new(ts)
+        end
+
+        # For backward compatibility
+        def type
+          @types.find {|t|
+            %w[toc page_list landmarks].include? t
+          }
+        end
+
+        # For backward compatibility
+        def type=(t)
+          @types << t
+        end
 
         %w[toc page_list landmarks].each do |type|
           define_method "#{type}?" do
