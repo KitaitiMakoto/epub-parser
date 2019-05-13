@@ -25,6 +25,7 @@ class TestParserContentDocument < Test::Unit::TestCase
     assert_equal 1, navs.length
     assert_equal 'Table of Contents', nav.heading
     assert_equal 'toc', nav.type
+    assert_equal Set.new(["toc", "frontmatter"]), nav.types
 
     assert_equal 2, nav.items.length
     assert_equal @manifest.items.first, nav.items.first.item
