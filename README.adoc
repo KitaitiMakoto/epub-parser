@@ -190,13 +190,6 @@ If you find other gems, please tell me or request a pull request.
 * Make XML library switchable between REXML and Nokogiri
 * Make REXML a default XML backend
 
-=== 0.3.7
-
-* Strip leading and trailing white spaces from identifiers
-* Change home page and documentation from rubydoc.info to GitLab Pages
-* Make {EPUB::Book::Features#cover_image Book::Features#cover_image} return EPUB 2 cover image if EPUB 3's not available
-* Add `epub-cover` command-line tool. See {file:docs/EpubCover.adoc} for details.
-
 See {file:CHANGELOG.adoc} for older changelogs and details.
 
 == TODOS
