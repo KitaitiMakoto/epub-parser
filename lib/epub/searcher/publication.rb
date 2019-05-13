@@ -24,6 +24,7 @@ module EPUB
         @package = package
       end
 
+      # @return [Array<Result>]
       def search_text(word, algorithm: :seamless)
         results = []
 
