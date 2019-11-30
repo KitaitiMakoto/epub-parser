@@ -5,8 +5,8 @@ require 'yard'
 require 'rdoc/task'
 require 'epub/parser/version'
 require 'archive/zip'
-require 'stringio'
 require 'epub/maker'
+require "tmpdir"
 
 task :default => :test
 task :test => 'test:default'
@@ -20,21 +20,11 @@ namespace :test do
   file "test/fixtures/book.epub" => "test/fixtures/book" do |task|
     EPUB::Maker.archive task.source
     small_file = File.read("#{task.source}/OPS/case-sensitive.xhtml")
-    File.open "#{task.source}.epub" do |archive_in|
-      File.open "#{task.source}.epub.tmp", "w" do |archive_out|
-        Archive::Zip.open archive_in, :r do |z_in|
-          Archive::Zip.open archive_out, :w do |z_out|
-            z_in.each do |entry|
-              z_out << entry
-            end
-            entry = Archive::Zip::Entry::File.new("OPS/CASE-SENSITIVE.xhtml")
-            entry.file_data = StringIO.new(small_file.sub('small file name', 'LARGE FILE NAME'))
-            z_out << entry
-          end
-        end
-      end
+    Dir.mktmpdir do |dir|
+      upcase_file_path = File.join(dir, "CASE-SENSITIVE.xhtml")
+      File.write upcase_file_path, small_file.sub('small file name', 'LARGE FILE NAME')
+      Archive::Zip.archive task.name, upcase_file_path, path_prefix: "OPS"
     end
-    File.rename "#{task.source}.epub.tmp", "#{task.source}.epub"
   end
   CLEAN.include "test/fixtures/book.epub"
 
