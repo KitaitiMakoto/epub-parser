@@ -79,4 +79,17 @@ class TestParserXMLDocument < Test::Unit::TestCase
       end
     end
   end
+
+  private
+
+  def assert_equal_results(backends)
+    results = backends.collect {|backend|
+      EPUB::Parser::XMLDocument.backend = backend
+      yield
+    }
+    expected = results.shift
+    results.each do |actual|
+      assert_equal expected, actual
+    end
+  end
 end
