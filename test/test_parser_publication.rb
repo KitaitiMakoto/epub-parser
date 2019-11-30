@@ -4,7 +4,7 @@ require File.expand_path 'helper', File.dirname(__FILE__)
 class TestParserPublication < Test::Unit::TestCase
   def setup
     opf = File.read("test/fixtures/book/OPS/ルートファイル.opf")
-    @opf = Nokogiri.XML(opf)
+    @opf = EPUB::Parser::XMLDocument.new(opf)
     @parser = EPUB::Parser::Publication.new(opf)
     @package = @parser.parse_package(@opf)
   end
