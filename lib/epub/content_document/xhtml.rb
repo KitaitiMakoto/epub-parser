@@ -32,6 +32,12 @@ module EPUB
         @rexml ||= REXML::Document.new(raw_document)
       end
 
+      # @return [Oga::XML::Document] content as Oga::XML::Document object
+      def oga
+        require "oga"
+        @oga ||= Oga.parse_xml(raw_document)
+      end
+
       # @return [Nokogiri::XML::Document] content as Nokogiri::XML::Document object
       def nokogiri
         require 'nokogiri'
