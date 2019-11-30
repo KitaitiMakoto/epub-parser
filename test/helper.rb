@@ -15,3 +15,6 @@ if ENV["PRETTY_BACKTRACE"]
 end
 
 require 'epub/parser'
+if ENV["XML_BACKEND"]
+  EPUB::Parser::XMLDocument.backend = ENV["XML_BACKEND"].to_sym
+end
