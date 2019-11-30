@@ -5,7 +5,10 @@ module EPUB
         attr_accessor :backend
 
         def new(xml)
-          if backend == :Nokogiri
+          case backend
+          when :Oga
+            Oga.parse_xml(xml)
+          when :Nokogiri
             Nokogiri.XML(xml)
           else
             REXML::Document.new(xml)
