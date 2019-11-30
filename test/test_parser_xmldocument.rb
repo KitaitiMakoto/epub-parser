@@ -6,77 +6,68 @@ class TestParserXMLDocument < Test::Unit::TestCase
     @container = File.read("test/fixtures/book/META-INF/container.xml")
     @opf = File.read("test/fixtures/book/OPS/ルートファイル.opf")
     @nav = File.read("test/fixtures/book/OPS/nav.xhtml")
+    @backends = [:REXML, :Nokogiri]
   end
 
   def test_parse_container
-    EPUB::Parser::XMLDocument.backend = :REXML
-    rexml_container = EPUB::Parser::OCF.new(nil).parse_container(@container)
-    EPUB::Parser::XMLDocument.backend = :Nokogiri
-    nokogiri_container = EPUB::Parser::OCF.new(nil).parse_container(@container)
-
-    assert_equal rexml_container.rootfiles.length, nokogiri_container.rootfiles.length
-    rexml_container.rootfiles.each do |rootfile|
-      rf = nokogiri_container.rootfiles.find {|rf| rf.full_path == rootfile.full_path}
-      assert_equal rootfile.full_path, rf.full_path
-      assert_equal rootfile.media_type, rf.media_type
+    assert_equal_results @backends do
+      container = EPUB::Parser::OCF.new(nil).parse_container(@container)
+      [
+        container.rootfiles.length,
+        container.rootfiles.collect {|rootfile|
+          [rootfile.full_path, rootfile.media_type]
+        }
+      ]
     end
   end
 
   def test_parse_package_document
-    EPUB::Parser::XMLDocument.backend = :REXML
-    rexml_package = EPUB::Parser::Publication.new(@opf).parse
-    EPUB::Parser::XMLDocument.backend = :Nokogiri
-    nokogiri_package = EPUB::Parser::Publication.new(@opf).parse
+    assert_equal_results @backends do
+      result = []
 
-    %i[version prefix xml_lang dir id].each do |attr|
-      assert_equal rexml_package.send(attr), nokogiri_package.send(attr)
-    end
+      package = EPUB::Parser::Publication.new(@opf).parse
 
-    EPUB::Metadata::DC_ELEMS.each do |attr|
-      rexml_attr = rexml_package.metadata.send(attr)
-      nokogiri_attr = nokogiri_package.metadata.send(attr)
+      result << %i[version prefix xml_lang dir id].collect {|attr| package.send(attr)}
 
-      assert_equal rexml_attr.length, nokogiri_attr.length
+      result << EPUB::Metadata::DC_ELEMS.collect {|attr|
+        attr = package.metadata.send(attr)
+        [
+          attr.length,
+          attr.collect {|model|
+            %i[content id lang dir].collect {|a| model.send(a)}
+          }
+        ]
+      }
 
-      rexml_attr.each_with_index do |model, index|
-        %i[content id lang dir].each do |a|
-          assert_equal model.send(a), nokogiri_attr[index].send(a)
-        end
-      end
-    end
+      result << package.metadata.metas.collect {|meta|
+        %i[property id scheme content name meta_content].collect {|attr| meta.send(attr)}
+      }
 
-    rexml_package.metadata.metas.each_with_index do |meta, index|
-      %i[property id scheme content name meta_content].each do |attr|
-        assert_equal meta.send(attr), nokogiri_package.metadata.metas[index].send(attr)
-      end
-    end
+      result << package.metadata.links.collect {|link|
+        %i[href rel id media_type].collect {|attr| link.send(attr)}
+      }
 
-    rexml_package.metadata.links.each_with_index do |link, index|
-      %i[href rel id media_type].each do |attr|
-        assert_equal link.send(attr), nokogiri_package.metadata.links[index].send(attr)
-      end
+      result
     end
   end
 
   def test_parse_navigation
-    EPUB::Parser::XMLDocument.backend = :REXML
-    rexml_nav = EPUB::Parser.parse("test/fixtures/book.epub").nav.content_document
-    EPUB::Parser::XMLDocument.backend = :Nokogiri
-    nokogiri_nav = EPUB::Parser.parse("test/fixtures/book.epub").nav.content_document
+    assert_equal_results @backends do
+      result = []
 
-    assert_equal rexml_nav.navigations.length, nokogiri_nav.navigations.length
+      nav = EPUB::Parser.parse("test/fixtures/book.epub").nav.content_document
 
-    rexml_nav.navigations.each_with_index do |item, index|
-      nokogiri_item = nokogiri_nav.navigations[index]
-      %i[text content_document type].each do |attr|
-        assert_equal item.send(attr), nokogiri_item.send(attr)
-      end
+      result << nav.navigations.length
 
-      item.items.each_with_index do |i, index2|
-        %i[text content_document].each do |attr|
-          assert_equal i.send(attr), nokogiri_item.items[index2].send(attr)
-        end
-      end
+      result << nav.navigations.collect {|item|
+        %i[text content_document type].collect {|attr| item.send(attr)}
+
+        item.items.collect {|i|
+          %i[text content_document].collect {|attr| i.send(attr)}
+        }
+      }
+
+      result
     end
   end
 
