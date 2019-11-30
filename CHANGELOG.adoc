@@ -1,5 +1,9 @@
 = CHANGELOG
 
+== 0.4.1
+
+* Add Oga backend for XML document
+
 == 0.4.0
 
 * [REFACTORING]Make submodules for `XMLDocument::Refinements`
