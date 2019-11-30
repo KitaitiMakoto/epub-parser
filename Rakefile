@@ -15,12 +15,13 @@ namespace :test do
   task :default => [:build, :test]
 
   desc 'Build test fixture EPUB file'
-  task :build => :clean do
-    input_dir  = 'test/fixtures/book'
-    EPUB::Maker.archive input_dir
-    small_file = File.read("#{input_dir}/OPS/case-sensitive.xhtml")
-    File.open "#{input_dir}.epub" do |archive_in|
-      File.open "#{input_dir}.epub.tmp", "w" do |archive_out|
+  task :build => [:clean, "test/fixtures/book.epub"]
+
+  file "test/fixtures/book.epub" => "test/fixtures/book" do |task|
+    EPUB::Maker.archive task.source
+    small_file = File.read("#{task.source}/OPS/case-sensitive.xhtml")
+    File.open "#{task.source}.epub" do |archive_in|
+      File.open "#{task.source}.epub.tmp", "w" do |archive_out|
         Archive::Zip.open archive_in, :r do |z_in|
           Archive::Zip.open archive_out, :w do |z_out|
             z_in.each do |entry|
@@ -33,8 +34,9 @@ namespace :test do
         end
       end
     end
-    File.rename "#{input_dir}.epub.tmp", "#{input_dir}.epub"
+    File.rename "#{task.source}.epub.tmp", "#{task.source}.epub"
   end
+  CLEAN.include "test/fixtures/book.epub"
 
   Rake::TestTask.new do |task|
     task.test_files = FileList['test/**/test_*.rb']
