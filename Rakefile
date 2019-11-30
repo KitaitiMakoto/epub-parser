@@ -14,9 +14,6 @@ task :test => 'test:default'
 namespace :test do
   task :default => [:build, :test]
 
-  desc 'Run all tests'
-  task :all => [:build, :test]
-
   desc 'Build test fixture EPUB file'
   task :build => :clean do
     input_dir  = 'test/fixtures/book'
