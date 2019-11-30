@@ -6,7 +6,7 @@ class TestParserXMLDocument < Test::Unit::TestCase
     @container = File.read("test/fixtures/book/META-INF/container.xml")
     @opf = File.read("test/fixtures/book/OPS/ルートファイル.opf")
     @nav = File.read("test/fixtures/book/OPS/nav.xhtml")
-    @backends = [:REXML, :Nokogiri]
+    @backends = [:REXML, :Nokogiri, :Oga]
   end
 
   def test_parse_container
