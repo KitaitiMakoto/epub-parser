@@ -42,12 +42,14 @@ namespace :doc do
 
   YARD::Rake::YardocTask.new
   Rake::RDocTask.new do |rdoc|
-    rdoc.rdoc_files = FileList['lib/**/*.rb']
-    rdoc.rdoc_files.include 'README.adoc'
-    rdoc.rdoc_files.include 'CHANGELOG.adoc'
-    rdoc.rdoc_files.include 'MIT-LICENSE'
-    rdoc.rdoc_files.include 'docs/**/*.adoc'
-    rdoc.rdoc_files.include 'docs/**/*.md'
+    rdoc.rdoc_files.include %w[
+      lib/**/*.rb
+      README.adoc
+      CHANGELOG.adoc
+      MIT-LICENSE
+      docs/**/*.adoc
+      docs/**/*.md
+    ]
   end
 end
 
