@@ -19,10 +19,10 @@ module EPUB
   end
 end
 
-require "epub/parser/xml_document/refinements/rexml"
-begin
-  require "epub/parser/xml_document/refinements/nokogiri"
-  EPUB::Parser::XMLDocument.backend = :Nokogiri
-rescue LoadError
-  EPUB::Parser::XMLDocument.backend = :REXML
+%i[Oga Nokogiri REXML].each do |backend|
+  begin
+    require "epub/parser/xml_document/refinements/#{backend.downcase}"
+    EPUB::Parser::XMLDocument.backend ||= backend
+  rescue LoadError
+  end
 end
