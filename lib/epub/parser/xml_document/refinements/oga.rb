@@ -31,20 +31,14 @@ module EPUB
               def respond_to?(name, include_all = false)
                 [:root, :elements].include?(name) || super
               end
-            end
-          end
 
-          refine ::Oga::XML::Document do
-            def each_element_by_xpath(xpath, namespaces = nil, &block)
-              xpath(xpath, namespaces: namespaces).each &block
+              def each_element_by_xpath(xpath, namespaces = nil, &block)
+                xpath(xpath, namespaces: namespaces).each &block
+              end
             end
           end
 
           refine ::Oga::XML::Element do
-            def each_element_by_xpath(xpath, namespaces = nil, &block)
-              xpath(xpath, namespaces: namespaces).each &block
-            end
-
             def attribute_with_prefix(name, prefix = nil)
               name = prefix ? "#{prefix}:#{name}" : name
               get(name)
