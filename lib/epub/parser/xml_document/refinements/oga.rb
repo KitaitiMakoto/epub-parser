@@ -6,15 +6,6 @@ module EPUB
       module Refinements
         module Oga
           refine ::Oga::XML::Traversal do
-            def root
-              # Couldn't use find(&:element?) for Rubies under 2.6
-              root_node.children.find {|child| child.element?}
-            end
-
-            def elements
-              # Couldn't use find(&:element?) for Rubies under 2.6
-              children.select {|child| child.element?}
-            end
           end
 
           [::Oga::XML::Document, ::Oga::XML::Node].each do |klass|
@@ -27,6 +18,16 @@ module EPUB
                 define_method "#{type}?" do
                   kind_of? klass
                 end
+              end
+
+              def root
+                # Couldn't use find(&:element?) for Rubies under 2.6
+                root_node.children.find {|child| child.element?}
+              end
+
+              def elements
+                # Couldn't use find(&:element?) for Rubies under 2.6
+                children.select {|child| child.element?}
               end
             end
           end
