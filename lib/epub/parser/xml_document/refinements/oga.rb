@@ -29,6 +29,11 @@ module EPUB
                 # Couldn't use find(&:element?) for Rubies under 2.6
                 children.select {|child| child.element?}
               end
+
+              # Need for Rubies under 2.6
+              def respond_to?(name, include_all = false)
+                [:root, :elements].include?(name) || super
+              end
             end
           end
 
