@@ -7,7 +7,7 @@ before_script:
 
 test:2.3:
   image: ruby:2.3
-  script: bundle exec rake test XML_BACKEND=REXML && bundle exec rake test XML_BACKEND=Oga && bundle exec rake test XML_BACKEND=Nokogiri
+  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
   except:
     - tags
   cache:
