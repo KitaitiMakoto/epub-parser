@@ -7,7 +7,7 @@ before_script:
 
 test:2.3:
   image: ruby:2.3
-  script: bundle exec rake test
+  script: bundle exec rake test XML_BACKEND=REXML && bundle exec rake test XML_BACKEND=Oga && bundle exec rake test XML_BACKEND=Nokogiri
   except:
     - tags
   cache:
@@ -17,7 +17,7 @@ test:2.3:
 
 test:2.4:
   image: ruby:2.4
-  script: bundle exec rake test
+  script: bundle exec rake test XML_BACKEND=REXML && bundle exec rake test XML_BACKEND=Oga && bundle exec rake test XML_BACKEND=Nokogiri
   except:
     - tags
   cache:
@@ -27,7 +27,7 @@ test:2.4:
 
 test:2.5:
   image: ruby:2.5
-  script: bundle exec rake test
+  script: bundle exec rake test XML_BACKEND=REXML && bundle exec rake test XML_BACKEND=Oga && bundle exec rake test XML_BACKEND=Nokogiri
   except:
     - tags
   artifacts:
@@ -40,7 +40,7 @@ test:2.5:
 
 test:2.6:
   image: ruby:2.6
-  script: bundle exec rake test
+  script: bundle exec rake test XML_BACKEND=REXML && bundle exec rake test XML_BACKEND=Oga && bundle exec rake test XML_BACKEND=Nokogiri
   except:
     - tags
   cache:
