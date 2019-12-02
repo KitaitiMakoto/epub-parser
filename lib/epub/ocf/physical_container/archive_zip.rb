@@ -35,7 +35,7 @@ module EPUB
                 end
               end
               next if index < @last_iterated_entry_index
-              # We can force encoding UTF-8 becase EPUB spec allows only UTF-8 filenames
+              # We can force encoding UTF-8 because EPUB spec allows only UTF-8 filenames
               entry_path = entry.zip_path.force_encoding('UTF-8')
               @entries[entry_path] = index
               @last_iterated_entry_index = index
