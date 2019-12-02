@@ -7,11 +7,13 @@ module EPUB
         module Oga
           refine ::Oga::XML::Traversal do
             def root
-              root_node.children.find(&:element?)
+              # Couldn't use find(&:element?) for Rubies under 2.6
+              root_node.children.find {|child| child.element?}
             end
 
             def elements
-              children.select(&:element?)
+              # Couldn't use find(&:element?) for Rubies under 2.6
+              children.select {|child| child.element?}
             end
           end
 
