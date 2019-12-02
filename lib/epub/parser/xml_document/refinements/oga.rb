@@ -5,9 +5,6 @@ module EPUB
     class XMLDocument
       module Refinements
         module Oga
-          refine ::Oga::XML::Traversal do
-          end
-
           [::Oga::XML::Document, ::Oga::XML::Node].each do |klass|
             refine klass do
               [
