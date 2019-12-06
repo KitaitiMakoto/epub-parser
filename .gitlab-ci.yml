@@ -50,6 +50,7 @@ test:2.6:
 
 pages:
   stage: deploy
+  image: ruby:2.6
   dependencies:
     - test:2.6
   script:
