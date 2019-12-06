@@ -19,7 +19,7 @@ module EPUB
   end
 end
 
-%i[Oga Nokogiri REXML].each do |backend|
+%i[Nokogiri Oga REXML].each do |backend|
   begin
     require "epub/parser/xml_document/refinements/#{backend.downcase}"
     EPUB::Parser::XMLDocument.backend ||= backend
