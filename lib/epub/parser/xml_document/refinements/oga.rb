@@ -55,6 +55,13 @@ module EPUB
               namespace&.uri
             end
 
+            alias original_namespaces namespaces
+            def namespaces
+              original_namespaces.each_with_object({}) {|(name, namespace), nss|
+                nss[name] = namespace.uri
+              }
+            end
+
             alias content text
           end
 
