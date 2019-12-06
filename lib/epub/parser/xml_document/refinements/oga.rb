@@ -61,10 +61,6 @@ module EPUB
           refine ::Oga::XML::Text do
             alias content text
           end
-
-          refine ::Oga::XML::Namespace do
-            alias to_str uri
-          end
         end
 
         include Oga
