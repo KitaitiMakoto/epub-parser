@@ -19,6 +19,8 @@ namespace :test do
 
   file "test/fixtures/book.epub" => "test/fixtures/book" do |task|
     EPUB::Maker.archive task.source
+    # We cannot include "CASE-SENSITIVE.xhtml" in Git repository because
+    # macOS remove it or case-sensitive.xhtml from file system.
     small_file = File.read("#{task.source}/OPS/case-sensitive.xhtml")
     Dir.mktmpdir do |dir|
       upcase_file_path = File.join(dir, "CASE-SENSITIVE.xhtml")
