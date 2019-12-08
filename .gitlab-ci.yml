@@ -48,6 +48,16 @@ test:2.6:
     paths:
       - deps
 
+test:2.7:
+  image: ruby:2.7-rc
+  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
+  except:
+    - tags
+  cache:
+    key: ruby:2.7
+    paths:
+      - deps
+
 pages:
   stage: deploy
   image: ruby:2.6
