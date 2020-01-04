@@ -3,7 +3,6 @@ require 'rake/testtask'
 require 'rubygems/tasks'
 require 'yard'
 require 'rdoc/task'
-require 'epub/parser/version'
 require 'archive/zip'
 require 'epub/maker'
 require "tmpdir"
