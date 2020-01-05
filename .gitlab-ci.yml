@@ -7,7 +7,7 @@ before_script:
 
 test:2.3:
   image: ruby:2.3
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
+  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
   except:
     - tags
   cache:
@@ -17,7 +17,7 @@ test:2.3:
 
 test:2.4:
   image: ruby:2.4
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
+  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
   except:
     - tags
   cache:
@@ -27,7 +27,7 @@ test:2.4:
 
 test:2.5:
   image: ruby:2.5
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
+  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
   except:
     - tags
   artifacts:
@@ -40,7 +40,7 @@ test:2.5:
 
 test:2.6:
   image: ruby:2.6
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
+  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
   except:
     - tags
   cache:
@@ -50,7 +50,7 @@ test:2.6:
 
 test:2.7:
   image: ruby:2.7
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
+  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
   except:
     - tags
   cache:
