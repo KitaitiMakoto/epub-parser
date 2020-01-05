@@ -60,7 +60,7 @@ test:2.7:
 
 pages:
   stage: deploy
-  image: ruby:2.6
+  image: ruby:2.7
   dependencies:
     - test:2.6
   script:
@@ -73,6 +73,6 @@ pages:
   only:
     - master
   cache:
-    key: ruby:2.6
+    key: ruby:2.7
     paths:
       - deps
