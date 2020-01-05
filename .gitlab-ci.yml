@@ -49,7 +49,7 @@ test:2.6:
       - deps
 
 test:2.7:
-  image: ruby:2.7-rc
+  image: ruby:2.7
   script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri
   except:
     - tags
