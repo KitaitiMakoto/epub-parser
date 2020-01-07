@@ -32,7 +32,7 @@ EOB
   end
   error "output not a directory" if options["output"] && !File.directory?(options["output"])
   cover_image = EPUB::Parser.parse(path).cover_image
-  error "cover image not found" unless cover_image
+  error "cover image not found", option_parser.program_name, option_parser.help unless cover_image
   path = File.basename(cover_image.href.to_s)
   path = File.join(options["output"], path) if options["output"]
   File.write path, cover_image.read
@@ -41,10 +41,12 @@ EOB
   $stderr.puts ""
 end
 
-def error(message)
+def error(message, program_name, help)
   $stderr.puts "Error: #{message}"
   $stderr.puts ""
-  $stderr.puts option_parser.help
+  $stderr.puts program_name
+  $stderr.puts "=" * program_name.length
+  $stderr.puts help
   abort
 end
 
