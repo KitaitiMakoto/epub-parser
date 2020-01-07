@@ -35,21 +35,21 @@ module EPUB
       #   When option :book passed, returns the same object whose attributes about EPUB are set.
       #   When option :class passed, returns the instance of the class.
       #   Otherwise returns {EPUB::Book} object.
-      def parse(filepath, **options)
-        new(filepath, options).parse
+      def parse(filepath, container_adapter: nil, book: nil, initialize_with: nil, **options)
+        new(filepath, container_adapter: container_adapter, book: nil, initialize_with: nil, **options).parse
       end
     end
 
-    def initialize(filepath, **options)
-      path_is_uri = (options[:container_adapter] == EPUB::OCF::PhysicalContainer::UnpackedURI or
-                     options[:container_adapter] == :UnpackedURI or
+    def initialize(filepath, container_adapter: nil, book: nil, initialize_with: nil, **options)
+      path_is_uri = (container_adapter == EPUB::OCF::PhysicalContainer::UnpackedURI or
+                     container_adapter == :UnpackedURI or
                      EPUB::OCF::PhysicalContainer.adapter == EPUB::OCF::PhysicalContainer::UnpackedURI)
 
       raise "File #{filepath} not found" if
         !path_is_uri and !File.exist?(filepath)
 
       @filepath = path_is_uri ? filepath : File.realpath(filepath)
-      @book = create_book(options)
+      @book = create_book(book: book, initialize_with: initialize_with, **options)
       if path_is_uri
         @book.container_adapter = :UnpackedURI
       elsif File.directory? @filepath
@@ -77,13 +77,13 @@ module EPUB
 
     private
 
-    def create_book(params)
+    def create_book(book: nil, initialize_with: nil, **params)
       case
-      when params[:book]
-        params[:book]
+      when book
+        book
       when params[:class]
-        if params[:initialize_with]
-          params[:class].new params[:initialize_with]
+        if initialize_with
+          params[:class].new initialize_with
         else
           params[:class].new
         end
