@@ -1,13 +1,11 @@
 = CHANGELOG
 
-== 0.4.3
-
-* [BUG FIX]Fix a bug that `epubinfo` command with `--words` or `--chars` option causes load error if there is not Nokogiri in environment
-* [BUG FIX]Fix a bug that REXML::Element#content ignores descendant nodes
-
 == 0.4.2
 
 * [BUG FIX]Fix a bug that epub-cover refers out of scope variable
+
+* [BUG FIX]Fix a bug that `epubinfo` command with `--words` or `--chars` option causes load error if there is not Nokogiri in environment
+* [BUG FIX]Fix a bug that REXML::Element#content ignores descendant nodes
 
 == 0.4.1
 
