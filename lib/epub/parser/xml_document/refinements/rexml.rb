@@ -27,7 +27,16 @@ module EPUB
             alias namespace_uri namespace
 
             def content
-              texts.join
+              texts = []
+              each_child {|node|
+                case node.node_type
+                when :document, :element
+                  texts << node.content
+                when :text
+                  texts << node.value
+                end
+              }
+              texts.join("")
             end
           end
 
