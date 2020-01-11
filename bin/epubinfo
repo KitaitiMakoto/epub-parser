@@ -58,8 +58,8 @@ if options[:words] or options[:chars]
     begin
       doc = EPUB::Parser::XMLDocument.new(xhtml.read)
       body = doc.each_element_by_xpath('//xhtml:body', namespaces).first
-      content = body.content
       if body
+        content = body.content
         counts[:words] += content.scan(/\S+/).length
         counts[:chars] += content.gsub(/\r|\n/, '').length
       end
