@@ -12,7 +12,7 @@ module EPUB
       # 
       # @example
       #   class MyBook
-      #     include EPUB
+      #     include EPUB::Book::Feature
       #   end
       #   book = MyBook.new
       #   parsed_book = EPUB::Parser.parse('path/to/book.epub', book: book) # => #<MyBook:0x000000019760e8 @epub_file=..>
