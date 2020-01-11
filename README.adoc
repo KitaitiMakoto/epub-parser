@@ -187,15 +187,6 @@ If you find other gems, please tell me or request a pull request.
 
 * Add Oga backend for XML document
 
-=== 0.4.0
-
-* [BUG FIX]Make epub:type a Set
-
-=== 0.3.9
-
-* [BUG FIX]Set {EPUB::Metadata::DCMES#lang} properly from xml:lang attribute
-* Change default XML backend from REXML to Nokogiri
-
 See {file:CHANGELOG.adoc} for older changelogs and details.
 
 == TODOS
