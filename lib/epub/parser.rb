@@ -36,7 +36,7 @@ module EPUB
       #   When option :class passed, returns the instance of the class.
       #   Otherwise returns {EPUB::Book} object.
       def parse(filepath, container_adapter: nil, book: nil, initialize_with: nil, **options)
-        new(filepath, container_adapter: container_adapter, book: nil, initialize_with: nil, **options).parse
+        new(filepath, container_adapter: container_adapter, book: book, initialize_with: initialize_with, **options).parse
       end
     end
 

@@ -1,6 +1,8 @@
 require 'optparse'
 require 'epub/parser'
 
+using EPUB::Parser::XMLDocument::Refinements
+
 options = {:format => :line}
 opt = OptionParser.new do |opt|
   opt.banner = <<EOB
@@ -51,10 +53,11 @@ end
 
 counts = {:chars => 0, :words => 0}
 if options[:words] or options[:chars]
+  namespaces = {"xhtml" => "http://www.w3.org/1999/xhtml"}
   book.resources.select(&:xhtml?).each do |xhtml|
     begin
-      doc = xhtml.content_document.nokogiri
-      body = doc.search('body').first
+      doc = EPUB::Parser::XMLDocument.new(xhtml.read)
+      body = doc.each_element_by_xpath('//xhtml:body', namespaces).first
       content = body.content
       if body
         counts[:words] += content.scan(/\S+/).length
