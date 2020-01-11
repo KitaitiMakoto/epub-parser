@@ -89,7 +89,7 @@ end
 
 book = EPUB::Parser.parse(
   'uploaded-book.epub',
-  :class => YourBook # *************** pass YourBook class
+  class: YourBook # *************** pass YourBook class
 )
 book.instance_of? YourBook # => true
 book.required = 'value for required field'
@@ -110,7 +110,7 @@ You are also able to find YourBook object for the first:
 book = YourBook.find params[:id]
 ret = EPUB::Parser.parse(
   'uploaded-book.epub',
-  :book => book # ******************* pass your book instance
+  book: book # ******************* pass your book instance
 ) # => book
 ret == book # => true; this API is not good I feel... Welcome suggestion!
 # do something with your book

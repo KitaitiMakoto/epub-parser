@@ -15,11 +15,11 @@ module EPUB
       #     include EPUB
       #   end
       #   book = MyBook.new
-      #   parsed_book = EPUB::Parser.parse('path/to/book.epub', :book => book) # => #<MyBook:0x000000019760e8 @epub_file=..>
+      #   parsed_book = EPUB::Parser.parse('path/to/book.epub', book: book) # => #<MyBook:0x000000019760e8 @epub_file=..>
       #   parsed_book.equal? book # => true
       # 
       # @example
-      #   book = EPUB::Parser.parse('path/to/book.epub', :class => MyBook) # => #<MyBook:0x000000019b0568 @epub_file=...>
+      #   book = EPUB::Parser.parse('path/to/book.epub', class: MyBook) # => #<MyBook:0x000000019b0568 @epub_file=...>
       #   book.instance_of? MyBook # => true
       # 
       # @param [String] filepath
