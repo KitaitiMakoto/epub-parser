@@ -29,6 +29,6 @@ unless File.readable? file
     file = uri
   end
 end
-EPUB::Parser.parse(file, :book => self)
+EPUB::Parser.parse(file, book: self)
 $stderr.puts "Enter \"exit\" to exit #{shell}"
 shell.start
