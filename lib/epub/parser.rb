@@ -41,6 +41,14 @@ module EPUB
     end
 
     def initialize(filepath, container_adapter: nil, book: nil, initialize_with: nil, **options)
+      if filepath.encoding == Encoding::ASCII_8BIT
+        # On Windows and macOS, encoding of file name is set by Ruby,
+        # but on UNIX, always is ASCII-8BIT
+        # See https://docs.ruby-lang.org/ja/2.7.0/class/IO.html
+        filepath = filepath.dup
+        require "nkf"
+        filepath.force_encoding NKF.guess(filepath)
+      end
       path_is_uri = (container_adapter == EPUB::OCF::PhysicalContainer::UnpackedURI or
                      container_adapter == :UnpackedURI or
                      EPUB::OCF::PhysicalContainer.adapter == EPUB::OCF::PhysicalContainer::UnpackedURI)
