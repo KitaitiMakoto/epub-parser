@@ -36,13 +36,13 @@ module EPUB
       end
 
       # @param [XMLDocument, REXML::Document, Oga::XML::Document, Nokogiri::HTML::Document] document HTML document or element including nav
-      # @return [Array<EPUB::ContentDocument::Navigation::Nav>] navs array of Nav object
+      # @return [Array<EPUB::ContentDocument::Navigation::Navigation>] navs array of Navigation object
       def parse_navigations(document)
         document.each_element_by_xpath('/xhtml:html/xhtml:body//xhtml:nav', EPUB::NAMESPACES).collect {|elem| parse_navigation elem}
       end
 
       # @param [REXML::Element, Oga::XML::Element, Nokogiri::XML::Element] element nav element
-      # @return [EPUB::ContentDocument::Navigation::Nav] nav Nav object
+      # @return [EPUB::ContentDocument::Navigation::Navigation] nav Navigation object
       def parse_navigation(element)
         nav = EPUB::ContentDocument::Navigation::Navigation.new
         nav.text = find_heading(element)
