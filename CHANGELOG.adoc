@@ -1,5 +1,9 @@
 = CHANGELOG
 
+== 0.4.3
+
+* Encode file name passed from file system on Unix
+
 == 0.4.2
 
 * [BUG FIX]Fix a bug that epub-cover refers out of scope variable
