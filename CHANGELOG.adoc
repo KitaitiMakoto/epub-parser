@@ -1,5 +1,9 @@
 = CHANGELOG
 
+== 0.4.4
+
+* [BUG FIX]Fix navigation type check bug
+
 == 0.4.3
 
 * Encode file name passed from file system on Unix
