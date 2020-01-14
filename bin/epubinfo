@@ -46,6 +46,7 @@ data.merge!(book.metadata.to_h)
 data['modified'] = book.modified
 data['unique identifier'] = book.metadata.unique_identifier
 data['epub version'] = book.package.version
+data["navigations"] = book.manifest.navs.first&.content_document.navigations.collect(&:type).join(", ")
 
 data.each_pair do |(key, value)|
   data[key] = value.respond_to?(:join) ? value.join(", ") : value.to_s
