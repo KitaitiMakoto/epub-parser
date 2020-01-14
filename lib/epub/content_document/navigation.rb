@@ -130,7 +130,7 @@ module EPUB
 
         %w[toc page_list landmarks].each do |type|
           define_method "#{type}?" do
-            type == Type.const_get(type.upcase)
+            @types.include? type
           end
         end
       end
