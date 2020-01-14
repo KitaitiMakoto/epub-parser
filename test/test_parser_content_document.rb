@@ -22,7 +22,7 @@ class TestParserContentDocument < Test::Unit::TestCase
     navs = @parser.parse_navigations doc
     nav = navs.first
 
-    assert_equal 1, navs.length
+    assert_equal 2, navs.length
     assert_equal 'Table of Contents', nav.heading
     assert_equal 'toc', nav.type
     assert_equal Set.new(["toc"]), nav.types
