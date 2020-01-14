@@ -4,7 +4,7 @@
 
 EPUB Parser gem parses EPUB 3 book loosely.
 
-image:https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/build.svg[link="https://gitlab.com/KitaitiMakoto/epub-parser/commits/master", title="pipeline status"]
+image:https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/pipeline.svg[link="https://gitlab.com/KitaitiMakoto/epub-parser/commits/master",title="pipeline status"]
 image:https://badge.fury.io/rb/epub-parser.svg[link="https://gemnasium.com/KitaitiMakoto/epub-parser",title="Gem Version"]
 image:https://gitlab.com/KitaitiMakoto/epub-parser/badges/master/coverage.svg[link="https://kitaitimakoto.gitlab.io/epub-parser/coverage/",title="coverage report"]
 
