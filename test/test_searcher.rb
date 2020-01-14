@@ -39,7 +39,9 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/2/2)",
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/4/2)",
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/6/2)",
-          "epubcfi(/6/2!/4/2/2[idid]/4/4/4/8/2)"
+          "epubcfi(/6/2!/4/2/2[idid]/4/4/4/8/2)",
+          "epubcfi(/6/2!/4/2/4/4/2/2)",
+          "epubcfi(/6/2!/4/2/4/4/4/2)"
         ],
         EPUB::Searcher::Publication.search_element(@package, xpath: './/xhtml:a').collect {|result| result[:location]}.map(&:to_s)
       )
