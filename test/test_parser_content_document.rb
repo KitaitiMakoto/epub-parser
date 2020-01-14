@@ -36,4 +36,21 @@ class TestParserContentDocument < Test::Unit::TestCase
 
     assert_true nav.hidden?
   end
+
+  def test_landmarks
+    epub = EPUB::Parser.parse("#{@dir}.epub")
+    manifest = epub.manifest
+    landmarks = epub.nav.content_document.landmarks
+
+    assert_equal "Guide", landmarks.heading
+    assert_equal "landmarks", landmarks.type
+    assert_equal Set.new(["landmarks"]), landmarks.types
+
+    assert_equal 2, landmarks.items.length
+
+    assert_equal manifest["nav"], landmarks.items.first.item
+    assert_equal manifest["japanese-filename"], landmarks.items[1].item
+
+    assert_equal "Body", landmarks.items.last.text
+  end
 end
