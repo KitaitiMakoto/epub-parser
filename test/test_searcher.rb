@@ -52,7 +52,9 @@ class TestSearcher < Test::Unit::TestCase
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/2/2)",
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/4/2)",
           "epubcfi(/6/2!/4/2/2[idid]/4/4/4/6/2)",
-          "epubcfi(/6/2!/4/2/2[idid]/4/4/4/8/2)"
+          "epubcfi(/6/2!/4/2/2[idid]/4/4/4/8/2)",
+          "epubcfi(/6/2!/4/2/4/4/2/2)",
+          "epubcfi(/6/2!/4/2/4/4/4/2)"
         ],
         EPUB::Searcher::Publication.search_element(@package, xpath: './/customnamespace:a', namespaces: {'customnamespace' => 'http://www.w3.org/1999/xhtml'}).collect {|result| result[:location]}.map(&:to_s)
       )
