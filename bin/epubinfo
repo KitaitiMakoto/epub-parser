@@ -32,9 +32,14 @@ EOB
       options[key] = true
     end
   end
-  opt.on "--navigations", "show all types of navigations" do
-    navigation_types.keys.each do |type|
+
+  opt.on "--navigation[=TYPE]",navigation_types.keys, "show specified type of navigation(#{navigation_types.keys[0..-2].join(', ')} or #{navigation_types.keys.last})", "If TYPE is omitted, show all types of navigations.", "Can specify multiple times." do |type|
+    if type
       options[type] = true
+    else
+      navigation_types.keys.each do |type|
+        options[type] = true
+      end
     end
   end
 end
