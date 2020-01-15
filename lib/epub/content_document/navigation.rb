@@ -102,7 +102,7 @@ module EPUB
         # For backward compatibility
         def type
           @types.find {|t|
-            %w[toc page_list landmarks].include? t
+            Type::NAVIGATION.include? t
           }
         end
 

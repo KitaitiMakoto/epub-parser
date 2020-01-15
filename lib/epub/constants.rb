@@ -41,4 +41,12 @@ module EPUB
     ]
     CORE = IMAGE + APPLICATION + AUDIO + TEXT
   end
+
+  module Type
+    NAVIGATION = %w[
+      toc
+      page_list
+      landmarks
+    ]
+  end
 end
