@@ -134,3 +134,126 @@ Note that this makes process slower because it will read all the document.
     Epub version:       2.0
     Words:              65006
     Characters:         445924
+
+Navigations
+-----------
+
+`epubinfo` can coutput navigations in EPUB document such as table of contents and landmarks. Pass `--navigation` option to the command. This option is available only in line format, for now.
+
+    % epubinfo --navigation ./linear-algebra.epub
+    (snip)
+    === table of contents ===
+    Table of Contents
+      A First Course in Linear Algebra
+      Copyright
+      Author Biography
+      Edition
+      Publisher
+      Table of Contents
+      Dedication
+      Chapter 1. Theorems
+      Chapter 2. Notation
+      Chapter 3. Diagrams
+      Chapter 4. Examples
+      Preface
+      Acknowledgements
+      Part I. Part C  Core
+        Chapter 1. Chapter SLE  Systems of Linear Equations
+          Section WILA  What is Linear Algebra?
+          Section SSLE  Solving Systems of Linear Equations
+          Section RREF  Reduced Row-Echelon Form
+          Section HSE  Homogeneous Systems of Equations
+          Section NM  Nonsingular Matrices
+        Chapter 2. Chapter V  Vectors
+          Section SS  Spanning Sets
+          Section O  Orthogonality
+        Chapter 3. Chapter M  Matrices
+          Section MM  Matrix Multiplication
+          Section MISLE  Matrix Inverses and Systems of Linear Equations
+          Section MINM  Matrix Inverses and Nonsingular Matrices
+          Section CRS  Column and Row Spaces
+        Chapter 4. Chapter VS  Vector Spaces
+        Chapter 5. Chapter D  Determinants
+          Section PDM  Properties of Determinants of Matrices
+        Chapter 6. Chapter E  Eigenvalues
+          Section PEE  Properties of Eigenvalues and Eigenvectors
+        Chapter 7. Chapter LT  Linear Transformations
+          Section ILT  Injective Linear Transformations
+          Section SLT  Surjective Linear Transformations
+          Section IVLT  Invertible Linear Transformations
+        Chapter 8. Chapter R  Representations
+          Section CB  Change of Basis
+          Section OD  Orthonormal Diagonalization
+          Section NLT  Nilpotent Linear Transformations
+          Section IS  Invariant Subspaces
+          Section JCF  Jordan Canonical Form
+        Chapter 9. Appendix CN  Computation Notes
+          Section MMA  Mathematica
+          Section TI86  Texas Instruments 86
+          Section TI83  Texas Instruments 83
+          Section SAGE  SAGE: Open Source Mathematics Software
+        Chapter 10. Appendix P  Preliminaries
+          Section CNO  Complex Number Operations
+          Section SET  Sets
+          Section PT  Proof Techniques
+        Chapter 11. Appendix A  Archetypes
+          Archetype A
+          Archetype B
+          Archetype C
+          Archetype D
+          Archetype E
+          Archetype F
+          Archetype G
+          Archetype H
+          Archetype I
+          Archetype J
+          Archetype K
+          Archetype L
+          Archetype M
+          Archetype N
+          Archetype O
+          Archetype P
+          Archetype Q
+          Archetype R
+          Archetype S
+          Archetype T
+          Archetype U
+          Archetype V
+          Archetype W
+          Archetype X
+        Chapter 12. Appendix GFDL  GNU Free Documentation License
+      Part II. Part T  Topics
+        Chapter 14. Section T  Trace
+        Chapter 15. Section HP  Hadamard Product
+        Chapter 16. Section VM  Vandermonde Matrix
+        Chapter 17. Section PSM  Positive Semi-definite Matrices
+        Chapter 18. Chapter MD  Matrix Decompositions
+          Section ROD  Rank One Decomposition
+          Section TD  Triangular Decomposition
+          Section SVD  Singular Value Decomposition
+          Section SR  Square Roots
+          Section POD  Polar Decomposition
+      Part III. Part A  Applications
+        Chapter 19. Section CF  Curve Fitting
+        Chapter 20. Section SAS  Sharing A Secret
+        Chapter 21. Contributors
+        Chapter 22. Definitions
+    
+    === page list ===
+    (No page list)
+    
+    === landmarks ===
+    (No heading)
+      Part I. Part C  Core
+
+If you need only one type of navigation, tell it to `navigation` option:
+
+    % epubinfo --navigation=toc ./linear-algebra.epub
+
+You can specify multiple typs by pass the option multiple times:
+
+    % epubinfo --navigation=toc --navigation=landmarks ./linear-algebra.epub
+
+Short cut options `--toc`, `--page-list` and `--landmarks` are also available. `--toc` is, for example, equivalent to `--navigation=toc`:
+
+    % epubinfo --toc ./linear-algebra.epub
