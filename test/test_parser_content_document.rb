@@ -52,5 +52,6 @@ class TestParserContentDocument < Test::Unit::TestCase
     assert_equal manifest["japanese-filename"], landmarks.items[1].item
 
     assert_equal "Body", landmarks.items.last.text
+    assert_equal "bodymatter", landmarks.items.last.types.first
   end
 end
