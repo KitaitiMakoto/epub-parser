@@ -4,6 +4,11 @@ require 'epub/parser'
 using EPUB::Parser::XMLDocument::Refinements
 
 options = {:format => :line}
+navigation_types = {
+  :toc => "table of contents",
+  :"page-list" => "page list",
+  :landmarks => "landmarks"
+}
 opt = OptionParser.new do |opt|
   opt.banner = <<EOB
 Show metadata of an EPUB file
@@ -21,6 +26,16 @@ EOB
   end
   opt.on '--chars', 'count charactors of content documents' do
     options[:chars] = true
+  end
+  navigation_types.each_pair do |key, name|
+    opt.on "--#{key}", "show #{name} navigation(in line format only)" do
+      options[key] = true
+    end
+  end
+  opt.on "--navigations", "show all types of navigations" do
+    navigation_types.keys.each do |type|
+      options[type] = true
+    end
   end
 end
 opt.parse!(ARGV)
@@ -75,6 +90,21 @@ if options[:format] == :line
   key_width = data.keys.map {|k| k.length}.max + 3
   data.each_pair do |k, v|
     puts (k.to_s.capitalize + ':').ljust(key_width) + v.to_s
+  end
+  navigation_types.each_pair do |key, name|
+    if options[key]
+      puts ""
+      puts "=== #{name} ==="
+      nav = book.manifest.nav.content_document.navigations.find {|nav| nav.type == key.to_s.sub("-", "_")}
+      if nav
+        nav.traverse do |item, depth|
+          text = item.text || "(No heading)"
+          puts "#{'  ' * depth}#{text}"
+        end
+      else
+        puts "(No #{name})"
+      end
+    end
   end
 else
   require options[:format].to_s
