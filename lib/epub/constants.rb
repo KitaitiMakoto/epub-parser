@@ -43,7 +43,7 @@ module EPUB
   end
 
   module Type
-    NAVIGATION = %w[
+    DOCUMENT_NAVIGATION = %w[
       toc
       page_list
       landmarks

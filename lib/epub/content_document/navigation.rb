@@ -99,7 +99,7 @@ module EPUB
         # For backward compatibility
         def type
           types.find {|t|
-            Type::NAVIGATION.include? t
+            Type::DOCUMENT_NAVIGATION.include? t
           }
         end
 
