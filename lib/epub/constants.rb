@@ -42,6 +42,7 @@ module EPUB
     CORE = IMAGE + APPLICATION + AUDIO + TEXT
   end
 
+  # @see https://idpf.github.io/epub-vocabs/structure/
   module Type
     DOCUMENT_NAVIGATION = %w[
       toc
