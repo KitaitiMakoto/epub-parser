@@ -3,6 +3,7 @@
 == 0.4.4
 
 * [BUG FIX]Fix navigation type check bug
+* Add feature to show navigations to `epubinfo` command-line tool
 
 == 0.4.3
 
