@@ -103,6 +103,7 @@ if options[:format] == :line
       if nav
         nav.traverse do |item, depth|
           text = item.text || "(No heading)"
+          text += "(#{item.types.sort.join(', ')})" unless item.types.empty?
           puts "#{'  ' * depth}#{text}"
         end
       else
