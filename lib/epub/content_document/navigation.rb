@@ -1,4 +1,4 @@
-require "set"
+require "epub/content_document/typable"
 
 module EPUB
   module ContentDocument
@@ -73,15 +73,15 @@ module EPUB
       # @todo handle with epub:type such as bodymatter
       class Item
         include Hidable
+        include Typable
 
         attr_accessor :items, :text,
                       :content_document, :item
-        attr_reader :href, :types
+        attr_reader :href
 
         def initialize
           @items = ItemList.new
           @items.parent = self
-          @types = Set.new
         end
 
         def href=(iri)
@@ -95,25 +95,21 @@ module EPUB
           end
         end
 
-        def types=(ts)
-          @types = ts.kind_of?(Set) ? ts : Set.new(ts)
-        end
-
         # For backward compatibility
         def type
-          @types.find {|t|
+          types.find {|t|
             Type::NAVIGATION.include? t
           }
         end
 
         # For backward compatibility
         def type=(t)
-          @types << t
+          types << t
         end
 
         %w[toc page_list landmarks].each do |type|
           define_method "#{type}?" do
-            @types.include? type
+            types.include? type
           end
         end
       end
