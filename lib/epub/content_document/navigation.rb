@@ -76,11 +76,12 @@ module EPUB
 
         attr_accessor :items, :text,
                       :content_document, :item
-        attr_reader :href
+        attr_reader :href, :types
 
         def initialize
           @items = ItemList.new
           @items.parent = self
+          @types = Set.new
         end
 
         def href=(iri)
@@ -92,26 +93,6 @@ module EPUB
           items.each do |item|
             item.traverse depth + 1, &block
           end
-        end
-      end
-
-      # @todo Implement method to represent navigation structure
-      class Navigation < Item
-        module Type
-          TOC       = 'toc'
-          PAGE_LIST = 'page_list'
-          LANDMARKS = 'landmarks'
-        end
-
-        attr_reader :types
-        alias navigations items
-        alias navigations= items=
-        alias heading text
-        alias heading= text=
-
-        def initialize
-          super
-          @types = Set.new
         end
 
         def types=(ts)
@@ -135,6 +116,20 @@ module EPUB
             @types.include? type
           end
         end
+      end
+
+      # @todo Implement method to represent navigation structure
+      class Navigation < Item
+        module Type
+          TOC       = 'toc'
+          PAGE_LIST = 'page_list'
+          LANDMARKS = 'landmarks'
+        end
+
+        alias navigations items
+        alias navigations= items=
+        alias heading text
+        alias heading= text=
       end
 
       class ItemList < Array
