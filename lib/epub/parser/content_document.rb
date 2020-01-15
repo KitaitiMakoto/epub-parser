@@ -63,6 +63,7 @@ module EPUB
         return a_or_span if a_or_span.nil?
 
         item.text = a_or_span.content
+        item.types = a_or_span.attribute_with_prefix('type', 'epub')&.split(/\s+/)
         if a_or_span.name == 'a'
           if item.text.empty?
             embedded_content = a_or_span.each_element_by_xpath('./xhtml:audio[1]|xhtml:canvas[1]|xhtml:embed[1]|xhtml:iframe[1]|xhtml:img[1]|xhtml:math[1]|xhtml:object[1]|xhtml:svg[1]|xhtml:video[1]', EPUB::NAMESPACES).first

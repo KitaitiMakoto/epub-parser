@@ -72,7 +72,6 @@ module EPUB
         end
       end
 
-      # @todo handle with epub:type such as bodymatter
       class Item
         include Hidable
         include Typable
