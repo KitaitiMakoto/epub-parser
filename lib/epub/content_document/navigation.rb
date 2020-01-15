@@ -3,6 +3,8 @@ require "epub/content_document/typable"
 module EPUB
   module ContentDocument
     class Navigation < XHTML
+      include Typable
+
       attr_accessor :navigations
 
       def initialize
