@@ -46,8 +46,12 @@ module EPUB
   module Type
     DOCUMENT_NAVIGATION = %w[
       toc
-      page_list
       landmarks
     ]
+    PAGINATION = %w[
+      pagebreak
+      page_list
+    ]
+    TYPES = DOCUMENT_NAVIGATION + PAGINATION
   end
 end
