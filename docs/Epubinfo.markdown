@@ -12,29 +12,31 @@ Usage
 
 Example:
 
-    $ epubinfo ~/Documebts/Books/build_awesome_command_line_applications_in_ruby_fo.epub
-    Title:              Build Awesome Command-Line Applications in Ruby (for KITAITI MAKOTO)
-    Identifiers:        978-1-934356-91-3
-    Titles:             Build Awesome Command-Line Applications in Ruby (for KITAITI MAKOTO)
+    % epubinfo ./linear-algebra.epub
+    Title:              A First Course in Linear Algebra
+    Identifiers:        code.google.com.epub-samples.linear-algebra
+    Titles:             A First Course in Linear Algebra
     Languages:          en
-    Contributors:       
-    Coverages:          
-    Creators:           David Bryant Copeland
-    Dates:              
-    Descriptions:       
-    Formats:            
-    Publishers:         The Pragmatic Bookshelf, LLC (338304)
-    Relations:          
-    Rights:             Copyright © 2012 Pragmatic Programmers, LLC
-    Sources:            
-    Subjects:           Pragmatic Bookshelf
-    Types:              
-    Unique identifier:  978-1-934356-91-3
-    Epub version:       2.0
+    Contributors:
+    Coverages:
+    Creators:           Robert A. Beezer
+    Dates:
+    Descriptions:
+    Formats:
+    Publishers:
+    Relations:
+    Rights:             This work is shared with the public using the GNU Free Documentation License, Version 1.2., © 2004 by Robert A. Beezer.
+    Sources:
+    Subjects:
+    Types:
+    Modified:           2012-03-05T12:47:00Z
+    Unique identifier:  code.google.com.epub-samples.linear-algebra
+    Epub version:       3.0
+    Navigations:        toc, landmarks
 
 To see help:
 
-    $ epubinfo -h
+    % epubinfo -h
     Show metadata of an EPUB file
     
     Usage: epubinfo [options] EPUBFILE
@@ -42,6 +44,12 @@ To see help:
         -f, --format=FORMAT              format of output(line, json or yaml), defaults to line(for console)
             --words                      count words of content documents
             --chars                      count charactors of content documents
+            --navigation[=TYPE]          show specified type of navigation(toc, page-list or landmarks)
+                                         If TYPE is omitted, show all types of navigations.
+                                         Can specify multiple times.
+            --toc                        show table of contents navigation(in line format only)
+            --page-list                  show page list navigation(in line format only)
+            --landmarks                  show landmarks navigation(in line format only)
 
 Output formats
 --------------

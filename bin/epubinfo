@@ -27,12 +27,6 @@ EOB
   opt.on '--chars', 'count charactors of content documents' do
     options[:chars] = true
   end
-  navigation_types.each_pair do |key, name|
-    opt.on "--#{key}", "show #{name} navigation(in line format only)" do
-      options[key] = true
-    end
-  end
-
   opt.on "--navigation[=TYPE]",navigation_types.keys, "show specified type of navigation(#{navigation_types.keys[0..-2].join(', ')} or #{navigation_types.keys.last})", "If TYPE is omitted, show all types of navigations.", "Can specify multiple times." do |type|
     if type
       options[type] = true
@@ -40,6 +34,11 @@ EOB
       navigation_types.keys.each do |type|
         options[type] = true
       end
+    end
+  end
+  navigation_types.each_pair do |key, name|
+    opt.on "--#{key}", "show #{name} navigation(in line format only)" do
+      options[key] = true
     end
   end
 end
