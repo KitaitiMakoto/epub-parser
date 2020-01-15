@@ -70,6 +70,7 @@ module EPUB
         end
       end
 
+      # @todo handle with epub:type such as bodymatter
       class Item
         include Hidable
 
@@ -94,6 +95,7 @@ module EPUB
         end
       end
 
+      # @todo Implement method to represent navigation structure
       class Navigation < Item
         module Type
           TOC       = 'toc'
