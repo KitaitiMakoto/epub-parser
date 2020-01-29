@@ -176,6 +176,10 @@ If you find other gems, please tell me or request a pull request.
 
 == RECENT CHANGES
 
+=== 0.4.5
+
+[BUG FIX]Handle the case EPUB path is a Pathname
+
 === 0.4.4
 
 * [BUG FIX]Fix navigation type check bug

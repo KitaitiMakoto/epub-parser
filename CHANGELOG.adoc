@@ -1,5 +1,9 @@
 = CHANGELOG
 
+== 0.4.5
+
+[BUG FIX]Handle the case EPUB path is a Pathname
+
 == 0.4.4
 
 * [BUG FIX]Fix navigation type check bug
