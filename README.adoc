@@ -196,14 +196,6 @@ If you find other gems, please tell me or request a pull request.
 * [BUG FIX]Fix a bug that `epubinfo` command with `--words` or `--chars` option causes load error if there is not Nokogiri in environment
 * [BUG FIX]Fix a bug that REXML::Element#content ignores descendant nodes
 
-=== 0.4.1
-
-* Add Oga backend for XML document
-
-=== 0.4.0
-
-* [BUG FIX]Make epub:type a Set
-
 See {file:CHANGELOG.adoc} for older changelogs and details.
 
 == TODOS
