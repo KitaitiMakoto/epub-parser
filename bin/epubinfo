@@ -65,7 +65,8 @@ data.merge!(book.metadata.to_h)
 data['modified'] = book.modified
 data['unique identifier'] = book.metadata.unique_identifier
 data['epub version'] = book.package.version
-data["navigations"] = book.manifest.navs.first&.content_document.navigations.collect(&:type).join(", ")
+nav = book.manifest.navs.first
+data["navigations"] = nav ? nav.book.manifest.navs.first&.content_document&.navigations&.collect(&:type)&.join(", ") : []
 
 data.each_pair do |(key, value)|
   data[key] = value.respond_to?(:join) ? value.join(", ") : value.to_s
@@ -99,12 +100,17 @@ if options[:format] == :line
     if options[key]
       puts ""
       puts "=== #{name} ==="
-      nav = book.manifest.nav.content_document.navigations.find {|nav| nav.type == key.to_s.sub("-", "_")}
-      if nav
-        nav.traverse do |item, depth|
-          text = item.text || "(No heading)"
-          text += "(#{item.types.sort.join(', ')})" unless item.types.empty?
-          puts "#{'  ' * depth}#{text}"
+      nav_item = book.manifest.nav
+      if nav_item
+        nav = nav_item.content_document.navigations.find {|nav| nav.type == key.to_s.sub("-", "_")}
+        if nav
+          nav.traverse do |item, depth|
+            text = item.text || "(No heading)"
+            text += "(#{item.types.sort.join(', ')})" unless item.types.empty?
+            puts "#{'  ' * depth}#{text}"
+          end
+        else
+          puts "(No #{name})"
         end
       else
         puts "(No #{name})"
