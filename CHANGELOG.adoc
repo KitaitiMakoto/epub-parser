@@ -1,5 +1,9 @@
 = CHANGELOG
 
+== 0.4.6
+
+[BUG FIX]Prevent epubinfo tool raise exception when no nav elements
+
 == 0.4.5
 
 [BUG FIX]Handle the case EPUB path is a Pathname
