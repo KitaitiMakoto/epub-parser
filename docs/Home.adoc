@@ -118,7 +118,7 @@ ret == book # => true; this API is not good I feel... Welcome suggestion!
 
 ==== Switching XML Library
 
-EPUB Parser tries to load https://www.nokogiri.org/[Nokogiri], a Ruby bindings for http://xmlsoft.org/[Libxml2] and http://xmlsoft.org/XSLT/[Libxslt] and more at first. If Nokogiri is not available, then it tries https://gitlab.com/yorickpeterse/oga[Oga] a fast XML parser. If both are not available, it fallbacks to https://ruby-doc.org/stdlib-2.5.3/libdoc/rexml/rdoc/index.html[REXML], a standard-bundled library. You can also specify REXML explicitly:
+EPUB Parser tries to load https://www.nokogiri.org/[Nokogiri], a Ruby bindings for http://xmlsoft.org/[Libxml2] and http://xmlsoft.org/XSLT/[Libxslt] and more at first. If Nokogiri is not available, then it tries https://gitlab.com/yorickpeterse/oga[Oga] a fast XML parser. If both are not available, it fallbacks to https://github.com/ruby/rexml/[REXML], a standard-bundled library. You can also specify REXML explicitly:
 
 ----
 EPUB::Parser::XMLDocument.backend = :REXML
