@@ -44,7 +44,7 @@ module EPUB
               end
             end
 
-            raise NoEntry
+            raise NoEntry, "Entry not found: #{path_name}"
           else
             open {|container| container.read(path_name)}
           end
