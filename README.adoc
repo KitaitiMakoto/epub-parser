@@ -178,11 +178,12 @@ If you find other gems, please tell me or request a pull request.
 
 === 0.4.6
 
-[BUG FIX]Prevent epubinfo tool raise exception when no nav elements
+* [BUG FIX]Prevent epubinfo tool raise exception when no nav elements
+* Tiny modifcation on Zip archive manipulation
 
 === 0.4.5
 
-[BUG FIX]Handle the case EPUB path is a Pathname
+* [BUG FIX]Handle the case EPUB path is a Pathname
 
 === 0.4.4
 
