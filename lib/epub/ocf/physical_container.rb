@@ -45,7 +45,7 @@ module EPUB
 
         def read(container_path, path_name)
           open(container_path) {|container|
-            container.read(path_name)
+            container.read(path_name.to_s)
           }
         end
 
