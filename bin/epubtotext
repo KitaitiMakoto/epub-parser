@@ -1,0 +1,39 @@
+require "optparse"
+require "epub/parser"
+
+using EPUB::Parser::XMLDocument::Refinements
+
+def main(argv)
+  option_parser = OptionParser.new {|opt|
+    opt.version = EPUB::Parser::VERSION
+    opt.banner = <<EOB
+Extracts text from EPUB and output
+
+Usage: #{opt.program_name} EPUBFILE
+EOB
+  }
+  options = option_parser.getopts(argv)
+  path = argv.shift
+  raise "Specify EPUBFILE" unless path
+  EPUB::Parser.parse(path).each_page_on_spine do |page|
+    unless page.xhtml?
+      $stderr.puts "Cannot parse non-XHTML document(#{page.media_type}): #{page.entry_name}"
+      next
+    end
+    doc = EPUB::Parser::XMLDocument.new(page.read)
+    body = doc.each_element_by_xpath("//xhtml:body", EPUB::NAMESPACES).first
+    unless body
+      $stderr.puts "body element doesn't exist in #{page.entry_name}"
+      next
+    end
+    puts body.content
+    # handle spaces
+    # handle img@alt
+  end
+rescue => err
+  $stderr.puts "Error: #{err}"
+  $stderr.puts
+  abort option_parser.help
+end
+
+main(ARGV)
