@@ -8,7 +8,7 @@ module EPUB
 
       class << self
         def search_text(package, word, **options)
-          new(package).search_text(word, options)
+          new(package).search_text(word, **options)
         end
 
         def search_element(package, css: nil, xpath: nil, namespaces: {})
