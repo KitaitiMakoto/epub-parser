@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pretty_backtrace'
   s.add_development_dependency 'epub-maker'
   s.add_development_dependency 'asciidoctor'
-  s.add_development_dependency 'nokogiri', '>= 1.6.0', '< 1.11'
+  s.add_development_dependency 'nokogiri'
   s.add_development_dependency 'oga', '>= 2.16'
   s.add_development_dependency 'packnga'
 
