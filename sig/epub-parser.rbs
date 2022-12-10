@@ -1,0 +1,425 @@
+# TypeProf 0.21.3
+
+# Revealed types
+#  /Users/kitaitimakoto/.gem/ruby/3.1.3/gems/nokogiri-1.13.10-arm64-darwin/lib/nokogiri/html4/element_description_defaults.rb:570 #=> String
+
+# Classes
+module EPUB
+  NAMESPACES: Hash[String, String]
+
+  module Inspector
+    INSTANCE_VARIABLES_OPTION: {exclude: Array[untyped]}
+    SIMPLE_TEMPLATE: String
+
+    def inspect_simply: -> String
+    def inspect_object_id: -> String
+    def inspect_instance_variables: (?Hash[untyped, untyped] options) -> untyped
+
+    module PublicationModel
+      def self.included: (untyped mod) -> untyped
+      def inspect: -> String
+      def template: -> String
+    end
+  end
+
+  class OCF
+    MODULES: [String, String, String, String, String, String]
+
+    attr_accessor book: Book | Book::Features
+
+    class PhysicalContainer
+      self.@adapter: :UnpackedDirectory | :UnpackedURI | singleton(ArchiveZip) | singleton(UnpackedDirectory)
+      @container_path: String | URI::Generic
+      @monitor: Monitor
+
+      def self.find_adapter: (:UnpackedDirectory | :UnpackedURI | singleton(ArchiveZip) | singleton(UnpackedDirectory) adapter) -> (:UnpackedDirectory | :UnpackedURI | singleton(ArchiveZip) | singleton(UnpackedDirectory))
+      def self.adapter: -> (:UnpackedDirectory | :UnpackedURI | singleton(ArchiveZip) | singleton(UnpackedDirectory))
+      def self.adapter=: (:UnpackedDirectory | :UnpackedURI | singleton(ArchiveZip) | singleton(UnpackedDirectory) adapter) -> (:UnpackedDirectory | :UnpackedURI | singleton(ArchiveZip) | singleton(UnpackedDirectory))
+      def self.open: (String container_path) { (IO | UnpackedDirectory) -> (Parser::OCF | String) } -> String
+      def self.read: (String container_path, String path_name) -> String
+      def self._adapter: -> ((:UnpackedDirectory | :UnpackedURI | singleton(ArchiveZip) | singleton(PhysicalContainer) | singleton(UnpackedDirectory))?)
+      def initialize: (String | URI::Generic container_path) -> void
+
+      class ArchiveZip < PhysicalContainer
+        @entries: Hash[untyped, untyped]
+        @last_iterated_entry_index: Integer
+        @archive: nil
+
+        def initialize: (String container_path) -> void
+        def open: { (UnpackedDirectory) -> String } -> untyped
+        def read: (untyped path_name) -> untyped
+      end
+
+      class UnpackedDirectory < PhysicalContainer
+        def open: ?{ (UnpackedDirectory) -> String } -> String
+        def read: (String path_name) -> String
+      end
+
+      class UnpackedURI < PhysicalContainer
+        def initialize: (String | URI::Generic container_path) -> void
+        def open: -> untyped
+        def read: (String path_name) -> untyped
+      end
+
+      class NoEntry < StandardError
+        def self.from_error: (nil error) -> NoEntry
+      end
+
+      class Zipruby < PhysicalContainer
+        @archive: nil
+
+        def open: ?{ -> untyped } -> untyped
+        def read: (untyped path_name) -> untyped
+      end
+    end
+  end
+
+  module Publication
+    class Package
+      CONTENT_MODELS: [:metadata, :manifest, :spine, :guide, :bindings]
+      RESERVED_VOCABULARY_PREFIXES: Hash[String, String]
+      include Inspector
+      @metadata: bot
+
+      def self.define_content_model: (:bindings | :guide | :manifest | :metadata | :spine model_name) -> untyped
+      attr_accessor book: Book | Object
+      attr_accessor version: bot
+      attr_accessor prefix: Hash[String, String?]
+      attr_accessor xml_lang: bot
+      attr_accessor dir: bot
+      attr_accessor id: bot
+      alias lang xml_lang
+      alias lang= xml_lang=
+      def initialize: -> void
+      def unique_identifier: -> untyped
+      def rootfile: -> untyped
+      def full_path: -> nil
+      def inspect: -> String
+      def inspect_models: -> String
+    end
+
+    module FixedLayout
+      PREFIX_KEY: String
+      PREFIX_VALUE: String
+      RENDITION_PROPERTIES: Hash[String, Array[String]]
+
+      def self.included: (singleton(Package) package_class) -> [[singleton(Package), singleton(PackageMixin)], [untyped, singleton(MetadataMixin)], [untyped, singleton(ItemrefMixin)], [untyped, singleton(ItemMixin)], [singleton(ContentDocument::XHTML), singleton(ContentDocumentMixin)]]
+
+      class UnsupportedRenditionValue < StandardError
+      end
+
+      module Rendition
+        def def_rendition_methods: -> Array[String]
+        def def_rendition_layout_methods: -> Array[String]
+      end
+
+      module PackageMixin
+        def using_fixed_layout: -> untyped
+        alias using_fixed_layout? using_fixed_layout
+        def using_fixed_layout=: (untyped using_fixed_layout) -> String
+      end
+
+      module MetadataMixin
+        extend Rendition
+      end
+
+      module ItemrefMixin
+        PAGE_SPREAD_PROPERTY: String
+        PAGE_SPREAD_PREFIX: String
+        extend Rendition
+
+        def self.included: (untyped base) -> nil
+      end
+
+      module ItemMixin
+        extend Rendition
+      end
+
+      module ContentDocumentMixin
+        extend Rendition
+      end
+    end
+  end
+
+  module ContentDocument
+    class XHTML
+      @rexml: untyped
+      @oga: untyped
+      @nokogiri: Nokogiri::XML::Document
+
+      attr_accessor item: untyped
+      def read: (?detect_encoding: true) -> untyped
+      alias raw_document read
+      def top_level?: -> untyped
+      def title: -> String
+      def rexml: -> untyped
+      def oga: -> untyped
+      def nokogiri: -> Nokogiri::XML::Document
+    end
+
+    module Typable
+      attr_reader types: Set[bot]
+      def types: -> Set[bot]
+      def types=: (untyped ts) -> Set[bot]
+    end
+
+    class Navigation < XHTML
+      include Typable
+      @hidden: false
+      @parent: nil
+
+      attr_accessor navigations: Array[untyped]
+      def initialize: -> void
+      def toc: -> nil
+      def page_list: -> nil
+      def landmarks: -> nil
+      def contents: -> Array[untyped]
+      def pages: -> bot
+      def each_content: { -> bot } -> untyped
+      def each_page: -> bot
+      def each_landmark: -> bot
+      def navigation: -> nil
+
+      module Hidable
+        attr_accessor hidden: true?
+        attr_accessor parent: Item | ItemList | Navigation
+        def hidden?: -> bool
+      end
+
+      class Item
+        include Typable
+        include Hidable
+
+        attr_accessor items: ItemList
+        attr_accessor text: nil
+        attr_accessor content_document: untyped
+        attr_accessor item: untyped
+        attr_reader href: untyped
+        def initialize: -> void
+        def href=: (untyped iri) -> untyped
+        def traverse: (?Integer depth) -> ItemList
+        def type: -> nil
+        def type=: (untyped t) -> Set[bot]
+      end
+
+      class Navigation < Item
+        alias navigations items
+        alias navigations= items=
+        alias heading text
+        alias heading= text=
+
+        module Type
+          TOC: String
+          PAGE_LIST: String
+          LANDMARKS: String
+        end
+      end
+
+      class ItemList < Array[untyped]
+        include Hidable
+
+        def <<: (Item? item) -> ItemList
+      end
+    end
+  end
+
+  class Book
+    include Features
+    @adapter: :UnpackedDirectory | :UnpackedURI | singleton(OCF::PhysicalContainer::ArchiveZip) | singleton(OCF::PhysicalContainer::UnpackedDirectory)
+
+    module Features
+      extend Forwardable
+      @adapter: :UnpackedDirectory | :UnpackedURI | singleton(OCF::PhysicalContainer::ArchiveZip) | singleton(OCF::PhysicalContainer::UnpackedDirectory)
+
+      attr_reader ocf: OCF
+      attr_accessor epub_file: String
+      def ocf=: (OCF mod) -> OCF
+      def rootfiles: -> untyped
+      def packages: -> untyped
+      alias renditions packages
+      def default_rendition: -> untyped
+      alias package default_rendition
+      def container_adapter: -> (:UnpackedDirectory | :UnpackedURI | singleton(OCF::PhysicalContainer::ArchiveZip) | singleton(OCF::PhysicalContainer::UnpackedDirectory))
+      def container_adapter=: (:UnpackedDirectory | :UnpackedURI adapter) -> (:UnpackedDirectory | :UnpackedURI | singleton(OCF::PhysicalContainer::ArchiveZip) | singleton(OCF::PhysicalContainer::UnpackedDirectory))
+      def cover_image: -> untyped
+      def each_page_on_spine: ?{ -> untyped } -> untyped
+      def each_page_on_toc: -> untyped
+      def each_content: ?{ -> untyped } -> untyped
+      def other_navigation: -> untyped
+      def resources: -> untyped
+      def rootfile_path: -> untyped
+    end
+  end
+
+  module MediaType
+    EPUB: String
+    ROOTFILE: String
+    IMAGE: [String, String, String, String]
+    APPLICATION: [String, String, String, String, String, String]
+    AUDIO: [String, String]
+    TEXT: [String, String]
+    CORE: Array[String]
+
+    class UnsupportedMediaType < StandardError
+    end
+  end
+
+  module Type
+    DOCUMENT_NAVIGATION: [String, String]
+    PAGINATION: [String, String]
+    TYPES: Array[String]
+  end
+
+  class Parser
+    VERSION: String
+    @filepath: String
+    @book: Book
+
+    def self.parse: (String filepath, ?container_adapter: :UnpackedDirectory?, ?book: Object?, ?initialize_with: nil, **singleton(MyBook)) -> Book
+    def initialize: (String filepath, ?container_adapter: nil, ?book: nil, ?initialize_with: nil, **untyped) -> void
+    def parse: -> Book
+
+    private
+    def create_book: (?book: nil, ?initialize_with: nil, **untyped) -> Book
+
+    class XMLDocument
+      def self.new: (String? xml) -> Nokogiri::XML::Document
+    end
+
+    module Metadata
+      def parse_metadata: (untyped elem, untyped unique_identifier_id, String default_namespace) -> untyped
+      def build_model: (untyped elem, ?:DCMES | :Identifier | :Link | :Meta | :Title klass, ?Array[String] attributes) -> untyped
+      def build_unsupported_model: (untyped elem) -> untyped
+    end
+
+    class OCF
+      DIRECTORY: String
+      include Metadata
+      @container: (IO | OCF::PhysicalContainer::UnpackedDirectory)?
+      @ocf: OCF
+
+      def self.parse: (IO | OCF::PhysicalContainer::UnpackedDirectory container) -> OCF
+      def initialize: ((IO | OCF::PhysicalContainer::UnpackedDirectory)? container) -> void
+      def parse: -> OCF
+      def parse_container: (String xml) -> untyped
+      def parse_encryption: (String content) -> untyped
+      def parse_manifest: (untyped content) -> nil
+      def parse_metadata: (String content) -> untyped
+      def parse_rights: (untyped content) -> nil
+      def parse_signatures: (untyped content) -> nil
+
+      private
+      def multiple_rendition_metadata?: (Nokogiri::XML::Document doc) -> untyped
+    end
+
+    class Publication
+      include Metadata
+      @doc: Nokogiri::XML::Document
+
+      def self.parse: (IO container, untyped file) -> Publication::Package
+      def initialize: (String? opf) -> void
+      def parse: -> Publication::Package
+      def parse_package: (Nokogiri::XML::Document doc) -> Publication::Package
+      def parse_metadata: (Nokogiri::XML::Document doc) -> untyped
+      def parse_manifest: (Nokogiri::XML::Document doc) -> untyped
+      def parse_spine: (Nokogiri::XML::Document doc) -> untyped
+      def parse_guide: (Nokogiri::XML::Document doc) -> untyped
+      def parse_bindings: (Nokogiri::XML::Document doc, untyped handler_map) -> untyped
+      def parse_prefix: (untyped str) -> Hash[String, String?]
+    end
+
+    class ContentDocument
+      @item: untyped
+
+      def initialize: (untyped item) -> void
+      def parse: -> ((ContentDocument::Navigation | ContentDocument::XHTML)?)
+      def parse_navigations: (Nokogiri::XML::Document document) -> untyped
+      def parse_navigation: (untyped element) -> ContentDocument::Navigation::Navigation
+      def parse_navigation_item: (untyped element) -> ContentDocument::Navigation::Item?
+
+      private
+      def find_heading: (untyped element) -> nil
+    end
+  end
+
+  module Searcher
+    def self.search_text: (untyped epub, untyped word, **untyped) -> untyped
+    def self.search_element: (untyped epub, ?css: nil, ?xpath: nil, ?namespaces: Hash[untyped, untyped]) -> Array[untyped]
+    def self.search_by_cfi: (untyped epub, untyped cfi) -> [untyped, untyped]
+
+    class Result
+      def self.aggregate_step_intersection: (untyped steps1, untyped steps2) -> [Array[untyped], Array[untyped], Array[untyped]]
+      attr_reader parent_steps: Array[Step]
+      attr_reader start_steps: Array[Step]?
+      attr_reader end_steps: Array[Step]?
+      def initialize: (Array[Step] parent_steps, Array[Step]? start_steps, Array[Step]? end_steps) -> void
+      def to_cfi: -> untyped
+      def ==: (untyped other) -> bool
+
+      class Step
+        attr_reader type: :character | :element | :itemref | :text
+        attr_reader index: Complex | Float | Integer | Rational
+        attr_reader info: {name: String, id: String?}
+        def initialize: (:character | :element | :itemref | :text `type`, Complex | Float | Integer | Rational index, ?{name: String, id: String?} info) -> void
+        def ==: (untyped other) -> bool
+        def to_cfi: -> String?
+
+        private
+        def id_assertion: -> String?
+      end
+    end
+
+    class Publication
+      @package: Publication::Package?
+
+      def self.search_text: (Publication::Package? package, String word, **untyped) -> untyped
+      def self.search_element: (Publication::Package package, ?css: String?, ?xpath: String?, ?namespaces: Hash[String, String]) -> Array[untyped]
+      def self.search_by_cfi: (untyped package, untyped cfi) -> [untyped, untyped]
+      def initialize: (Publication::Package? package) -> void
+      def search_text: (untyped word, ?algorithm: :seamless) -> Array[untyped]
+      def search_element: (?css: String?, ?xpath: String?, ?namespaces: Hash[String, String]) -> Array[untyped]
+      def search_by_cfi: (untyped cfi) -> [untyped, untyped]
+
+      private
+      def find_path: (untyped elem) -> untyped
+    end
+
+    class XHTML
+      ALGORITHMS: Hash[untyped, untyped]
+      @element: Nokogiri::XML::Document
+
+      def self.search_text: (Nokogiri::XML::Document element, String word) -> Array[Result]
+      def initialize: (Nokogiri::XML::Document element) -> void
+
+      class Restricted < XHTML
+        def search_text: (String word, ?nil element) -> Array[untyped]
+      end
+
+      class Seamless < XHTML
+        @indices: Hash[untyped, untyped]?
+        @content: String
+
+        def initialize: (Nokogiri::XML::Document element) -> void
+        def search_text: (String word) -> Array[Result]
+        def build_indices: (Nokogiri::XML::Document element) -> [Hash[untyped, untyped], String]
+
+        private
+        def visit: (Hash[untyped, untyped]? indices, String? content, String word) -> Array[Result]
+        def find_offset: (Array[untyped] offsets, Complex | Float | Integer | Rational index, ?bool for_end_position) -> untyped
+        def to_result_steps: (nil steps) -> untyped
+      end
+    end
+  end
+end
+
+class TestInspect
+  class TestPackage < TestInspect
+    class TestMetadata < TestPackage
+      Metadata: untyped
+    end
+
+    class TestManifest < TestPackage
+      Manifest: untyped
+    end
+  end
+end
