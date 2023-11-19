@@ -5,39 +5,6 @@ before_script:
   - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
   - bundle clean
 
-test:2.3:
-  image: ruby:2.3
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
-  except:
-    - tags
-  cache:
-    key: ruby:2.3
-    paths:
-      - deps
-
-test:2.4:
-  image: ruby:2.4
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
-  except:
-    - tags
-  cache:
-    key: ruby:2.4
-    paths:
-      - deps
-
-test:2.5:
-  image: ruby:2.5
-  script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
-  except:
-    - tags
-  artifacts:
-    paths:
-      - coverage
-  cache:
-    key: ruby:2.5
-    paths:
-      - deps
-
 test:2.6:
   image: ruby:2.6
   script: bundle exec rake test XML_BACKEND=REXML 2>/dev/null && bundle exec rake test XML_BACKEND=Oga 2>/dev/null && bundle exec rake test XML_BACKEND=Nokogiri 2>/dev/null
