@@ -1,10 +1,13 @@
 = CHANGELOG
 
+== 0.4.7
+
+* [BUG FIX]Fix a bug that epubinfo doesn't handle navigation properly
+
 == 0.4.6
 
 * [BUG FIX]Prevent epubinfo tool raise exception when no nav elements
 * Tiny modifcation on Zip archive manipulation
-
 * Remove version specification from Nokogiri to migrate to Ruby 3.1
 
 == 0.4.5
