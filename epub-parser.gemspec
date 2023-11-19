@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'yard'
   s.add_development_dependency 'gem-man'
-  s.add_development_dependency 'ronn'
+  s.add_development_dependency 'ronn-ng'
   s.add_development_dependency 'pretty_backtrace'
   s.add_development_dependency 'epub-maker'
   s.add_development_dependency 'asciidoctor'
