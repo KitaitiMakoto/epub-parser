@@ -176,6 +176,10 @@ If you find other gems, please tell me or request a pull request.
 
 == RECENT CHANGES
 
+=== 0.4.8
+
+* Add Rubyzip adapter
+
 === 0.4.7
 
 * [BUG FIX]Fix a bug that epubinfo doesn't handle navigation properly
@@ -185,26 +189,6 @@ If you find other gems, please tell me or request a pull request.
 * [BUG FIX]Prevent epubinfo tool raise exception when no nav elements
 * Tiny modifcation on Zip archive manipulation
 * Remove version specification from Nokogiri to migrate to Ruby 3.1
-
-=== 0.4.5
-
-* [BUG FIX]Handle the case EPUB path is a Pathname
-
-=== 0.4.4
-
-* [BUG FIX]Fix navigation type check bug
-* Add feature to show navigations to `epubinfo` command-line tool
-
-=== 0.4.3
-
-* Encode file name passed from file system on Unix
-
-=== 0.4.2
-
-* [BUG FIX]Fix a bug that epub-cover refers out of scope variable
-
-* [BUG FIX]Fix a bug that `epubinfo` command with `--words` or `--chars` option causes load error if there is not Nokogiri in environment
-* [BUG FIX]Fix a bug that REXML::Element#content ignores descendant nodes
 
 See {file:CHANGELOG.adoc} for older changelogs and details.
 

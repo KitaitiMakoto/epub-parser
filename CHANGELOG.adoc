@@ -1,5 +1,9 @@
 = CHANGELOG
 
+== 0.4.8
+
+* Add Rubyzip adapter
+
 == 0.4.7
 
 * [BUG FIX]Fix a bug that epubinfo doesn't handle navigation properly
