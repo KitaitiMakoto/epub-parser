@@ -86,6 +86,17 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     end
   end
 
+  require "epub/ocf/physical_container/rubyzip"
+  class TestRubyzip < self
+    include ConcreteContainer
+
+    def setup
+      super
+      @class = EPUB::OCF::PhysicalContainer::Rubyzip
+      @container = @class.new(@container_path)
+    end
+  end
+
   class TestUnpackedURI < self
     def setup
       super
