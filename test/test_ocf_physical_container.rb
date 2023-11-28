@@ -55,7 +55,7 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
       end
     end
   rescue LoadError
-    warn "Skip TestOPFPhysicalContainer::TestZipRuby"
+    warn "Skip TestOPFPhysicalContainer::TestZipruby"
   end
 
   class TestUnpackedDirectory < self
