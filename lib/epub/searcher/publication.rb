@@ -91,6 +91,7 @@ module EPUB
       # @param [EPUB::CFI] cfi
       # @return [Array] Path in EPUB Rendition
       def search_by_cfi(cfi)
+        raise NotImplementedError, "Currently, #{__method__} doesn't support deeper DOM tree such as including <iframe>" if cfi.paths[2]
         path_in_package = cfi.paths.first
         spine = @package.spine
         model = [@package.metadata, @package.manifest, spine, @package.guide, @package.bindings].compact[path_in_package.steps.first.value / 2 - 1]
@@ -118,8 +119,6 @@ module EPUB
             end
           end
         end
-
-        raise NotImplementedError, "Currently, #{__method__} doesn't support deeper DOM tree such as including <iframe>" if cfi.paths[2]
 
         [itemref, current_node]
       end
