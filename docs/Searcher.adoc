@@ -77,7 +77,7 @@ You can also use *restricted* searcher, which means that it can search from only
 </html>
 ----
 
-But cannot from document below:
+But cannot do so from document below:
 
 ----
 <html>
