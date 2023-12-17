@@ -8,6 +8,8 @@ coverage/*
 samples/*
 doc/*
 html/*
+man/*
+!man/epubinfo.1.ronn
 NOTE
 test/fixtures/book.epub
 *~
