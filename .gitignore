@@ -13,3 +13,4 @@ man/*
 NOTE
 test/fixtures/book.epub
 *~
+/.gem_rbs_collection/
