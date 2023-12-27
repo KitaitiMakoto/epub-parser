@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 gemspec
 
-if ENV['EDGE_MAKER'] == '1'
+if ENV['EPUB_MAKER_PATH']
   group :development do
-    gem 'epub-maker', path: '../epub-maker'
+    gem 'epub-maker', path: ENV["EPUB_MAKER_PATH"]
   end
 end
 
