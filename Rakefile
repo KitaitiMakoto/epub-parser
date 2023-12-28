@@ -76,7 +76,5 @@ namespace :doc do
   end
 end
 
-Gem::Tasks.new do |tasks|
-  tasks.console.command = 'pry'
-end
+Gem::Tasks.new
 task :build => :clean

@@ -8,7 +8,6 @@ require 'pp'
 require 'test/unit'
 require 'test/unit/rr'
 require 'test/unit/notify'
-require 'pry'
 if ENV["PRETTY_BACKTRACE"]
   require 'pretty_backtrace'
   PrettyBacktrace.enable
