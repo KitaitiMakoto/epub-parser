@@ -1,7 +1,6 @@
 before_script:
   - ruby -v
   - which ruby
-  - gem install bundler --no-document
   - bundle install --jobs=$(nproc) --path=deps "${FLAGS[@]}"
   - bundle clean
 
