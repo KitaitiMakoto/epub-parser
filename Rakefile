@@ -11,7 +11,7 @@ task :default => :test
 task :test => 'test:default'
 
 namespace :test do
-  task :default => [:build, :test, :test_ocf_physical_container_zipruby, :test_ocf_physical_container_rubyzip]
+  task :default => [:test, :test_ocf_physical_container_zipruby, :test_ocf_physical_container_rubyzip]
 
   desc 'Build test fixture EPUB file'
   task :build => [:clean, "test/fixtures/book.epub"]
@@ -29,7 +29,7 @@ namespace :test do
   end
   CLEAN.include "test/fixtures/book.epub"
 
-  Rake::TestTask.new do |task|
+  Rake::TestTask.new test: :build do |task|
     task.test_files = FileList['test/**/test_*.rb'].exclude "test/test_ocf_physical_container_*.rb"
     task.warning = true
     task.options = '--no-show-detail-immediately --verbose'
