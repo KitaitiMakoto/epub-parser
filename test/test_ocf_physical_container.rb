@@ -1,31 +1,9 @@
 # coding: utf-8
-require_relative 'helper'
-require 'epub/ocf/physical_container'
+require_relative "test_ocf_physical_container_base"
 
-class TestOCFPhysicalContainer < Test::Unit::TestCase
-  def setup
-    @container_path = 'test/fixtures/book.epub'
-    @path = 'OPS/nav.xhtml'
-    @content = File.read(File.join('test/fixtures/book', @path))
-  end
-
+class TestOCFPhysicalContainer < TestOCFPhysicalContainerBase
   def test_read
     assert_equal @content, EPUB::OCF::PhysicalContainer.read(@container_path, @path).force_encoding('UTF-8')
-  end
-
-  begin
-    require 'epub/ocf/physical_container/zipruby'
-    class TestZipruby < self
-      include ConcreteContainer
-
-      def setup
-        super
-        @class = EPUB::OCF::PhysicalContainer::Zipruby
-        @container = @class.new(@container_path)
-      end
-    end
-  rescue LoadError
-    warn "Skip TestOPFPhysicalContainer::TestZipruby"
   end
 
   class TestUnpackedDirectory < self
@@ -52,17 +30,6 @@ class TestOCFPhysicalContainer < Test::Unit::TestCase
     def setup
       super
       @class = EPUB::OCF::PhysicalContainer::ArchiveZip
-      @container = @class.new(@container_path)
-    end
-  end
-
-  require "epub/ocf/physical_container/rubyzip"
-  class TestRubyzip < self
-    include ConcreteContainer
-
-    def setup
-      super
-      @class = EPUB::OCF::PhysicalContainer::Rubyzip
       @container = @class.new(@container_path)
     end
   end
