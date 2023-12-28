@@ -28,7 +28,7 @@ module EPUB
                 language = build_model(child, :DCMES, ['id'])
                 metadata.languages << language
                 language
-              when 'title', 'contributor', 'coverage', 'creator', 'date', 'description', 'format', 'publisher', 'relation', 'source', 'subject', 'rights', 'type'
+              when 'contributor', 'coverage', 'creator', 'date', 'description', 'format', 'publisher', 'relation', 'source', 'subject', 'rights', 'type'
                 attr = elem_name == 'rights' ? elem_name : elem_name + 's'
                 dcmes = build_model(child)
                 metadata.__send__(attr) << dcmes
