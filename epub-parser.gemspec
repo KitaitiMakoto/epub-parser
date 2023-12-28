@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'nokogiri'
   s.add_development_dependency 'oga', '>= 2.16'
   s.add_development_dependency 'packnga'
+  s.add_development_dependency "steep"
 
   s.add_runtime_dependency 'archive-zip'
   s.add_runtime_dependency 'rexml'
