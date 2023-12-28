@@ -8,10 +8,6 @@ require 'pp'
 require 'test/unit'
 require 'test/unit/rr'
 require 'test/unit/notify'
-if ENV["PRETTY_BACKTRACE"]
-  require 'pretty_backtrace'
-  PrettyBacktrace.enable
-end
 
 require 'epub/parser'
 if ENV["XML_BACKEND"]
