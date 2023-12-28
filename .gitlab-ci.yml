@@ -66,9 +66,9 @@ test:3.3:
 
 pages:
   stage: deploy
-  image: ruby:2.7
+  image: ruby:3.3
   dependencies:
-    - test:2.6
+    - test:3.3
   script:
     - bundle exec rake test doc:yard
     - mv doc public
@@ -79,6 +79,6 @@ pages:
   only:
     - master
   cache:
-    key: ruby:2.7
+    key: ruby:3.3
     paths:
       - deps
