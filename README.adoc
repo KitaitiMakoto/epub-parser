@@ -176,6 +176,11 @@ If you find other gems, please tell me or request a pull request.
 
 == RECENT CHANGES
 
+=== 0.4.9
+
+* Restructure test
+* Restructure Rake tasks
+
 === 0.4.8
 
 * Add Rubyzip adapter
