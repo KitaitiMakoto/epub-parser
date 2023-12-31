@@ -3,8 +3,6 @@ require "set"
 module EPUB
   module ContentDocument
     module Typable
-      attr_reader :types
-
       def types
         @types ||= Set.new
       end
