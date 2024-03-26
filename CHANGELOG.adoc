@@ -4,6 +4,7 @@
 
 * Restructure test
 * Restructure Rake tasks
+* Update required Ruby version to 2.6
 
 == 0.4.8
 
