@@ -47,7 +47,16 @@ class TestContentDocument < Test::Unit::TestCase
 
   def test_title_returns_empty_string_when_title_element_not_exist
     content_doc = XHTML.new
-    stub(content_doc).raw_document {'content'}
+    stub(content_doc).raw_document {
+      <<~EOS
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE html>
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+          <head></head>
+          <body></body>
+        </html>
+      EOS
+    }
     assert_equal '', content_doc.title
   end
 
