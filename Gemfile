@@ -14,3 +14,7 @@ group :development do
     gem 'terminal-notifier'
   end
 end
+
+group :development, :test do
+  gem "ffi", "~> 1.16.3" if RbConfig::CONFIG["MAJOR"] == "2"
+end
