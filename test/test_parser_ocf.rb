@@ -22,15 +22,15 @@ class TestParserOCF < Test::Unit::TestCase
   end
 
   def test_parse_encryption_do_nothing_excluding_to_have_content
-    encryption = @parser.parse_encryption('content')
+    encryption = @parser.parse_encryption('<root>content</root>')
 
-    assert_equal 'content', encryption.content
+    assert_equal '<root>content</root>', encryption.content
   end
 
   def test_parse_metadata_with_unknown_format_do_nothing_excluding_to_have_content
-    metadata = @parser.parse_metadata('content')
+    metadata = @parser.parse_metadata('<root>content</root>')
 
-    assert_equal 'content', metadata.content
+    assert_equal '<root>content</root>', metadata.content
   end
 
   def test_parse_metadata_with_multiple_rendition_format_returns_metadata
