@@ -18,7 +18,7 @@ class TestInspect < Test::Unit::TestCase
       @package.prefix = {'foaf' => 'http://xmlns.com/foaf/spec/'}
 
       assert_match %Q|@xml_lang="zh"|, @package.inspect
-      assert_match %Q|@prefix={"foaf"=>"http://xmlns.com/foaf/spec/"}|, @package.inspect
+      assert_match %r|@prefix={"foaf"\s*=>\s*"http://xmlns.com/foaf/spec/"}|, @package.inspect
     end
 
     def test_package_inspects_content_models
