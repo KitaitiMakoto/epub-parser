@@ -178,7 +178,7 @@ If you find other gems, please tell me or request a pull request.
 
 === 0.5.0
 
-* Follow Ruby 3.5 expectation change
+* Follow Ruby 3.5 inspection change
 
 === 0.4.9
 
