@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rubygems-tasks'
-  s.add_development_dependency 'zipruby' unless RUBY_PLATFORM.match /mingw|arm64-darwin/
+  s.add_development_dependency 'zipruby'
   s.add_development_dependency 'rubyzip', '>= 2.0.0'
   s.add_development_dependency 'test-unit'
   s.add_development_dependency 'test-unit-rr'
