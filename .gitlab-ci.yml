@@ -60,7 +60,7 @@ test:3.3:
   except:
     - tags
   cache:
-    key: ruby:3.2
+    key: ruby:3.3
     paths:
       - deps
 
